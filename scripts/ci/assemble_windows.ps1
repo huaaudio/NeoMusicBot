@@ -91,7 +91,7 @@ if ($LASTEXITCODE -ne 0) {
 Push-Location (Join-Path $providerSource "server")
 try {
     $env:DENO_DIR = Join-Path $providerSource "server\.deno-dir"
-    & $deno install --node-modules-linker=hoisted --allow-scripts=npm:canvas --frozen
+    & $deno install --node-modules-linker=hoisted --frozen
     if ($LASTEXITCODE -ne 0) {
         throw "Provider dependency installation failed"
     }
@@ -101,6 +101,10 @@ try {
     }
 } finally {
     Pop-Location
+}
+python scripts/ci/install_canvas_native.py $providerSource $env:ARTIFACT_SUFFIX
+if ($LASTEXITCODE -ne 0) {
+    throw "Pinned Canvas native installation failed"
 }
 if (-not (Test-Path (Join-Path $providerSource "server\node_modules") -PathType Container)) {
     throw "Provider node_modules was not created"

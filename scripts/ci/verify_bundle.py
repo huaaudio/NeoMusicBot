@@ -3,6 +3,7 @@ import json
 import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -11,6 +12,7 @@ from package_bundle import digest
 from verify_licenses import verify as verify_licenses
 from inventory_provider import verify as verify_provider_inventory
 from prepare_provider import verify as verify_provider_runtime
+from install_canvas_native import verify as verify_canvas_native
 
 
 def extract(archive_path, destination):
@@ -61,6 +63,8 @@ def verify(archive_path, report_path):
         verify_manifest(bundle)
         verify_licenses(bundle / "licenses/maven", bundle / "NeoMusicBot.cdx.json")
         verify_provider_runtime(bundle / "tools/bgutil-provider", os.environ["POT_PROVIDER_COMMIT"])
+        verify_canvas_native(bundle / "tools/bgutil-provider",
+                             "windows-x86-64" if os.name == "nt" else "linux-x86-64")
         verify_provider_inventory(bundle / "tools/bgutil-provider", bundle / "provider-dependencies.json",
                                   bundle / "licenses/provider")
         for name in ("README.md", "docs/install-and-upgrade.md", "licenses/NeoMusicBot-Apache-2.0.txt",
@@ -132,11 +136,20 @@ def verify(archive_path, report_path):
                       str(provider / "src/generate_once.ts"), "--version"])
         if os.environ["POT_PROVIDER_VERSION"] not in output.splitlines():
             raise ValueError("Relocated provider could not run offline")
+        canvas_probe = work / "canvas-probe.cjs"
+        shutil.copyfile(Path(__file__).with_name("canvas_probe.cjs"), canvas_probe)
+        canvas_output = run([str(deno), "run", "--cached-only", "--frozen", "--node-modules-linker=hoisted",
+                             "--node-modules-dir=manual",
+                             "--allow-env", "--deny-net", f"--allow-ffi={provider / 'node_modules'}",
+                             f"--allow-read={provider / 'node_modules'}", str(canvas_probe),
+                             str(provider / "node_modules/canvas")])
+        if "canvas.native=passed" not in canvas_output.splitlines():
+            raise ValueError("Relocated Canvas native rendering failed")
         lines = ["bundle=passed", f"neomusicbot.commit={os.environ['GITHUB_SHA']}",
                  f"version={version}", f"archive.sha256={expected}", "config=passed", "native.dave=passed",
                  "native.opus=passed", "crypto.rtp=passed",
                  "audio.aac=passed", "audio.opus=passed", "audio.mp3=passed", "provider.offline=passed",
-                 "provider.inventory=passed",
+                 "provider.inventory=passed", "provider.native=passed",
                  "discord.voice=not-tested", "online.media=not-tested"]
         report_path.parent.mkdir(parents=True, exist_ok=True)
         report_path.write_text("\n".join(lines) + "\n", encoding="utf-8")

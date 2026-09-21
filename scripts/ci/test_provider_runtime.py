@@ -28,11 +28,14 @@ class ProviderRuntimeTests(unittest.TestCase):
                    "npm": {"app@1.0.0": upstream["npm"]["app@1.0.0"],
                            "sub_pkg@3.0.0_peer@4.0.0": {"integrity": "sha512-sub"}},
                    "workspace": {"packageJson": {"dependencies": ["npm:app@^1.0.0"]}}}
-        profile = {"schema_version": 1, "provider_version": "2.0.0", "provider_commit": "a" * 40,
+        config = {"allowScripts": ["npm:app@1.0.0"], "compilerOptions": {"strict": True}}
+        profile = {"schema_version": 2, "provider_version": "2.0.0", "provider_commit": "a" * 40,
+                   "upstream_config_canonical_sha256": canonical_hash(config),
                    "upstream_package_canonical_sha256": canonical_hash(package),
                    "upstream_lock_canonical_sha256": canonical_hash(upstream),
                    "runtime_lock_canonical_sha256": canonical_hash(runtime)}
         for root, name, data in ((server, "package.json", package), (server, "deno.lock", upstream),
+                                 (server, "deno.json", config),
                                  (definition, "deno.lock", runtime), (definition, "profile.json", profile)):
             # Deliberately use different checkout line endings for original files.
             text = json.dumps(data, indent=2) + "\n"
@@ -44,12 +47,13 @@ class ProviderRuntimeTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             provider, definition, original, _, _, profile = self.fixture(Path(tmp))
             server = provider / "server"
-            originals = {name: (server / name).read_bytes() for name in ("package.json", "deno.lock")}
+            originals = {name: (server / name).read_bytes() for name in ("package.json", "deno.lock", "deno.json")}
             prepare(provider, definition, profile["provider_commit"])
             verify(provider, profile["provider_commit"])
             for name, content in originals.items():
                 self.assertEqual(content, (server / (name + ".upstream")).read_bytes())
             self.assertEqual({k: v for k, v in original.items() if k != "devDependencies"}, read(server / "package.json"))
+            self.assertEqual(dict(json.loads(originals["deno.json"]), allowScripts=[]), read(server / "deno.json"))
             with self.assertRaises(ValueError):
                 prepare(provider, definition, profile["provider_commit"])
 
@@ -80,6 +84,25 @@ class ProviderRuntimeTests(unittest.TestCase):
                 with self.subTest(change=change), self.assertRaisesRegex(ValueError, "differs from upstream"):
                     validate(package, upstream, candidate, updated)
 
+    def test_unreviewed_config_and_reenabled_install_scripts_are_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            provider, definition, _, _, _, profile = self.fixture(Path(tmp))
+            config_path = provider / "server/deno.json"
+            original = config_path.read_bytes()
+            changed = read(config_path)
+            changed["allowScripts"].append("npm:unreviewed")
+            config_path.write_text(json.dumps(changed))
+            with self.assertRaisesRegex(ValueError, "config checksum"):
+                prepare(provider, definition, profile["provider_commit"])
+            self.assertFalse((provider / "server/package.json.upstream").exists())
+            config_path.write_bytes(original)
+            prepare(provider, definition, profile["provider_commit"])
+            changed = read(config_path)
+            changed["allowScripts"] = ["npm:app@1.0.0"]
+            config_path.write_text(json.dumps(changed))
+            with self.assertRaisesRegex(ValueError, "script configuration"):
+                verify(provider, profile["provider_commit"])
+
     def test_runtime_roots_cannot_be_removed_or_replaced_with_development_tools(self):
         with tempfile.TemporaryDirectory() as tmp:
             _, _, package, upstream, runtime, profile = self.fixture(Path(tmp))
@@ -101,7 +124,8 @@ class ProviderRuntimeTests(unittest.TestCase):
             relocated.mkdir()
             extract(folder / "runtime.zip", relocated)
             verify(relocated, profile["provider_commit"])
-            for name in ("package.json", "package.json.upstream", "deno.lock", "deno.lock.upstream"):
+            for name in ("package.json", "package.json.upstream", "deno.lock", "deno.lock.upstream",
+                         "deno.json", "deno.json.upstream"):
                 path = relocated / "server" / name
                 original = path.read_bytes()
                 modified = read(path)

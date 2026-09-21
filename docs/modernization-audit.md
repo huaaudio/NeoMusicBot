@@ -80,9 +80,12 @@
 | AUD-033 / P3 | provider 的默认 Deno 安装将开发依赖也装入发行目录；单加 `--prod` 仍安装全部 304 个包 | 随包分发不用于运行的 lint/编译工具及原生依赖，增加大小和第三方材料范围 | 提交经核对的运行锁文件并保存原配置/锁文件；各运行包的版本、完整性和依赖记录与上游一致；两平台及媒体 canary 共用相同预处理，实际安装降为 183 包；`1133449` 两平台完整 ZIP 和干净解压验证通过 |
 | AUD-034 / P1 | Slash 交互/注册/控件失败以及部分语音与启动监听异常直接将 Throwable 交给日志器 | 异常消息、cause 或 suppressed 链中的 Webhook 路径、Cookie 等内容可被原样打印 | 共用有限长度的脱敏异常摘要，保留操作上下文与异常类型，不附加原始异常链；实际响应编辑失败回调的 3 个泄露断言修复前均失败，修复后通过 |
 | AUD-035 / P2 | `NowplayingHandler.onTrackUpdate()`：开启 songinstatus 后遇到超过 128 个 Unicode 字符、空白或缺失的媒体标题 | JDA 拒绝活动名称并抛出异常，播放回调中断且状态保留旧歌名 | 仅截短展示用标题并保留 Unicode 字符完整性；缺失/空白标题恢复配置的活动；6 个真实 JDA 名称校验故障回归修复前失败，9 个专项用例修复后通过 |
+| AUD-036 / P1 | Canvas npm 安装脚本额外下载平台原生资产，npm integrity 不覆盖这些文件 | 锁文件相同仍无法保证发行包 native 内容相同，缺失/变更不被单独识别 | 两平台官方预编译压缩包及全部文件独立固定哈希；禁用 lifecycle 脚本，显式安装并在 ZIP 解压后按仓库定义核验；发布门禁要求 `provider.native=passed`。材料审查仍归 AUD-005 |
 
 ## 阶段验证证据
 
+- AUD-036 本地验证：27 个 Python CI 测试通过，包括下载损坏、缺失/多余/重复 native 文件、路径越界、链接/特殊文件、内容篡改、平台错配、配置重新启用安装脚本和 ZIP 迁移后的核验。日志 `tools/canvas-native-tests.log`。
+- 两个官方 Canvas 原生包的全部 79 个文件与 `08aa25b` 成功 CI 实物逐字节一致；新安装器及重新打包/解压验证均通过。全新 Windows Deno 安装确认跳过 lifecycle 脚本，显式安装后 provider 离线启动、Canvas 像素绘制及 PNG 编码通过；日志 `tools/canvas-native-real.log`。首次只移除命令行授权仍会执行上游 `deno.json` 中已授权的脚本，现已按原始配置哈希校验后清空该列表，并保留 `deno.json.upstream`；新流程的云端跨平台验证尚待此次提交。
 - `48e8d50` Windows 本地 `verify dependency:tree` 成功；122 测试，0 失败，1 个 POSIX 测试按平台跳过。日志 `target/modernize-verify.log` 与树 `target/modern-dependencies.txt` 为本地忽略文件。
 - Maven 图仍由 JDA 引入 Jackson 2.22.2，与应用的 Jackson 3 包名不同；不能排除 JDA 需要的 Jackson 2。
 - 许可证下载仍有 nanojson、youtube-source、base64 与 GNU 站点缺失/超时告警；此阶段构建成功不表示发行材料齐全。

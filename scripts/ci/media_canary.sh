@@ -59,9 +59,10 @@ python3 scripts/ci/prepare_provider.py tools/bgutil-provider src/provider-runtim
 provider="${GITHUB_WORKSPACE}/tools/bgutil-provider/server"
 (
     cd "${provider}"
-    env DENO_DIR="${provider}/.deno-dir" "${GITHUB_WORKSPACE}/tools/deno" install --node-modules-linker=hoisted --allow-scripts=npm:canvas --frozen
+    env DENO_DIR="${provider}/.deno-dir" "${GITHUB_WORKSPACE}/tools/deno" install --node-modules-linker=hoisted --frozen
     env DENO_DIR="${provider}/.deno-dir" "${GITHUB_WORKSPACE}/tools/deno" cache --node-modules-linker=hoisted --frozen src/generate_once.ts
 )
+python3 scripts/ci/install_canvas_native.py tools/bgutil-provider linux-x86-64
 
 cache="${RUNNER_TEMP}/bgutil-cache"
 mkdir -p "${cache}/bgutil-ytdlp-pot-provider"

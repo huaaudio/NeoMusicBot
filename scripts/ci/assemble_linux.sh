@@ -58,9 +58,10 @@ python3 scripts/ci/prepare_provider.py "${provider_source}" src/provider-runtime
 (
     cd "${provider_source}/server"
     export DENO_DIR="${PWD}/.deno-dir"
-    "${GITHUB_WORKSPACE}/${tools}/deno" install --node-modules-linker=hoisted --allow-scripts=npm:canvas --frozen
+    "${GITHUB_WORKSPACE}/${tools}/deno" install --node-modules-linker=hoisted --frozen
     "${GITHUB_WORKSPACE}/${tools}/deno" cache --node-modules-linker=hoisted --frozen src/generate_once.ts
 )
+python3 scripts/ci/install_canvas_native.py "${provider_source}" "${ARTIFACT_SUFFIX}"
 test -d "${provider_source}/server/node_modules"
 test -d "${provider_source}/server/.deno-dir"
 mkdir -p "${tools}/bgutil-provider"

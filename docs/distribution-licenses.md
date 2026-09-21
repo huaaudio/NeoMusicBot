@@ -96,3 +96,13 @@ QuickJS 对应关系来源：[2.2.0 源码提交](https://github.com/vercel-labs
 下一步需按上游预编译资产确定版本、许可及源码材料，并复核 WASM 和独立工具的嵌入组件。
 原始 artifact、实际 ZIP 和文件清单在 `tools/ci-success-08aa25b/`，包括
 `verified-artifacts.json` 与 `canvas-native-inventory.json`。
+
+Canvas 的 npm 锁条目只覆盖包本身，不覆盖安装脚本另行下载的 native 资产。
+已从 [Canvas 3.2.3 官方发布](https://github.com/Automattic/node-canvas/releases/tag/v3.2.3)
+核实两个资产的 SHA-256，并将所有文件与上述真实 CI ZIP 逐字节比较，一致。
+Linux 压缩包共 30 个文件、Windows 共 49 个文件（包括 `build/Release` 之外的构建元数据）。
+`src/provider-runtime/canvas-native.json` 记录资产哈希、逐文件大小/哈希、源码提交及
+[实际上游构建](https://github.com/Automattic/node-canvas/actions/runs/23776689553) 的独立 recipe 提交。
+两平台发行脚本及媒体检查改为禁用 npm lifecycle 脚本后显式安装这些固定资产，
+解压验收检查完整文件集合及对应的 `neomusicbot-canvas.json`，防止只验证 npm 包而漏掉 native 文件。
+这些哈希证明来源与内容一致，**不表示原生子组件的许可、对应源码及版本审查已经完成**。

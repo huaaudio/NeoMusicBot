@@ -124,9 +124,11 @@ def inventory(provider, supplements=None):
         "lockfile": record_file(lock_path),
         "runtime_profile": [record_file(server / name) for name in
                             ("neomusicbot-runtime.json", "package.json", "package.json.upstream",
-                             "deno.lock.upstream", "NEOMUSICBOT-RUNTIME.md")]
+                             "deno.lock.upstream", "deno.json", "deno.json.upstream", "NEOMUSICBOT-RUNTIME.md")]
                            if (server / "neomusicbot-runtime.json").exists() else [],
         "packages": [packages[key] for key in sorted(packages)],
+        "native_provenance": [record_file(server / "neomusicbot-canvas.json")]
+                             if (server / "neomusicbot-canvas.json").is_file() else [],
         "license_supplements": supplemental_documents,
     }
 

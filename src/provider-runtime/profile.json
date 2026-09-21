@@ -1,8 +1,9 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "provider_version": "2.0.0",
   "provider_commit": "37169ee2656e08c5c2e5dc9df4c598c0cb4c88a8",
   "upstream_package_canonical_sha256": "5c5764748f05509d43357a422bb21b87e331d45a279b0b3392de3dfc0dd4c2d8",
   "upstream_lock_canonical_sha256": "06f7b578dcc78726d93f3f1c97ddb80b8346c6b2cb77924c439812db5541f788",
-  "runtime_lock_canonical_sha256": "fb835ead9d4948c42ed69523d01553d0ba61717b0bae0534ee5fda0e32ecf29a"
+  "runtime_lock_canonical_sha256": "fb835ead9d4948c42ed69523d01553d0ba61717b0bae0534ee5fda0e32ecf29a",
+  "upstream_config_canonical_sha256": "0ba1e78f553ff835819898296e210c2042cead0780c1a10b25e0faed10a36e50"
 }

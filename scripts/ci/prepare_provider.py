@@ -24,7 +24,7 @@ def coordinate(key):
 
 
 def validate(package, upstream, runtime, profile, expected_commit=None):
-    if (profile["schema_version"] != 1 or package["name"] != "bgutil-ytdlp-pot-provider"
+    if (profile["schema_version"] != 2 or package["name"] != "bgutil-ytdlp-pot-provider"
             or package["version"] != profile["provider_version"]
             or (expected_commit is not None and profile["provider_commit"] != expected_commit)):
         raise ValueError("Provider runtime profile does not match the pinned source")
@@ -56,6 +56,12 @@ def runtime_package(package):
     return {key: value for key, value in package.items() if key != "devDependencies"}
 
 
+def runtime_config(config, profile):
+    if canonical_hash(config) != profile["upstream_config_canonical_sha256"]:
+        raise ValueError("Provider runtime config checksum mismatch")
+    return dict(config, allowScripts=[])
+
+
 def prepare(provider, definition, expected_commit):
     server = Path(provider) / "server"
     definition = Path(definition)
@@ -64,13 +70,15 @@ def prepare(provider, definition, expected_commit):
     runtime = read(definition / "deno.lock")
     profile = read(definition / "profile.json")
     validate(package, upstream, runtime, profile, expected_commit)
+    config = runtime_config(read(server / "deno.json"), profile)
     if any((server / name).exists() for name in
-           ("package.json.upstream", "deno.lock.upstream", "neomusicbot-runtime.json")):
+           ("package.json.upstream", "deno.lock.upstream", "deno.json.upstream", "neomusicbot-runtime.json")):
         raise ValueError("Provider runtime profile has already been applied")
-    for name in ("package.json", "deno.lock"):
+    for name in ("package.json", "deno.lock", "deno.json"):
         (server / (name + ".upstream")).write_bytes((server / name).read_bytes())
     (server / "package.json").write_text(json.dumps(runtime_package(package), indent=2) + "\n", encoding="utf-8")
     (server / "deno.lock").write_bytes((definition / "deno.lock").read_bytes())
+    (server / "deno.json").write_text(json.dumps(config, indent=2) + "\n", encoding="utf-8")
     (server / "neomusicbot-runtime.json").write_bytes((definition / "profile.json").read_bytes())
     (server / "NEOMUSICBOT-RUNTIME.md").write_bytes((definition / "README.md").read_bytes())
     verify(provider, expected_commit)
@@ -84,6 +92,8 @@ def verify(provider, expected_commit=None):
              profile, expected_commit)
     if read(server / "package.json") != runtime_package(package):
         raise ValueError("Provider runtime package configuration changed")
+    if read(server / "deno.json") != runtime_config(read(server / "deno.json.upstream"), profile):
+        raise ValueError("Provider runtime script configuration changed")
 
 
 if __name__ == "__main__":

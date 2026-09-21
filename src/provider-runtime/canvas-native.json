@@ -1,0 +1,417 @@
+{
+  "schema_version": 1,
+  "package": "canvas",
+  "version": "3.2.3",
+  "source_commit": "f91598e8c7186dbbce3733878d55aad33af29635",
+  "build_commit": "e8d2275abdfbe85ce4241b90732d1eeef14fb3a6",
+  "build_run": "https://github.com/Automattic/node-canvas/actions/runs/23776689553",
+  "platforms": {
+    "linux-x86-64": {
+      "url": "https://github.com/Automattic/node-canvas/releases/download/v3.2.3/canvas-v3.2.3-napi-v7-linux-x64.tar.gz",
+      "sha256": "886d1cc270d4caad1d1698ee97532e79c60e992e16fe5f37f2d3bb058f4292b0",
+      "files": [
+        {
+          "path": "build/Makefile",
+          "sha256": "23c35cc2bd326279f74d163f8b1813e070e6afa503a26bbda51c2a093884671d",
+          "bytes": 13706
+        },
+        {
+          "path": "build/Release/canvas.node",
+          "sha256": "c7c6d947ab98b1e33e9618b1d00951da720bd9d69b981b34b46b9e7ca3c0aa8b",
+          "bytes": 744288
+        },
+        {
+          "path": "build/Release/libcairo-gobject.so.2",
+          "sha256": "66ecc066d78b8c5cb5661946ee2c43246b013e294dbbb2d2ae1328be304b1ecb",
+          "bytes": 49896
+        },
+        {
+          "path": "build/Release/libcairo.so.2",
+          "sha256": "7d9eaea3a091ee4de49a5fc2831fc60d0222b207fa35da9ae7cae15b1a9b8f26",
+          "bytes": 994216
+        },
+        {
+          "path": "build/Release/libexpat.so.1",
+          "sha256": "c1713793be20b4fd200af782edc543279757750a22740dc13ee45b78624046fc",
+          "bytes": 246648
+        },
+        {
+          "path": "build/Release/libffi.so.7",
+          "sha256": "3870efb30ca3cfc0c75ee99f5025effb48ec69dc6a858389784e7a689ee6930b",
+          "bytes": 49248
+        },
+        {
+          "path": "build/Release/libfontconfig.so.1",
+          "sha256": "976981a113969b7e1a663aa650de950e96d87f87ea9476ef1be3ddc0ca206b99",
+          "bytes": 284744
+        },
+        {
+          "path": "build/Release/libfreetype.so.6",
+          "sha256": "dcf22e30bf1559943a56f0495f40910f6bd47735f2454e093afecec2292652df",
+          "bytes": 717928
+        },
+        {
+          "path": "build/Release/libfribidi.so.0",
+          "sha256": "8d08bbfea4786e15a47faf8f158886aa42c4a7a573e7b36a09e806c4d4a1ac01",
+          "bytes": 123128
+        },
+        {
+          "path": "build/Release/libgdk_pixbuf-2.0.so.0",
+          "sha256": "5ac2c46a8ace8643d7ba09842e148bbe3f05adaccc8747fc5a273a9208d60053",
+          "bytes": 162520
+        },
+        {
+          "path": "build/Release/libgif.so.7",
+          "sha256": "31eab479561751e9db27b68cb9f91cc08c21a9832ec76ac832794f721eac3448",
+          "bytes": 41024
+        },
+        {
+          "path": "build/Release/libgio-2.0.so.0",
+          "sha256": "4d673bbf01681cdc38b5a1d7ef009595baf9a2babea4a02e253e6aa543ef9a45",
+          "bytes": 1997896
+        },
+        {
+          "path": "build/Release/libglib-2.0.so.0",
+          "sha256": "757b492a069a5d9ce8bf872259b3261c7ca8881c54d501c9d5f6d6f5bcf49c56",
+          "bytes": 1279640
+        },
+        {
+          "path": "build/Release/libgmodule-2.0.so.0",
+          "sha256": "f8f555c7007cda9b4ac207123e44b93e090b81e20bf12077b291fbc3c263ccaf",
+          "bytes": 23816
+        },
+        {
+          "path": "build/Release/libgobject-2.0.so.0",
+          "sha256": "48040d686365fc5db454127be06d2ef9b8eab622caec1ee61a8a994d0d2d71c9",
+          "bytes": 404840
+        },
+        {
+          "path": "build/Release/libharfbuzz.so.0",
+          "sha256": "dfd799d31ea158a2523260719be6611eda4c2b9093c879e61d9126d505a6c321",
+          "bytes": 1102560
+        },
+        {
+          "path": "build/Release/libjpeg.so.62",
+          "sha256": "4cbfdd4bb21716a6b0edd9857902e72818ec7c935615ba2e1e1cc541f63233e0",
+          "bytes": 604840
+        },
+        {
+          "path": "build/Release/libpango-1.0.so.0",
+          "sha256": "16ed14b553429c6cd525c2ad9eec28ab277b62d8b2f8a81822d9fa450ba5f0f3",
+          "bytes": 341336
+        },
+        {
+          "path": "build/Release/libpangocairo-1.0.so.0",
+          "sha256": "1baef52af372ecc33936a8657a8753a59f404545b8e341679fcf0219f75147ac",
+          "bytes": 73760
+        },
+        {
+          "path": "build/Release/libpangoft2-1.0.so.0",
+          "sha256": "1c4068a5012bac06325ca93e0986fa2cae83764d11bd2fd2fe82a40432ba5e7c",
+          "bytes": 110328
+        },
+        {
+          "path": "build/Release/libpcre.so.1",
+          "sha256": "3eedb5be4036f5a312269c883ee150750b926159063ce73da1c3cae67c35821e",
+          "bytes": 290296
+        },
+        {
+          "path": "build/Release/libpixman-1.so.0",
+          "sha256": "104443eda3694914fdd36f487cbe6dbb5c2e954faacf4fa1102f03e5ffe2a2f5",
+          "bytes": 688160
+        },
+        {
+          "path": "build/Release/libpng16.so.16",
+          "sha256": "6fa30a8559bfcdf216403026928af443883b53a295700e44d069bc5954114c18",
+          "bytes": 218912
+        },
+        {
+          "path": "build/Release/librsvg-2.so.2",
+          "sha256": "6335c9030aed066641b5d65d921834e180eda216382a0df44fc9c3a276fe6357",
+          "bytes": 9757208
+        },
+        {
+          "path": "build/Release/libstdc++.so.6",
+          "sha256": "e3c68d010a7b3dd73dcc98e8a3b4e0336538896648602269b1111825f2ed7563",
+          "bytes": 1873184
+        },
+        {
+          "path": "build/Release/libxml2.so.2",
+          "sha256": "ec28ed78bf4db969e6ab29785cc301d49689e6140e6f681694505b1af2bd5548",
+          "bytes": 1482032
+        },
+        {
+          "path": "build/Release/libz.so.1",
+          "sha256": "b5d454cf4d16dc749038fbd3a82e07c7ecdecc1c72497d834016ac47bda0a772",
+          "bytes": 119608
+        },
+        {
+          "path": "build/binding.Makefile",
+          "sha256": "e694313e858af9fc94a5f329ecc3aca1eb9b31f8640f42d44cd3aab7443cb5bc",
+          "bytes": 114
+        },
+        {
+          "path": "build/canvas.target.mk",
+          "sha256": "ece99af0d77b6fafc0ef36bef157ce10e4afa634a2709fcc9774d7ddb1f01826",
+          "bytes": 5858
+        },
+        {
+          "path": "build/config.gypi",
+          "sha256": "ab6cd3970c76b0a57cf145c0842ef1529e0ce93ebdcc39ac0abc4adef119466a",
+          "bytes": 15454
+        }
+      ]
+    },
+    "windows-x86-64": {
+      "url": "https://github.com/Automattic/node-canvas/releases/download/v3.2.3/canvas-v3.2.3-napi-v7-win32-x64.tar.gz",
+      "sha256": "ba953cc8c38303ab94cc83461c7561506a5a3af37d6c678de4a47914d2d0bb48",
+      "files": [
+        {
+          "path": "build/Release/canvas.node",
+          "sha256": "f85e5b19198cc4800be76346bb2868abdd45acbb314968cf2fe41cb18b502bfa",
+          "bytes": 649216
+        },
+        {
+          "path": "build/Release/libbrotlicommon.dll",
+          "sha256": "c62c08223e450dfc2fff33c752cc228505ffd9d755201958ba800d5d30481a2c",
+          "bytes": 144565
+        },
+        {
+          "path": "build/Release/libbrotlidec.dll",
+          "sha256": "e270b6e576594ee8ee6e33ccc54e34a54304616dd6225652e11e49d6f17ef896",
+          "bytes": 62619
+        },
+        {
+          "path": "build/Release/libbz2-1.dll",
+          "sha256": "669a4bf9266d5f020e843aa5fd75b93ce8ebde27014d5ac466a8b3cf39d8aba7",
+          "bytes": 78774
+        },
+        {
+          "path": "build/Release/libcairo-2.dll",
+          "sha256": "10cb3ddfb67ef352365d5cdf1fce0376693d2d6e90aefefee41b3c0c5ce363e4",
+          "bytes": 1241396
+        },
+        {
+          "path": "build/Release/libcairo-gobject-2.dll",
+          "sha256": "bdba64fdd18aad8de2773d3553786d0f9560ae3ae005a17b6cc6bef124219370",
+          "bytes": 36263
+        },
+        {
+          "path": "build/Release/libdatrie-1.dll",
+          "sha256": "40aee3ae9a62a77454dfe8419fe21b54c54d969e0471c9e817b65d4502a9949f",
+          "bytes": 35223
+        },
+        {
+          "path": "build/Release/libdeflate.dll",
+          "sha256": "fb54be03668f41fae3f5d8bbabeedbc24e71b37e637e3cd34acd54f89f128ac1",
+          "bytes": 99898
+        },
+        {
+          "path": "build/Release/libexpat-1.dll",
+          "sha256": "6a52ffd0ad364394cb1a9460b3c839eb1ac1c42bb0b15be0fcf3f72fc548bb73",
+          "bytes": 200028
+        },
+        {
+          "path": "build/Release/libffi-8.dll",
+          "sha256": "ccd1c21178c2e239eaa6c904a25c7f26efdfadb0faf344e62b1bbb39a30241d5",
+          "bytes": 35403
+        },
+        {
+          "path": "build/Release/libfontconfig-1.dll",
+          "sha256": "9fffc784d10b9918214d4a576b690418d8d4b9694d41d642b09ea19dd1daea00",
+          "bytes": 345888
+        },
+        {
+          "path": "build/Release/libfreetype-6.dll",
+          "sha256": "a3271784f8366b3c6412e0c35474884fa12899c392bacb08bc8eac00f4be7e64",
+          "bytes": 791593
+        },
+        {
+          "path": "build/Release/libfribidi-0.dll",
+          "sha256": "73a712fd51fa0085e8660084743a821ae7388de138069cd6cd8c171d4487da84",
+          "bytes": 155504
+        },
+        {
+          "path": "build/Release/libgcc_s_seh-1.dll",
+          "sha256": "c658c94c8d59c50e77a4b3b790d595daedc5422e87170dd2609bed3e733a4000",
+          "bytes": 151364
+        },
+        {
+          "path": "build/Release/libgdk_pixbuf-2.0-0.dll",
+          "sha256": "a2a2f27223a45ddffff7c7f94eec96d42367ec4056c2b3957fd72cd92d831dc4",
+          "bytes": 355669
+        },
+        {
+          "path": "build/Release/libgif-7.dll",
+          "sha256": "6bfabfac05eaa1c831c8bf3459066d336de61500a075fb0e0612d1ab75e4404b",
+          "bytes": 45272
+        },
+        {
+          "path": "build/Release/libgio-2.0-0.dll",
+          "sha256": "5079e3ca8cf2193be15a30d30b81d573d739e6bae907492f9560f5c9623bc3dc",
+          "bytes": 1891811
+        },
+        {
+          "path": "build/Release/libglib-2.0-0.dll",
+          "sha256": "62196a7e69a65e52cf17a1ea985d4869d9228cf7a32e85ad898cd98d000b6af2",
+          "bytes": 1558364
+        },
+        {
+          "path": "build/Release/libgmodule-2.0-0.dll",
+          "sha256": "87abeed897b9743b2c7d078d4db213856a246a7a2258a1a2859b0feeddbfa157",
+          "bytes": 27494
+        },
+        {
+          "path": "build/Release/libgobject-2.0-0.dll",
+          "sha256": "5ad4f3f566a2ff7db68052f4e7b3bed600b255c14ec76745b0bf419e9df9369a",
+          "bytes": 360657
+        },
+        {
+          "path": "build/Release/libgraphite2.dll",
+          "sha256": "d19e2587db996cc44799bc22bd9f7a1fda91427aa4cb63bb581da485acff66e0",
+          "bytes": 155805
+        },
+        {
+          "path": "build/Release/libharfbuzz-0.dll",
+          "sha256": "51082469a3877337af8266410e36c16e0288c3ccef4be7aabd76b6935042d409",
+          "bytes": 1508172
+        },
+        {
+          "path": "build/Release/libiconv-2.dll",
+          "sha256": "94ec68fb8d342b6c91b6b48a8d95092819cdcd006a7166e0b68062f946afd08a",
+          "bytes": 1141951
+        },
+        {
+          "path": "build/Release/libintl-8.dll",
+          "sha256": "0e5a178731e6be6d115442a6ade3df7f03265cd1fc4338f8b6f86a8001cbf582",
+          "bytes": 298164
+        },
+        {
+          "path": "build/Release/libjbig-0.dll",
+          "sha256": "6d1657e08318630738fb0841ee28bbe7272b41b3b2ef93adaa228c4cd10092c6",
+          "bytes": 66242
+        },
+        {
+          "path": "build/Release/libjpeg-8.dll",
+          "sha256": "1fbd6c1ea8929c12e1967b6ce0c4053ba3df8eea6d615d171819027295a28fab",
+          "bytes": 928915
+        },
+        {
+          "path": "build/Release/liblerc.dll",
+          "sha256": "3e3aa1d6e040d9ac93eb81cb5e472543f612373c3ab653ed2b2a86ab1d7c05c4",
+          "bytes": 804609
+        },
+        {
+          "path": "build/Release/liblzma-5.dll",
+          "sha256": "bd95aa0fda6e7c8e41b3843d6fc2942ca23b344a53721016634b905d0bdef15f",
+          "bytes": 192506
+        },
+        {
+          "path": "build/Release/libpango-1.0-0.dll",
+          "sha256": "d74291e1be6a0b5544849b1ea3fd9dee71226d5e2674d01fbcc144ff59e840d0",
+          "bytes": 424324
+        },
+        {
+          "path": "build/Release/libpangocairo-1.0-0.dll",
+          "sha256": "cc13ad77435617ce67248513e9d99e75ee0e4b8ae2027a55f2c757d812e70614",
+          "bytes": 75628
+        },
+        {
+          "path": "build/Release/libpangoft2-1.0-0.dll",
+          "sha256": "52752c65d3886ef32064f4d60a0639e6b453a878a2199e688778cda590f1060e",
+          "bytes": 110758
+        },
+        {
+          "path": "build/Release/libpangowin32-1.0-0.dll",
+          "sha256": "e24ee31eed5d280c7b380bd3d9641a5be37d45d05b9b6df18c1076efdbd27aa0",
+          "bytes": 110443
+        },
+        {
+          "path": "build/Release/libpcre2-8-0.dll",
+          "sha256": "52ccc7e4ec5ad0aecf307c0328826340f5d504aa59f7c4143b9a1b9fff16ccda",
+          "bytes": 718625
+        },
+        {
+          "path": "build/Release/libpixman-1-0.dll",
+          "sha256": "e2c9b3d6346ff078546d100cabc0f68bdc23cefd34f55d6fa706cfa978999610",
+          "bytes": 739339
+        },
+        {
+          "path": "build/Release/libpng16-16.dll",
+          "sha256": "0d014767b14002ad1bbcb78ee158bf97338e05520fc16607f02adaa89999d9b9",
+          "bytes": 258460
+        },
+        {
+          "path": "build/Release/librsvg-2-2.dll",
+          "sha256": "e99f5392e428675216421d93dd84d08d2deba174a9f534b18d52e02f73268546",
+          "bytes": 14018786
+        },
+        {
+          "path": "build/Release/libsharpyuv-0.dll",
+          "sha256": "d29380c7056383f3e7a80bf9e150f0b8c425c1cf2568d1336e88979ddc2307af",
+          "bytes": 48938
+        },
+        {
+          "path": "build/Release/libstdc++-6.dll",
+          "sha256": "5d882e4aa81b640c169ac08c81eaaff7474d03667ab4fa0db7d618fa64f43200",
+          "bytes": 2463202
+        },
+        {
+          "path": "build/Release/libthai-0.dll",
+          "sha256": "d8d8b87e9089a811e088f6a01da57c19ed54d2b6613bb85697f1958473f63666",
+          "bytes": 71780
+        },
+        {
+          "path": "build/Release/libtiff-6.dll",
+          "sha256": "876f15a6aab834a18b457bee1bf66435ae244f5f7bc27b6ace2c9cf952f25489",
+          "bytes": 607232
+        },
+        {
+          "path": "build/Release/libwebp-7.dll",
+          "sha256": "8dfe40c4e0abc90ddf18f080898987e01253d099b2b2d6daf7db521e55c00446",
+          "bytes": 746378
+        },
+        {
+          "path": "build/Release/libwinpthread-1.dll",
+          "sha256": "95998fb52f45bf904fcfbe56129c4d8526d9b44f9a92611c8bd0125ee03ca38d",
+          "bytes": 63678
+        },
+        {
+          "path": "build/Release/libxml2-16.dll",
+          "sha256": "a010006f56ae15c6d5c9e835d843aeef064a98cee26f6535ec462b363659efaa",
+          "bytes": 1238909
+        },
+        {
+          "path": "build/Release/libzstd.dll",
+          "sha256": "a25427164f8775046eb8ce488d7d08842c3b33224c5817d4c0c3628b5b588129",
+          "bytes": 1196420
+        },
+        {
+          "path": "build/Release/zlib1.dll",
+          "sha256": "11cd91171765cd65f1c3362e3df67e5f5a618a6b88c8cdec899b802eaf1c7b0d",
+          "bytes": 127291
+        },
+        {
+          "path": "build/binding.sln",
+          "sha256": "b0612c18ae9cff55d927cd51943de8f88f35b2d2b671375fc63fe6332c9fd068",
+          "bytes": 849
+        },
+        {
+          "path": "build/canvas.vcxproj",
+          "sha256": "d95327f297312728f439b706cba61ac360ce256c56fb76624b7fa5c793ecc4f3",
+          "bytes": 17033
+        },
+        {
+          "path": "build/canvas.vcxproj.filters",
+          "sha256": "4018033b095e2f0e38714d40dc6b2cdaf342f5028d97338cf6b97608666312d6",
+          "bytes": 6724
+        },
+        {
+          "path": "build/config.gypi",
+          "sha256": "ff21708cfcf17ed0cb2d359319617f5dd7eb4116ad29a2016b6520a2e530a069",
+          "bytes": 16309
+        }
+      ]
+    }
+  }
+}
