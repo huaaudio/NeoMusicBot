@@ -15,6 +15,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: neomusicbot-ci-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   YTDLP_VERSION: "2026.08.19"
   DENO_VERSION: "2.9.7"
@@ -140,9 +144,16 @@ jobs:
   locked_media_canary:
     name: Locked media resolver canary
     needs: build
-    # Only an explicit dispatch of the default branch can select a private label.
-    # Pushes, pull requests and dispatches of other branches keep the hosted runner.
-    runs-on: ${{ github.event_name == 'workflow_dispatch' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch) && inputs.media_runner != '' && inputs.media_runner || 'ubuntu-latest' }}
+    # Private runners are only selected for trusted default-branch pushes/dispatches.
+    # The local controller provisions one JIT runner for this run and attempt.
+    runs-on: >-
+      ${{ github.event_name == 'workflow_dispatch' &&
+          github.ref == format('refs/heads/{0}', github.event.repository.default_branch) &&
+          inputs.media_runner != '' && inputs.media_runner ||
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
+          github.ref == format('refs/heads/{0}', github.event.repository.default_branch) &&
+          vars.MEDIA_RUNNER_MODE == 'isolated' &&
+          format('neomusicbot-media-{0}-{1}', github.run_id, github.run_attempt) || 'ubuntu-latest' }}
     timeout-minutes: 20
     env:
       YTDLP_REPOSITORY: yt-dlp/yt-dlp

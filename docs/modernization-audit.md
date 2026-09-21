@@ -82,9 +82,16 @@
 | AUD-035 / P2 | `NowplayingHandler.onTrackUpdate()`：开启 songinstatus 后遇到超过 128 个 Unicode 字符、空白或缺失的媒体标题 | JDA 拒绝活动名称并抛出异常，播放回调中断且状态保留旧歌名 | 仅截短展示用标题并保留 Unicode 字符完整性；缺失/空白标题恢复配置的活动；6 个真实 JDA 名称校验故障回归修复前失败，9 个专项用例修复后通过 |
 | AUD-036 / P1 | Canvas npm 安装脚本额外下载平台原生资产，npm integrity 不覆盖这些文件 | 锁文件相同仍无法保证发行包 native 内容相同，缺失/变更不被单独识别 | 两平台官方预编译压缩包及全部文件独立固定哈希；禁用 lifecycle 脚本，显式安装并在 ZIP 解压后按仓库定义核验；发布门禁要求 `provider.native=passed`。材料审查仍归 AUD-005 |
 | AUD-037 / P2 | jsoup 的 POM 许可 URL 指向可变官网页面；`751bea0` 的普通 push CI 在该页面读取超时 | Linux 的 230 个 Java 测试通过后，许可证收集失败导致构建退出 | 仅对 jsoup 1.23.2 的已核对元数据，改用 release tag 对应固定 commit 中的原始 LICENSE，保留作者署名和许可条款；继续严格拒绝下载失败，不忽略材料检查 |
+| AUD-038 / P3 | `MediaTrackKey.serializedId()` 使用系统默认语言转换音源名称；土耳其语等环境将 ASCII I 转为无点的 ı | 同一 Bilibili 视频的 `AudioTrackInfo.identifier` 因系统语言不同而变化 | 改为 `Locale.ROOT`；现有真实 track 创建/序列化用例切换到 tr-TR 后先复现错误，修复后通过。二进制 track 序列化本来单独保存 canonicalId/分 P，本问题不据此宣称播放失败或持久化数据丢失 |
+| AUD-039 / P2 | 普通 push 的媒体任务总在 GitHub 托管网络运行；`d63bff5` 的托管检查被 YouTube/Bilibili 拒绝，同提交隔离网络三项通过 | 正常 push 持续失败，需重复触发完整工作流才能完成真实验收 | 增加默认分支按运行编号/尝试次数选择隔离 runner、本机自动领取控制器及单任务注册/注销；不跳过媒体任务、不容忍失败。机器和控制器在线且代码一致时才能完成；真实普通 push 验证待执行 |
 
 ## 阶段验证证据
 
+- 本轮完整 Windows Maven `verify` 通过：230 个 Java 测试，0 失败、0 错误、1 个 POSIX 平台跳过；44 个 Maven SBOM 组件许可材料完整。protobuf、SLF4J、jsoup 三份实际保存的文本与固定提交的上游原文逐字节一致，证据 `tools/isolated-controller-verify-fixed.log`、`tools/fixed-maven-license-verification.json`。
+- AUD-039 的真实 WSL 退出测试已连接一个不领取任何任务的 JIT runner，关闭控制器 stdin 后，Linux 启动器按预期返回 130、临时目录已删除、GitHub 注册已移除；未触发或取消任何 CI 作业。证据 `tools/controlled-runner-stop.json`。普通 push 的端到端验证仍以新提交运行结果为准。
+- AUD-037 后续核对遇到 protobuf-java 4.36.2 和 slf4j-api 2.0.19 的 OSI 通用许可页返回 403；分别改为相应 release tag 的固定提交中原始 LICENSE / LICENSE.txt，保留 Google/QOS.ch 署名及原文。修改前 Java 的 230 个测试已经通过，构建在许可收集阶段失败，日志 `tools/isolated-controller-verify.log`。
+- AUD-038 的修改前后日志为 `tools/media-locale-before.log`、`tools/media-locale-after.log`。AUD-039 的 6 个控制器回归覆盖外部仓库/PR、分支与提交错配、重试变化、重复任务、错误标签、错误注册清理、runner 退出与任务结果区分、凭据不写入记录及本机互斥锁；共 41 个 Python CI 检查通过，actionlint 与 Bash 语法检查通过。
+- `d63bff5` 的[完整 CI 35617005911](https://github.com/huaaudio/NeoMusicBot/actions/runs/35617005911) 已通过，两个实际发行包和媒体报告已下载核对。Windows 的 363 个 Cargo 源码包、642 份原始声明和 10 份补充文本，以及两平台 jsoup 固定许可文本再次核验通过，证据 `tools/ci-success-d63bff5/verified-materials.json`。同提交的普通 push 运行因托管音源拒绝而失败，不能混淆两次执行的结果。
 - AUD-037 本地完整 Windows 构建通过：230 个 Java 测试，0 失败、0 错误，1 个 POSIX 测试按平台跳过；44 个 Maven SBOM 组件均有保存的许可文件。jsoup 1.23.2 实际下载文本与固定上游 LICENSE 字节完全一致，SHA-256 为 `f5d724c5818010c61bff2e177f5b6452434bc054807522bf241940bca8b1d6b1`；证据 `tools/jsoup-license-verify.log`、`tools/jsoup-license-verification.json`，对应提交的云端验证另行记录。
 - `49034a1` 的[完整 CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35578968982) 已成功：Windows/Linux 构建、27 个 Python 检查、Java 27 两平台测试、固定 Canvas 安装、解压后离线实际绘图/PNG 编码，以及三项锁定媒体检查均通过。三个 artifact 下载后外层哈希/大小匹配 GitHub，两个发行包再次通过发布关联和原生定义核验，媒体报告三项通过且源提交一致；证据 `tools/ci-success-49034a1/verified-artifacts.json`、`tools/canvas-materials-real.log`。临时 runner 已退出并移除，GitHub 注册数为 0。
 - AUD-005 的 Windows Canvas 包级材料新增 34 份固定源码包及 55 份原始许可文件，覆盖全部 44 个实际 DLL，并将源码包配方与二进制 `.BUILDINFO` 哈希关联。提交 `be7c094` 的完整 CI [35611351107](https://github.com/huaaudio/NeoMusicBot/actions/runs/35611351107) 已通过，两平台与媒体 artifact 下载核验完成，Windows 实际 ZIP 中这些源码和许可材料逐项复核通过；证据 `tools/ci-success-be7c094/verified-materials.json`。

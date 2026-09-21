@@ -18,7 +18,7 @@ if [[ -n "${YTDLP_VERSION:-}" ]]; then
     : "${YTDLP_SHA256:?YTDLP_SHA256 is required in locked mode}"
     repository="${YTDLP_REPOSITORY:-yt-dlp/yt-dlp}"
     test "${repository}" = "yt-dlp/yt-dlp"
-    curl --fail --location --silent --show-error "https://github.com/${repository}/releases/download/${YTDLP_VERSION}/${YTDLP_ASSET}" --output tools/yt-dlp
+    curl --fail --location --silent --show-error --retry 3 --retry-max-time 180 --connect-timeout 15 --max-time 90 "https://github.com/${repository}/releases/download/${YTDLP_VERSION}/${YTDLP_ASSET}" --output tools/yt-dlp
     printf '%s  %s\n' "${YTDLP_SHA256}" tools/yt-dlp | sha256sum --check --strict -
     chmod 755 tools/yt-dlp
     actual_version="$(tools/yt-dlp --version)"
@@ -35,7 +35,7 @@ else
     url="$(jq -er '.browser_download_url' <<<"${asset}")"
     digest="$(jq -er '.digest | select(type == "string" and startswith("sha256:"))' <<<"${asset}")"
     sha256="${digest#sha256:}"
-    curl --fail --location --silent --show-error "${url}" --output tools/yt-dlp
+    curl --fail --location --silent --show-error --retry 3 --retry-max-time 180 --connect-timeout 15 --max-time 90 "${url}" --output tools/yt-dlp
     printf '%s  %s\n' "${sha256}" tools/yt-dlp | sha256sum --check --strict -
     chmod 755 tools/yt-dlp
     actual_version="$(tools/yt-dlp --version)"
@@ -43,13 +43,13 @@ else
     printf '%s\n' "mode=channel" "channel=${YTDLP_CHANNEL}" "repository=${YTDLP_REPOSITORY}" "release.id=${release_id}" "release.tag=${tag}" "asset.id=${asset_id}" "neomusicbot.commit=${GITHUB_SHA}" "yt-dlp.version=${actual_version}" "yt-dlp.sha256=${sha256}" > reports/candidate.txt
 fi
 mkdir -p tools/yt-dlp-plugins
-curl --fail --location --silent --show-error "https://github.com/denoland/deno/releases/download/v${DENO_VERSION}/${DENO_ASSET}" --output "${RUNNER_TEMP}/deno.zip"
+curl --fail --location --silent --show-error --retry 3 --retry-max-time 180 --connect-timeout 15 --max-time 90 "https://github.com/denoland/deno/releases/download/v${DENO_VERSION}/${DENO_ASSET}" --output "${RUNNER_TEMP}/deno.zip"
 printf '%s  %s\n' "${DENO_SHA256}" "${RUNNER_TEMP}/deno.zip" | sha256sum --check --strict -
 unzip -q "${RUNNER_TEMP}/deno.zip" -d tools
 chmod 755 tools/deno
 
 plugin="tools/yt-dlp-plugins/bgutil-ytdlp-pot-provider.zip"
-curl --fail --location --silent --show-error "https://github.com/Brainicism/bgutil-ytdlp-pot-provider/releases/download/${POT_PROVIDER_VERSION}/bgutil-ytdlp-pot-provider.zip" --output "${plugin}"
+curl --fail --location --silent --show-error --retry 3 --retry-max-time 180 --connect-timeout 15 --max-time 90 "https://github.com/Brainicism/bgutil-ytdlp-pot-provider/releases/download/${POT_PROVIDER_VERSION}/bgutil-ytdlp-pot-provider.zip" --output "${plugin}"
 printf '%s  %s\n' "${POT_PROVIDER_PLUGIN_SHA256}" "${plugin}" | sha256sum --check --strict -
 unzip -tq "${plugin}"
 
