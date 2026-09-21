@@ -43,5 +43,8 @@ build pango 1.58.2 -Dbuild-testsuite=false -Dbuild-examples=false -Dintrospectio
 build librsvg 2.63.2 -Dtests=false -Dintrospection=disabled -Ddocs=disabled -Dvala=disabled \
     -Drsvg-convert=disabled -Dpixbuf=enabled -Davif=enabled
 cd "${work}/sources/canvas/package"
-node "${work}/build-tools/node_modules/node-gyp/bin/node-gyp.js" rebuild --jobs="${jobs}" --nodedir="${node}"
+# Canvas's GIF auto-detection searches host library directories. These three
+# backends are provided by the fixed SDK and must not depend on host packages.
+node "${work}/build-tools/node_modules/node-gyp/bin/node-gyp.js" rebuild --jobs="${jobs}" --nodedir="${node}" \
+    -- -Dwith_jpeg=true -Dwith_gif=true -Dwith_rsvg=true
 echo 'NativeSourceBuildCompleted=true'

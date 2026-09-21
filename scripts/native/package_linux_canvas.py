@@ -79,6 +79,7 @@ def isolated_probes(stage, bundle, deno, font, native_dependencies, env, bwrap):
         "--ro-bind", str(fixtures), "/fixtures",
         "--ro-bind", str(ROOT / "scripts/ci/canvas_probe.cjs"), "/probe/formats.cjs",
         "--ro-bind", str(Path(__file__).with_name("font_probe.cjs")), "/probe/font.cjs",
+        "--ro-bind", str(Path(__file__).with_name("gif_probe.cjs")), "/probe/gif.cjs",
         "--setenv", "HOME", "/tmp/home", "--setenv", "DENO_DIR", "/tmp/deno-cache",
         "--setenv", "DENO_NO_UPDATE_CHECK", "1", "--setenv", "DENO_NO_PROMPT", "1",
         "--setenv", "LANG", "C.UTF-8", "--chdir", "/tmp",
@@ -89,13 +90,14 @@ def isolated_probes(stage, bundle, deno, font, native_dependencies, env, bwrap):
     for probe, marker, arguments in (
         ("formats", "canvas.native=passed", []),
         ("font", "canvas.font=passed", ["/fixtures/DejaVuSans.ttf"]),
+        ("gif", "canvas.gif=passed", []),
     ):
         result = subprocess.run([*command, "/probe/" + probe + ".cjs", "/bundle/index.js", *arguments],
                                 capture_output=True, text=True, timeout=60, env=env)
         (stage / (probe + ".log")).write_text(result.stdout + result.stderr)
         if result.returncode or marker not in result.stdout.splitlines():
             raise RuntimeError("Isolated native probe failed: " + probe + "; see " + str(stage))
-    return dict(formats="passed", explicit_font="passed", deno_sha256=digest(deno),
+    return dict(formats="passed", explicit_font="passed", gif="passed", deno_sha256=digest(deno),
                 font_sha256=digest(font), os_runtime_baseline=sorted(path.name for path in os_lib.iterdir() if path.name in GLIBC),
                 deno_runtime_from_bundle=sorted(set(deno_dependencies) - GLIBC),
                 os_character_conversion="glibc gconv", host_graphics_libraries="not-mounted",
@@ -131,7 +133,9 @@ def main():
     native_dependencies = dependencies(addon, env)
     sources = {"canvas.node": addon, **{name: path for name, path in native_dependencies.items() if name not in GLIBC}}
     if set(sources) != set(data["expected_native_files"]):
-        raise ValueError("Native file set differs from the reviewed definition")
+        difference = dict(missing=sorted(set(data["expected_native_files"]) - set(sources)),
+                          extra=sorted(set(sources) - set(data["expected_native_files"])))
+        raise ValueError("Native file set differs from the reviewed definition: " + json.dumps(difference))
     for name, source in sources.items():
         if name != "canvas.node" and not source.is_relative_to(sdk_lib.resolve()):
             raise ValueError("Unexpected host graphics library: " + name)
@@ -184,7 +188,7 @@ def main():
     for name in ("inputs.json", "package.json", "package-lock.json"):
         shutil.copyfile(DEFINITION / name, output / name)
     print(json.dumps(dict(native_files=len(records), shared_versions=versions,
-                          isolated_formats="passed", isolated_font="passed", archive_readback="passed",
+                          isolated_formats="passed", isolated_font="passed", isolated_gif="passed", archive_readback="passed",
                           archive_sha256=digest(archive_path), maximum_required=elf["maximum_required"])), flush=True)
 
 

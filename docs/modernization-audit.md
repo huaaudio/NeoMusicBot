@@ -5,8 +5,9 @@
 
 ## 验收状态
 
-最近完整验收：`45e5c3a` 的普通 push [35630463963](https://github.com/huaaudio/NeoMusicBot/actions/runs/35630463963)
+最近应用 CI 完整成功：`b500d6e` 的普通 push [35638761235](https://github.com/huaaudio/NeoMusicBot/actions/runs/35638761235)
 四个构建和三项媒体全部成功；两个实际发行包的来源、逐文件哈希、原生库及已收集的许可材料再次复核通过。
+独立的新原生库源码工作流仍在修复验收，不能把应用 CI 成功当作新库已可发布。
 以下早期提交记录用于保留故障和修复过程，不代表最新流水线仍有相同故障。
 
 | 项目 | 当前证据 / 待完成事项 |
@@ -92,6 +93,7 @@
 
 ## 阶段验证证据
 
+- `b500d6e` 的普通 push 应用 CI 四个构建、三项媒体全部成功，runner 31 自动领取并完成注销；三个 artifact 按 GitHub 哈希/大小下载，实际 ZIP 的平台关联、原生文件与现有源码/许可材料复核通过。证据 `tools/ci-success-b500d6e/verified-artifacts.json`、`verified-materials.json`。
 - Linux 实验已将 Cairo、librsvg、Pango、GLib、HarfBuzz、Fontconfig、FreeType 七个共享组件升级，并重新编译 Canvas。仓库配方在全新目录构建成功，37 个文件通过实际版本、隔离格式/字体与生产安装器归档回读检查，证据 `tools/native-recipe-package-fixed.log`。librsvg 完整锁图的 357 个 crate、641 份原始声明及 8 份补充正文已完成实际文件验证，5 项新回归通过。20 个 Ubuntu 对应源码包已收集；其余材料、最终二进制绑定与云端 CI 仍在进行。新库尚未进入发行包，详见 [实验记录](native-linux-upgrade.md)。
 - `45e5c3a` 普通 push 的三个 artifact 均已按 GitHub 外层哈希/大小下载；两个实际 ZIP 的平台门禁、native 文件、Maven 原始许可和已有 Windows 原生源码材料再次验证。证据 `tools/ci-success-45e5c3a/verified-artifacts.json`、`verified-materials.json`；控制器记录本次领取成功且注册清理为 `removed`。
 - `c651760` 普通 push 的实际 artifact 已下载，外层 SHA-256/大小、两平台发行关联与 native 内容、三份固定 Maven 原始许可，以及 Windows 的 34 个父源码包和 363 个 Cargo 包均复核通过；证据 `tools/ci-success-c651760/verified-artifacts.json`、`verified-materials.json`、`push-controller-acceptance.json`。两平台各执行 230 个 Java 测试与 41 个 Python 检查，Windows 的一个 POSIX 用例按平台跳过。
