@@ -30,6 +30,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -692,50 +693,64 @@ public final class SlashCommandListener extends ListenerAdapter
             error(event, "The current track changed. Try again.");
             return;
         }
+        // Recheck listening after any wait for the playback executor. Record the
+        // vote and apply its result without another command interleaving.
+        SkipReply reply = context.handler().getSession().call(() -> skipInSession(event, context, track));
+        if(reply.error())
+            error(event, reply.message());
+        else
+            event.reply(reply.message()).queue();
+    }
+
+    private record SkipReply(String message, boolean error) { }
+
+    private SkipReply skipInSession(SlashCommandInteractionEvent event, MusicContext context, AudioTrack track)
+    {
+        var channel = event.getGuild().getAudioManager().getConnectedChannel();
+        if(channel == null)
+            return new SkipReply("The voice connection is not ready. Try again in a moment.", true);
+        long channelId = channel.getIdLong();
+        Set<String> listeners = new HashSet<>();
+        // Both numerator and denominator must come from one membership snapshot
+        // of the bot's channel, never the requester's possibly changed channel.
+        for(Member member : List.copyOf(channel.getMembers()))
+        {
+            GuildVoiceState state = member.getVoiceState();
+            AudioChannelUnion memberChannel = state == null ? null : state.getChannel();
+            if(!member.getUser().isBot() && memberChannel != null
+                    && memberChannel.getIdLong() == channelId && !state.isDeafened())
+                listeners.add(member.getId());
+        }
+        var connected = event.getGuild().getAudioManager().getConnectedChannel();
+        if(connected == null || connected.getIdLong() != channelId
+                || !listeners.contains(event.getUser().getId()))
+            return new SkipReply("You must still be listening in the same voice channel as the bot to skip.", true);
+
         RequestMetadata metadata = metadata(track);
         double ratio = context.settings().getSkipRatio() == -1
                 ? bot.getConfig().getSkipRatio() : context.settings().getSkipRatio();
         if (metadata.getOwner() == event.getUser().getIdLong() || ratio == 0)
         {
             if (!context.handler().skipCurrentIfMatches(track))
-            {
-                error(event, "The current track changed before it could be skipped. Try again.");
-                return;
-            }
-            event.reply(ok("Skipped **" + markdown(track.getInfo().title) + "**.")).queue();
-            return;
+                return new SkipReply("The current track changed before it could be skipped. Try again.", true);
+            return new SkipReply(ok("Skipped **" + markdown(track.getInfo().title) + "**."), false);
         }
 
         AudioHandler.VoteUpdate update = context.handler().addVoteIfCurrent(track, event.getUser().getId());
         if (update == null)
-        {
-            error(event, "The current track changed before the vote was recorded. Try again.");
-            return;
-        }
+            return new SkipReply("The current track changed before the vote was recorded. Try again.", true);
         Set<String> votes = update.votes();
-        AudioChannelUnion channel = event.getMember().getVoiceState().getChannel();
-        long listeners = channel.getMembers().stream()
-                .filter(member -> !member.getUser().isBot())
-                .filter(member -> member.getVoiceState() != null && !member.getVoiceState().isDeafened())
-                .count();
-        long validVotes = channel.getMembers().stream()
-                .filter(member -> !member.getUser().isBot())
-                .filter(member -> member.getVoiceState() != null && !member.getVoiceState().isDeafened())
-                .filter(member -> votes.contains(member.getId()))
-                .count();
-        long required = (long) Math.ceil(listeners * ratio);
+        long validVotes = listeners.stream().filter(votes::contains).count();
+        long required = Math.max(1, (long) Math.ceil(listeners.size() * ratio));
         String message = update.added() ? ok("Vote recorded") : warn("You already voted");
         message += " — `" + validVotes + "/" + required + "` needed.";
         if (validVotes >= required)
         {
             if (!context.handler().skipCurrentIfMatches(track))
-            {
-                error(event, "The current track changed before it could be skipped. Try again.");
-                return;
-            }
+                return new SkipReply("The current track changed before it could be skipped. Try again.", true);
             message += "\n" + ok("Skipped **" + markdown(track.getInfo().title) + "**.");
         }
-        event.reply(message).queue();
+        return new SkipReply(message, false);
     }
 
     private void playlist(SlashCommandInteractionEvent event)
@@ -1633,12 +1648,12 @@ public final class SlashCommandListener extends ListenerAdapter
     private boolean ensureListening(SlashCommandInteractionEvent event, Settings settings, AudioHandler handler)
     {
         GuildVoiceState userState = event.getMember().getVoiceState();
-        if (userState == null || !userState.inAudioChannel() || userState.isDeafened())
+        AudioChannelUnion userChannel = userState == null ? null : userState.getChannel();
+        if (userChannel == null || userState.isDeafened())
         {
             error(event, "Join a voice channel and make sure you are not deafened first.");
             return false;
         }
-        AudioChannelUnion userChannel = userState.getChannel();
         if (userChannel.getType() != ChannelType.VOICE)
         {
             error(event, "Stage channels are not supported; join a standard voice channel.");
@@ -1720,12 +1735,12 @@ public final class SlashCommandListener extends ListenerAdapter
                                              AudioHandler handler)
     {
         GuildVoiceState userState = event.getMember().getVoiceState();
-        if (userState == null || !userState.inAudioChannel() || userState.isDeafened())
+        AudioChannelUnion userChannel = userState == null ? null : userState.getChannel();
+        if (userChannel == null || userState.isDeafened())
         {
             componentError(event, "Join a voice channel and make sure you are not deafened first.");
             return false;
         }
-        AudioChannelUnion userChannel = userState.getChannel();
         if (userChannel.getType() != ChannelType.VOICE)
         {
             componentError(event, "Stage channels are not supported; join a standard voice channel.");
