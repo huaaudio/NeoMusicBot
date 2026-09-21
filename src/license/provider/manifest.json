@@ -147,6 +147,16 @@
       ],
       "source": "https://registry.npmjs.org/@bufbuild/protobuf/-/protobuf-2.14.0.tgz",
       "note": "Verbatim leading license comment from package/dist/commonjs/wire/varint.js in the locked npm package; no terms or copyright wording changed."
+    },
+    {
+      "file": "MIT-standard-text.txt",
+      "sha256": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5",
+      "packages": [
+        "proxy-agent-negotiate@1.1.0",
+        "quickjs-wasi@2.2.0"
+      ],
+      "source": "https://raw.githubusercontent.com/spdx/license-list-data/v3.27.0/text/MIT.txt",
+      "note": "Unmodified SPDX MIT reference text for these packages' explicit package.json license identifiers. This is not a project-specific upstream copyright notice; template placeholders are intentionally unchanged. Original package metadata and source remain included. Embedded native/WASM components are reviewed separately."
     }
   ]
 }

@@ -145,6 +145,9 @@
 
 ## 全模块检查覆盖
 
+- AUD-005 新增两项明确声明 MIT 的运行包所对应的 SPDX 标准正文，原元数据和署名保留，未伪造上游版权声明；补充材料现为 14 份。21 个 Python CI 测试及实际 183 包安装树的版本/字节哈希映射复核通过（`tools/provider-license-standard-tests.log`、`tools/distribution-license-audit/provider-runtime-mit-inventory.json`）；原生/WASM 与独立工具材料审查继续进行。
+- `aee1928` 固定工具的 Linux 本地探测在现有 Ubuntu WSL 执行：挂载盘目录下匿名 YouTube/Bilibili 通过，provider 模式为 network-timeout；复制到 WSL 原生临时目录后，同一套检查三项全部通过（`tools/wsl-media-audit/native-candidate.txt`）。未调整超时或放宽成功条件；由于网络时间点也不同，不能据此断言首轮失败仅由文件系统引起。本地结果不替代 GitHub 工作流或实际 Discord 语音验收。
+
 - `aee1928` [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35575235177) 的 Windows/Linux 完整发行包与 Java 27 两平台检查均通过，包含日志异常链脱敏回归；锁定媒体仍为 YouTube 两模式 authentication-required、Bilibili access-denied。
 - 歌曲活动名称的有效故障基线共 9 项，其中 6 项在 JDA 的真实名称校验处失败（`tools/nowplaying-before-controlled.log`）；修复后完整 Windows `verify` 共 230 项，229 通过、1 项 POSIX 测试按平台跳过（`tools/nowplaying-full.log`）。覆盖 ASCII/非 BMP 长标题、128 个 emoji 的合法边界、空白/null 标题、关闭显示、多服务器与停止播放；原始轨道标题保持不变。[JDA 活动名称规则](https://docs.jda.wiki/net/dv8tion/jda/api/entities/Activity.html#listening(java.lang.String))与本地 6.7.0 的代码点校验一致；未把代理 Presence 的结果当作真实 Discord 展示验收。
 

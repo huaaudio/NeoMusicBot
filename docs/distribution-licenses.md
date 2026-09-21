@@ -62,8 +62,13 @@ Windows/Linux 发行包的 `NeoMusicBot.cdx.json` / `.xml` 描述 Java 依赖；
 canvas 的 README 内 MIT 与 BMP 子组件声明原本已随包保留。
 最新运行安装不再包含 `@swc/counter`、eslint-plugin-only-warn、keyv、swc-node、xxhash 和 oxc 原生绑定；
 因此此前仅由这些开发包引入的分发材料缺口不再属于新发行包的依赖范围，旧版清单和证据仍保留。
-仍待核实的基本许可正文为 proxy-agent-negotiate 1.1.0 与 QuickJS 包装层；
-WASI 工具链、canvas/其他嵌入组件及上表中的 yt-dlp/Deno 材料也仍在审查。
+proxy-agent-negotiate 1.1.0 与 quickjs-wasi 2.2.0 包装层的原始 package.json 均明确声明 MIT，
+但没有单独的包装层许可证文件。依据 [npm 的 SPDX 标识说明](https://docs.npmjs.com/cli/v11/configuring-npm/package-json/#license)，
+现另附 [SPDX MIT 标准正文](https://spdx.org/licenses/MIT.html)，形成第 14 份补充材料；
+明确标注它是标准文本，不冒充上游项目的版权声明，也不猜测或填入年份/权利人。
+原始元数据、源码和已有署名继续完整保留，包括 proxy-agent-negotiate 的 author 字段。
+这补上了两项已声明许可的可读正文，不代表 QuickJS WASM 或整个发行包的审查完成。
+WASI 工具链、canvas/其他嵌入组件及上表中的 yt-dlp/Deno 材料仍在审查。
 参考 [protobuf 上游许可](https://github.com/bufbuild/protobuf-es/blob/04297e762a64dbcafc299c46785dbc5621b4329f/LICENSE)、
 [saxes 上游许可](https://github.com/lddubeau/saxes/blob/211fa0ebec9b628affc09219199639887174bfc3/LICENSE)、
 [canvas README](https://github.com/Automattic/node-canvas/blob/v3.2.3/Readme.md)。
