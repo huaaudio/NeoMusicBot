@@ -84,6 +84,8 @@
 
 ## 阶段验证证据
 
+- `49034a1` 的[完整 CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35578968982) 已成功：Windows/Linux 构建、27 个 Python 检查、Java 27 两平台测试、固定 Canvas 安装、解压后离线实际绘图/PNG 编码，以及三项锁定媒体检查均通过。三个 artifact 下载后外层哈希/大小匹配 GitHub，两个发行包再次通过发布关联和原生定义核验，媒体报告三项通过且源提交一致；证据 `tools/ci-success-49034a1/verified-artifacts.json`、`tools/canvas-materials-real.log`。临时 runner 已退出并移除，GitHub 注册数为 0。
+- AUD-005 的 Windows Canvas 包级材料新增 34 份固定源码包及 55 份原始许可文件，覆盖全部 44 个实际 DLL，并将源码包配方与二进制 `.BUILDINFO` 哈希关联。30 个 Python 检查通过，实际 DLL、源码和许可文件在发行目录结构下复核通过；日志 `tools/canvas-material-tests.log`、`tools/canvas-materials-real.log`。此项新增收录尚待云端打包验证；内嵌 Rust 等依赖及其他平台材料仍未完成。
 - AUD-036 本地验证：27 个 Python CI 测试通过，包括下载损坏、缺失/多余/重复 native 文件、路径越界、链接/特殊文件、内容篡改、平台错配、配置重新启用安装脚本和 ZIP 迁移后的核验。日志 `tools/canvas-native-tests.log`。
 - 两个官方 Canvas 原生包的全部 79 个文件与 `08aa25b` 成功 CI 实物逐字节一致；新安装器及重新打包/解压验证均通过。全新 Windows Deno 安装确认跳过 lifecycle 脚本，显式安装后 provider 离线启动、Canvas 像素绘制及 PNG 编码通过；日志 `tools/canvas-native-real.log`。首次只移除命令行授权仍会执行上游 `deno.json` 中已授权的脚本，现已按原始配置哈希校验后清空该列表，并保留 `deno.json.upstream`；新流程的云端跨平台验证尚待此次提交。
 - `48e8d50` Windows 本地 `verify dependency:tree` 成功；122 测试，0 失败，1 个 POSIX 测试按平台跳过。日志 `target/modernize-verify.log` 与树 `target/modern-dependencies.txt` 为本地忽略文件。

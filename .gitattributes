@@ -10,3 +10,4 @@ mvnw.cmd text eol=crlf
 *.gif binary
 # Preserve byte-for-byte hashes of captured upstream license documents.
 src/license/provider/*.txt -text
+src/license/canvas/windows/*.txt -text

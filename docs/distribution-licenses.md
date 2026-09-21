@@ -34,6 +34,8 @@ Windows/Linux 发行包的 `NeoMusicBot.cdx.json` / `.xml` 描述 Java 依赖；
 发行构建现在先应用 [`src/provider-runtime`](../src/provider-runtime/README.md) 中经审查的运行配置：
 只从 provider 的 `package.json` 去掉 `devDependencies`，保留所有运行根依赖及其他配置；
 原文件完整另存为 `package.json.upstream` 和 `deno.lock.upstream`，并附修改说明及哈希记录。
+另外校验原 `deno.json` 后清空安装脚本授权列表，原文保存为 `deno.json.upstream`；
+Canvas 原生文件改用独立固定的官方资产安装，详见下文。
 原始完整源码仍随包保留。实际 npm 安装和缓存使用已提交的运行锁文件与 `--frozen`，
 发行构建不会临时重新选择依赖版本。
 
@@ -106,3 +108,30 @@ Linux 压缩包共 30 个文件、Windows 共 49 个文件（包括 `build/Relea
 两平台发行脚本及媒体检查改为禁用 npm lifecycle 脚本后显式安装这些固定资产，
 解压验收检查完整文件集合及对应的 `neomusicbot-canvas.json`，防止只验证 npm 包而漏掉 native 文件。
 这些哈希证明来源与内容一致，**不表示原生子组件的许可、对应源码及版本审查已经完成**。
+
+## Windows Canvas 的包级材料
+
+Windows 的全部 44 个 DLL 已与 34 个 MSYS2 官方二进制包逐文件 SHA-256 比较，全部一致。
+不能只按 Canvas 构建日期猜测包版本：例如实际 Expat 对应 `2.7.5-1`，
+同期仓库配方已是 `2.7.5-2`，后者的 DLL 哈希不匹配。
+每个对应源码包中的 `PKGBUILD` 哈希又与二进制 `.BUILDINFO` 的记录一致。
+已捕获 55 份原始许可文件；giflib 的二进制包没有携带该文件，改从已匹配源码包内
+`giflib-5.2.2.tar.gz` 的 `COPYING` 取得，保留原始字节及来源路径。
+
+完整映射在 [`src/license/canvas/windows/manifest.json`](../src/license/canvas/windows/manifest.json)，
+范围说明在 [`src/license/canvas/README.md`](../src/license/canvas/README.md)。
+Windows 构建将这 34 个源码包（合计 282,568,654 字节）下载、校验并放入
+`sources/canvas/windows`，55 份文本与清单位于 `licenses/canvas/windows`。
+干净 ZIP 验收重新核对当前仓库定义、实际 DLL、源码包和许可文件，不能只比较包内自报清单。
+本地真实文件验证通过；云端打包结果需以包含这项材料收录的后续提交为准。
+
+这完成了这 44 个 DLL 的包级来源和材料对应，**仍不表示所有内嵌依赖已经审查完成**。
+例如 librsvg 2.62.0 源码包没有 vendor Cargo 依赖，需要继续补核相应声明及源码覆盖。
+Linux、Canvas 自身构建配方、Deno/yt-dlp 及其他 native/WASM 子组件的工作仍在进行。
+
+原生模块实际导出的版本也已核对：Windows 的 Cairo/FreeType/librsvg/Pango 分别为
+1.18.4 / 2.14.3 / 2.62.0 / 1.56.4，Linux 分别为 1.16.0 / 2.10.4 / 2.52.8 / 1.48.0。
+这些 Linux 版本与上游独立构建分支的旧 Docker 配方相符；固定 Canvas 3.2.3
+不能证明其所有底层库均为最新稳定版，后续升级评估必须独立处理。
+本地证据：`tools/canvas-native-audit/msys-packages/inventory.json`、
+`sources/inventory.json`（相对于同一目录）及 `tools/canvas-materials-real.log`。
