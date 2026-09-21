@@ -144,9 +144,10 @@ public class AloneInVoiceHandler
 
     private boolean isAlone(Guild guild)
     {
-        if(guild.getAudioManager().getConnectedChannel() == null)
+        var channel = guild.getAudioManager().getConnectedChannel();
+        if(channel == null)
             return false;
-        return guild.getAudioManager().getConnectedChannel().getMembers().stream()
+        return channel.getMembers().stream()
                 .noneMatch(member -> !member.getUser().isBot());
     }
 }
