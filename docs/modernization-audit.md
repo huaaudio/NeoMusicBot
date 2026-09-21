@@ -72,6 +72,7 @@
 | AUD-025 / P2 | 旧 `--self-test` 只检查 DAVE 加载与 Lavaplayer 解码 | JNA/opus-java 绑定及 JDA 使用的 Tink 接口不在发行包自检覆盖内 | 新增实际 Opus 编解码、JDA 两种 RTP 加密往返及篡改拒绝；完整 ZIP 验证器要求新检查字段；Commons Logging 真实桥接入口亦受日志关闭测试覆盖 |
 | AUD-026 / P1 | `/skip` 等待播放线程后重读请求者频道，并分别读取投票人数与票数；用户此时切换频道或离开 | 在其他频道按更低门槛跳过歌曲、离开后仍可直接跳过、空指针或计票不一致 | 在播放线程内获取 Bot 频道的一份合格听众快照，重新核实投票资格，原子记录投票与执行跳过；普通命令和搜索控件也改为一次捕获频道并判空；6 个行为用例中 5 个修复前失败、修复后全部通过 |
 | AUD-027 / P1 | `Make Release` 只核对工作流名称及 conclusion，版本输入与产物不关联，创建 `prerelease: false` 的草稿 | 可混入其他提交或错误版本的包，不满足测试版发布目标 | 新增来源、默认分支、触发类型、完整 SHA、POM/JAR/SBOM、平台报告与媒体报告关联检查；创建测试版草稿、下载核对全部资产后公开且不设 Latest；12 个 Python 测试及 actionlint 通过，真实发布链路待执行 |
+| AUD-028 / P1 | `Playlist.loadTracks()`：消费者抛出异常，或 Lavaplayer 有序执行器首次提交被拒绝 | 完成回调丢失、后续条目不再加载；重复结果回调还会重复入队 | 逐项提交并串行处理结果，每项只接受一次回调，异常后继续下一项；独立处理嵌套歌单每首歌曲，返回不可变结果快照；4 个故障回归修复前失败、修复后通过，并验证 10,000 项同步失败不递归溢出及指定分 P/顺序保持 |
 
 ## 阶段验证证据
 
@@ -103,6 +104,9 @@
 - 发布校验新增 6 个测试方法，覆盖来源提交/仓库/分支/工作流、测试版版本、包内外 SBOM、工具和报告篡改、在线门禁、资产下载完整性及 Release 状态；连同既有验证器共 12 个 Python 测试通过。actionlint 1.7.12 验证两份工作流，Bash 语法检查通过。平台产物关联检查已加入正常构建，待云端实物回归；尚未创建任何测试版标签或 Release。流程见 [发布说明](prerelease-process.md)。
 - `ba2fd8f` [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35568207876) 四个 Java 构建均被旧的 `ReleaseLauncherPolicyTest` 字符串断言拦住：它仍只在 YAML 中寻找已迁入 Python 的内联媒体校验。已改为检查工作流实际调用验证器、创建标签及公开发布的顺序，并保留严格媒体失败行为测试；该 Java 类的 4 项本地测试通过（`tools/release-policy-after.log`），云端待回归。
 
+- `c8c97c1` [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35568452617) 的 Windows/Linux 构建、完整发行包和 Java 27 检查全部通过；两个平台均用实际 ZIP 通过新增的发布产物关联校验。锁定在线探测仍为 YouTube 两模式 authentication-required、Bilibili access-denied；没有创建测试版。
+- 歌单异步加载回归连同串行执行器、播放会话与队列专项共 27 项通过；完整 Windows `verify` 共 167 项，166 通过、1 个 POSIX 测试按平台跳过。有效故障基线为 `tools/playlist-callback-before-controlled.log`，修复后为 `tools/playlist-callback-after.log`、`tools/playlist-callback-full.log`。拒绝提交用例在真实 Lavaplayer 管理器关闭后显式设置 `AbortPolicy`，准确触发拒绝分支；不声称正常 `shutdown()` 一定产生拒绝，其默认队列策略可能仍接受无工作线程的任务。
+
 ## 全模块检查覆盖
 
 - 歌单修复阶段（`7bbdba3`）完整 Windows `verify` 共 154 个测试，153 通过、1 个 POSIX 测试跳过；日志 `tools/playlist-full.log`。
@@ -118,6 +122,6 @@
 - 语音连接、DAVE、重连、退出、播放器资源释放：已检查初始化/退出资源管理并修复 AUD-017/019；`b877a29` 新版 JNA/Opus 与 RTP 加密自检在本地及云端两平台通过；语音重连状态机复核及真实 Discord 验收仍待完成。
 - 播放队列、公平排序、并发、暂停/重复/停止、状态恢复：已有基线修复，需升级后复核。
 - Bilibili 分 P、短链接、媒体 URL、Cookie 与子进程：已有基线测试，需新版工具集成验证。
-- YouTube、SoundCloud、Discord 附件、播放列表：新版工具/依赖下，本地匿名 YouTube 与 SoundCloud 短时解码通过；歌单存储及 owner 修改已检查并修复 AUD-020/021/022；其余源与歌单异步加载异常仍待复核。
+- YouTube、SoundCloud、Discord 附件、播放列表：新版工具/依赖下，本地匿名 YouTube 与 SoundCloud 短时解码通过；歌单存储及 owner 修改已检查并修复 AUD-020/021/022，异步加载审查修复 AUD-028；其余源仍待复核。
 - 配置与服务器设置持久化、备份和故障处理：已检查并修复 AUD-004/007/008/009，专项测试通过；最终平台 CI 待复核。
 - CI、SBOM、许可证、哈希、打包、发布门禁：进行中。

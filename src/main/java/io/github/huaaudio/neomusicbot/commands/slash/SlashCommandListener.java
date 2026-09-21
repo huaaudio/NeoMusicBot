@@ -808,7 +808,7 @@ public final class SlashCommandListener extends ListenerAdapter
                             ? warn("No tracks were loaded from `" + markdown(name) + "`.")
                             : ok("Loaded `" + count + "` tracks from **" + markdown(name) + "**.");
                     if (!value.getErrors().isEmpty())
-                        message += " `" + value.getErrors().size() + "` entries failed.";
+                        message += " `" + value.getErrors().size() + "` loading errors.";
                     edit(event, message);
                 });
             }

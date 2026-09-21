@@ -20,6 +20,7 @@ package io.github.huaaudio.neomusicbot.playlist;
 
 import io.github.huaaudio.neomusicbot.BotConfig;
 import io.github.huaaudio.neomusicbot.audio.RequestMetadata;
+import io.github.huaaudio.neomusicbot.audio.SerialExecutor;
 import io.github.huaaudio.neomusicbot.utils.OtherUtil;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
@@ -39,6 +40,7 @@ import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.PosixFileAttributeView;
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.concurrent.atomic.AtomicBoolean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -217,134 +219,152 @@ public class PlaylistLoader
     
     private static <T> void shuffle(List<T> list)
     {
-        for(int first =0; first<list.size(); first++)
-        {
-            int second = (int)(Math.random()*list.size());
-            T tmp = list.get(first);
-            list.set(first, list.get(second));
-            list.set(second, tmp);
-        }
+        Collections.shuffle(list);
     }
-    
-    
+
+
     public class Playlist
     {
         private final String name;
         private final List<String> items;
         private final boolean shuffle;
-        private final List<AudioTrack> tracks = new LinkedList<>();
-        private final List<PlaylistLoadError> errors = new LinkedList<>();
-        private boolean loaded = false;
+        private final List<AudioTrack> tracks = Collections.synchronizedList(new ArrayList<>());
+        private final List<PlaylistLoadError> errors = Collections.synchronizedList(new ArrayList<>());
+        private final AtomicBoolean loaded = new AtomicBoolean();
         
         private Playlist(String name, List<String> items, boolean shuffle)
         {
             this.name = name;
-            this.items = items;
+            this.items = List.copyOf(items);
             this.shuffle = shuffle;
         }
         
+        /** Start this snapshot once, delivering tracks in playlist order. */
         public void loadTracks(AudioPlayerManager manager, Consumer<AudioTrack> consumer, Runnable callback)
         {
-            if(loaded)
-                return;
-            loaded = true;
-            if(items.isEmpty())
+            Objects.requireNonNull(manager, "manager");
+            Objects.requireNonNull(consumer, "consumer");
+            if(loaded.compareAndSet(false, true))
+                new LoadSequence(manager, consumer, callback).start();
+        }
+
+        private final class LoadSequence
+        {
+            private final AudioPlayerManager manager;
+            private final Consumer<AudioTrack> consumer;
+            private final Runnable callback;
+            // A direct executor trampolines synchronous rejection/no-match callbacks
+            // without recursive stack growth or another worker thread.
+            private final SerialExecutor sequence = new SerialExecutor(Runnable::run);
+            private int nextIndex;
+
+            private LoadSequence(AudioPlayerManager manager, Consumer<AudioTrack> consumer, Runnable callback)
             {
-                if(callback != null)
-                    callback.run();
-                return;
+                this.manager = manager;
+                this.consumer = consumer;
+                this.callback = callback;
             }
-            for(int i=0; i<items.size(); i++)
+
+            private void start() { sequence.execute(this::loadNext); }
+
+            private void loadNext()
             {
-                boolean last = i+1 == items.size();
-                int index = i;
-                manager.loadItemOrdered(name, items.get(i), new AudioLoadResultHandler() 
+                if(nextIndex == items.size())
                 {
-                    private void done()
+                    if(shuffle) shuffleTracks();
+                    if(callback != null) callback.run();
+                    return;
+                }
+                int index = nextIndex++;
+                AudioLoadResultHandler handler = new AudioLoadResultHandler()
+                {
+                    private final AtomicBoolean delivered = new AtomicBoolean();
+
+                    private void deliver(Runnable result)
                     {
-                        if(last)
-                        {
-                            if(shuffle)
-                                shuffleTracks();
-                            if(callback != null)
-                                callback.run();
-                        }
+                        if(!delivered.compareAndSet(false, true)) return;
+                        sequence.execute(() -> {
+                            try { result.run(); }
+                            catch(RuntimeException failure) { failed(index, "Could not process the load result"); }
+                            finally { sequence.execute(LoadSequence.this::loadNext); }
+                        });
                     }
 
-                    private void acceptTrack(AudioTrack at)
+                    @Override public void trackLoaded(AudioTrack track)
                     {
-                        if(config.isTooLong(at))
-                            errors.add(new PlaylistLoadError(index, items.get(index), "This track is longer than the allowed maximum"));
-                        else
-                        {
-                            at.setUserData(RequestMetadata.EMPTY);
-                            tracks.add(at);
-                            consumer.accept(at);
-                        }
+                        deliver(() -> acceptTrack(index, track));
                     }
 
-                    @Override
-                    public void trackLoaded(AudioTrack at)
+                    @Override public void playlistLoaded(AudioPlaylist playlist)
                     {
-                        acceptTrack(at);
-                        done();
+                        deliver(() -> {
+                            if(playlist.getTracks().isEmpty())
+                                failed(index, "No matches found.");
+                            else if(playlist.isSearchResult())
+                                acceptTrack(index, playlist.getTracks().get(0));
+                            else if(playlist.getSelectedTrack() != null)
+                                acceptTrack(index, playlist.getSelectedTrack());
+                            else
+                            {
+                                List<AudioTrack> nested = new ArrayList<>(playlist.getTracks());
+                                if(shuffle) shuffle(nested);
+                                nested.forEach(track -> acceptTrack(index, track));
+                            }
+                        });
                     }
 
-                    @Override
-                    public void playlistLoaded(AudioPlaylist ap) 
+                    @Override public void noMatches()
                     {
-                        if(ap.getTracks().isEmpty())
-                        {
-                            noMatches();
-                            return;
-                        }
-                        if(ap.isSearchResult())
-                        {
-                            acceptTrack(ap.getTracks().get(0));
-                        }
-                        else if(ap.getSelectedTrack()!=null)
-                        {
-                            acceptTrack(ap.getSelectedTrack());
-                        }
-                        else
-                        {
-                            List<AudioTrack> loaded = new ArrayList<>(ap.getTracks());
-                            if(shuffle)
-                                for(int first =0; first<loaded.size(); first++)
-                                {
-                                    int second = (int)(Math.random()*loaded.size());
-                                    AudioTrack tmp = loaded.get(first);
-                                    loaded.set(first, loaded.get(second));
-                                    loaded.set(second, tmp);
-                                }
-                            loaded.removeIf(track -> config.isTooLong(track));
-                            loaded.forEach(at -> at.setUserData(RequestMetadata.EMPTY));
-                            tracks.addAll(loaded);
-                            loaded.forEach(at -> consumer.accept(at));
-                        }
-                        done();
+                        deliver(() -> failed(index, "No matches found."));
                     }
 
-                    @Override
-                    public void noMatches() 
+                    @Override public void loadFailed(FriendlyException failure)
                     {
-                        errors.add(new PlaylistLoadError(index, items.get(index), "No matches found."));
-                        done();
+                        // Extractor errors may contain credentials or signed media URLs.
+                        deliver(() -> failed(index, "Failed to load track (" + failure.severity + ")."));
                     }
+                };
+                try
+                {
+                    // Submit one item at a time. Lavaplayer's ordered executor can
+                    // retain an unserviced key after its initial submission is rejected.
+                    manager.loadItem(items.get(index), handler);
+                }
+                catch(RuntimeException failure)
+                {
+                    handler.loadFailed(new FriendlyException("Could not submit playlist item",
+                            FriendlyException.Severity.SUSPICIOUS, failure));
+                }
+            }
 
-                    @Override
-                    public void loadFailed(FriendlyException fe) 
+            private void acceptTrack(int index, AudioTrack track)
+            {
+                try
+                {
+                    if(config.isTooLong(track))
+                        failed(index, "This track is longer than the allowed maximum");
+                    else
                     {
-                        errors.add(new PlaylistLoadError(index, items.get(index), "Failed to load track: "+fe.getLocalizedMessage()));
-                        done();
+                        track.setUserData(RequestMetadata.EMPTY);
+                        consumer.accept(track);
+                        tracks.add(track);
                     }
-                });
+                }
+                catch(RuntimeException failure)
+                {
+                    failed(index, "Could not queue the loaded track");
+                }
+            }
+
+            private void failed(int index, String reason)
+            {
+                errors.add(new PlaylistLoadError(index, items.get(index), reason));
             }
         }
-        
+
         public void shuffleTracks()
         {
-            shuffle(tracks);
+            synchronized(tracks) { shuffle(tracks); }
         }
         
         public String getName()
@@ -359,12 +379,12 @@ public class PlaylistLoader
 
         public List<AudioTrack> getTracks()
         {
-            return tracks;
+            synchronized(tracks) { return List.copyOf(tracks); }
         }
         
         public List<PlaylistLoadError> getErrors()
         {
-            return errors;
+            synchronized(errors) { return List.copyOf(errors); }
         }
     }
     

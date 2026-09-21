@@ -17,7 +17,7 @@ import java.util.concurrent.RejectedExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** FIFO execution for one guild on a shared backing executor. */
+/** FIFO execution on a backing executor, including a direct executor. */
 public final class SerialExecutor implements Executor
 {
     private static final Logger LOG = LoggerFactory.getLogger(SerialExecutor.class);
@@ -86,7 +86,7 @@ public final class SerialExecutor implements Executor
                 }
                 catch(RuntimeException | Error ex)
                 {
-                    LOG.error("Guild playback task failed ({}): {}", ex.getClass().getSimpleName(),
+                    LOG.error("Serialized task failed ({}): {}", ex.getClass().getSimpleName(),
                             SensitiveLogSanitizer.sanitize(ex.getMessage()));
                 }
             }
