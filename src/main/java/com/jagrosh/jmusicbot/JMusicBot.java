@@ -64,7 +64,8 @@ public final class JMusicBot
     {
         if (args.length > 0 && "generate-config".equalsIgnoreCase(args[0]))
         {
-            BotConfig.writeDefaultConfig();
+            if(!BotConfig.writeDefaultConfig())
+                System.exit(1);
             return;
         }
         startBot();

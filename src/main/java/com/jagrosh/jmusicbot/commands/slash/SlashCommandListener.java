@@ -966,12 +966,12 @@ public final class SlashCommandListener extends ListenerAdapter
                 VoiceChannel voice = settings.getVoiceChannel(event.getGuild());
                 Role role = settings.getRole(event.getGuild());
                 double ratio = settings.getSkipRatio() == -1 ? bot.getConfig().getSkipRatio() : settings.getSkipRatio();
-                event.reply("**MusicBot settings for " + markdown(event.getGuild().getName()) + "**\n"
+                event.reply("**NeoMusicBot settings for " + markdown(event.getGuild().getName()) + "**\n"
                         + "Queue: `" + settings.getQueueType().getUserFriendlyName() + "`\n"
                         + "DJ role: " + (role == null ? "admins only" : role.getAsMention()) + "\n"
                         + "Skip ratio: `" + Math.round(ratio * 100) + "%`\n"
-                        + "Text channel: " + (text == null ? "any" : text.getAsMention()) + "\n"
-                        + "Voice channel: " + (voice == null ? "any" : voice.getAsMention()) + "\n"
+                        + "Text channel: " + (text == null ? (settings.hasTextChannelRestriction() ? "configured channel unavailable" : "any") : text.getAsMention()) + "\n"
+                        + "Voice channel: " + (voice == null ? (settings.hasVoiceChannelRestriction() ? "configured channel unavailable" : "any") : voice.getAsMention()) + "\n"
                         + "Volume: `" + settings.getVolume() + "`\n"
                         + "Repeat: `" + settings.getRepeatMode().getUserFriendlyName() + "`")
                         .setEphemeral(true).queue();
@@ -1610,10 +1610,9 @@ public final class SlashCommandListener extends ListenerAdapter
             return null;
         }
         Settings settings = bot.getSettingsManager().getSettings(event.getGuild());
-        TextChannel configuredText = settings.getTextChannel(event.getGuild());
-        if (configuredText != null && event.getChannelIdLong() != configuredText.getIdLong())
+        if (!settings.allowsTextChannel(event.getChannelIdLong()))
         {
-            error(event, "Music commands are restricted to " + configuredText.getAsMention() + '.');
+            error(event, "Music commands are restricted to the configured text channel. Ask an admin to update /config if it is unavailable.");
             return null;
         }
 
@@ -1650,10 +1649,9 @@ public final class SlashCommandListener extends ListenerAdapter
             return false;
         }
 
-        VoiceChannel configured = settings.getVoiceChannel(event.getGuild());
-        if (configured != null && configured.getIdLong() != userChannel.getIdLong())
+        if (!settings.allowsVoiceChannel(userChannel.getIdLong()))
         {
-            error(event, "You must be listening in " + configured.getAsMention() + '.');
+            error(event, "Join the configured voice channel. Ask an admin to update /config if it is unavailable.");
             return false;
         }
 
@@ -1705,10 +1703,9 @@ public final class SlashCommandListener extends ListenerAdapter
             return null;
         }
         Settings settings = bot.getSettingsManager().getSettings(event.getGuild());
-        TextChannel configuredText = settings.getTextChannel(event.getGuild());
-        if (configuredText != null && event.getChannelIdLong() != configuredText.getIdLong())
+        if (!settings.allowsTextChannel(event.getChannelIdLong()))
         {
-            componentError(event, "Music controls are restricted to " + configuredText.getAsMention() + '.');
+            componentError(event, "Music controls are restricted to the configured text channel. Ask an admin to update /config if it is unavailable.");
             return null;
         }
         AudioHandler handler = bot.getPlayerManager().setUpHandler(event.getGuild());
@@ -1739,10 +1736,9 @@ public final class SlashCommandListener extends ListenerAdapter
             return false;
         }
 
-        VoiceChannel configured = settings.getVoiceChannel(event.getGuild());
-        if (configured != null && configured.getIdLong() != userChannel.getIdLong())
+        if (!settings.allowsVoiceChannel(userChannel.getIdLong()))
         {
-            componentError(event, "You must be listening in " + configured.getAsMention() + '.');
+            componentError(event, "Join the configured voice channel. Ask an admin to update /config if it is unavailable.");
             return false;
         }
 

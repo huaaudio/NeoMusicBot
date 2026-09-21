@@ -87,6 +87,7 @@ public class SettingsManager implements AutoCloseable
 
     private void load()
     {
+        boolean primaryMissing = false;
         try
         {
             loadFrom(path);
@@ -96,11 +97,12 @@ public class SettingsManager implements AutoCloseable
         }
         catch(NoSuchFileException ex)
         {
+            primaryMissing = true;
             LOG.info("serversettings.json will be created in {}", path);
         }
-        catch(IOException | JSONException | NumberFormatException ex)
+        catch(IOException | JSONException | IllegalArgumentException ex)
         {
-            LOG.warn("Primary server settings are unreadable; trying the backup", ex);
+            LOG.warn("Primary server settings are unreadable ({}); trying the backup", ex.getClass().getSimpleName());
         }
 
         try
@@ -113,11 +115,14 @@ public class SettingsManager implements AutoCloseable
         }
         catch(NoSuchFileException ex)
         {
-            // A new installation has no backup yet.
+            if(!primaryMissing)
+                throw new IllegalStateException("Server settings are invalid and no backup is available. "
+                        + "The original file was preserved; repair it before restarting.");
         }
-        catch(IOException | JSONException | NumberFormatException ex)
+        catch(IOException | JSONException | IllegalArgumentException ex)
         {
-            LOG.warn("The server settings backup is also unreadable", ex);
+            throw new IllegalStateException("Server settings could not be recovered ("
+                    + ex.getClass().getSimpleName() + "). Existing files were preserved; repair them before restarting.");
         }
 
         settings.clear();
@@ -127,7 +132,8 @@ public class SettingsManager implements AutoCloseable
         }
         catch(IOException ex)
         {
-            LOG.warn("Failed to create the initial server settings file", ex);
+            throw new IllegalStateException("Cannot create the initial server settings file ("
+                    + ex.getClass().getSimpleName() + "). Check the data directory permissions.");
         }
     }
 
@@ -198,6 +204,7 @@ public class SettingsManager implements AutoCloseable
 
     private void drainWrites()
     {
+        boolean writeFailed = false;
         try
         {
             do
@@ -210,6 +217,9 @@ public class SettingsManager implements AutoCloseable
                 catch(IOException ex)
                 {
                     LOG.warn("Failed to write server settings", ex);
+                    dirty.set(true);
+                    writeFailed = true;
+                    break;
                 }
             }
             while(dirty.get());
@@ -227,7 +237,7 @@ public class SettingsManager implements AutoCloseable
             synchronized(lifecycleLock)
             {
                 writeQueued.set(false);
-                if(dirty.get() && !closed.get())
+                if(dirty.get() && !closed.get() && !writeFailed)
                     enqueueWriterLocked();
             }
         }
@@ -344,9 +354,11 @@ public class SettingsManager implements AutoCloseable
         synchronized(lifecycleLock)
         {
             if(closed.get())
-                return true;
+                return !dirty.get() && writer.isTerminated();
             if(Thread.currentThread() == writerThread)
                 return !dirty.get() && !writeQueued.get();
+            if(dirty.get())
+                enqueueWriterLocked();
             barrier = writer.submit(() -> { });
         }
         try

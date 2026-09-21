@@ -67,20 +67,31 @@ public class Settings
     {
         if (id == null)
             return 0;
-        try
-        {
-            return Long.parseLong(id);
-        }
-        catch (NumberFormatException ignored)
-        {
-            return 0;
-        }
+        long parsed = Long.parseLong(id);
+        if(parsed < 0)
+            throw new IllegalArgumentException("A configured Discord ID cannot be negative");
+        return parsed;
     }
 
     public TextChannel getTextChannel(Guild guild)
     {
         return guild == null || textId == 0 ? null : guild.getTextChannelById(textId);
     }
+
+    public boolean allowsTextChannel(long channelId)
+    {
+        long required = textId;
+        return required == 0 || required == channelId;
+    }
+
+    public boolean allowsVoiceChannel(long channelId)
+    {
+        long required = voiceId;
+        return required == 0 || required == channelId;
+    }
+
+    public boolean hasTextChannelRestriction() { return textId != 0; }
+    public boolean hasVoiceChannelRestriction() { return voiceId != 0; }
 
     public VoiceChannel getVoiceChannel(Guild guild)
     {

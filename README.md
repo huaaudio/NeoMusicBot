@@ -8,7 +8,7 @@ Project home: [huaaudio/NeoMusicBot](https://github.com/huaaudio/NeoMusicBot).
 
 这是 Huaaudio 维护的 Discord 音乐机器人，重点支持 Bilibili 视频与分 P 播放，
 并支持 YouTube、SoundCloud 和 Discord 音频附件。源自 JMusicBot，保留原作者署名与开源许可证。
-本仓库仍在开发中，当前功能、验证结果及待办见[检查报告](docs/review-2026-09-21.md)。
+本仓库仍在开发中，当前验证结果及待办见[现代化审查记录](docs/modernization-audit.md)。
 
 NeoMusicBot is a self-hosted Discord music bot. This branch targets Discord's current
 voice stack: JDA 6 provides Voice Gateway and RTP transport support, while JDAVE
@@ -67,8 +67,13 @@ Use `/queue`, `/now-playing`, `/seek`, and `/skip` for playback, and `/dj` for
 pause, resume, repeat, volume, and stop controls. Old prefix commands are no longer
 registered. For a first installation, run the launcher with `generate-config`,
 set `owner` in the generated configuration, and configure one Discord token source
-before starting the bot. Generate the template before editing it: `generate-config`
-overwrites its destination.
+before starting the bot. `generate-config` refuses to overwrite an existing file;
+choose another configuration path to generate a fresh template.
+
+If `serversettings.json` is damaged, NeoMusicBot tries its `.bak` backup. If neither
+can be read, startup stops and preserves the files for repair. It does not reset
+channel restrictions to defaults. A deleted or inaccessible configured channel
+also remains restricted until an administrator changes or clears it with `/config`.
 
 See [the 2026-09-21 review](docs/review-2026-09-21.md) for the current implementation
 status, fixes, verification, and remaining release work.

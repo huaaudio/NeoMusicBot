@@ -9,8 +9,8 @@
 | --- | --- |
 | 仓库独立化 | GitHub `huaaudio/NeoMusicBot` 已为 `fork: false`；保留上游历史和许可证 |
 | 基线跨平台构建 | 提交 `a16fe2e` 的 [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35560633442) 中 Windows/Linux 编译、122 个测试、JDAVE 加载和发行包组装成功；在线 YouTube 探测失败，因此整个工作流未通过 |
-| 新依赖 | 版本及哈希已更新；Windows 本地 122 测试：121 通过、0 失败、1 POSIX 测试按平台跳过；待完整打包与最终提交 CI 验证 |
-| Java 27 | 新增 Windows/Linux 兼容矩阵，待运行；发行字节码与构建基线仍为 Java 25 LTS |
+| 新依赖 | 提交 `48e8d50` 的 [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35561728333) 中 Windows/Linux 构建、测试、JDAVE 加载、发行包组装均通过；锁定媒体探测仍失败，不能发布 |
+| Java 27 | `48e8d50` 的 Windows/Linux 兼容矩阵均通过；发行字节码与构建基线仍为 Java 25 LTS |
 | 全模块审查 | 进行中，见问题表；未完成项不能按已通过处理 |
 | 干净发行包 | 待验证解压后的启动、配置生成、原生加载与真实媒体解码 |
 | Discord 实际语音 | 此轮尚无测试服务器/凭据，未验证真实 DAVE 握手、频道可听性或长期运行；用户曾实测旧版本，不等同本轮升级验收 |
@@ -30,7 +30,7 @@
 | Deno | 2.9.3 → 2.9.7 | [Release](https://github.com/denoland/deno/releases/tag/v2.9.7)；两个平台 ZIP 校验、离线依赖缓存仍需干净解压验证 |
 | bgutil provider | 1.3.1 → 2.0.0 | [Release](https://github.com/Brainicism/bgutil-ytdlp-pot-provider/releases/tag/2.0.0)；含服务端安全修复，本项目使用脚本模式；固定 tag commit 和插件 SHA-256 |
 | Jackson | 2.22.0 → 3.2.2 | [迁移说明](https://github.com/FasterXML/jackson/wiki/Jackson-Release-3.0)；包名改为 `tools.jackson`，`JsonNode.fields()` 改为 `properties().iterator()` |
-| Rhino | 1.7.15 → 1.9.1 | [Releases](https://github.com/mozilla/rhino/releases)；需检查最终依赖树，避免旧核心与新 engine 混装 |
+| Rhino | 1.7.15 → 1.9.1 | [Releases](https://github.com/mozilla/rhino/releases)；实际依赖树确认 engine 与核心均为 1.9.1 |
 | Logback / Config / org.json | → 1.6.3 / 1.4.9 / 20260814 | [Maven Central](https://repo.maven.apache.org/maven2/) 稳定元数据；由编译和功能测试验证 |
 | JUnit | 5.13.4 + Vintage → Jupiter 6.1.3 | [JUnit](https://junit.org/)；所有 JUnit 4 测试迁移，移除 Vintage；必须核对用例数和跳过原因 |
 | Maven / Wrapper | 3.9.16 / 3.3.4 保留 | [Maven 下载](https://maven.apache.org/download.cgi)；Maven 4 仍为候选版，不作为测试版发行构建基础 |
@@ -42,12 +42,24 @@
 
 | ID / 严重度 | 位置与触发条件 | 影响 | 处理与验证状态 |
 | --- | --- | --- | --- |
-| AUD-001 / P1 | `scripts/ci/media_canary.sh`：任一音源失败即退出且丢弃所有错误信息 | 无法区分工具参数、限流、认证或解析错误；其他音源未检查 | 逐个检查所有音源，固定类别脱敏报告，失败仍阻止发布；新增诊断测试，待云端运行 |
+| AUD-001 / P1 | `scripts/ci/media_canary.sh`：任一音源失败即退出且丢弃所有错误信息 | 无法区分工具参数、限流、认证或解析错误；其他音源未检查 | 已修复；3 个诊断测试通过。`48e8d50` 云端报告 YouTube 两种模式均 authentication-required，Bilibili access-denied；媒体验收仍未通过 |
 | AUD-002 / P1 | `pom.xml` 与解析器：Jackson 3 移除旧 API、JUnit 6 不再自动执行 JUnit 4 | 编译失败或测试覆盖丢失 | 迁移 JSON API 与所有旧测试 imports/assumptions；Windows 122 测试数量保持一致，121 通过、1 POSIX 测试按平台跳过 |
-| AUD-003 / 待核实 | 频道配置与 JDA 6.7：配置频道被删除或不可见 | 可能绕过频道限制；需检查 fail-closed 行为 | 待审查及行为回归 |
-| AUD-004 / P1 | `BotConfig.writeDefaultConfig()`：对已有配置执行生成 | 可能覆盖 Token 和用户配置 | 待修复为默认拒绝覆盖并补测试 |
+| AUD-003 / P1 | `SlashCommandListener` 的 Slash 与选择控件入口：配置频道被删除或不可见时缓存返回 null | 频道限制被跳过 | 按持久化 ID 判断，管理员界面显示不可用而非 any；`SettingsChannelRestrictionTest` 验证缓存缺失与显式清除两种情况 |
+| AUD-004 / P1 | `BotConfig.writeDefaultConfig()`：对已有配置执行生成 | 覆盖 Token 和用户配置 | `CREATE_NEW` 拒绝覆盖，CLI 返回失败；回归测试先复现再通过 |
 | AUD-005 / 待核实 | 发行包：依赖许可证下载告警、缓存路径与旧原生文件 | 材料不完整或依赖开发/构建环境 | 待补齐来源和干净目录验收 |
 | AUD-006 / P2 | 内部包名、环境变量、旧 bot-listing 自动消息 | 独立项目仍有继承行为或旧名称 | 待迁移和兼容说明，保留合法来源署名 |
+| AUD-007 / P1 | `BotConfig.writeToFile()`：交互补填 owner 或 token | 重写默认模板导致已有配置与注释丢失 | 使用 HOCON 文档更新指定键，保留其他值；临时文件刷盘后替换，POSIX 新文件权限 0600；回归先复现再通过 |
+| AUD-008 / P1 | `SettingsManager.load()`：主文件损坏且没有有效备份；或频道 ID 拼写错误 | 空设置覆盖原数据、错误 ID 静默变成无限制 | 无法恢复时拒绝启动并保留文件；拒绝错误 ID；两个故障回归先失败、修复后通过 |
+| AUD-009 / P1 | `SettingsManager.drainWrites()`：I/O 写入失败 | dirty 标记丢失，flush 返回成功且退出时不再保存 | 保留待保存状态，flush/后续更新/关闭时重试，不无休止循环；跨平台目录阻塞写入用例先失败、修复后通过 |
+
+## 阶段验证证据
+
+- `48e8d50` Windows 本地 `verify dependency:tree` 成功；122 测试，0 失败，1 个 POSIX 测试按平台跳过。日志 `target/modernize-verify.log` 与树 `target/modern-dependencies.txt` 为本地忽略文件。
+- Maven 图仍由 JDA 引入 Jackson 2.22.2，与应用的 Jackson 3 包名不同；不能排除 JDA 需要的 Jackson 2。
+- 许可证下载仍有 nanojson、youtube-source、base64 与 GNU 站点缺失/超时告警；此阶段构建成功不表示发行材料齐全。
+- 配置与设置专项测试共 14 个全部通过；配置覆盖的 2 个失败与设置恢复的 3 个失败已在修改前复现。
+- 此阶段完整 Windows 测试共 130 个，129 通过、0 失败、1 POSIX 测试按平台跳过；`target/review-settings-all.log`。
+- 云端媒体失败只记录固定分类，不输出签名 URL、Cookie 或原始提取器日志；未通过的音源不标记为验证成功。
 
 ## 全模块检查覆盖
 

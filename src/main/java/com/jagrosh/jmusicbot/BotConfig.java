@@ -26,11 +26,21 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigException;
 import com.typesafe.config.ConfigFactory;
+import com.typesafe.config.ConfigValueFactory;
+import com.typesafe.config.parser.ConfigDocumentFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.AtomicMoveNotSupportedException;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
+import java.nio.file.attribute.PosixFileAttributeView;
+import java.nio.file.attribute.PosixFilePermissions;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 
@@ -73,6 +83,7 @@ public class BotConfig
     public void load()
     {
         valid = false;
+        tokenFromEnvironment = false;
         path = getConfigPath();
         try
         {
@@ -140,7 +151,9 @@ public class BotConfig
         catch(ConfigException | IOException | IllegalArgumentException ex)
         {
             prompt.alert(Prompt.Level.ERROR, CONTEXT,
-                    ex.getMessage() + "\n\nConfig Location: " + path.toAbsolutePath());
+                    "Could not load configuration (" + ex.getClass().getSimpleName()
+                            + "). Check HOCON syntax, required values, token sources and file access."
+                            + "\n\nConfig Location: " + path.toAbsolutePath());
         }
     }
 
@@ -190,14 +203,39 @@ public class BotConfig
     private void writeToFile() throws IOException
     {
         String persistedToken = tokenFromEnvironment ? TOKEN_PLACEHOLDER : token;
-        byte[] bytes = loadDefaultConfig()
-                .replace(TOKEN_PLACEHOLDER, persistedToken)
-                .replace("0 // OWNER ID", Long.toString(owner))
-                .trim().getBytes(StandardCharsets.UTF_8);
+        String original = Files.exists(path) ? Files.readString(path, StandardCharsets.UTF_8)
+                : loadDefaultConfig();
+        String updated = ConfigDocumentFactory.parseString(original)
+                .withValue("token", ConfigValueFactory.fromAnyRef(persistedToken))
+                .withValue("owner", ConfigValueFactory.fromAnyRef(owner)).render();
+        byte[] bytes = updated.getBytes(StandardCharsets.UTF_8);
         Path parent = path.toAbsolutePath().getParent();
-        if(parent != null)
-            Files.createDirectories(parent);
-        Files.write(path, bytes);
+        Files.createDirectories(parent);
+        Path temporary = Files.getFileAttributeView(parent, PosixFileAttributeView.class) == null
+                ? Files.createTempFile(parent, ".neomusicbot-config-", ".tmp")
+                : Files.createTempFile(parent, ".neomusicbot-config-", ".tmp",
+                        PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rw-------")));
+        try
+        {
+            try(FileChannel channel = FileChannel.open(temporary, StandardOpenOption.WRITE))
+            {
+                ByteBuffer buffer = ByteBuffer.wrap(bytes);
+                while(buffer.hasRemaining()) channel.write(buffer);
+                channel.force(true);
+            }
+            try
+            {
+                Files.move(temporary, path, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+            }
+            catch(AtomicMoveNotSupportedException ex)
+            {
+                Files.move(temporary, path, StandardCopyOption.REPLACE_EXISTING);
+            }
+        }
+        finally
+        {
+            Files.deleteIfExists(temporary);
+        }
     }
 
     static String loadDefaultConfig()
@@ -229,7 +267,7 @@ public class BotConfig
         return OtherUtil.getPath(configured).toAbsolutePath().normalize();
     }
 
-    public static void writeDefaultConfig()
+    public static boolean writeDefaultConfig()
     {
         Prompt prompt = new Prompt(null, null, true, true);
         Path path = getConfigPath();
@@ -238,14 +276,24 @@ public class BotConfig
             Path parent = path.getParent();
             if(parent != null)
                 Files.createDirectories(parent);
-            Files.writeString(path, loadDefaultConfig(), StandardCharsets.UTF_8);
+            Files.writeString(path, loadDefaultConfig(), StandardCharsets.UTF_8,
+                    StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
             prompt.alert(Prompt.Level.INFO, "NeoMusicBot Config",
                     "Wrote the default config to " + path);
+            return true;
+        }
+        catch(FileAlreadyExistsException ex)
+        {
+            prompt.alert(Prompt.Level.ERROR, "NeoMusicBot Config",
+                    "Configuration already exists; nothing was changed. Choose another config path "
+                            + "to generate a new template: " + path);
+            return false;
         }
         catch(Exception ex)
         {
             prompt.alert(Prompt.Level.ERROR, "NeoMusicBot Config",
-                    "Could not write the default config: " + ex.getMessage());
+                    "Could not write the default config (" + ex.getClass().getSimpleName() + ").");
+            return false;
         }
     }
 
