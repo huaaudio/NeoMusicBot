@@ -4,6 +4,16 @@
 <licenseSummary>
   <dependencies>
     <dependency>
+      <groupId>org\.jsoup</groupId><artifactId>jsoup</artifactId><version>1\.23\.2</version>
+      <matchLicenses><license><name>The MIT License</name><url>https://jsoup\.org/license</url><distribution>repo</distribution></license></matchLicenses>
+      <licenses><license>
+        <name>The MIT License</name>
+        <url>https://raw.githubusercontent.com/jhy/jsoup/fbc7775c462f5b023d8db54c9a73d7ec17d53300/LICENSE</url>
+        <distribution>repo</distribution>
+        <comments>Original LICENSE from the commit of tag jsoup-1.23.2; replaces the mutable website page that timed out in CI. Copyright (c) 2009-2026 Jonathan Hedley.</comments>
+      </license></licenses>
+    </dependency>
+    <dependency>
       <groupId>com\.grack</groupId><artifactId>nanojson</artifactId><version>1\.10</version>
       <matchLicenses />
       <licenses><license>

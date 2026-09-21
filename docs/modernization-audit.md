@@ -81,9 +81,11 @@
 | AUD-034 / P1 | Slash 交互/注册/控件失败以及部分语音与启动监听异常直接将 Throwable 交给日志器 | 异常消息、cause 或 suppressed 链中的 Webhook 路径、Cookie 等内容可被原样打印 | 共用有限长度的脱敏异常摘要，保留操作上下文与异常类型，不附加原始异常链；实际响应编辑失败回调的 3 个泄露断言修复前均失败，修复后通过 |
 | AUD-035 / P2 | `NowplayingHandler.onTrackUpdate()`：开启 songinstatus 后遇到超过 128 个 Unicode 字符、空白或缺失的媒体标题 | JDA 拒绝活动名称并抛出异常，播放回调中断且状态保留旧歌名 | 仅截短展示用标题并保留 Unicode 字符完整性；缺失/空白标题恢复配置的活动；6 个真实 JDA 名称校验故障回归修复前失败，9 个专项用例修复后通过 |
 | AUD-036 / P1 | Canvas npm 安装脚本额外下载平台原生资产，npm integrity 不覆盖这些文件 | 锁文件相同仍无法保证发行包 native 内容相同，缺失/变更不被单独识别 | 两平台官方预编译压缩包及全部文件独立固定哈希；禁用 lifecycle 脚本，显式安装并在 ZIP 解压后按仓库定义核验；发布门禁要求 `provider.native=passed`。材料审查仍归 AUD-005 |
+| AUD-037 / P2 | jsoup 的 POM 许可 URL 指向可变官网页面；`751bea0` 的普通 push CI 在该页面读取超时 | Linux 的 230 个 Java 测试通过后，许可证收集失败导致构建退出 | 仅对 jsoup 1.23.2 的已核对元数据，改用 release tag 对应固定 commit 中的原始 LICENSE，保留作者署名和许可条款；继续严格拒绝下载失败，不忽略材料检查 |
 
 ## 阶段验证证据
 
+- AUD-037 本地完整 Windows 构建通过：230 个 Java 测试，0 失败、0 错误，1 个 POSIX 测试按平台跳过；44 个 Maven SBOM 组件均有保存的许可文件。jsoup 1.23.2 实际下载文本与固定上游 LICENSE 字节完全一致，SHA-256 为 `f5d724c5818010c61bff2e177f5b6452434bc054807522bf241940bca8b1d6b1`；证据 `tools/jsoup-license-verify.log`、`tools/jsoup-license-verification.json`，对应提交的云端验证另行记录。
 - `49034a1` 的[完整 CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35578968982) 已成功：Windows/Linux 构建、27 个 Python 检查、Java 27 两平台测试、固定 Canvas 安装、解压后离线实际绘图/PNG 编码，以及三项锁定媒体检查均通过。三个 artifact 下载后外层哈希/大小匹配 GitHub，两个发行包再次通过发布关联和原生定义核验，媒体报告三项通过且源提交一致；证据 `tools/ci-success-49034a1/verified-artifacts.json`、`tools/canvas-materials-real.log`。临时 runner 已退出并移除，GitHub 注册数为 0。
 - AUD-005 的 Windows Canvas 包级材料新增 34 份固定源码包及 55 份原始许可文件，覆盖全部 44 个实际 DLL，并将源码包配方与二进制 `.BUILDINFO` 哈希关联。提交 `be7c094` 的完整 CI [35611351107](https://github.com/huaaudio/NeoMusicBot/actions/runs/35611351107) 已通过，两平台与媒体 artifact 下载核验完成，Windows 实际 ZIP 中这些源码和许可材料逐项复核通过；证据 `tools/ci-success-be7c094/verified-materials.json`。
 - AUD-005 的 Windows librsvg Rust 材料新增两份锁文件并集的 363 个原始 crate 源码包、642 份原始声明及 10 份补充文本；构建配方修改由相同 Cargo 版本重建，明确区别于上游留存锁文件和实际链接组件清单。35 个 Python 检查通过，新增用例覆盖锁图缺项、父包错配、源码/文本篡改、不安全 tar 项和 ZIP 迁移；实际 363 个源码包及文件校验通过，日志 `tools/librsvg-material-tests.log`、`tools/librsvg-materials-real.log`。整份发行材料审查继续，详见[材料记录](distribution-licenses.md)。

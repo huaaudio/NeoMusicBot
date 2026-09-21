@@ -8,6 +8,7 @@ license files against every component of the generated runtime SBOM.
 
 | Component | Evidence used |
 | --- | --- |
+| jsoup 1.23.2 | [Original release LICENSE](https://github.com/jhy/jsoup/blob/fbc7775c462f5b023d8db54c9a73d7ec17d53300/LICENSE), including Jonathan Hedley's copyright. The annotated `jsoup-1.23.2` tag resolves to this fixed commit. Replaces the mutable website URL after a real Linux CI read timeout; download failures still fail the build. |
 | nanojson 1.10 | `com/grack/nanojson/JsonParser.java` in [the Maven Central sources JAR](https://repo.maven.apache.org/maven2/com/grack/nanojson/1.10/nanojson-1.10-sources.jar) contains its Apache 2.0 header and copyright. This is version-specific; do not infer the license from the current repository's README. |
 | youtube-source common/v2 1.18.2 | [The release tag's MIT license](https://github.com/lavalink-devs/youtube-source/blob/1.18.2/LICENSE), including the original copyright. |
 | base64 2.3.9 | [The published POM](https://repo.maven.apache.org/maven2/net/iharder/base64/2.3.9/base64-2.3.9.pom) contains the author's public-domain dedication and attribution. The saved document is the original POM, not an invented license. |
