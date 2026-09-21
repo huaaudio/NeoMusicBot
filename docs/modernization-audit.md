@@ -5,6 +5,10 @@
 
 ## 验收状态
 
+最近完整验收：`327a0c9` 的普通 push [35627843193](https://github.com/huaaudio/NeoMusicBot/actions/runs/35627843193)
+四个构建和三项媒体全部成功；两个实际发行包的来源、逐文件哈希、原生库及已收集的许可材料再次复核通过。
+以下早期提交记录用于保留故障和修复过程，不代表最新流水线仍有相同故障。
+
 | 项目 | 当前证据 / 待完成事项 |
 | --- | --- |
 | 仓库独立化 | GitHub `huaaudio/NeoMusicBot` 已为 `fork: false`；保留上游历史和许可证 |
@@ -84,6 +88,7 @@
 | AUD-037 / P2 | jsoup 的 POM 许可 URL 指向可变官网页面；`751bea0` 的普通 push CI 在该页面读取超时 | Linux 的 230 个 Java 测试通过后，许可证收集失败导致构建退出 | 仅对 jsoup 1.23.2 的已核对元数据，改用 release tag 对应固定 commit 中的原始 LICENSE，保留作者署名和许可条款；继续严格拒绝下载失败，不忽略材料检查 |
 | AUD-038 / P3 | `MediaTrackKey.serializedId()` 使用系统默认语言转换音源名称；土耳其语等环境将 ASCII I 转为无点的 ı | 同一 Bilibili 视频的 `AudioTrackInfo.identifier` 因系统语言不同而变化 | 改为 `Locale.ROOT`；现有真实 track 创建/序列化用例切换到 tr-TR 后先复现错误，修复后通过。二进制 track 序列化本来单独保存 canonicalId/分 P，本问题不据此宣称播放失败或持久化数据丢失 |
 | AUD-039 / P2 | 普通 push 的媒体任务总在 GitHub 托管网络运行；`d63bff5` 的托管检查被 YouTube/Bilibili 拒绝，同提交隔离网络三项通过 | 正常 push 持续失败，需重复触发完整工作流才能完成真实验收 | 增加默认分支按运行编号/尝试次数选择隔离 runner、本机自动领取控制器及单任务注册/注销；不跳过媒体任务、不容忍失败。`c651760` 的普通 push [35621240219](https://github.com/huaaudio/NeoMusicBot/actions/runs/35621240219) 四个构建及三项媒体全部通过；实际发行包已下载核验，runner 已注销。机器和控制器在线且代码一致时才能完成 |
+| AUD-040 / P2 | 隔离执行器只在注册前核对排队任务，实际 runner ID 在执行后确认；其他工作流可指定同一调度标签 | 标签不能保证领取的任务身份，执行后检查为时已晚；未发现实际误领事件 | 增加只读 job-start hook，在工作流步骤前核对八项 GitHub 身份字段；不符时暂停当前 Worker 并由外部启动器终止隔离环境，阻止后续 always 步骤。44 项 Python 检查、真实 bubblewrap 正反用例及实际 runner 无凭据预检通过；新 hook 的 GitHub 正常任务端到端回归待完成 |
 
 ## 阶段验证证据
 

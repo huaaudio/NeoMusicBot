@@ -3,7 +3,7 @@
 set -euo pipefail
 
 if [[ $# -gt 1 || ( $# -eq 1 && "$1" != --check && "$1" != --controlled ) ]]; then
-    echo 'Usage: isolated_media_runner.sh [--check|--controlled]; JIT configuration is read from stdin' >&2
+    echo 'Usage: isolated_media_runner.sh [--check|--controlled]; job policy JSON and JIT configuration are read as two stdin lines' >&2
     exit 2
 fi
 for command in bwrap curl sha256sum tar timeout git python3 jq unzip; do
@@ -13,6 +13,7 @@ test "$(uname -m)" = x86_64
 test "$(id -u)" -ne 0
 
 runner_root="$(mktemp -d /tmp/neomusicbot-runner.XXXXXXXX)"
+policy_root="$(mktemp -d /tmp/neomusicbot-policy.XXXXXXXX)"
 runner_child=
 stop_runner() {
     if [[ -n "${runner_child}" ]]; then
@@ -29,10 +30,20 @@ cleanup() {
         /tmp/neomusicbot-runner.*) rm -rf -- "${runner_root}" ;;
         *) echo 'Refusing unexpected runner cleanup path' >&2; return 1 ;;
     esac
+    case "${policy_root}" in
+        /tmp/neomusicbot-policy.*) rm -rf -- "${policy_root}" ;;
+        *) echo 'Refusing unexpected policy cleanup path' >&2; return 1 ;;
+    esac
 }
 trap cleanup EXIT
 trap 'exit 130' INT
 trap 'exit 143' TERM HUP
+
+script_directory="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+cp -- "${script_directory}/verify_isolated_job.py" "${policy_root}/verify_isolated_job.py"
+cp -- "${script_directory}/isolated_job_hook.sh" "${policy_root}/job_hook.sh"
+chmod 755 "${policy_root}/job_hook.sh"
+mkdir "${runner_root}/control"
 
 version=2.337.0
 sha256=70920811a4f8ad4328818682bca5c6469c1c942fab52448868071d0063816613
@@ -59,13 +70,16 @@ isolation=(
     --ro-bind "${runner_root}/passwd" /etc/passwd
     --ro-bind "${runner_root}/group" /etc/group
     --bind "${runner_root}" /runner --chdir /runner
+    --ro-bind "${policy_root}" /policy --bind "${runner_root}/control" /control
     --setenv PATH /usr/bin:/bin --setenv HOME /home/runner
     --setenv LANG C.UTF-8 --setenv USER runner --setenv LOGNAME runner
+    --setenv ACTIONS_RUNNER_HOOK_JOB_STARTED /policy/job_hook.sh
 )
 
 "${isolation[@]}" /bin/bash -c '
     test ! -e /mnt && test ! -e /run && test ! -e /home/runner/.ssh
     test ! -w /usr
+    test ! -w /policy && test -w /control
     ./bin/Runner.Listener --version
 '
 if [[ "${1:-}" == --check ]]; then
@@ -76,24 +90,26 @@ fi
 echo 'runner.ready-for-jit=true'
 # The repository administrator creates the JIT configuration outside the sandbox.
 # Do not pass their API credential, Git configuration or environment to the job.
-if [[ "${1:-}" != --controlled ]]; then
-    timeout --signal=TERM --kill-after=30s 45m "${isolation[@]}" /bin/bash -c '
+IFS= read -r expected_policy
+printf '%s\n' "${expected_policy}" > "${policy_root}/expected.json"
+python3 -I "${policy_root}/verify_isolated_job.py" --validate-policy "${policy_root}/expected.json"
+unset expected_policy
+IFS= read -r jit_config
+test -n "$jit_config"
+timeout --signal=TERM --kill-after=30s 45m "${isolation[@]}" /bin/bash -c '
     IFS= read -r jit_config
-    test -n "$jit_config"
     exec ./run.sh --jitconfig "$jit_config"
-'
-else
-    # Keep the controller's stdin as a liveness channel. Closing it cancels the
-    # child inside Linux, rather than relying on terminating a Windows wsl.exe.
-    IFS= read -r jit_config
-    test -n "$jit_config"
-    timeout --signal=TERM --kill-after=30s 45m "${isolation[@]}" /bin/bash -c '
-        IFS= read -r jit_config
-        exec ./run.sh --jitconfig "$jit_config"
-    ' <<<"${jit_config}" &
-    runner_child=$!
-    unset jit_config
-    while kill -0 "${runner_child}" 2>/dev/null; do
+' <<<"${jit_config}" &
+runner_child=$!
+unset jit_config
+while kill -0 "${runner_child}" 2>/dev/null; do
+    if [[ -f "${runner_root}/control/denied" ]]; then
+        echo 'runner.job-policy=denied'
+        stop_runner
+        exit 125
+    fi
+    if [[ "${1:-}" == --controlled ]]; then
+        # Closing the controller's liveness pipe cancels the child inside Linux.
         if IFS= read -r -t 1 control; then
             if [[ "${control}" == stop ]]; then
                 stop_runner
@@ -106,8 +122,10 @@ else
                 exit 130
             fi
         fi
-    done
-    if wait "${runner_child}"; then status=0; else status=$?; fi
-    runner_child=
-    exit "${status}"
-fi
+    else
+        sleep 1
+    fi
+done
+if wait "${runner_child}"; then status=0; else status=$?; fi
+runner_child=
+exit "${status}"

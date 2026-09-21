@@ -16,6 +16,7 @@ import threading
 import time
 import urllib.error
 import urllib.request
+from verify_isolated_job import expected_job
 
 ROOT = Path(__file__).resolve().parents[2]
 REPOSITORY = "huaaudio/NeoMusicBot"
@@ -152,6 +153,7 @@ def serve(api, run, job, output, command):
                  label=label, started_at=datetime.now(timezone.utc).isoformat(), runner_id=None)
     save(state_path, state)
     ready = threading.Event()
+    rejected = threading.Event()
     process = subprocess.Popen(command, cwd=ROOT, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                stderr=subprocess.STDOUT, text=True, encoding="utf-8", errors="replace")
 
@@ -162,6 +164,8 @@ def serve(api, run, job, output, command):
                 log.flush()
                 if line.strip() == "runner.ready-for-jit=true":
                     ready.set()
+                if line.strip() == "runner.job-policy=denied":
+                    rejected.set()
 
     reader = threading.Thread(target=drain, daemon=True)
     reader.start()
@@ -181,7 +185,7 @@ def serve(api, run, job, output, command):
         save(state_path, state)
         if config["runner"]["name"] != label or {x["name"] for x in config["runner"]["labels"]} != {label}:
             raise RuntimeError("Unexpected runner registration")
-        process.stdin.write(config["encoded_jit_config"] + "\n")
+        process.stdin.write(json.dumps(expected_job(run)) + "\n" + config["encoded_jit_config"] + "\n")
         process.stdin.flush()
         del config
         print(f"ServingMediaRun={run['id']} Attempt={run['run_attempt']} Runner={state['runner_id']}", flush=True)
@@ -197,6 +201,9 @@ def serve(api, run, job, output, command):
                     raise TimeoutError("The isolated runner exceeded its time limit")
         state["runner_exit_code"] = process.returncode
         reader.join(timeout=5)
+        if rejected.is_set():
+            state["job_policy"] = "denied"
+            raise RuntimeError("The runner rejected an unexpected assigned job before workflow execution")
         # Runner exit 0 says nothing about the job's result; inspect GitHub.
         actual = api("actions/jobs/" + str(job["id"]))
         deadline = time.monotonic() + 30
