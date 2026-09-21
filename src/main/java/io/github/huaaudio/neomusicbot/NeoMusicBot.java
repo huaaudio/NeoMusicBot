@@ -108,27 +108,29 @@ public final class NeoMusicBot
         ((ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME))
                 .setLevel(Level.toLevel(config.getLogLevel(), Level.INFO));
 
-        SettingsManager settings = new SettingsManager();
-        Bot bot = new Bot(config, settings);
-        SlashCommandListener slashCommands = new SlashCommandListener(bot);
-
-        if (!prompt.isNoGUI())
-        {
-            try
-            {
-                GUI gui = new GUI(bot);
-                bot.setGUI(gui);
-                gui.init();
-            }
-            catch (Exception e)
-            {
-                LOG.error("Could not start the GUI. Run with -Dnogui=true on a headless server.", e);
-            }
-        }
+        SettingsManager settings = null;
+        Bot bot = null;
         boolean started = false;
 
         try
         {
+            settings = new SettingsManager();
+            bot = new Bot(config, settings);
+            SlashCommandListener slashCommands = new SlashCommandListener(bot);
+            if(!prompt.isNoGUI())
+            {
+                try
+                {
+                    GUI gui = new GUI(bot);
+                    bot.setGUI(gui);
+                    gui.init();
+                }
+                catch(Exception failure)
+                {
+                    LOG.error("Could not start the GUI. Run with -Dnogui=true on a headless server ({}).",
+                            failure.getClass().getSimpleName());
+                }
+            }
             MessageRequest.setDefaultMentions(EnumSet.noneOf(Message.MentionType.class));
             MessageRequest.setDefaultMentionRepliedUser(false);
             JDABuilder builder = JDABuilder.create(config.getToken(), EnumSet.of(GatewayIntent.GUILD_VOICE_STATES))
@@ -137,6 +139,7 @@ public final class NeoMusicBot
                     .setAudioModuleConfig(new AudioModuleConfig()
                             .withDaveSessionFactory(new JDaveSessionFactory()))
                     .setAutoReconnect(true)
+                    .setEnableShutdownHook(false) // Bot owns the ordered shutdown of all services.
                     .setActivity(config.isGameNone() ? null : config.getGame())
                     .setStatus(normalizeStatus(config.getStatus()))
                     .addEventListeners(slashCommands, new Listener(bot))
@@ -155,7 +158,7 @@ public final class NeoMusicBot
         catch (IllegalArgumentException ex)
         {
             prompt.alert(Prompt.Level.ERROR, "NeoMusicBot",
-                    "The configuration is invalid: " + ex.getMessage() + "\nConfig Location: "
+                    "The runtime configuration is invalid. Check media tool settings and Discord options.\nConfig Location: "
                             + config.getConfigLocation());
         }
         catch (ErrorResponseException ex)
@@ -163,10 +166,19 @@ public final class NeoMusicBot
             prompt.alert(Prompt.Level.ERROR, "NeoMusicBot",
                     "Discord rejected the login request: " + ex.getErrorResponse());
         }
+        catch(RuntimeException | LinkageError failure)
+        {
+            prompt.alert(Prompt.Level.ERROR, "NeoMusicBot",
+                    "Startup failed (" + failure.getClass().getSimpleName()
+                            + "). Check server settings and platform native libraries.");
+        }
         finally
         {
             if(!started)
-                bot.shutdown();
+            {
+                if(bot != null) bot.shutdown();
+                else if(settings != null) settings.close();
+            }
         }
         return started;
     }

@@ -12,7 +12,7 @@
 | 新依赖 | 提交 `48e8d50` 的 [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35561728333) 中 Windows/Linux 构建、测试、JDAVE 加载、发行包组装均通过；锁定媒体探测仍失败，不能发布 |
 | Java 27 | `48e8d50` 的 Windows/Linux 兼容矩阵均通过；发行字节码与构建基线仍为 Java 25 LTS |
 | 全模块审查 | 进行中，见问题表；未完成项不能按已通过处理 |
-| 干净发行包 | `48a4e71` 的 [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35563229793) 已通过 Linux 最终 ZIP 干净解压、启动器、配置、原生解码及 provider 离线启动；Windows 验证器短路径误判已修，待下一轮 CI |
+| 干净发行包 | `d4a8296` 的 [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35564181621) 已通过 Windows/Linux 最终 ZIP 干净解压、启动器、配置、原生解码及 provider 离线启动；锁定在线媒体探测仍失败，因此整体尚未通过 |
 | Discord 实际语音 | 此轮尚无测试服务器/凭据，未验证真实 DAVE 握手、频道可听性或长期运行；用户曾实测旧版本，不等同本轮升级验收 |
 | Pre-release | 尚未发布；必须使用最终成功 CI 的同一提交和经过验证的完整发行包 |
 
@@ -58,6 +58,9 @@
 | AUD-014 / P1 | Maven 缺失许可信息只警告，Shade 遇到同名 NOTICE/LICENSE 只保留首份 | 发行材料遗漏部分依赖许可和声明 | 按上游源码补齐版本限定的许可映射，下载失败阻止打包；验证许可文件覆盖 SBOM 的全部 44 个组件；同名许可/声明合并保留，详见 `src/license/README.md` |
 | AUD-015 / P2 | Windows CI 使用 8.3 临时目录名，ZIP 路径比较及 Deno 权限参数未规范化 | 合法包被误判为目录外文件；provider 以长路径读取资源而被短路径权限拒绝 | 路径比较与创建临时根目录后统一 resolve；回归覆盖相对根目录；`3970117` CI 暴露 Deno 参数问题，继续验证修复 |
 | AUD-016 / P2 | 更新检查只使用 `/releases/latest`，版本标签包含空 prerelease 段 | 测试版收不到后续 beta 提醒；错误标签触发 NumberFormatException | 测试版查询已发布 releases，正式版保留 stable 通道；拒绝错误标签，HTTP 客户端复用、10 秒总超时、2 MiB 响应上限、所有分支关闭响应；错误标签回归先复现异常 |
+| AUD-017 / P1 | `Bot` 初始化或退出时，播放器初始化、单个语音连接、JDA 关闭发生异常 | 后续组件不清理，设置存储/线程池残留；持有 Bot 锁调用外部库可导致回调等待 | 初始化失败清理已有组件；退出逐项隔离错误、不持有 Bot 监视器；迟到的 JDA/GUI 立即关闭；5 个故障回归修改前失败，修改后通过 |
+| AUD-018 / P1 | `SerialExecutor` 后端拒绝第一次 drain 提交 | scheduled 标志永久停在 true，后续任务被静默接受但不执行，同步调用无限等待 | 入队与调度原子化，拒绝时回滚，关闭后立即拒绝新任务；正常退出排空已接受任务并取消延迟/周期任务；2 个故障回归修改前失败，修改后通过 |
+| AUD-019 / P2 | JVM 退出或窗口关闭与后台清理并发 | 缺少应用层有序退出处理，窗口可能提前强制终止进程 | Bot 注册自己的退出 hook，等待正在进行的清理；取消 JDA 的独立 hook；GUI 后台退出并在清理完成后销毁窗口；独立子 JVM 验证退出时设置存储已关闭 |
 
 ## 阶段验证证据
 
@@ -75,6 +78,8 @@
 - 严格许可证收集在修正前失败于 base64 缺失 URL，修正后成功；本地 `verify_licenses.py` 确认 SBOM 的 44 个组件均有已保存的完整许可材料。6 个 CI 验证器测试通过。
 - Shade 产物与测试 classpath 中的运行时 JAR 逐项比对，30 份上游 LICENSE/NOTICE 资源全部保留；`3970117` 的两平台 CI 均通过许可覆盖与声明保留检查。
 - 更新检查专项 7 个测试通过；完整 Windows `verify` 共 138 个测试，137 通过、1 个 POSIX 权限测试按平台跳过，许可证收集及打包成功；日志 `tools/update-full-verify.log`。
+- `d4a8296` 云端两平台构建/完整发行包、Java 27 测试全部成功；在线探测仍为 YouTube 两模式 authentication-required、Bilibili access-denied，没有绕过失败门禁。
+- 生命周期回归修改前 8 个测试中 7 个失败；修复后连同既有播放器事件/停止测试共 11 个通过。新增独立子 JVM 退出验证后，完整 Windows 测试共 146 个，145 通过、1 个 POSIX 测试跳过；日志 `tools/lifecycle-before.log`、`tools/lifecycle-after.log`、`tools/lifecycle-full.log`。
 
 ## 全模块检查覆盖
 
@@ -82,7 +87,7 @@
 
 - 启动、配置、更新检查、环境变量、启动脚本：配置及变量兼容、更新渠道/异常标签、入口失败状态已检查修复；Windows 含括号路径启动器实测通过；最新提交跨平台回归待完成。
 - Discord Slash 注册、权限、交互生命周期、频道混淆：待检查。
-- 语音连接、DAVE、重连、退出、播放器资源释放：待检查。
+- 语音连接、DAVE、重连、退出、播放器资源释放：已检查初始化/退出资源管理并修复 AUD-017/019，原生加载/编解码跨平台通过；语音重连状态机复核及真实 Discord 验收仍待完成。
 - 播放队列、公平排序、并发、暂停/重复/停止、状态恢复：已有基线修复，需升级后复核。
 - Bilibili 分 P、短链接、媒体 URL、Cookie 与子进程：已有基线测试，需新版工具集成验证。
 - YouTube、SoundCloud、Discord 附件、播放列表：待升级后复核。

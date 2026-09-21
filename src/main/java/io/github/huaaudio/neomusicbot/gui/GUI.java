@@ -42,7 +42,7 @@ public class GUI extends JFrame
     
     public void init()
     {
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("NeoMusicBot");
         JTabbedPane tabs = new JTabbedPane();
         tabs.add("Console", console);
@@ -55,14 +55,9 @@ public class GUI extends JFrame
             @Override public void windowOpened(WindowEvent e) { /* unused */ }
             @Override public void windowClosing(WindowEvent e) 
             {
-                try
-                {
-                    bot.shutdown();
-                }
-                catch(Exception ex)
-                {
-                    System.exit(0);
-                }
+                // Keep Swing responsive while flushing settings and closing audio.
+                // shutdown() disposes the window after the services have closed.
+                new Thread(bot::shutdown, "NeoMusicBot-GUI-shutdown").start();
             }
             @Override public void windowClosed(WindowEvent e) { /* unused */ }
             @Override public void windowIconified(WindowEvent e) { /* unused */ }

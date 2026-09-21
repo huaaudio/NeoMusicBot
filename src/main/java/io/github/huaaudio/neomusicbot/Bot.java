@@ -27,16 +27,23 @@ import io.github.huaaudio.neomusicbot.gui.GUI;
 import io.github.huaaudio.neomusicbot.playlist.PlaylistLoader;
 import io.github.huaaudio.neomusicbot.settings.SettingsManager;
 import java.util.Objects;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Runtime container for the bot services. */
 public class Bot
 {
-    private final ScheduledExecutorService threadpool;
+    private static final Logger LOG = LoggerFactory.getLogger(Bot.class);
+    private final ScheduledThreadPoolExecutor threadpool;
+    private final Thread shutdownHook;
+    private final CountDownLatch shutdownFinished = new CountDownLatch(1);
     private final BotConfig config;
     private final SettingsManager settings;
     private final PlayerManager players;
@@ -54,13 +61,38 @@ public class Bot
         this.settings = settings;
         this.playlists = new PlaylistLoader(config);
         int workerCount = Math.max(4, Runtime.getRuntime().availableProcessors());
-        this.threadpool = Executors.newScheduledThreadPool(workerCount);
+        this.threadpool = new ScheduledThreadPoolExecutor(workerCount);
+        this.threadpool.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
+        this.threadpool.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
+        this.shutdownHook = new Thread(() -> {
+            shutdown();
+            // If another thread is already shutting down, keep the JVM alive
+            // long enough for its final settings flush and source cleanup.
+            try
+            {
+                if(!shutdownFinished.await(30, TimeUnit.SECONDS))
+                    LOG.warn("Timed out waiting for application shutdown");
+            }
+            catch(InterruptedException interrupted)
+            {
+                Thread.currentThread().interrupt();
+            }
+        }, "NeoMusicBot-shutdown");
         this.players = new PlayerManager(this);
-        this.players.init();
         this.nowplaying = new NowplayingHandler(this);
-        this.nowplaying.init();
         this.aloneInVoiceHandler = new AloneInVoiceHandler(this);
-        this.aloneInVoiceHandler.init();
+        try
+        {
+            this.players.init();
+            this.nowplaying.init();
+            this.aloneInVoiceHandler.init();
+            Runtime.getRuntime().addShutdownHook(shutdownHook);
+        }
+        catch(RuntimeException | LinkageError failure)
+        {
+            shutdown();
+            throw failure;
+        }
     }
 
     public BotConfig getConfig()
@@ -154,40 +186,96 @@ public class Bot
             jda.getPresence().setActivity(game);
     }
 
-    public synchronized void shutdown()
+    public void shutdown()
     {
-        if (shuttingDown)
-            return;
-        shuttingDown = true;
-
-        if (jda != null && jda.getStatus() != JDA.Status.SHUTTING_DOWN)
+        JDA discord;
+        GUI window;
+        synchronized(this)
         {
-            jda.getGuilds().forEach(guild ->
-            {
-                closeAudioConnection(guild, null);
-                if (guild.getAudioManager().getSendingHandler() instanceof AudioHandler handler)
-                {
-                    handler.stopAndClear();
-                    handler.destroy();
-                }
-            });
-            jda.shutdown();
+            if(shuttingDown)
+                return;
+            shuttingDown = true;
+            discord = jda;
+            window = gui;
         }
 
-        players.shutdown();
-        settings.close();
-        threadpool.shutdownNow();
-        if (gui != null)
-            gui.dispose();
+        try
+        {
+            // Never hold the bot monitor across library calls: shutdown may trigger
+            // callbacks on another thread. One broken component must not skip others.
+            if(discord != null)
+            {
+                shutdownStep("guild audio cleanup", () -> discord.getGuilds().forEach(guild ->
+                        shutdownStep("guild audio", () -> closeGuildResources(guild))));
+                shutdownStep("Discord client", discord::shutdown);
+            }
+            shutdownStep("audio sources", players::shutdown);
+            shutdownStep("server settings", settings::close);
+            // Drain accepted immediate tasks so callers waiting on their results do
+            // not hang. Delayed and periodic tasks are cancelled by the policies above.
+            shutdownStep("workers", threadpool::shutdown);
+            if(window != null)
+                shutdownStep("GUI", window::dispose);
+        }
+        finally
+        {
+            shutdownFinished.countDown();
+            if(Thread.currentThread() != shutdownHook)
+            {
+                try { Runtime.getRuntime().removeShutdownHook(shutdownHook); }
+                catch(IllegalStateException ignored)
+                {
+                    // JVM shutdown has already started; the hook is idempotent.
+                }
+            }
+        }
+    }
+
+    private void closeGuildResources(Guild guild)
+    {
+        Object sender = guild.getAudioManager().getSendingHandler();
+        shutdownStep("voice connection", () -> closeAudioConnection(guild, null));
+        if(sender instanceof AudioHandler handler)
+        {
+            shutdownStep("playback stop", handler::stopAndClear);
+            shutdownStep("player", handler::destroy);
+        }
+    }
+
+    private static void shutdownStep(String component, Runnable action)
+    {
+        try { action.run(); }
+        catch(RuntimeException | LinkageError failure)
+        {
+            LOG.warn("Could not clean up {} ({})", component, failure.getClass().getSimpleName());
+        }
     }
 
     public void setJDA(JDA jda)
     {
-        this.jda = jda;
+        Objects.requireNonNull(jda, "jda");
+        synchronized(this)
+        {
+            if(!shuttingDown)
+            {
+                this.jda = jda;
+                return;
+            }
+        }
+        shutdownStep("late Discord client", jda::shutdown);
     }
 
     public void setGUI(GUI gui)
     {
-        this.gui = gui;
+        Objects.requireNonNull(gui, "gui");
+        synchronized(this)
+        {
+            if(!shuttingDown)
+            {
+                this.gui = gui;
+                return;
+            }
+        }
+        shutdownStep("late GUI", gui::dispose);
     }
 }

@@ -12,7 +12,8 @@ import java.util.ArrayDeque;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.Executor;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.RejectedExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +24,7 @@ public final class SerialExecutor implements Executor
 
     private final Executor executor;
     private final Queue<Runnable> tasks = new ArrayDeque<>();
-    private final AtomicBoolean scheduled = new AtomicBoolean();
+    private boolean scheduled;
     private final ThreadLocal<Boolean> executing = ThreadLocal.withInitial(() -> false);
 
     public SerialExecutor(Executor executor)
@@ -37,20 +38,28 @@ public final class SerialExecutor implements Executor
         Objects.requireNonNull(command, "command");
         synchronized(tasks)
         {
+            if(executor instanceof ExecutorService service && service.isShutdown())
+                throw new RejectedExecutionException("Playback workers are stopped");
             tasks.add(command);
+            if(!scheduled)
+            {
+                scheduled = true;
+                try { executor.execute(this::drain); }
+                catch(RuntimeException | Error rejection)
+                {
+                    // Enqueue and scheduling are atomic to other submitters:
+                    // no caller can return successfully for an orphaned drain.
+                    tasks.remove(command);
+                    scheduled = false;
+                    throw rejection;
+                }
+            }
         }
-        scheduleDrain();
     }
 
     public boolean isCurrentThread()
     {
         return executing.get();
-    }
-
-    private void scheduleDrain()
-    {
-        if(scheduled.compareAndSet(false, true))
-            executor.execute(this::drain);
     }
 
     private void drain()
@@ -64,14 +73,18 @@ public final class SerialExecutor implements Executor
                 synchronized(tasks)
                 {
                     next = tasks.poll();
+                    if(next == null)
+                    {
+                        // Publish idleness before a new submitter can enqueue.
+                        scheduled = false;
+                        return;
+                    }
                 }
-                if(next == null)
-                    return;
                 try
                 {
                     next.run();
                 }
-                catch(RuntimeException ex)
+                catch(RuntimeException | Error ex)
                 {
                     LOG.error("Guild playback task failed ({}): {}", ex.getClass().getSimpleName(),
                             SensitiveLogSanitizer.sanitize(ex.getMessage()));
@@ -81,12 +94,6 @@ public final class SerialExecutor implements Executor
         finally
         {
             executing.remove();
-            scheduled.set(false);
-            synchronized(tasks)
-            {
-                if(!tasks.isEmpty())
-                    scheduleDrain();
-            }
         }
     }
 }
