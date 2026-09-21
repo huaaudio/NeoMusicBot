@@ -124,7 +124,10 @@ and Maven-generated dependency license files and a machine-readable summary unde
 the JVM/Maven dependency graph. Standalone yt-dlp, Deno, the provider plugin, and
 the provider's Deno/npm installation are outside that Maven SBOM; their immutable
 versions, commits, hashes, and lock files are recorded separately in the release
-manifest and provider bundle. CI creates a platform ZIP containing the matching
+manifest and provider bundle. `provider-dependencies.json` inventories shipped npm
+packages and license-file candidates; it does not certify their licensing. See the
+[distribution material review](docs/distribution-licenses.md) for remaining work.
+CI creates a platform ZIP containing the matching
 JDAVE native, these pinned media tools, checksums, project/tool licenses, generated
 Maven licenses under `licenses/maven/`, and a launcher. The Build and Test workflow
 also executes an anonymous locked-version YouTube/PO-provider/Bilibili canary and

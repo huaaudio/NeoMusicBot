@@ -9,6 +9,7 @@ import tempfile
 import zipfile
 from package_bundle import digest
 from verify_licenses import verify as verify_licenses
+from inventory_provider import verify as verify_provider_inventory
 
 
 def extract(archive_path, destination):
@@ -58,6 +59,7 @@ def verify(archive_path, report_path):
         extract(archive_path, bundle)
         verify_manifest(bundle)
         verify_licenses(bundle / "licenses/maven", bundle / "NeoMusicBot.cdx.json")
+        verify_provider_inventory(bundle / "tools/bgutil-provider", bundle / "provider-dependencies.json")
         for name in ("README.md", "docs/install-and-upgrade.md", "licenses/NeoMusicBot-Apache-2.0.txt",
                      "licenses/maven/licenses.xml", "licenses/yt-dlp-THIRD_PARTY_LICENSES.txt",
                      "sources/yt-dlp.tar.gz", "tools/bgutil-provider/LICENSE",
@@ -131,6 +133,7 @@ def verify(archive_path, report_path):
                  f"version={version}", f"archive.sha256={expected}", "config=passed", "native.dave=passed",
                  "native.opus=passed", "crypto.rtp=passed",
                  "audio.aac=passed", "audio.opus=passed", "audio.mp3=passed", "provider.offline=passed",
+                 "provider.inventory=passed",
                  "discord.voice=not-tested", "online.media=not-tested"]
         report_path.parent.mkdir(parents=True, exist_ok=True)
         report_path.write_text("\n".join(lines) + "\n", encoding="utf-8")

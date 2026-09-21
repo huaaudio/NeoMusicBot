@@ -34,6 +34,8 @@ sh ./run_neomusicbot.sh generate-config
 完整发行包自带 yt-dlp 独立可执行文件、Deno 和 provider 源码/缓存，运行时不需要另装
 Python、Node.js 或 npm；Java 仍需按步骤 1 安装。不要删除以点开头的缓存目录。
 第三方组件分别适用各自许可证，见 `licenses`、`sources` 和 `THIRD_PARTY_VERSIONS.txt`。
+`provider-dependencies.json` 记录随包携带的 npm 包及许可材料候选路径；
+完整审查状态见 [发行材料记录](distribution-licenses.md)。
 
 可先执行 `run_neomusicbot.cmd --self-test`（Linux：`sh ./run_neomusicbot.sh --self-test`）。
 它不读取机器人凭据、不连接 Discord，检查 JDAVE 和内置测试音的 AAC、Opus、MP3 解码。

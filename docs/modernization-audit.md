@@ -49,7 +49,7 @@
 | AUD-002 / P1 | `pom.xml` 与解析器：Jackson 3 移除旧 API、JUnit 6 不再自动执行 JUnit 4 | 编译失败或测试覆盖丢失 | 迁移 JSON API 与所有旧测试 imports/assumptions；Windows 122 测试数量保持一致，121 通过、1 POSIX 测试按平台跳过 |
 | AUD-003 / P1 | `SlashCommandListener` 的 Slash 与选择控件入口：配置频道被删除或不可见时缓存返回 null | 频道限制被跳过 | 按持久化 ID 判断，管理员界面显示不可用而非 any；`SettingsChannelRestrictionTest` 验证缓存缺失与显式清除两种情况 |
 | AUD-004 / P1 | `BotConfig.writeDefaultConfig()`：对已有配置执行生成 | 覆盖 Token 和用户配置 | `CREATE_NEW` 拒绝覆盖，CLI 返回失败；回归测试先复现再通过 |
-| AUD-005 / 待核实 | 发行包：依赖许可证下载告警、缓存路径与旧原生文件 | 材料不完整或依赖开发/构建环境 | Maven 许可覆盖与两平台干净目录验收已通过；独立工具及其第三方依赖的源码/许可覆盖继续审查 |
+| AUD-005 / 待核实 | 发行包：依赖许可证下载告警、缓存路径与旧原生文件 | 材料不完整或依赖开发/构建环境 | Maven 许可覆盖与两平台干净目录验收已通过；新增 provider 安装树/缓存依赖清单与解压复核，Windows 实物包含 304 个 npm 包；独立工具、native/WASM 及第三方源码/许可覆盖尚未完成，见 [材料记录](distribution-licenses.md) |
 | AUD-006 / P2 | 内部包名、环境变量、旧 bot-listing 自动消息 | 独立项目仍有继承行为或旧名称 | 已迁移 `io.github.huaaudio.neomusicbot`、`NeoMusicBot` 主类及 `NEOMUSICBOT_*`；旧 main 与变量前缀保留兼容，重复变量拒绝启动；移除硬编码第三方服务器消息/退出逻辑，保留合法来源署名 |
 | AUD-007 / P1 | `BotConfig.writeToFile()`：交互补填 owner 或 token | 重写默认模板导致已有配置与注释丢失 | 使用 HOCON 文档更新指定键，保留其他值；临时文件刷盘后替换，POSIX 新文件权限 0600；回归先复现再通过 |
 | AUD-008 / P1 | `SettingsManager.load()`：主文件损坏且没有有效备份；或频道 ID 拼写错误 | 空设置覆盖原数据、错误 ID 静默变成无限制 | 无法恢复时拒绝启动并保留文件；拒绝错误 ID；两个故障回归先失败、修复后通过 |
@@ -110,6 +110,8 @@
 
 - `4dfda65` [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35569343813) 的 Windows/Linux 发行包和 Java 27 两平台检查全部通过；锁定在线媒体检查仍未通过。
 - 数值配置专项 34 项测试全部通过；完整 Windows `verify` 共 193 项，192 通过、1 项 POSIX 测试按平台跳过，SBOM 与许可证收集成功。故障基线 `tools/numeric-settings-before.log`（29 项中 22 项失败），修复后 `tools/numeric-settings-after.log`、`tools/numeric-settings-full.log`；全量测试包含实际 Slash 投票用例。
+
+- provider 清单在固定提交/Deno 的实际 Windows 安装树上生成成功，包含 304 个包；新增 scope/嵌套/缓存、锁版本不匹配、元数据冲突，以及真实 ZIP 解压迁移后材料被修改/删除的回归。15 个 Python CI 测试、两份工作流 actionlint、Linux 组装脚本语法检查通过；清单明确不声明许可审查完成，实际两平台发行包回归待执行。
 
 ## 全模块检查覆盖
 

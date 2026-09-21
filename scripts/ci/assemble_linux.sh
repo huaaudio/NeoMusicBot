@@ -85,5 +85,6 @@ provider_version="$(env DENO_DIR="${provider}/.deno-dir" DENO_NO_PROMPT=1 DENO_N
 test "${provider_version}" = "${POT_PROVIDER_VERSION}"
 test -f "${provider}/deno.lock"
 
+python3 scripts/ci/inventory_provider.py "${tools}/bgutil-provider" "${bundle}/provider-dependencies.json"
 python3 scripts/ci/package_bundle.py "${bundle}" "target/NeoMusicBot-${ARTIFACT_SUFFIX}.zip"
 python3 scripts/ci/verify_bundle.py "target/NeoMusicBot-${ARTIFACT_SUFFIX}.zip" "target/bundle-verification.txt"
