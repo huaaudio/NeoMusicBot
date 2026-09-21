@@ -101,6 +101,7 @@
 - 跳歌修复的 22 个专项测试全部通过；完整 Windows `verify` 共 161 个测试，160 通过、1 个 POSIX 测试跳过，许可证收集及 SBOM 生成成功。修改前后日志分别为 `tools/skip-vote-before.log`、`tools/skip-vote-after.log`，完整日志 `tools/skip-vote-full.log`；云端待回归。
 - `cc185b0` [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35567577355) 的 Windows/Linux 构建、完整 ZIP 与 Java 27 检查全部通过；锁定媒体检查仍为 YouTube 两模式 authentication-required、Bilibili access-denied。
 - 发布校验新增 6 个测试方法，覆盖来源提交/仓库/分支/工作流、测试版版本、包内外 SBOM、工具和报告篡改、在线门禁、资产下载完整性及 Release 状态；连同既有验证器共 12 个 Python 测试通过。actionlint 1.7.12 验证两份工作流，Bash 语法检查通过。平台产物关联检查已加入正常构建，待云端实物回归；尚未创建任何测试版标签或 Release。流程见 [发布说明](prerelease-process.md)。
+- `ba2fd8f` [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35568207876) 四个 Java 构建均被旧的 `ReleaseLauncherPolicyTest` 字符串断言拦住：它仍只在 YAML 中寻找已迁入 Python 的内联媒体校验。已改为检查工作流实际调用验证器、创建标签及公开发布的顺序，并保留严格媒体失败行为测试；该 Java 类的 4 项本地测试通过（`tools/release-policy-after.log`），云端待回归。
 
 ## 全模块检查覆盖
 

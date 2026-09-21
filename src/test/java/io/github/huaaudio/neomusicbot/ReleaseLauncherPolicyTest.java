@@ -76,10 +76,19 @@ class ReleaseLauncherPolicyTest
         assertTrue(canary.contains("test \"${actual_version}\" = \"${YTDLP_VERSION}\""));
         assertTrue(canary.contains("neomusicbot.commit=${GITHUB_SHA}"));
         assertTrue(canary.contains("--no-cache-dir"));
-        assertTrue(release.contains("artifacts/NeoMusicBot-media-canary/candidate.txt"));
-        assertTrue(release.contains("require_line \"neomusicbot.commit=${SOURCE_SHA}\""));
-        assertTrue(release.contains("require_line \"youtube.mweb-provider=passed\""));
-        assertTrue(release.contains("NeoMusicBot-media-canary.txt"));
+        // Behavior (including mismatched commits and failing media reports) is
+        // exercised by scripts/ci/test_prerelease.py. This test ensures Actions
+        // actually invokes those gates before any tag or publication mutation.
+        int sourceGate = release.indexOf("prepare_prerelease.py source ");
+        int artifactGate = release.indexOf("prepare_prerelease.py prepare artifacts dist");
+        int createTag = release.indexOf("gh api --method POST ");
+        int downloadGate = release.indexOf("prepare_prerelease.py download dist downloaded");
+        int publish = release.indexOf("gh release edit ");
+        assertTrue(sourceGate >= 0 && artifactGate > sourceGate && createTag > artifactGate);
+        assertTrue(downloadGate > createTag && publish > downloadGate);
+        assertTrue(release.contains("--draft=false --prerelease --latest=false"));
+        assertFalse(release.contains("continue-on-error"));
+        assertTrue(build.contains("python -m unittest discover -s scripts/ci"));
     }
 
     private static String read(String path) throws IOException
