@@ -5,7 +5,7 @@ set "SCRIPT_DIR=%~dp0"
 set "JAR_PATH=%SCRIPT_DIR%NeoMusicBot.jar"
 
 if not exist "%JAR_PATH%" (
-  echo NeoMusicBot jar not found: %JAR_PATH% 1>&2
+  echo NeoMusicBot jar not found: "%JAR_PATH%" 1>&2
   echo Reinstall the complete verified release ZIP. 1>&2
   exit /b 66
 )

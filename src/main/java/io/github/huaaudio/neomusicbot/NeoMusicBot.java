@@ -22,6 +22,7 @@ package io.github.huaaudio.neomusicbot;
 import ch.qos.logback.classic.Level;
 import club.minnced.discord.jdave.interop.JDaveSessionFactory;
 import io.github.huaaudio.neomusicbot.commands.slash.SlashCommandListener;
+import io.github.huaaudio.neomusicbot.diagnostics.RuntimeSelfTest;
 import io.github.huaaudio.neomusicbot.entities.Prompt;
 import io.github.huaaudio.neomusicbot.gui.GUI;
 import io.github.huaaudio.neomusicbot.settings.SettingsManager;
@@ -62,16 +63,31 @@ public final class NeoMusicBot
 
     public static void main(String[] args)
     {
-        if (args.length > 0 && "generate-config".equalsIgnoreCase(args[0]))
+        if(args.length > 0)
         {
-            if(!BotConfig.writeDefaultConfig())
-                System.exit(1);
+            int result = args.length == 1 ? switch(args[0].toLowerCase(java.util.Locale.ROOT))
+            {
+                case "generate-config" -> BotConfig.writeDefaultConfig() ? 0 : 1;
+                case "--self-test" -> RuntimeSelfTest.run(System.out);
+                case "--version" -> {
+                    System.out.println("NeoMusicBot " + OtherUtil.getCurrentVersion());
+                    yield 0;
+                }
+                case "--help" -> {
+                    System.out.println("Usage: NeoMusicBot [generate-config|--version|--self-test|--help]");
+                    System.out.println("No arguments: start the Discord bot using the configured credentials.");
+                    yield 0;
+                }
+                default -> 2;
+            } : 2;
+            if(result == 2) System.err.println("Unknown arguments. Use --help for supported commands.");
+            if(result != 0) System.exit(result);
             return;
         }
-        startBot();
+        if(!startBot()) System.exit(1);
     }
 
-    private static void startBot()
+    private static boolean startBot()
     {
         Prompt prompt = new Prompt("NeoMusicBot");
         if (Runtime.version().feature() < 25)
@@ -79,15 +95,14 @@ public final class NeoMusicBot
             prompt.alert(Prompt.Level.ERROR, "NeoMusicBot",
                     "This release requires Java 25 or newer. Detected Java "
                             + Runtime.version().feature() + ".");
-            return;
+            return false;
         }
-        OtherUtil.checkVersion(prompt);
         OtherUtil.checkJavaVersion(prompt);
 
         BotConfig config = new BotConfig(prompt);
         config.load();
         if (!config.isValid())
-            return;
+            return false;
 
         LOG.info("Loaded config from {}", config.getConfigLocation());
         ((ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME))
@@ -153,6 +168,7 @@ public final class NeoMusicBot
             if(!started)
                 bot.shutdown();
         }
+        return started;
     }
 
     private static OnlineStatus normalizeStatus(OnlineStatus status)

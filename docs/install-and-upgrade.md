@@ -31,6 +31,15 @@ sh ./run_neomusicbot.sh generate-config
 这会创建 `config.txt`，已存在时拒绝覆盖。修改配置中的 `owner` 为自己的 Discord 用户 ID。
 自定义路径可通过 `NEOMUSICBOT_CONFIG` 设置；相对路径基于启动时的工作目录。
 
+完整发行包自带 yt-dlp 独立可执行文件、Deno 和 provider 源码/缓存，运行时不需要另装
+Python、Node.js 或 npm；Java 仍需按步骤 1 安装。不要删除以点开头的缓存目录。
+第三方组件分别适用各自许可证，见 `licenses`、`sources` 和 `THIRD_PARTY_VERSIONS.txt`。
+
+可先执行 `run_neomusicbot.cmd --self-test`（Linux：`sh ./run_neomusicbot.sh --self-test`）。
+它不读取机器人凭据、不连接 Discord，检查 JDAVE 和内置测试音的 AAC、Opus、MP3 解码。
+`--version` 显示当前版本，`--help` 显示参数。自检通过不代表在线音源可访问或 Discord 已有声音。
+错误参数返回 2，配置生成失败或启动配置无效返回 1，便于服务管理器判断失败。
+
 ## Discord 应用
 
 在 [Developer Portal](https://discord.com/developers/applications) 创建应用并取得 Bot Token。

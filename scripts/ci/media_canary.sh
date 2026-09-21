@@ -30,7 +30,7 @@ else
     gh api "repos/${YTDLP_REPOSITORY}/releases/latest" > "${RUNNER_TEMP}/release.json"
     tag="$(jq -er '.tag_name' "${RUNNER_TEMP}/release.json")"
     release_id="$(jq -er '.id' "${RUNNER_TEMP}/release.json")"
-    asset="$(jq -ec '.assets[] | select(.name == "yt-dlp")' "${RUNNER_TEMP}/release.json")"
+    asset="$(jq -ec '.assets[] | select(.name == "yt-dlp_linux")' "${RUNNER_TEMP}/release.json")"
     asset_id="$(jq -er '.id' <<<"${asset}")"
     url="$(jq -er '.browser_download_url' <<<"${asset}")"
     digest="$(jq -er '.digest | select(type == "string" and startswith("sha256:"))' <<<"${asset}")"

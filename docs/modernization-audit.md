@@ -12,7 +12,7 @@
 | 新依赖 | 提交 `48e8d50` 的 [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35561728333) 中 Windows/Linux 构建、测试、JDAVE 加载、发行包组装均通过；锁定媒体探测仍失败，不能发布 |
 | Java 27 | `48e8d50` 的 Windows/Linux 兼容矩阵均通过；发行字节码与构建基线仍为 Java 25 LTS |
 | 全模块审查 | 进行中，见问题表；未完成项不能按已通过处理 |
-| 干净发行包 | 待验证解压后的启动、配置生成、原生加载与真实媒体解码 |
+| 干净发行包 | 已增加最终 ZIP 在全新用户目录与含空格路径解压的验证；本地离线解码通过，云端最终 ZIP 验证待运行 |
 | Discord 实际语音 | 此轮尚无测试服务器/凭据，未验证真实 DAVE 握手、频道可听性或长期运行；用户曾实测旧版本，不等同本轮升级验收 |
 | Pre-release | 尚未发布；必须使用最终成功 CI 的同一提交和经过验证的完整发行包 |
 
@@ -51,7 +51,10 @@
 | AUD-007 / P1 | `BotConfig.writeToFile()`：交互补填 owner 或 token | 重写默认模板导致已有配置与注释丢失 | 使用 HOCON 文档更新指定键，保留其他值；临时文件刷盘后替换，POSIX 新文件权限 0600；回归先复现再通过 |
 | AUD-008 / P1 | `SettingsManager.load()`：主文件损坏且没有有效备份；或频道 ID 拼写错误 | 空设置覆盖原数据、错误 ID 静默变成无限制 | 无法恢复时拒绝启动并保留文件；拒绝错误 ID；两个故障回归先失败、修复后通过 |
 | AUD-009 / P1 | `SettingsManager.drainWrites()`：I/O 写入失败 | dirty 标记丢失，flush 返回成功且退出时不再保存 | 保留待保存状态，flush/后续更新/关闭时重试，不无休止循环；跨平台目录阻塞写入用例先失败、修复后通过 |
-| AUD-010 / P2 | Windows 二次执行 `mvn clean`，`target/bgutil-provider-src/.git` 含只读 pack 文件 | 清理失败，影响本地重复打包 | 此次验证已仅清理 target 内生成的 provider checkout 后成功干净构建；发行脚本仍需避免残留只读 checkout |
+| AUD-010 / P2 | Windows 二次执行 `mvn clean`，`target/bgutil-provider-src/.git` 含只读 pack 文件 | 清理失败，影响本地重复打包 | 发行脚本在校验 provider commit 后移除生成 checkout 的 `.git`；Windows 校验绝对目标位于 target 下；不会删除项目自己的 Git 数据 |
+| AUD-011 / P1 | Linux 发行包采用通用 `yt-dlp` zipimport 资产 | 在没有 Python 的机器上无法运行，与完整发行包目标不符 | 改用固定哈希的 `yt-dlp_linux`；ZIP 验证器检查 ELF/PE 文件头及工具版本 |
+| AUD-012 / P1 | Windows `Compress-Archive` 与仅在构建目录检查 provider | 隐藏缓存可能漏包，无法证明换机器后离线启动 | 使用 Python ZIP 完整收录文件并生成逐文件 SHA256SUMS；解压到新目录后以全新 HOME 和 `--deny-net --cached-only` 运行 provider；云端待验 |
+| AUD-013 / P1 | Windows 启动器位于带括号的目录，错误提示展开未加引号的 JAR 路径 | CMD 在解析 if 块时提前报错，即使 JAR 存在也不能启动 | 临时干净目录首次复现退出 255；为输出路径加引号，由实际启动器运行回归验证 |
 
 ## 阶段验证证据
 
@@ -62,6 +65,9 @@
 - 此阶段完整 Windows 测试共 130 个，129 通过、0 失败、1 POSIX 测试按平台跳过；`target/review-settings-all.log`。
 - 命名迁移后干净 Windows 构建共 132 个测试，131 通过、0 失败、1 POSIX 测试按平台跳过；日志 `tools/namespace-test.log`。新增变量别名/凭据冲突测试，并覆盖新旧前缀均不传给媒体子进程。
 - 云端媒体失败只记录固定分类，不输出签名 URL、Cookie 或原始提取器日志；未通过的音源不标记为验证成功。
+- 新增独立 `--self-test`：加载 JDAVE，并实际解码本项目生成的 0.4 秒 AAC、Opus、MP3 测试音。Windows 干净 `verify` 共 133 个测试，132 通过、1 POSIX 测试跳过；日志 `tools/bundle-codec-verify.log`。
+- 移除旧仓库内 5 个非支持平台的陈旧 `libconnector.so`；支持的 Windows/Linux x86-64 原生解码器由固定版本的 Lavaplayer native 依赖提供。
+- yt-dlp 独立资产的依赖包含 GPL 组件，不能只携带核心的 Unlicense；发行包补入上游第三方许可证汇总与校验后的源码压缩包。provider 保留完整上游源码和许可证。其余第三方材料覆盖仍在审查，AUD-005 尚未关闭。
 
 ## 全模块检查覆盖
 

@@ -27,8 +27,8 @@ jobs:
             os: ubuntu-latest
             profile: native-linux-x86-64
             artifact_suffix: linux-x86-64
-            ytdlp_asset: yt-dlp
-            ytdlp_sha256: 1fa6733c37ea6fb51c99ad8fe785e7b7e5f3246c9b980230329d4fb72ed8d4d6
+            ytdlp_asset: yt-dlp_linux
+            ytdlp_sha256: 58162f9bfdc27458ea47bfcb311cf47028f17d8154a8bf7d689861d46399230a
             deno_asset: deno-x86_64-unknown-linux-gnu.zip
             deno_sha256: c6527f24f4b16031d3ae4fa9f658d5f11534c8d84ce7dc8502420280919c3490
           - name: Windows x86-64
@@ -40,6 +40,7 @@ jobs:
             deno_asset: deno-x86_64-pc-windows-msvc.zip
             deno_sha256: a0c3101b4158d1dfb7d6a78a7bf0f3de80c96bb423c152beec8beb22786f2238
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
 
     steps:
       - name: Checkout
@@ -100,6 +101,7 @@ jobs:
             target/NeoMusicBot-${{ matrix.artifact_suffix }}.zip.sha256
             target/bom.json
             target/bom.xml
+            target/bundle-verification.txt
 
   modern_java:
     name: Java 27 / ${{ matrix.os }}
@@ -127,8 +129,8 @@ jobs:
     timeout-minutes: 20
     env:
       YTDLP_REPOSITORY: yt-dlp/yt-dlp
-      YTDLP_ASSET: yt-dlp
-      YTDLP_SHA256: 1fa6733c37ea6fb51c99ad8fe785e7b7e5f3246c9b980230329d4fb72ed8d4d6
+      YTDLP_ASSET: yt-dlp_linux
+      YTDLP_SHA256: 58162f9bfdc27458ea47bfcb311cf47028f17d8154a8bf7d689861d46399230a
       DENO_ASSET: deno-x86_64-unknown-linux-gnu.zip
       DENO_SHA256: c6527f24f4b16031d3ae4fa9f658d5f11534c8d84ce7dc8502420280919c3490
 

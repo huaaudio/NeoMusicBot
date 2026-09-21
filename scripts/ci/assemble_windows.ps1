@@ -47,6 +47,8 @@ Copy-Item $jar.FullName (Join-Path $bundle "NeoMusicBot.jar")
 Copy-Item "target\bom.json" (Join-Path $bundle "NeoMusicBot.cdx.json")
 Copy-Item "target\bom.xml" (Join-Path $bundle "NeoMusicBot.cdx.xml")
 Copy-Item "scripts\run_neomusicbot.cmd" (Join-Path $bundle "run_neomusicbot.cmd")
+Copy-Item "README.md" (Join-Path $bundle "README.md")
+Copy-Item "docs" (Join-Path $bundle "docs") -Recurse
 
 $ytDlp = Join-Path $tools "yt-dlp.exe"
 Invoke-WebRequest -Uri "https://github.com/yt-dlp/yt-dlp/releases/download/${env:YTDLP_VERSION}/${env:YTDLP_ASSET}" -OutFile $ytDlp
@@ -76,6 +78,12 @@ $actualCommit = (git -C $providerSource rev-parse HEAD).Trim()
 if ($actualCommit -ne $env:POT_PROVIDER_COMMIT) {
     throw "Provider tag does not resolve to the pinned commit"
 }
+$providerGit = [System.IO.Path]::GetFullPath((Join-Path $providerSource ".git"))
+$expectedRoot = [System.IO.Path]::GetFullPath((Join-Path $PWD "target\bgutil-provider-src")) + [System.IO.Path]::DirectorySeparatorChar
+if (-not $providerGit.StartsWith($expectedRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
+    throw "Provider Git directory is outside the generated source directory"
+}
+Remove-Item -LiteralPath $providerGit -Recurse -Force
 Push-Location (Join-Path $providerSource "server")
 try {
     $env:DENO_DIR = Join-Path $providerSource "server\.deno-dir"
@@ -98,16 +106,23 @@ if (-not (Test-Path (Join-Path $providerSource "server\.deno-dir") -PathType Con
 }
 $providerBundle = Join-Path $tools "bgutil-provider"
 New-Item -ItemType Directory -Force $providerBundle | Out-Null
-Copy-Item (Join-Path $providerSource "server") (Join-Path $providerBundle "server") -Recurse
+Get-ChildItem -LiteralPath $providerSource -Force | Copy-Item -Destination $providerBundle -Recurse -Force
 
 Copy-Item "LICENSE" (Join-Path $licenses "NeoMusicBot-Apache-2.0.txt")
 Copy-Item (Join-Path $providerSource "LICENSE") (Join-Path $licenses "bgutil-provider-GPL-3.0.txt")
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/yt-dlp/yt-dlp/${env:YTDLP_VERSION}/LICENSE" -OutFile (Join-Path $licenses "yt-dlp-Unlicense.txt")
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/yt-dlp/yt-dlp/${env:YTDLP_VERSION}/THIRD_PARTY_LICENSES.txt" -OutFile (Join-Path $licenses "yt-dlp-THIRD_PARTY_LICENSES.txt")
+$sources = Join-Path $bundle "sources"
+New-Item -ItemType Directory -Force $sources | Out-Null
+$ytDlpSource = Join-Path $sources "yt-dlp.tar.gz"
+Invoke-WebRequest -Uri "https://github.com/yt-dlp/yt-dlp/releases/download/${env:YTDLP_VERSION}/yt-dlp.tar.gz" -OutFile $ytDlpSource
+Assert-Sha256 $ytDlpSource "072aad4f2a7604e92155f61a275a4752dc64046c8f6d90df3710525d94cd37c1"
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/denoland/deno/v${env:DENO_VERSION}/LICENSE.md" -OutFile (Join-Path $licenses "Deno-MIT.txt")
 
 @"
 NeoMusicBot commit=$env:GITHUB_SHA
 platform=$env:ARTIFACT_SUFFIX
+yt-dlp.asset=$env:YTDLP_ASSET
 yt-dlp.version=$env:YTDLP_VERSION
 yt-dlp.sha256=$env:YTDLP_SHA256
 yt-dlp-ejs=bundled-with-standalone
@@ -145,6 +160,7 @@ if (-not (Test-Path (Join-Path $provider "deno.lock") -PathType Leaf)) {
 }
 
 $archive = Join-Path $PWD "target\NeoMusicBot-${env:ARTIFACT_SUFFIX}.zip"
-Compress-Archive -Path "$bundle\*" -DestinationPath $archive -CompressionLevel Optimal
-$archiveHash = (Get-FileHash $archive -Algorithm SHA256).Hash.ToLowerInvariant()
-"$archiveHash  NeoMusicBot-${env:ARTIFACT_SUFFIX}.zip" | Set-Content -Encoding ascii "$archive.sha256"
+python scripts/ci/package_bundle.py $bundle $archive
+if ($LASTEXITCODE -ne 0) { throw "Bundle archive creation failed" }
+python scripts/ci/verify_bundle.py $archive "target/bundle-verification.txt"
+if ($LASTEXITCODE -ne 0) { throw "Clean extracted bundle verification failed" }

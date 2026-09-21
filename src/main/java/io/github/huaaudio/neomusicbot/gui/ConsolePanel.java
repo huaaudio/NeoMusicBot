@@ -28,7 +28,7 @@ import javax.swing.JTextArea;
  * @author John Grosh <john.a.grosh@gmail.com>
  */
 public class ConsolePanel extends JPanel {
-    
+
     public ConsolePanel()
     {
         super();
@@ -39,10 +39,10 @@ public class ConsolePanel extends JPanel {
         PrintStream con=new PrintStream(new TextAreaOutputStream(text));
         System.setOut(con);
         System.setErr(con);
-        
+
         JScrollPane pane = new JScrollPane();
         pane.setViewportView(text);
-        
+
         super.setLayout(new GridLayout(1,1));
         super.add(pane);
         super.setPreferredSize(new Dimension(400,300));
