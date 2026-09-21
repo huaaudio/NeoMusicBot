@@ -145,6 +145,8 @@
 
 ## 全模块检查覆盖
 
+- 为 AUD-001 的托管网络拒绝提供可复现执行路径：默认分支的手动 CI 可选择唯一标签的一次性媒体 runner，push/PR/其他分支仍使用托管 runner。Ubuntu WSL 的真实 bubblewrap 预检加载官方 SHA-256 固定的 runner 2.337.0 成功，确认私人目录不可见、系统程序只读，未注册或安装服务（`tools/media-runner-preflight.log`）；Bash 语法及 actionlint 通过。实际 GitHub 派发、三项媒体报告和整次 CI 结果仍待验证，详见[执行说明](isolated-media-ci.md)。
+
 - AUD-005 新增两项明确声明 MIT 的运行包所对应的 SPDX 标准正文，原元数据和署名保留，未伪造上游版权声明；补充材料现为 14 份。21 个 Python CI 测试及实际 183 包安装树的版本/字节哈希映射复核通过（`tools/provider-license-standard-tests.log`、`tools/distribution-license-audit/provider-runtime-mit-inventory.json`）；原生/WASM 与独立工具材料审查继续进行。
 - `aee1928` 固定工具的 Linux 本地探测在现有 Ubuntu WSL 执行：挂载盘目录下匿名 YouTube/Bilibili 通过，provider 模式为 network-timeout；复制到 WSL 原生临时目录后，同一套检查三项全部通过（`tools/wsl-media-audit/native-candidate.txt`）。未调整超时或放宽成功条件；由于网络时间点也不同，不能据此断言首轮失败仅由文件系统引起。本地结果不替代 GitHub 工作流或实际 Discord 语音验收。
 

@@ -5,6 +5,12 @@ on:
   push:
   pull_request:
   workflow_dispatch:
+    inputs:
+      media_runner:
+        description: "Optional unique label of an isolated one-job Linux x86-64 media runner"
+        type: string
+        required: false
+        default: ""
 
 permissions:
   contents: read
@@ -134,7 +140,9 @@ jobs:
   locked_media_canary:
     name: Locked media resolver canary
     needs: build
-    runs-on: ubuntu-latest
+    # Only an explicit dispatch of the default branch can select a private label.
+    # Pushes, pull requests and dispatches of other branches keep the hosted runner.
+    runs-on: ${{ github.event_name == 'workflow_dispatch' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch) && inputs.media_runner != '' && inputs.media_runner || 'ubuntu-latest' }}
     timeout-minutes: 20
     env:
       YTDLP_REPOSITORY: yt-dlp/yt-dlp
@@ -146,6 +154,8 @@ jobs:
     steps:
       - name: Checkout locked canary definitions
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Test the exact release media toolchain
         shell: bash
