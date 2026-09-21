@@ -21,6 +21,7 @@ package io.github.huaaudio.neomusicbot.audio;
 
 import io.github.huaaudio.neomusicbot.Bot;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
 
 /** Keeps the optional song activity in sync with playback. */
@@ -41,15 +42,24 @@ public final class NowplayingHandler
 
     public void onTrackUpdate(AudioTrack track)
     {
-        if (!bot.getConfig().getSongInStatus() || bot.getJDA() == null)
+        JDA jda = bot.getJDA();
+        if (!bot.getConfig().getSongInStatus() || jda == null)
             return;
 
-        long activeGuilds = bot.getJDA().getGuilds().stream()
-                .filter(guild -> guild.getSelfMember().getVoiceState() != null)
-                .filter(guild -> guild.getSelfMember().getVoiceState().inAudioChannel())
+        long activeGuilds = jda.getGuilds().stream()
+                .map(guild -> guild.getSelfMember().getVoiceState())
+                .filter(state -> state != null && state.inAudioChannel())
                 .count();
-        if (track != null && activeGuilds <= 1)
-            bot.getJDA().getPresence().setActivity(Activity.listening(track.getInfo().title));
+        String title = track == null ? null : track.getInfo().title;
+        if (title != null && !title.isBlank() && activeGuilds <= 1)
+        {
+            title = title.strip();
+            // JDA measures activity names in Unicode code points. Shorten only
+            // the displayed activity, preserving the original media metadata.
+            if (title.codePointCount(0, title.length()) > Activity.MAX_ACTIVITY_NAME_LENGTH)
+                title = title.substring(0, title.offsetByCodePoints(0, Activity.MAX_ACTIVITY_NAME_LENGTH - 1)) + "\u2026";
+            jda.getPresence().setActivity(Activity.listening(title));
+        }
         else
             bot.resetGame();
     }

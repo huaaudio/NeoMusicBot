@@ -49,7 +49,7 @@
 | AUD-002 / P1 | `pom.xml` 与解析器：Jackson 3 移除旧 API、JUnit 6 不再自动执行 JUnit 4 | 编译失败或测试覆盖丢失 | 迁移 JSON API 与所有旧测试 imports/assumptions；Windows 122 测试数量保持一致，121 通过、1 POSIX 测试按平台跳过 |
 | AUD-003 / P1 | `SlashCommandListener` 的 Slash 与选择控件入口：配置频道被删除或不可见时缓存返回 null | 频道限制被跳过 | 按持久化 ID 判断，管理员界面显示不可用而非 any；`SettingsChannelRestrictionTest` 验证缓存缺失与显式清除两种情况 |
 | AUD-004 / P1 | `BotConfig.writeDefaultConfig()`：对已有配置执行生成 | 覆盖 Token 和用户配置 | `CREATE_NEW` 拒绝覆盖，CLI 返回失败；回归测试先复现再通过 |
-| AUD-005 / 待核实 | 发行包：依赖许可证下载告警、缓存路径与旧原生文件 | 材料不完整或依赖开发/构建环境 | Maven 许可覆盖与两平台干净目录验收已通过；新增 provider 安装树/缓存依赖清单与解压复核，Windows 实物包含 304 个 npm 包；独立工具、native/WASM 及第三方源码/许可覆盖尚未完成，见 [材料记录](distribution-licenses.md) |
+| AUD-005 / 待核实 | 发行包：依赖许可证下载告警、缓存路径与旧原生文件 | 材料不完整或依赖开发/构建环境 | Maven 许可覆盖与两平台干净目录验收已通过；新增 provider 安装树/缓存依赖清单与解压复核，AUD-033 后两平台实物各包含 183 个 npm 包；独立工具、native/WASM 及第三方源码/许可覆盖尚未完成，见 [材料记录](distribution-licenses.md) |
 | AUD-006 / P2 | 内部包名、环境变量、旧 bot-listing 自动消息 | 独立项目仍有继承行为或旧名称 | 已迁移 `io.github.huaaudio.neomusicbot`、`NeoMusicBot` 主类及 `NEOMUSICBOT_*`；旧 main 与变量前缀保留兼容，重复变量拒绝启动；移除硬编码第三方服务器消息/退出逻辑，保留合法来源署名 |
 | AUD-007 / P1 | `BotConfig.writeToFile()`：交互补填 owner 或 token | 重写默认模板导致已有配置与注释丢失 | 使用 HOCON 文档更新指定键，保留其他值；临时文件刷盘后替换，POSIX 新文件权限 0600；回归先复现再通过 |
 | AUD-008 / P1 | `SettingsManager.load()`：主文件损坏且没有有效备份；或频道 ID 拼写错误 | 空设置覆盖原数据、错误 ID 静默变成无限制 | 无法恢复时拒绝启动并保留文件；拒绝错误 ID；两个故障回归先失败、修复后通过 |
@@ -79,6 +79,7 @@
 | AUD-032 / P2 | `TextAreaOutputStream`：UTF-8 字符跨 write 边界；一次写入多行或分块写入换行 | 中文/表情出现替代字符；日志行数上限失效，长期运行的界面文档持续增长 | 增量 UTF-8 解码并保留未完成字符，关闭时完成解码；按实际文档行数裁剪，保留最新的未完成行；ConsolePanel 显式使用 UTF-8；4 项确定性故障回归先失败、修复后通过 |
 | AUD-033 / P3 | provider 的默认 Deno 安装将开发依赖也装入发行目录；单加 `--prod` 仍安装全部 304 个包 | 随包分发不用于运行的 lint/编译工具及原生依赖，增加大小和第三方材料范围 | 提交经核对的运行锁文件并保存原配置/锁文件；各运行包的版本、完整性和依赖记录与上游一致；两平台及媒体 canary 共用相同预处理，实际安装降为 183 包；`1133449` 两平台完整 ZIP 和干净解压验证通过 |
 | AUD-034 / P1 | Slash 交互/注册/控件失败以及部分语音与启动监听异常直接将 Throwable 交给日志器 | 异常消息、cause 或 suppressed 链中的 Webhook 路径、Cookie 等内容可被原样打印 | 共用有限长度的脱敏异常摘要，保留操作上下文与异常类型，不附加原始异常链；实际响应编辑失败回调的 3 个泄露断言修复前均失败，修复后通过 |
+| AUD-035 / P2 | `NowplayingHandler.onTrackUpdate()`：开启 songinstatus 后遇到超过 128 个 Unicode 字符、空白或缺失的媒体标题 | JDA 拒绝活动名称并抛出异常，播放回调中断且状态保留旧歌名 | 仅截短展示用标题并保留 Unicode 字符完整性；缺失/空白标题恢复配置的活动；6 个真实 JDA 名称校验故障回归修复前失败，9 个专项用例修复后通过 |
 
 ## 阶段验证证据
 
@@ -143,6 +144,9 @@
 - 日志脱敏回归使用实际 Slash 响应失败回调和 Logback 异常链格式化，注入的均为虚构测试标记；修改前 1 个用例的 3 个泄露断言均失败（`tools/slash-logging-before.log`）。修复后完整 Windows `verify` 共 221 项，220 通过、1 项 POSIX 测试按平台跳过（`tools/slash-logging-full.log`）；未声称已在真实 Discord 上触发网络失败验收。
 
 ## 全模块检查覆盖
+
+- `aee1928` [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35575235177) 的 Windows/Linux 完整发行包与 Java 27 两平台检查均通过，包含日志异常链脱敏回归；锁定媒体仍为 YouTube 两模式 authentication-required、Bilibili access-denied。
+- 歌曲活动名称的有效故障基线共 9 项，其中 6 项在 JDA 的真实名称校验处失败（`tools/nowplaying-before-controlled.log`）；修复后完整 Windows `verify` 共 230 项，229 通过、1 项 POSIX 测试按平台跳过（`tools/nowplaying-full.log`）。覆盖 ASCII/非 BMP 长标题、128 个 emoji 的合法边界、空白/null 标题、关闭显示、多服务器与停止播放；原始轨道标题保持不变。[JDA 活动名称规则](https://docs.jda.wiki/net/dv8tion/jda/api/entities/Activity.html#listening(java.lang.String))与本地 6.7.0 的代码点校验一致；未把代理 Presence 的结果当作真实 Discord 展示验收。
 
 - 歌单修复阶段（`7bbdba3`）完整 Windows `verify` 共 154 个测试，153 通过、1 个 POSIX 测试跳过；日志 `tools/playlist-full.log`。
   44 个 SBOM 组件许可覆盖、30 份上游许可/声明保留检查通过。
