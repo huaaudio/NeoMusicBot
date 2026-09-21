@@ -83,10 +83,12 @@
 | AUD-036 / P1 | Canvas npm 安装脚本额外下载平台原生资产，npm integrity 不覆盖这些文件 | 锁文件相同仍无法保证发行包 native 内容相同，缺失/变更不被单独识别 | 两平台官方预编译压缩包及全部文件独立固定哈希；禁用 lifecycle 脚本，显式安装并在 ZIP 解压后按仓库定义核验；发布门禁要求 `provider.native=passed`。材料审查仍归 AUD-005 |
 | AUD-037 / P2 | jsoup 的 POM 许可 URL 指向可变官网页面；`751bea0` 的普通 push CI 在该页面读取超时 | Linux 的 230 个 Java 测试通过后，许可证收集失败导致构建退出 | 仅对 jsoup 1.23.2 的已核对元数据，改用 release tag 对应固定 commit 中的原始 LICENSE，保留作者署名和许可条款；继续严格拒绝下载失败，不忽略材料检查 |
 | AUD-038 / P3 | `MediaTrackKey.serializedId()` 使用系统默认语言转换音源名称；土耳其语等环境将 ASCII I 转为无点的 ı | 同一 Bilibili 视频的 `AudioTrackInfo.identifier` 因系统语言不同而变化 | 改为 `Locale.ROOT`；现有真实 track 创建/序列化用例切换到 tr-TR 后先复现错误，修复后通过。二进制 track 序列化本来单独保存 canonicalId/分 P，本问题不据此宣称播放失败或持久化数据丢失 |
-| AUD-039 / P2 | 普通 push 的媒体任务总在 GitHub 托管网络运行；`d63bff5` 的托管检查被 YouTube/Bilibili 拒绝，同提交隔离网络三项通过 | 正常 push 持续失败，需重复触发完整工作流才能完成真实验收 | 增加默认分支按运行编号/尝试次数选择隔离 runner、本机自动领取控制器及单任务注册/注销；不跳过媒体任务、不容忍失败。机器和控制器在线且代码一致时才能完成；真实普通 push 验证待执行 |
+| AUD-039 / P2 | 普通 push 的媒体任务总在 GitHub 托管网络运行；`d63bff5` 的托管检查被 YouTube/Bilibili 拒绝，同提交隔离网络三项通过 | 正常 push 持续失败，需重复触发完整工作流才能完成真实验收 | 增加默认分支按运行编号/尝试次数选择隔离 runner、本机自动领取控制器及单任务注册/注销；不跳过媒体任务、不容忍失败。`c651760` 的普通 push [35621240219](https://github.com/huaaudio/NeoMusicBot/actions/runs/35621240219) 四个构建及三项媒体全部通过；实际发行包已下载核验，runner 已注销。机器和控制器在线且代码一致时才能完成 |
 
 ## 阶段验证证据
 
+- Linux 的 Cairo 1.18.6 / librsvg 2.63.2 已完成源码构建，重新编译 Canvas 后，Node 与 Deno 的 PNG/JPEG/SVG/PDF 检查通过；40 个原生文件搬迁后，在不挂载宿主图形库与构建路径的隔离目录中再次通过。新库尚未进入发行包，剩余依赖、源码材料和 CI 构建仍需完成，详见 [实验记录](native-linux-upgrade.md)。现有发行包的原生验收已扩展为真实格式编解码和矢量输出检查。
+- `c651760` 普通 push 的实际 artifact 已下载，外层 SHA-256/大小、两平台发行关联与 native 内容、三份固定 Maven 原始许可，以及 Windows 的 34 个父源码包和 363 个 Cargo 包均复核通过；证据 `tools/ci-success-c651760/verified-artifacts.json`、`verified-materials.json`、`push-controller-acceptance.json`。两平台各执行 230 个 Java 测试与 41 个 Python 检查，Windows 的一个 POSIX 用例按平台跳过。
 - 本轮完整 Windows Maven `verify` 通过：230 个 Java 测试，0 失败、0 错误、1 个 POSIX 平台跳过；44 个 Maven SBOM 组件许可材料完整。protobuf、SLF4J、jsoup 三份实际保存的文本与固定提交的上游原文逐字节一致，证据 `tools/isolated-controller-verify-fixed.log`、`tools/fixed-maven-license-verification.json`。
 - AUD-039 的真实 WSL 退出测试已连接一个不领取任何任务的 JIT runner，关闭控制器 stdin 后，Linux 启动器按预期返回 130、临时目录已删除、GitHub 注册已移除；未触发或取消任何 CI 作业。证据 `tools/controlled-runner-stop.json`。普通 push 的端到端验证仍以新提交运行结果为准。
 - AUD-037 后续核对遇到 protobuf-java 4.36.2 和 slf4j-api 2.0.19 的 OSI 通用许可页返回 403；分别改为相应 release tag 的固定提交中原始 LICENSE / LICENSE.txt，保留 Google/QOS.ch 署名及原文。修改前 Java 的 230 个测试已经通过，构建在许可收集阶段失败，日志 `tools/isolated-controller-verify.log`。

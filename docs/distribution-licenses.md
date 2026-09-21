@@ -162,3 +162,7 @@ Windows 发行包增加全部源码包、原始/重建锁文件、实际配方�
 `tools/librsvg-materials-roundtrip/verification.json`。该本地材料验证不包含程序启动；
 本次新增材料的完整应用 CI 验证另以对应提交的日志为准。
 Linux 原生库及其他工具的材料工作仍在进行，AUD-005 尚未关闭。
+
+Linux 的新源码构建已验证 Cairo 1.18.6 / librsvg 2.63.2 与 Canvas、Deno 兼容，
+且通过完整原生库集合的隔离搬迁实验，见[升级记录](native-linux-upgrade.md)。
+新库尚未替换上述发行资产，其余原生依赖和最终材料仍需审查。
