@@ -45,7 +45,7 @@
 
 | ID / 严重度 | 位置与触发条件 | 影响 | 处理与验证状态 |
 | --- | --- | --- | --- |
-| AUD-001 / P1 | `scripts/ci/media_canary.sh`：任一音源失败即退出且丢弃所有错误信息 | 无法区分工具参数、限流、认证或解析错误；其他音源未检查 | 已修复；3 个诊断测试通过。`48e8d50` 云端报告 YouTube 两种模式均 authentication-required，Bilibili access-denied；媒体验收仍未通过 |
+| AUD-001 / P1 | `scripts/ci/media_canary.sh`：任一音源失败即退出且丢弃所有错误信息 | 无法区分工具参数、限流、认证或解析错误；其他音源未检查 | 诊断已修复；`08aa25b` 的完整 CI 在隔离的一次性 runner 上三项媒体全部通过。托管网络仍可能出现 YouTube authentication-required、Bilibili access-denied；不会降低发布检查或用本地报告替代 |
 | AUD-002 / P1 | `pom.xml` 与解析器：Jackson 3 移除旧 API、JUnit 6 不再自动执行 JUnit 4 | 编译失败或测试覆盖丢失 | 迁移 JSON API 与所有旧测试 imports/assumptions；Windows 122 测试数量保持一致，121 通过、1 POSIX 测试按平台跳过 |
 | AUD-003 / P1 | `SlashCommandListener` 的 Slash 与选择控件入口：配置频道被删除或不可见时缓存返回 null | 频道限制被跳过 | 按持久化 ID 判断，管理员界面显示不可用而非 any；`SettingsChannelRestrictionTest` 验证缓存缺失与显式清除两种情况 |
 | AUD-004 / P1 | `BotConfig.writeDefaultConfig()`：对已有配置执行生成 | 覆盖 Token 和用户配置 | `CREATE_NEW` 拒绝覆盖，CLI 返回失败；回归测试先复现再通过 |
@@ -145,7 +145,10 @@
 
 ## 全模块检查覆盖
 
-- 为 AUD-001 的托管网络拒绝提供可复现执行路径：默认分支的手动 CI 可选择唯一标签的一次性媒体 runner，push/PR/其他分支仍使用托管 runner。Ubuntu WSL 的真实 bubblewrap 预检加载官方 SHA-256 固定的 runner 2.337.0 成功，确认私人目录不可见、系统程序只读，未注册或安装服务（`tools/media-runner-preflight.log`）；Bash 语法及 actionlint 通过。实际 GitHub 派发、三项媒体报告和整次 CI 结果仍待验证，详见[执行说明](isolated-media-ci.md)。
+- `08aa25b` [完整 CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35576688077) 已成功：Windows/Linux 的完整发行包、两平台 Java 27，以及锁定媒体 job 全部 success。GitHub 实际派发的媒体 job `106260754831` 报告 youtube.anonymous、youtube.mweb-provider、bilibili.anonymous 三项 passed；使用固定工具、空白 HOME 和新的安装目录，无 Cookie，未放宽检查或延长媒体超时。runner 执行一个 job 后退出，注册已清理，独立临时目录已删除；本地记录 `tools/isolated-media-run/state.json`。这是开发提交的 CI 验证，不是测试版已发布，最终版本仍须重新运行同样检查。
+
+- 为 AUD-001 的托管网络拒绝提供可复现执行路径：默认分支的手动 CI 可选择唯一标签的一次性媒体 runner，push/PR/其他分支仍使用托管 runner。Ubuntu WSL 的真实 bubblewrap 预检加载官方 SHA-256 固定的 runner 2.337.0 成功，确认私人目录不可见、系统程序只读，预检阶段未注册或安装服务（`tools/media-runner-preflight.log`）；Bash 语法及 actionlint 通过。后续实际派发和整次 CI 成功证据见上一条，详见[执行说明](isolated-media-ci.md)。
+- 上述成功 CI 的两个平台 artifact 与媒体 artifact 已下载，外层 SHA-256/大小均与 GitHub 元数据一致；两个实际发行 ZIP 再次通过 `verify_platform()` 的发布产物关联校验，媒体报告三项通过且源提交一致。证据 `tools/ci-success-08aa25b/verified-artifacts.json`。实际 Canvas 安装带入 Windows 44 个 DLL/Linux 25 个共享库，已明确纳入 AUD-005 材料范围；未因本地旧安装缺少这些文件而忽略，详见[材料审查](distribution-licenses.md)。
 
 - AUD-005 新增两项明确声明 MIT 的运行包所对应的 SPDX 标准正文，原元数据和署名保留，未伪造上游版权声明；补充材料现为 14 份。21 个 Python CI 测试及实际 183 包安装树的版本/字节哈希映射复核通过（`tools/provider-license-standard-tests.log`、`tools/distribution-license-audit/provider-runtime-mit-inventory.json`）；原生/WASM 与独立工具材料审查继续进行。
 - `aee1928` 固定工具的 Linux 本地探测在现有 Ubuntu WSL 执行：挂载盘目录下匿名 YouTube/Bilibili 通过，provider 模式为 network-timeout；复制到 WSL 原生临时目录后，同一套检查三项全部通过（`tools/wsl-media-audit/native-candidate.txt`）。未调整超时或放宽成功条件；由于网络时间点也不同，不能据此断言首轮失败仅由文件系统引起。本地结果不替代 GitHub 工作流或实际 Discord 语音验收。

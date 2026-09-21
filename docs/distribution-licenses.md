@@ -81,3 +81,18 @@ QuickJS 对应关系来源：[2.2.0 源码提交](https://github.com/vercel-labs
 
 本地证据保存在忽略目录 `tools/distribution-license-audit/`；清单可按发行脚本重新生成，
 最终两平台以实际 ZIP 内材料和对应 CI 报告为准。AUD-005 仍未关闭，发布前必须完成上述材料核实。
+
+## 实际 CI 发行包复核
+
+已下载 `08aa25b` [成功 CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35576688077) 的三个原始 artifact，
+逐一核对 GitHub 返回的 SHA-256 和字节数，并对两个平台产物重新执行发布流程使用的提交、版本、
+包哈希、SBOM、工具与解压报告关联校验。媒体 artifact 的提交及三项 passed 也已读回确认。
+两个 provider 清单均为 183 包，14 份补充文件中有 9 份适用于现有运行包。
+
+真实 CI 安装结果与此前本地安装的差异必须保留：Windows 的 canvas/build/Release 含
+`canvas.node` 和 44 个 DLL；Linux 含 `canvas.node` 和 25 个 `.so.*` 文件。
+因此不能用此前本地目录没有这些文件来缩小许可范围；canvas README 的 MIT/BMP 文本
+也不能覆盖 Cairo、GLib、Pango、字体/图像库及编译器运行库等各自的条款和对应源码。
+下一步需按上游预编译资产确定版本、许可及源码材料，并复核 WASM 和独立工具的嵌入组件。
+原始 artifact、实际 ZIP 和文件清单在 `tools/ci-success-08aa25b/`，包括
+`verified-artifacts.json` 与 `canvas-native-inventory.json`。

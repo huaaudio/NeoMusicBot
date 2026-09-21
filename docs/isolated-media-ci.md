@@ -39,7 +39,8 @@ bash scripts/ci/isolated_media_runner.sh --check
    管理员须按本次记录的 runner ID 检查并删除残留注册，不能只关闭本地进程。
 
 脚本从就绪后开始最多运行 45 分钟；媒体 job 本身仍有 20 分钟上限。需要再次验证时创建新 runner，
-不要复用先前 job 的工作目录。本脚本不会把开发机器上的 JDK、缓存或私人配置带进 CI。
+不要复用先前 job 的工作目录。Java 构建在托管机器上使用工作流安装的 JDK；此脚本只运行媒体任务，
+使用只读系统程序与新建的 HOME，不继承开发环境的缓存和私人配置。
 
 官方参考：[JIT runner 与隔离](https://docs.github.com/en/actions/reference/security/secure-use#using-just-in-time-runners)、
 [仓库 runner API](https://docs.github.com/en/rest/actions/self-hosted-runners#create-configuration-for-a-just-in-time-runner-for-a-repository)。
