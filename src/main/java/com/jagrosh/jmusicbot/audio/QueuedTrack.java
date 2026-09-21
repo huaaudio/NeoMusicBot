@@ -1,4 +1,7 @@
 /*
+ * Modified by Huaaudio for independent Bilibili/Discord development (2026).
+ */
+/*
  * Copyright 2021 John Grosh <john.a.grosh@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,11 +36,11 @@ public class QueuedTrack implements Queueable
     public QueuedTrack(AudioTrack track, RequestMetadata rm)
     {
         this.track = track;
-        this.track.setUserData(rm == null ? RequestMetadata.EMPTY : rm);
+        this.requestMetadata = rm == null ? RequestMetadata.EMPTY : rm;
+        this.track.setUserData(this.requestMetadata);
 
-        this.requestMetadata = rm;
-        if (this.track.isSeekable() && rm != null)
-            track.setPosition(rm.requestInfo.startTimestamp);
+        if (this.track.isSeekable() && this.requestMetadata.requestInfo != null)
+            track.setPosition(this.requestMetadata.requestInfo.startTimestamp);
     }
     
     @Override

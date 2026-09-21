@@ -1,4 +1,8 @@
 /*
+ * Modified by Huaaudio for independent Bilibili/Discord development (2026).
+ * @author John Grosh <john.a.grosh@gmail.com>
+ */
+/*
  * Copyright 2016 John Grosh <john.a.grosh@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,316 +19,441 @@
  */
 package com.jagrosh.jmusicbot.audio;
 
+import com.jagrosh.jmusicbot.audio.media.SensitiveLogSanitizer;
 import com.jagrosh.jmusicbot.playlist.PlaylistLoader.Playlist;
-import com.jagrosh.jmusicbot.queue.AbstractQueue;
 import com.jagrosh.jmusicbot.settings.QueueType;
-import com.jagrosh.jmusicbot.utils.TimeUtil;
 import com.jagrosh.jmusicbot.settings.RepeatMode;
+import com.jagrosh.jmusicbot.settings.Settings;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame;
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.Set;
-import com.jagrosh.jmusicbot.settings.Settings;
-import com.jagrosh.jmusicbot.utils.FormatUtil;
-import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioTrack;
-import java.nio.ByteBuffer;
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.MessageBuilder;
+import java.util.concurrent.atomic.AtomicLong;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.User;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
- * @author John Grosh <john.a.grosh@gmail.com>
+ * Per-guild audio sender and lifecycle adapter. State-changing work is routed
+ * through {@link GuildPlaybackSession}; only the 20 ms Opus frame pull stays on
+ * JDA's audio thread.
  */
-public class AudioHandler extends AudioEventAdapter implements AudioSendHandler 
+public class AudioHandler extends AudioEventAdapter implements AudioSendHandler
 {
-    public final static String PLAY_EMOJI  = "\u25B6"; // ▶
-    public final static String PAUSE_EMOJI = "\u23F8"; // ⏸
-    public final static String STOP_EMOJI  = "\u23F9"; // ⏹
+    private static final Logger LOG = LoggerFactory.getLogger(AudioHandler.class);
 
+    public record VoteUpdate(boolean added, Set<String> votes)
+    {
+    }
 
-    private final List<AudioTrack> defaultQueue = new LinkedList<>();
-    private final Set<String> votes = new HashSet<>();
-    
+    public record PlaybackState(AudioTrack current, boolean paused, int volume,
+                                long position, long duration, boolean seekable)
+    {
+    }
+
     private final PlayerManager manager;
-    private final AudioPlayer audioPlayer;
     private final long guildId;
-    
+    private final GuildPlaybackSession session;
+    private final AtomicLong defaultLoadToken = new AtomicLong();
+
     private AudioFrame lastFrame;
-    private AbstractQueue<QueuedTrack> queue;
+    // Accessed only on the session executor. Also identifies a natural-end
+    // callback queued just before a stop cleared the player's active track.
+    private AudioTrack sessionTrack;
 
     protected AudioHandler(PlayerManager manager, Guild guild, AudioPlayer player)
     {
         this.manager = manager;
-        this.audioPlayer = player;
         this.guildId = guild.getIdLong();
-
-        this.setQueueType(manager.getBot().getSettingsManager().getSettings(guildId).getQueueType());
+        QueueType queueType = manager.getBot().getSettingsManager().getSettings(guildId).getQueueType();
+        this.session = new GuildPlaybackSession(player, queueType, manager.getBot().getThreadpool());
     }
 
-    public void setQueueType(QueueType type)
+    public GuildPlaybackSession getSession()
     {
-        queue = type.createInstance(queue);
+        return session;
     }
 
-    public int addTrackToFront(QueuedTrack qtrack)
+    public void setQueueTypeAndSettings(QueueType type, Runnable settingsUpdate)
     {
-        if(audioPlayer.getPlayingTrack()==null)
-        {
-            audioPlayer.playTrack(qtrack.getTrack());
-            return -1;
-        }
-        else
-        {
-            queue.addAt(0, qtrack);
-            return 0;
-        }
+        session.run(() -> {
+            session.setQueueType(type);
+            settingsUpdate.run();
+        });
     }
-    
-    public int addTrack(QueuedTrack qtrack)
+
+    public PlaybackLoadToken reserveLoad()
     {
-        if(audioPlayer.getPlayingTrack()==null)
-        {
-            audioPlayer.playTrack(qtrack.getTrack());
-            return -1;
-        }
-        else
-            return queue.add(qtrack);
+        return session.reserveLoad();
     }
-    
-    public AbstractQueue<QueuedTrack> getQueue()
+
+    public boolean isLoadValid(PlaybackLoadToken token)
     {
-        return queue;
+        return session.isLoadValid(token);
     }
-    
+
+    public Integer addTrackAndCompleteLoad(PlaybackLoadToken token, QueuedTrack track, boolean front)
+    {
+        return session.completePendingLoadWithTracks(token, List.of(track), front);
+    }
+
+    public Integer addTracksAndCompleteLoad(PlaybackLoadToken token, List<QueuedTrack> tracks, boolean front)
+    {
+        return session.completePendingLoadWithTracks(token, List.copyOf(tracks), front);
+    }
+
+    public boolean addTrackForPendingLoad(PlaybackLoadToken token, QueuedTrack track)
+    {
+        return session.addTrackForPendingLoad(token, track);
+    }
+
+    public boolean finishPendingLoad(PlaybackLoadToken token)
+    {
+        GuildPlaybackSession.LoadCompletion completion = session.finishPendingLoad(token);
+        if(completion.accepted() && completion.idle())
+            requestIdleDisconnect();
+        return completion.accepted();
+    }
+
+    public List<QueuedTrack> getQueueSnapshot()
+    {
+        return session.call(session::queueSnapshot);
+    }
+
+    public QueuedTrack removeQueuedTrackIfMatches(int index, QueuedTrack expected,
+                                                  long requesterId, boolean allowAnyRequester)
+    {
+        return session.removeQueuedTrackIfMatches(index, expected, requesterId, allowAnyRequester);
+    }
+
+    public int removeAllQueued(long identifier)
+    {
+        return session.call(() -> {
+            int removed = session.queue().removeAll(identifier);
+            if(removed > 0)
+                session.bumpGeneration();
+            return removed;
+        });
+    }
+
+    public int shuffleQueued(long identifier)
+    {
+        return session.call(() -> {
+            int shuffled = session.queue().shuffle(identifier);
+            if(shuffled > 1)
+                session.bumpGeneration();
+            return shuffled;
+        });
+    }
+
+    public QueuedTrack moveQueuedTrackIfMatches(int from, int to,
+                                                QueuedTrack expectedFrom, QueuedTrack expectedTo)
+    {
+        return session.moveQueuedTrackIfMatches(from, to, expectedFrom, expectedTo);
+    }
+
+    public boolean skipToIfMatches(AudioTrack expectedCurrent, List<QueuedTrack> expectedPrefix)
+    {
+        return session.skipToIfMatches(expectedCurrent, expectedPrefix);
+    }
+
+    public VoteUpdate addVoteIfCurrent(AudioTrack expectedCurrent, String userId)
+    {
+        GuildPlaybackSession.VoteUpdate update = session.voteIfCurrent(expectedCurrent, userId);
+        return update == null ? null : new VoteUpdate(update.added(), update.votes());
+    }
+
+    public boolean skipCurrentIfMatches(AudioTrack expectedCurrent)
+    {
+        return session.skipIfCurrent(expectedCurrent);
+    }
+
     public void stopAndClear()
     {
-        queue.clear();
-        defaultQueue.clear();
-        audioPlayer.stopTrack();
-        //current = null;
+        stopAndClear(GuildPlaybackSession.Transition.TERMINAL_STOP);
     }
-    
-    public boolean isMusicPlaying(JDA jda)
+
+    public void disconnectAndClear()
     {
-        return guild(jda).getSelfMember().getVoiceState().inVoiceChannel() && audioPlayer.getPlayingTrack()!=null;
+        stopAndClear(GuildPlaybackSession.Transition.DISCONNECT);
     }
-    
-    public Set<String> getVotes()
+
+    private void stopAndClear(GuildPlaybackSession.Transition transition)
     {
-        return votes;
+        session.run(() -> {
+            defaultLoadToken.incrementAndGet();
+            session.invalidatePendingLoads();
+            session.setLoadingDefault(false);
+            session.queue().clear();
+            session.clearDefault();
+            AudioTrack current = session.player().getPlayingTrack();
+            session.markTransition(current, transition);
+            if(current != null)
+                session.player().stopTrack();
+            else
+                manager.getBot().getNowplayingHandler().onTrackUpdate(null);
+            sessionTrack = null;
+            session.player().setPaused(false);
+        });
     }
-    
-    public AudioPlayer getPlayer()
+
+    public PlaybackState getPlaybackState()
     {
-        return audioPlayer;
+        GuildPlaybackSession.PlayerSnapshot snapshot = session.playerSnapshot();
+        return new PlaybackState(snapshot.current(), snapshot.paused(), snapshot.volume(),
+                snapshot.position(), snapshot.duration(), snapshot.seekable());
     }
-    
-    public RequestMetadata getRequestMetadata()
+
+    public boolean setPausedIfCurrent(AudioTrack expectedCurrent, boolean paused)
     {
-        if(audioPlayer.getPlayingTrack() == null)
-            return RequestMetadata.EMPTY;
-        RequestMetadata rm = audioPlayer.getPlayingTrack().getUserData(RequestMetadata.class);
-        return rm == null ? RequestMetadata.EMPTY : rm;
+        return session.setPausedIfCurrent(expectedCurrent, paused);
     }
-    
+
+    public void updateSettings(Runnable settingsUpdate)
+    {
+        session.updateSettings(settingsUpdate);
+    }
+
+    public void updateDefaultPlaylistSetting(Runnable settingsUpdate)
+    {
+        session.run(() -> {
+            defaultLoadToken.incrementAndGet();
+            session.setLoadingDefault(false);
+            session.clearDefault();
+            settingsUpdate.run();
+        });
+    }
+
+    public int setVolumeAndSettings(int volume, Runnable settingsUpdate)
+    {
+        return session.call(() -> {
+            int old = session.player().getVolume();
+            session.player().setVolume(Math.max(0, Math.min(150, volume)));
+            settingsUpdate.run();
+            session.bumpGeneration();
+            return old;
+        });
+    }
+
+    public boolean seekIfCurrent(AudioTrack expectedCurrent, long positionMs)
+    {
+        return session.seekIfCurrent(expectedCurrent, positionMs);
+    }
+
+    public void closeIfIdle(long expectedGeneration, Runnable closeAction)
+    {
+        session.closeIfIdle(expectedGeneration, closeAction);
+    }
+
+    public long getGeneration()
+    {
+        return session.generation();
+    }
+
+    public GuildPlaybackSession.VoiceReservation reserveVoiceChannel(long channelId)
+    {
+        return session.reserveVoiceChannel(channelId);
+    }
+
+    public void rollbackVoiceReservation(long channelId)
+    {
+        session.rollbackVoiceReservation(channelId);
+    }
+
+    public void observeVoiceChannel(long channelId)
+    {
+        session.observeVoiceChannel(channelId);
+    }
+
+    public void beginVoiceClose()
+    {
+        session.beginVoiceClose();
+    }
+
+    void closeVoiceConnectionAsync()
+    {
+        // Queue behind the current connection callback so AudioManager.close()
+        // cannot re-enter the listener while its state transition is running.
+        session.execute(() -> manager.getBot().closeAudioConnection(guildId));
+    }
+
+    public void destroy()
+    {
+        session.run(session.player()::destroy);
+    }
+
     public boolean playFromDefault()
     {
-        if(!defaultQueue.isEmpty())
+        return session.call(this::playFromDefaultInternal);
+    }
+
+    private boolean playFromDefaultInternal()
+    {
+        AudioTrack cached = session.pollDefault();
+        if(cached != null)
         {
-            audioPlayer.playTrack(defaultQueue.remove(0));
+            session.player().playTrack(cached);
             return true;
         }
+        if(session.isLoadingDefault())
+            return true;
+
         Settings settings = manager.getBot().getSettingsManager().getSettings(guildId);
-        if(settings==null || settings.getDefaultPlaylist()==null)
+        if(settings == null || settings.getDefaultPlaylist() == null)
             return false;
-        
-        Playlist pl = manager.getBot().getPlaylistLoader().getPlaylist(settings.getDefaultPlaylist());
-        if(pl==null || pl.getItems().isEmpty())
+
+        Playlist playlist = manager.getBot().getPlaylistLoader().getPlaylist(settings.getDefaultPlaylist());
+        if(playlist == null || playlist.getItems().isEmpty())
             return false;
-        pl.loadTracks(manager, (at) -> 
-        {
-            if(audioPlayer.getPlayingTrack()==null)
-                audioPlayer.playTrack(at);
+
+        long token = defaultLoadToken.incrementAndGet();
+        session.setLoadingDefault(true);
+        playlist.loadTracks(manager, track -> session.execute(() -> {
+            if(defaultLoadToken.get() != token || !session.isLoadingDefault())
+                return;
+            if(session.player().getPlayingTrack() == null)
+                session.player().playTrack(track);
             else
-                defaultQueue.add(at);
-        }, () -> 
-        {
-            if(pl.getTracks().isEmpty() && !manager.getBot().getConfig().getStay())
-                manager.getBot().closeAudioConnection(guildId);
-        });
+                session.addDefault(track);
+        }), () -> session.execute(() -> {
+            if(defaultLoadToken.get() != token)
+                return;
+            // The final consumer is queued before this completion callback on
+            // the same SerialExecutor, so current state is authoritative.
+            if(session.finishDefaultLoadingAndIsIdle())
+            {
+                manager.getBot().getNowplayingHandler().onTrackUpdate(null);
+                session.player().setPaused(false);
+                requestIdleDisconnect();
+            }
+        }));
         return true;
     }
-    
-    // Audio Events
+
     @Override
-    public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) 
+    public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason)
     {
+        session.dispatchPlayerEvent(() -> handleTrackEnd(player, track, endReason));
+    }
+
+    private void handleTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason)
+    {
+        GuildPlaybackSession.Transition fallback = switch(endReason)
+        {
+            case FINISHED -> GuildPlaybackSession.Transition.NATURAL_END;
+            case REPLACED -> GuildPlaybackSession.Transition.REPLACE;
+            case CLEANUP -> GuildPlaybackSession.Transition.DISCONNECT;
+            default -> GuildPlaybackSession.Transition.SKIP;
+        };
+        GuildPlaybackSession.Transition transition = session.consumeTransition(track, fallback);
+        session.finishTransition(track);
+
+        if(sessionTrack != track)
+            return;
+        sessionTrack = null;
+
+        // A new request may have started playback before an external end event
+        // reached this session. Never let an old event replace that new track.
+        if(player.getPlayingTrack() != null && player.getPlayingTrack() != track)
+            return;
+
+        if(transition == GuildPlaybackSession.Transition.TERMINAL_STOP
+                || transition == GuildPlaybackSession.Transition.DISCONNECT)
+        {
+            manager.getBot().getNowplayingHandler().onTrackUpdate(null);
+            player.setPaused(false);
+            return;
+        }
+        if(transition == GuildPlaybackSession.Transition.REPLACE)
+            return;
+
         RepeatMode repeatMode = manager.getBot().getSettingsManager().getSettings(guildId).getRepeatMode();
-        // if the track ended normally, and we're in repeat mode, re-add it to the queue
-        if(endReason==AudioTrackEndReason.FINISHED && repeatMode != RepeatMode.OFF)
+        if(transition == GuildPlaybackSession.Transition.NATURAL_END && repeatMode != RepeatMode.OFF)
         {
             QueuedTrack clone = new QueuedTrack(track.makeClone(), track.getUserData(RequestMetadata.class));
             if(repeatMode == RepeatMode.ALL)
-                queue.add(clone);
+                session.queue().add(clone);
             else
-                queue.addAt(0, clone);
+                session.queue().addAt(0, clone);
         }
-        
-        if(queue.isEmpty())
+
+        if(!session.queue().isEmpty())
         {
-            if(!playFromDefault())
-            {
-                manager.getBot().getNowplayingHandler().onTrackUpdate(null);
-                if(!manager.getBot().getConfig().getStay())
-                    manager.getBot().closeAudioConnection(guildId);
-                // unpause, in the case when the player was paused and the track has been skipped.
-                // this is to prevent the player being paused next time it's being used.
-                player.setPaused(false);
-            }
+            QueuedTrack next = session.queue().pull();
+            session.bumpGeneration();
+            player.playTrack(next.getTrack());
+            return;
         }
-        else
+
+        if(!playFromDefaultInternal())
         {
-            QueuedTrack qt = queue.pull();
-            player.playTrack(qt.getTrack());
+            manager.getBot().getNowplayingHandler().onTrackUpdate(null);
+            player.setPaused(false);
+            requestIdleDisconnect();
         }
+    }
+
+    private void requestIdleDisconnect()
+    {
+        if(!manager.getBot().getConfig().getStay())
+            manager.getBot().closeAudioConnection(guildId, session.generation());
     }
 
     @Override
-    public void onTrackException(AudioPlayer player, AudioTrack track, FriendlyException exception) {
-        LoggerFactory.getLogger("AudioHandler").error("Track " + track.getIdentifier() + " has failed to play", exception);
+    public void onTrackException(AudioPlayer player, AudioTrack track, FriendlyException exception)
+    {
+        LOG.error("Track {} failed to play (severity={}): {}",
+                safeIdentifier(track.getIdentifier()), exception.severity,
+                SensitiveLogSanitizer.sanitize(exception.getMessage()));
     }
 
     @Override
-    public void onTrackStart(AudioPlayer player, AudioTrack track) 
+    public void onTrackStart(AudioPlayer player, AudioTrack track)
     {
-        votes.clear();
-        manager.getBot().getNowplayingHandler().onTrackUpdate(track);
+        session.dispatchPlayerEvent(() -> {
+            if(player.getPlayingTrack() != track)
+                return;
+            sessionTrack = track;
+            session.clearVotes();
+            session.bumpGeneration();
+            manager.getBot().getNowplayingHandler().onTrackUpdate(track);
+        });
     }
 
-    
-    // Formatting
-    public Message getNowPlaying(JDA jda)
+    @Override
+    public boolean canProvide()
     {
-        if(isMusicPlaying(jda))
-        {
-            Guild guild = guild(jda);
-            AudioTrack track = audioPlayer.getPlayingTrack();
-            MessageBuilder mb = new MessageBuilder();
-            mb.append(FormatUtil.filter(manager.getBot().getConfig().getSuccess()+" **Now Playing in "+guild.getSelfMember().getVoiceState().getChannel().getAsMention()+"...**"));
-            EmbedBuilder eb = new EmbedBuilder();
-            eb.setColor(guild.getSelfMember().getColor());
-            RequestMetadata rm = getRequestMetadata();
-            if(rm.getOwner() != 0L)
-            {
-                User u = guild.getJDA().getUserById(rm.user.id);
-                if(u==null)
-                    eb.setAuthor(FormatUtil.formatUsername(rm.user), null, rm.user.avatar);
-                else
-                    eb.setAuthor(FormatUtil.formatUsername(u), null, u.getEffectiveAvatarUrl());
-            }
-
-            try 
-            {
-                eb.setTitle(track.getInfo().title, track.getInfo().uri);
-            }
-            catch(Exception e) 
-            {
-                eb.setTitle(track.getInfo().title);
-            }
-
-            if(track instanceof YoutubeAudioTrack && manager.getBot().getConfig().useNPImages())
-            {
-                eb.setThumbnail("https://img.youtube.com/vi/"+track.getIdentifier()+"/mqdefault.jpg");
-            }
-            
-            if(track.getInfo().author != null && !track.getInfo().author.isEmpty())
-                eb.setFooter("Source: " + track.getInfo().author, null);
-
-            double progress = (double)audioPlayer.getPlayingTrack().getPosition()/track.getDuration();
-            eb.setDescription(getStatusEmoji()
-                    + " "+FormatUtil.progressBar(progress)
-                    + " `[" + TimeUtil.formatTime(track.getPosition()) + "/" + TimeUtil.formatTime(track.getDuration()) + "]` "
-                    + FormatUtil.volumeIcon(audioPlayer.getVolume()));
-            
-            return mb.setEmbeds(eb.build()).build();
-        }
-        else return null;
-    }
-    
-    public Message getNoMusicPlaying(JDA jda)
-    {
-        Guild guild = guild(jda);
-        return new MessageBuilder()
-                .setContent(FormatUtil.filter(manager.getBot().getConfig().getSuccess()+" **Now Playing...**"))
-                .setEmbeds(new EmbedBuilder()
-                .setTitle("No music playing")
-                .setDescription(STOP_EMOJI+" "+FormatUtil.progressBar(-1)+" "+FormatUtil.volumeIcon(audioPlayer.getVolume()))
-                .setColor(guild.getSelfMember().getColor())
-                .build()).build();
-    }
-
-    public String getStatusEmoji()
-    {
-        return audioPlayer.isPaused() ? PAUSE_EMOJI : PLAY_EMOJI;
-    }
-    
-    // Audio Send Handler methods
-    /*@Override
-    public boolean canProvide() 
-    {
-        if (lastFrame == null)
-            lastFrame = audioPlayer.provide();
-
+        lastFrame = session.player().provide();
         return lastFrame != null;
     }
 
     @Override
-    public byte[] provide20MsAudio() 
+    public ByteBuffer provide20MsAudio()
     {
-        if (lastFrame == null) 
-            lastFrame = audioPlayer.provide();
-
-        byte[] data = lastFrame != null ? lastFrame.getData() : null;
+        AudioFrame frame = lastFrame;
         lastFrame = null;
-
-        return data;
-    }*/
-    
-    @Override
-    public boolean canProvide() 
-    {
-        lastFrame = audioPlayer.provide();
-        return lastFrame != null;
+        return frame == null ? ByteBuffer.allocate(0) : ByteBuffer.wrap(frame.getData());
     }
 
     @Override
-    public ByteBuffer provide20MsAudio() 
-    {
-        return ByteBuffer.wrap(lastFrame.getData());
-    }
-
-    @Override
-    public boolean isOpus() 
+    public boolean isOpus()
     {
         return true;
     }
-    
-    
-    // Private methods
-    private Guild guild(JDA jda)
+
+    private static String safeIdentifier(String identifier)
     {
-        return jda.getGuildById(guildId);
+        if(identifier == null)
+            return "<unknown>";
+        int query = identifier.indexOf('?');
+        String redacted = query < 0 ? identifier : identifier.substring(0, query) + "?<redacted>";
+        redacted = redacted.replace('\r', ' ').replace('\n', ' ');
+        return redacted.length() > 256 ? redacted.substring(0, 256) + "..." : redacted;
     }
 }

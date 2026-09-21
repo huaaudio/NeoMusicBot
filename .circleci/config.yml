@@ -1,47 +1,34 @@
-# Java Maven CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
-#
-version: 2
+# Modified by Huaaudio for independent Bilibili/Discord development (2026).
+version: 2.1
+
 jobs:
   build:
     docker:
-      # specify the version you desire here
-      - image: cimg/openjdk:11.0
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
+      - image: cimg/openjdk:25.0
+    resource_class: medium
     working_directory: ~/repo
-
     environment:
-      # Customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx3200m
-
     steps:
       - checkout
-
-      # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "pom.xml" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
+            - v2-maven-{{ checksum "pom.xml" }}
+            - v2-maven-
+      - run:
+          name: Resolve dependencies
+          command: sh ./mvnw --batch-mode --no-transfer-progress -Pnative-linux-x86-64 dependency:go-offline
       - save_cache:
           paths:
             - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      # run tests!
-      - run: mvn integration-test
+          key: v2-maven-{{ checksum "pom.xml" }}
+      - run:
+          name: Build, test, and generate SBOM
+          command: sh ./mvnw --batch-mode --no-transfer-progress -Pnative-linux-x86-64 clean verify
+      - store_artifacts:
+          path: target
 
 workflows:
-  version: 2
   build:
     jobs:
       - build:

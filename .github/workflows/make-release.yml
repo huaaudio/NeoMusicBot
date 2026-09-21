@@ -1,70 +1,120 @@
+# Modified by Huaaudio for independent Bilibili/Discord development (2026).
 name: Make Release
+
 on:
   workflow_dispatch:
     inputs:
+      build_run_id:
+        description: Successful Build and Test workflow run ID
+        required: true
+        type: string
       version_number:
-        description: 'Version Number'     
+        description: Version number or tag, using only letters, digits, dot, underscore, and dash
         required: true
         type: string
       info:
-        description: 'Description of this Release'
+        description: Release notes
         required: true
         type: string
 
+permissions:
+  actions: read
+  contents: write
+
 jobs:
-  build_jar:
-    name: Build Jar
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'adopt'
-          cache: maven
-      - name: Set Version
-        uses: datamonsters/replace-action@v2
-        with:
-          files: 'pom.xml'
-          replacements: 'Snapshot=${{ github.event.inputs.version_number }}'
-      - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots verify
-      - name: Rename jar
-        run: mv target/*-All.jar JMusicBot-${{ github.event.inputs.version_number }}.jar
-      - name: Upload jar
-        uses: actions/upload-artifact@v3
-        with:
-          name: jar
-          path: JMusicBot-${{ github.event.inputs.version_number }}.jar
-          if-no-files-found: error
   create_release:
-    name: Create Release
+    name: Release previously tested platform ZIPs
     runs-on: ubuntu-latest
-    needs: build_jar
+    env:
+      BUILD_RUN_ID: ${{ inputs.build_run_id }}
+      VERSION_NUMBER: ${{ inputs.version_number }}
+      YTDLP_VERSION: "2026.07.04"
+      YTDLP_SHA256: 495be29ff4d9d4e9be7eabdfef225221e5d5282e77f2f505abc6dca80349f3fd
+      DENO_VERSION: "2.9.3"
+      DENO_SHA256: 8101865641cbede56f08ad19c0a67a87df84bce127fee0d3e3e1f7467717ffa6
+      POT_PROVIDER_VERSION: "1.3.1"
+      POT_PROVIDER_COMMIT: 7608dd51ee813b48cf9a6d68c6e42cb197ce10e0
+      POT_PROVIDER_PLUGIN_SHA256: b8ceec7f76143da172aaf5ebeec0c2d218e5680c063b931586bca48567069b38
+
     steps:
-      - name: Download a Build Artifact
-        uses: actions/download-artifact@v3.0.0
+      - name: Validate source workflow run
+        id: source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          case "${VERSION_NUMBER}" in
+            *[!A-Za-z0-9._-]*|'')
+              echo "Invalid version number" >&2
+              exit 2
+              ;;
+          esac
+          conclusion="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${BUILD_RUN_ID}" --jq .conclusion)"
+          workflow_name="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${BUILD_RUN_ID}" --jq .name)"
+          head_sha="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${BUILD_RUN_ID}" --jq .head_sha)"
+          test "${conclusion}" = "success"
+          test "${workflow_name}" = "Build and Test"
+          echo "head_sha=${head_sha}" >> "${GITHUB_OUTPUT}"
+
+      - name: Download tested platform artifacts
+        uses: actions/download-artifact@v4
         with:
-          name: jar
-          path: .
-      - name: Show Artifacts
-        run: ls -R
-      - name: Create Release
-        uses: ncipollo/release-action@v1
+          run-id: ${{ inputs.build_run_id }}
+          github-token: ${{ github.token }}
+          pattern: NeoMusicBot-*
+          path: artifacts
+
+      - name: Verify and collect immutable release files
+        shell: bash
+        env:
+          SOURCE_SHA: ${{ steps.source.outputs.head_sha }}
+        run: |
+          set -euo pipefail
+          mkdir dist
+          for platform in linux-x86-64 windows-x86-64; do
+            artifact_dir="artifacts/NeoMusicBot-${platform}"
+            (
+              cd "${artifact_dir}"
+              sha256sum --check "NeoMusicBot-${platform}.zip.sha256"
+            )
+            cp -- "${artifact_dir}/NeoMusicBot-${platform}.zip" dist/
+            cp -- "${artifact_dir}/bom.json" "dist/NeoMusicBot-${platform}.cdx.json"
+            cp -- "${artifact_dir}/bom.xml" "dist/NeoMusicBot-${platform}.cdx.xml"
+          done
+
+          candidate="artifacts/NeoMusicBot-media-canary/candidate.txt"
+          test -f "${candidate}"
+          require_line() {
+            grep -Fqx -- "$1" "${candidate}"
+          }
+          require_line "mode=locked"
+          require_line "repository=yt-dlp/yt-dlp"
+          require_line "release.tag=${YTDLP_VERSION}"
+          require_line "neomusicbot.commit=${SOURCE_SHA}"
+          require_line "yt-dlp.version=${YTDLP_VERSION}"
+          require_line "yt-dlp.sha256=${YTDLP_SHA256}"
+          require_line "deno.version=${DENO_VERSION}"
+          require_line "deno.sha256=${DENO_SHA256}"
+          require_line "bgutil-provider.version=${POT_PROVIDER_VERSION}"
+          require_line "bgutil-provider.commit=${POT_PROVIDER_COMMIT}"
+          require_line "bgutil-provider.plugin.sha256=${POT_PROVIDER_PLUGIN_SHA256}"
+          require_line "youtube.anonymous=passed"
+          require_line "youtube.mweb-provider=passed"
+          require_line "bilibili.anonymous=passed"
+          cp -- "${candidate}" dist/NeoMusicBot-media-canary.txt
+
+          (cd dist && sha256sum ./* > SHA256SUMS)
+
+      - name: Create draft release
+        uses: softprops/action-gh-release@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ github.event.inputs.version_number }}
-          name: Version ${{ github.event.inputs.version_number }}
+          token: ${{ github.token }}
+          tag_name: ${{ inputs.version_number }}
+          name: Version ${{ inputs.version_number }}
+          target_commitish: ${{ steps.source.outputs.head_sha }}
           draft: true
           prerelease: false
-          artifacts: "*.jar"
-          body: |
-            ${{ github.event.inputs.info }}
-            
-            ---
-            ### Setup
-            https://jmusicbot.com/setup  
-            https://jmusicbot.com/config  
-            # Download: [JMusicBot-${{ github.event.inputs.version_number }}.jar](https://github.com/jagrosh/MusicBot/releases/download/${{ github.event.inputs.version_number }}/JMusicBot-${{ github.event.inputs.version_number }}.jar)
+          body: ${{ inputs.info }}
+          files: dist/*
+          fail_on_unmatched_files: true

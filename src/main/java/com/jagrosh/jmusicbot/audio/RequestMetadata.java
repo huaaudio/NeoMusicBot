@@ -1,4 +1,8 @@
 /*
+ * Modified by Huaaudio for independent Bilibili/Discord development (2026).
+ * @author John Grosh (john.a.grosh@gmail.com)
+ */
+/*
  * Copyright 2021 John Grosh <john.a.grosh@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,71 +19,64 @@
  */
 package com.jagrosh.jmusicbot.audio;
 
-import com.jagrosh.jdautilities.command.CommandEvent;
 import com.jagrosh.jmusicbot.utils.TimeUtil;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import net.dv8tion.jda.api.entities.User;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import net.dv8tion.jda.api.entities.User;
 
-/**
- *
- * @author John Grosh (john.a.grosh@gmail.com)
- */
+/** Stable requester metadata attached to a Lavaplayer track. */
 public class RequestMetadata
 {
     public static final RequestMetadata EMPTY = new RequestMetadata(null, null);
-    
+
     public final UserInfo user;
     public final RequestInfo requestInfo;
-    
+
     public RequestMetadata(User user, RequestInfo requestInfo)
     {
-        this.user = user == null ? null : new UserInfo(user.getIdLong(), user.getName(), user.getDiscriminator(), user.getEffectiveAvatarUrl());
+        this.user = user == null ? null : new UserInfo(user.getIdLong(), user.getName(),
+                user.getDiscriminator(), user.getEffectiveAvatarUrl());
         this.requestInfo = requestInfo;
     }
-    
+
     public long getOwner()
     {
         return user == null ? 0L : user.id;
     }
 
-    public static RequestMetadata fromResultHandler(AudioTrack track, CommandEvent event)
+    public static RequestMetadata fromRequest(User user, String query)
     {
-        return new RequestMetadata(event.getAuthor(), new RequestInfo(event.getArgs(), track.getInfo().uri));
+        return new RequestMetadata(user, new RequestInfo(query));
     }
-    
+
     public static class RequestInfo
     {
-        public final String query, url;
+        private static final Pattern YOUTUBE_TIMESTAMP = Pattern.compile(
+                "youtu(?:\\.be|be\\..+)/.*\\?.*(?!.*list=)t=([\\dhms]+)");
+
         public final long startTimestamp;
 
-        public RequestInfo(String query, String url)
+        public RequestInfo(String query)
         {
-            this(query, url, tryGetTimestamp(query));
+            this.startTimestamp = tryGetTimestamp(query);
         }
 
-        private RequestInfo(String query, String url, long startTimestamp)
+        private static long tryGetTimestamp(String value)
         {
-            this.url = url;
-            this.query = query;
-            this.startTimestamp = startTimestamp;
-        }
-
-        private static final Pattern youtubeTimestampPattern = Pattern.compile("youtu(?:\\.be|be\\..+)/.*\\?.*(?!.*list=)t=([\\dhms]+)");
-        private static long tryGetTimestamp(String url)
-        {
-            Matcher matcher = youtubeTimestampPattern.matcher(url);
+            if (value == null)
+                return 0;
+            Matcher matcher = YOUTUBE_TIMESTAMP.matcher(value);
             return matcher.find() ? TimeUtil.parseUnitTime(matcher.group(1)) : 0;
         }
     }
-    
+
     public static class UserInfo
     {
         public final long id;
-        public final String username, discrim, avatar;
-        
+        public final String username;
+        public final String discrim;
+        public final String avatar;
+
         private UserInfo(long id, String username, String discrim, String avatar)
         {
             this.id = id;

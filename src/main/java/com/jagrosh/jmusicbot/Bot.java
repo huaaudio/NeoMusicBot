@@ -1,4 +1,8 @@
 /*
+ * Modified by Huaaudio for independent Bilibili/Discord development (2026).
+ * @author John Grosh <john.a.grosh@gmail.com>
+ */
+/*
  * Copyright 2018 John Grosh <john.a.grosh@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,9 +19,6 @@
  */
 package com.jagrosh.jmusicbot;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.jagrosh.jmusicbot.audio.AloneInVoiceHandler;
 import com.jagrosh.jmusicbot.audio.AudioHandler;
 import com.jagrosh.jmusicbot.audio.NowplayingHandler;
@@ -26,17 +27,15 @@ import com.jagrosh.jmusicbot.gui.GUI;
 import com.jagrosh.jmusicbot.playlist.PlaylistLoader;
 import com.jagrosh.jmusicbot.settings.SettingsManager;
 import java.util.Objects;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
 
-/**
- *
- * @author John Grosh <john.a.grosh@gmail.com>
- */
+/** Runtime container for the bot services. */
 public class Bot
 {
-    private final EventWaiter waiter;
     private final ScheduledExecutorService threadpool;
     private final BotConfig config;
     private final SettingsManager settings;
@@ -44,18 +43,18 @@ public class Bot
     private final PlaylistLoader playlists;
     private final NowplayingHandler nowplaying;
     private final AloneInVoiceHandler aloneInVoiceHandler;
-    
-    private boolean shuttingDown = false;
-    private JDA jda;
+
+    private volatile boolean shuttingDown;
+    private volatile JDA jda;
     private GUI gui;
-    
-    public Bot(EventWaiter waiter, BotConfig config, SettingsManager settings)
+
+    public Bot(BotConfig config, SettingsManager settings)
     {
-        this.waiter = waiter;
         this.config = config;
         this.settings = settings;
         this.playlists = new PlaylistLoader(config);
-        this.threadpool = Executors.newSingleThreadScheduledExecutor();
+        int workerCount = Math.max(4, Runtime.getRuntime().availableProcessors());
+        this.threadpool = Executors.newScheduledThreadPool(workerCount);
         this.players = new PlayerManager(this);
         this.players.init();
         this.nowplaying = new NowplayingHandler(this);
@@ -63,37 +62,32 @@ public class Bot
         this.aloneInVoiceHandler = new AloneInVoiceHandler(this);
         this.aloneInVoiceHandler.init();
     }
-    
+
     public BotConfig getConfig()
     {
         return config;
     }
-    
+
     public SettingsManager getSettingsManager()
     {
         return settings;
     }
-    
-    public EventWaiter getWaiter()
-    {
-        return waiter;
-    }
-    
+
     public ScheduledExecutorService getThreadpool()
     {
         return threadpool;
     }
-    
+
     public PlayerManager getPlayerManager()
     {
         return players;
     }
-    
+
     public PlaylistLoader getPlaylistLoader()
     {
         return playlists;
     }
-    
+
     public NowplayingHandler getNowplayingHandler()
     {
         return nowplaying;
@@ -103,56 +97,95 @@ public class Bot
     {
         return aloneInVoiceHandler;
     }
-    
+
     public JDA getJDA()
     {
         return jda;
     }
-    
+
     public void closeAudioConnection(long guildId)
     {
+        if (jda == null)
+            return;
         Guild guild = jda.getGuildById(guildId);
-        if(guild!=null)
-            threadpool.submit(() -> guild.getAudioManager().closeAudioConnection());
+        if (guild != null)
+            closeAudioConnection(guild, null);
     }
-    
+
+    public void closeAudioConnection(long guildId, long expectedGeneration)
+    {
+        if (jda == null)
+            return;
+        Guild guild = jda.getGuildById(guildId);
+        if (guild == null)
+            return;
+        if (guild.getAudioManager().getSendingHandler() instanceof AudioHandler handler)
+        {
+            handler.closeIfIdle(expectedGeneration, () ->
+            {
+                closeAudioConnection(guild, handler);
+            });
+        }
+    }
+
+    private void closeAudioConnection(Guild guild, AudioHandler expectedHandler)
+    {
+        Object sendingHandler = guild.getAudioManager().getSendingHandler();
+        if(expectedHandler != null && sendingHandler != expectedHandler)
+            return;
+        AudioHandler handler = sendingHandler instanceof AudioHandler audioHandler ? audioHandler : null;
+        if(handler != null)
+            handler.beginVoiceClose();
+
+        // Explicit closes, especially terminal encryption/authentication
+        // failures, must stop JDA's automatic reconnect loop. The next
+        // explicit open enables it again.
+        guild.getAudioManager().setAutoReconnect(false);
+        guild.getAudioManager().closeAudioConnection();
+        if(handler != null && guild.getAudioManager().getConnectedChannel() == null)
+            handler.observeVoiceChannel(0L);
+    }
+
     public void resetGame()
     {
-        Activity game = config.getGame()==null || config.getGame().getName().equalsIgnoreCase("none") ? null : config.getGame();
-        if(!Objects.equals(jda.getPresence().getActivity(), game))
+        Activity game = config.getGame() == null || config.getGame().getName().equalsIgnoreCase("none")
+                ? null : config.getGame();
+        if (jda != null && !Objects.equals(jda.getPresence().getActivity(), game))
             jda.getPresence().setActivity(game);
     }
 
-    public void shutdown()
+    public synchronized void shutdown()
     {
-        if(shuttingDown)
+        if (shuttingDown)
             return;
         shuttingDown = true;
-        threadpool.shutdownNow();
-        if(jda.getStatus()!=JDA.Status.SHUTTING_DOWN)
+
+        if (jda != null && jda.getStatus() != JDA.Status.SHUTTING_DOWN)
         {
-            jda.getGuilds().stream().forEach(g -> 
+            jda.getGuilds().forEach(guild ->
             {
-                g.getAudioManager().closeAudioConnection();
-                AudioHandler ah = (AudioHandler)g.getAudioManager().getSendingHandler();
-                if(ah!=null)
+                closeAudioConnection(guild, null);
+                if (guild.getAudioManager().getSendingHandler() instanceof AudioHandler handler)
                 {
-                    ah.stopAndClear();
-                    ah.getPlayer().destroy();
+                    handler.stopAndClear();
+                    handler.destroy();
                 }
             });
             jda.shutdown();
         }
-        if(gui!=null)
+
+        players.shutdown();
+        settings.close();
+        threadpool.shutdownNow();
+        if (gui != null)
             gui.dispose();
-        System.exit(0);
     }
 
     public void setJDA(JDA jda)
     {
         this.jda = jda;
     }
-    
+
     public void setGUI(GUI gui)
     {
         this.gui = gui;

@@ -1,7 +1,27 @@
+# Modified by Huaaudio for independent Bilibili/Discord development (2026).
 /nbproject/
 /target/
+/out/
+/.idea/
 /Playlists/
 /test/
-*.json
-*.txt
+
+*.class
+*.iml
 nb*.xml
+
+# Runtime state and secrets
+/config.txt
+/serversettings.json
+/serversettings.json.bak
+/serversettings.json.tmp
+/cookies.txt
+/*cookies*.txt
+*.cookies
+*.cookies.txt
+.env
+.env.*
+
+# Local media tooling
+/tools/
+/vendor/

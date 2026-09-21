@@ -1,4 +1,7 @@
 /*
+ * Modified by Huaaudio for independent Bilibili/Discord development (2026).
+ */
+/*
  * Copyright 2018 John Grosh <john.a.grosh@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,11 +21,12 @@ package com.jagrosh.jmusicbot.utils;
 import com.jagrosh.jmusicbot.JMusicBot;
 import com.jagrosh.jmusicbot.entities.Prompt;
 import java.io.*;
+import java.math.BigInteger;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -40,11 +44,13 @@ import org.json.JSONTokener;
  */
 public class OtherUtil
 {
-    public final static String NEW_VERSION_AVAILABLE = "There is a new version of JMusicBot available!\n"
+    public final static String NEW_VERSION_AVAILABLE = "There is a new version of NeoMusicBot available!\n"
                     + "Current version: %s\n"
                     + "New Version: %s\n\n"
-                    + "Please visit https://github.com/jagrosh/MusicBot/releases/latest to get the latest release.";
+                    + "Please visit https://github.com/huaaudio/NeoMusicBot/releases/latest to get the latest release.";
     private final static String WINDOWS_INVALID_PATH = "c:\\windows\\system32\\";
+    private final static Pattern VERSION_PATTERN = Pattern.compile(
+            "^[vV]?(\\d+(?:\\.\\d+)*)(?:-([0-9A-Za-z.-]+))?(?:\\+[0-9A-Za-z.-]+)?$");
     
     /**
      * gets a Path from a String
@@ -88,27 +94,6 @@ public class OtherUtil
         {
             return null;
         }
-    }
-    
-    /**
-     * Loads image data from a URL
-     * 
-     * @param url url of image
-     * @return inputstream of url
-     */
-    public static InputStream imageFromUrl(String url)
-    {
-        if(url==null)
-            return null;
-        try 
-        {
-            URL u = new URL(url);
-            URLConnection urlConnection = u.openConnection();
-            urlConnection.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36");
-            return urlConnection.getInputStream();
-        }
-        catch(IOException | IllegalArgumentException ignore) {}
-        return null;
     }
     
     /**
@@ -169,9 +154,89 @@ public class OtherUtil
         // Check for new version
         String latestVersion = getLatestVersion();
         
-        if(latestVersion!=null && !latestVersion.equals(version))
+        if(isNewerVersion(version, latestVersion))
         {
-            prompt.alert(Prompt.Level.WARNING, "JMusicBot Version", String.format(NEW_VERSION_AVAILABLE, version, latestVersion));
+            prompt.alert(Prompt.Level.WARNING, "NeoMusicBot Version", String.format(NEW_VERSION_AVAILABLE, version, latestVersion));
+        }
+    }
+
+    /**
+     * Returns true only when {@code candidateVersion} is strictly newer than
+     * {@code currentVersion}. GitHub tags may use a leading {@code v}; build
+     * metadata is ignored and prerelease identifiers follow SemVer ordering.
+     */
+    public static boolean isNewerVersion(String currentVersion, String candidateVersion)
+    {
+        ParsedVersion current = ParsedVersion.parse(currentVersion);
+        ParsedVersion candidate = ParsedVersion.parse(candidateVersion);
+        return current != null && candidate != null && candidate.compareTo(current) > 0;
+    }
+
+    private record ParsedVersion(BigInteger[] release, String[] prerelease)
+            implements Comparable<ParsedVersion>
+    {
+        private static ParsedVersion parse(String value)
+        {
+            if(value == null)
+                return null;
+            Matcher matcher = VERSION_PATTERN.matcher(value.trim());
+            if(!matcher.matches())
+                return null;
+            String[] components = matcher.group(1).split("\\.");
+            BigInteger[] release = new BigInteger[components.length];
+            try
+            {
+                for(int i = 0; i < components.length; i++)
+                    release[i] = new BigInteger(components[i]);
+            }
+            catch(NumberFormatException ex)
+            {
+                return null;
+            }
+            String suffix = matcher.group(2);
+            return new ParsedVersion(release, suffix == null ? null : suffix.split("\\."));
+        }
+
+        @Override
+        public int compareTo(ParsedVersion other)
+        {
+            int length = Math.max(release.length, other.release.length);
+            for(int i = 0; i < length; i++)
+            {
+                BigInteger left = i < release.length ? release[i] : BigInteger.ZERO;
+                BigInteger right = i < other.release.length ? other.release[i] : BigInteger.ZERO;
+                int compared = left.compareTo(right);
+                if(compared != 0)
+                    return compared;
+            }
+
+            if(prerelease == null)
+                return other.prerelease == null ? 0 : 1;
+            if(other.prerelease == null)
+                return -1;
+            int suffixLength = Math.max(prerelease.length, other.prerelease.length);
+            for(int i = 0; i < suffixLength; i++)
+            {
+                if(i >= prerelease.length)
+                    return -1;
+                if(i >= other.prerelease.length)
+                    return 1;
+                int compared = compareIdentifier(prerelease[i], other.prerelease[i]);
+                if(compared != 0)
+                    return compared;
+            }
+            return 0;
+        }
+
+        private static int compareIdentifier(String left, String right)
+        {
+            boolean leftNumeric = left.chars().allMatch(Character::isDigit);
+            boolean rightNumeric = right.chars().allMatch(Character::isDigit);
+            if(leftNumeric && rightNumeric)
+                return new BigInteger(left).compareTo(new BigInteger(right));
+            if(leftNumeric != rightNumeric)
+                return leftNumeric ? -1 : 1;
+            return left.compareTo(right);
         }
     }
     
@@ -188,7 +253,7 @@ public class OtherUtil
         try
         {
             Response response = new OkHttpClient.Builder().build()
-                    .newCall(new Request.Builder().get().url("https://api.github.com/repos/jagrosh/MusicBot/releases/latest").build())
+                    .newCall(new Request.Builder().get().url("https://api.github.com/repos/huaaudio/NeoMusicBot/releases/latest").build())
                     .execute();
             ResponseBody body = response.body();
             if(body != null)
@@ -219,11 +284,11 @@ public class OtherUtil
     public static String getUnsupportedBotReason(JDA jda) 
     {
         if (jda.getSelfUser().getFlags().contains(User.UserFlag.VERIFIED_BOT))
-            return "The bot is verified. Using JMusicBot in a verified bot is not supported.";
+            return "The bot is verified. Using NeoMusicBot in a verified bot is not supported.";
 
         ApplicationInfo info = jda.retrieveApplicationInfo().complete();
         if (info.isBotPublic())
-            return "\"Public Bot\" is enabled. Using JMusicBot as a public bot is not supported. Please disable it in the "
+            return "\"Public Bot\" is enabled. Using NeoMusicBot as a public bot is not supported. Please disable it in the "
                     + "Developer Dashboard at https://discord.com/developers/applications/" + jda.getSelfUser().getId() + "/bot ."
                     + "You may also need to disable all Installation Contexts at https://discord.com/developers/applications/" 
                     + jda.getSelfUser().getId() + "/installation .";

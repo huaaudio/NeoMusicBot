@@ -1,3 +1,4 @@
+<!-- Modified by Huaaudio for independent Bilibili/Discord development (2026). -->
 <!-- author: Kaidan Gustave -->
 <configuration>
 
@@ -9,6 +10,14 @@
             </pattern>
         </encoder>
     </appender>
+
+    <!-- Lavaplayer and youtube-source can include signed media URLs and headers in
+         DEBUG messages and exception chains. These explicit child levels are not
+         changed when /owner debug adjusts the root logger. -->
+    <logger name="com.sedmelluq.discord.lavaplayer" level="OFF" additivity="false"/>
+    <logger name="dev.lavalink.youtube" level="OFF" additivity="false"/>
+    <logger name="org.apache.http" level="OFF" additivity="false"/>
+    <logger name="org.apache.hc" level="OFF" additivity="false"/>
 
     <root level="INFO">
         <appender-ref ref="Simple"/>

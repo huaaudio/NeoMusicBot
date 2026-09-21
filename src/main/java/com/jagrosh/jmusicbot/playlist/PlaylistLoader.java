@@ -1,4 +1,7 @@
 /*
+ * Modified by Huaaudio for independent Bilibili/Discord development (2026).
+ */
+/*
  * Copyright 2018 John Grosh (jagrosh).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +19,7 @@
 package com.jagrosh.jmusicbot.playlist;
 
 import com.jagrosh.jmusicbot.BotConfig;
+import com.jagrosh.jmusicbot.audio.RequestMetadata;
 import com.jagrosh.jmusicbot.utils.OtherUtil;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
@@ -160,6 +164,12 @@ public class PlaylistLoader
             if(loaded)
                 return;
             loaded = true;
+            if(items.isEmpty())
+            {
+                if(callback != null)
+                    callback.run();
+                return;
+            }
             for(int i=0; i<items.size(); i++)
             {
                 boolean last = i+1 == items.size();
@@ -177,30 +187,40 @@ public class PlaylistLoader
                         }
                     }
 
-                    @Override
-                    public void trackLoaded(AudioTrack at) 
+                    private void acceptTrack(AudioTrack at)
                     {
                         if(config.isTooLong(at))
                             errors.add(new PlaylistLoadError(index, items.get(index), "This track is longer than the allowed maximum"));
                         else
                         {
-                            at.setUserData(0L);
+                            at.setUserData(RequestMetadata.EMPTY);
                             tracks.add(at);
                             consumer.accept(at);
                         }
+                    }
+
+                    @Override
+                    public void trackLoaded(AudioTrack at)
+                    {
+                        acceptTrack(at);
                         done();
                     }
 
                     @Override
                     public void playlistLoaded(AudioPlaylist ap) 
                     {
+                        if(ap.getTracks().isEmpty())
+                        {
+                            noMatches();
+                            return;
+                        }
                         if(ap.isSearchResult())
                         {
-                            trackLoaded(ap.getTracks().get(0));
+                            acceptTrack(ap.getTracks().get(0));
                         }
                         else if(ap.getSelectedTrack()!=null)
                         {
-                            trackLoaded(ap.getSelectedTrack());
+                            acceptTrack(ap.getSelectedTrack());
                         }
                         else
                         {
@@ -214,7 +234,7 @@ public class PlaylistLoader
                                     loaded.set(second, tmp);
                                 }
                             loaded.removeIf(track -> config.isTooLong(track));
-                            loaded.forEach(at -> at.setUserData(0L));
+                            loaded.forEach(at -> at.setUserData(RequestMetadata.EMPTY));
                             tracks.addAll(loaded);
                             loaded.forEach(at -> consumer.accept(at));
                         }

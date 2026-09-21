@@ -1,4 +1,8 @@
 /*
+ * Modified by Huaaudio for independent Bilibili/Discord development (2026).
+ * @author John Grosh (john.a.grosh@gmail.com)
+ */
+/*
  * Copyright 2016 John Grosh <john.a.grosh@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,112 +19,151 @@
  */
 package com.jagrosh.jmusicbot;
 
+import com.jagrosh.jmusicbot.audio.AudioHandler;
+import com.jagrosh.jmusicbot.audio.GuildPlaybackSession;
 import com.jagrosh.jmusicbot.utils.OtherUtil;
 import java.util.concurrent.TimeUnit;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.entities.VoiceChannel;
-import net.dv8tion.jda.api.events.ReadyEvent;
-import net.dv8tion.jda.api.events.ShutdownEvent;
+import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceUpdateEvent;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageDeleteEvent;
+import net.dv8tion.jda.api.events.session.ReadyEvent;
+import net.dv8tion.jda.api.events.session.ShutdownEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- *
- * @author John Grosh (john.a.grosh@gmail.com)
- */
-public class Listener extends ListenerAdapter
+/** Non-command gateway event handling. */
+public final class Listener extends ListenerAdapter
 {
+    private static final Logger LOG = LoggerFactory.getLogger(Listener.class);
     private final Bot bot;
-    
+
     public Listener(Bot bot)
     {
         this.bot = bot;
     }
-    
+
     @Override
-    public void onReady(ReadyEvent event) 
+    public void onReady(@NotNull ReadyEvent event)
     {
-        if(event.getJDA().getGuildCache().isEmpty())
+        if (event.getJDA().getGuildCache().isEmpty())
         {
-            Logger log = LoggerFactory.getLogger("MusicBot");
-            log.warn("This bot is not on any guilds! Use the following link to add the bot to your guilds!");
-            log.warn(event.getJDA().getInviteUrl(JMusicBot.RECOMMENDED_PERMS));
+            LOG.warn("This bot is not in any guild. Invite URL: {}",
+                    event.getJDA().getInviteUrl(JMusicBot.RECOMMENDED_PERMS));
         }
+
         credit(event.getJDA());
-        event.getJDA().getGuilds().forEach((guild) -> 
+        event.getJDA().getGuilds().forEach(guild ->
         {
+            guild.getAudioManager().setSelfDeafened(true);
+            guild.getAudioManager().setAutoReconnect(true);
+            AudioHandler handler = null;
+            GuildPlaybackSession.VoiceReservation reservation = null;
+            VoiceChannel channel = null;
             try
             {
-                String defpl = bot.getSettingsManager().getSettings(guild).getDefaultPlaylist();
-                VoiceChannel vc = bot.getSettingsManager().getSettings(guild).getVoiceChannel(guild);
-                if(defpl!=null && vc!=null && bot.getPlayerManager().setUpHandler(guild).playFromDefault())
+                String defaultPlaylist = bot.getSettingsManager().getSettings(guild).getDefaultPlaylist();
+                channel = bot.getSettingsManager().getSettings(guild).getVoiceChannel(guild);
+                if (defaultPlaylist != null && channel != null)
                 {
-                    guild.getAudioManager().openAudioConnection(vc);
-                }
-            }
-            catch(Exception ignore) {}
-        });
-        if(bot.getConfig().useUpdateAlerts())
-        {
-            bot.getThreadpool().scheduleWithFixedDelay(() -> 
-            {
-                try
-                {
-                    User owner = bot.getJDA().retrieveUserById(bot.getConfig().getOwnerId()).complete();
-                    String currentVersion = OtherUtil.getCurrentVersion();
-                    String latestVersion = OtherUtil.getLatestVersion();
-                    if(latestVersion!=null && !currentVersion.equalsIgnoreCase(latestVersion))
+                    handler = bot.getPlayerManager().setUpHandler(guild);
+                    reservation = handler.reserveVoiceChannel(channel.getIdLong());
+                    boolean usable = reservation.result()
+                            == GuildPlaybackSession.VoiceReservationResult.OPEN
+                            || reservation.result()
+                            == GuildPlaybackSession.VoiceReservationResult.ALREADY_RESERVED;
+                    if(usable && handler.playFromDefault())
                     {
-                        String msg = String.format(OtherUtil.NEW_VERSION_AVAILABLE, currentVersion, latestVersion);
-                        owner.openPrivateChannel().queue(pc -> pc.sendMessage(msg).queue());
+                        if(reservation.result() == GuildPlaybackSession.VoiceReservationResult.OPEN)
+                            guild.getAudioManager().openAudioConnection(channel);
+                    }
+                    else if(reservation.result() == GuildPlaybackSession.VoiceReservationResult.OPEN)
+                    {
+                        handler.rollbackVoiceReservation(channel.getIdLong());
                     }
                 }
-                catch(Exception ignored) {} // ignored
-            }, 0, 24, TimeUnit.HOURS);
+            }
+            catch (RuntimeException ex)
+            {
+                if(handler != null && reservation != null
+                        && reservation.result() == GuildPlaybackSession.VoiceReservationResult.OPEN)
+                {
+                    handler.disconnectAndClear();
+                    if(channel != null)
+                        handler.rollbackVoiceReservation(channel.getIdLong());
+                    bot.closeAudioConnection(guild.getIdLong());
+                }
+                LOG.warn("Could not start the default playlist for guild {}", guild.getId(), ex);
+            }
+        });
+
+        if (bot.getConfig().useUpdateAlerts())
+        {
+            bot.getThreadpool().scheduleWithFixedDelay(this::sendUpdateAlert, 0, 24, TimeUnit.HOURS);
         }
     }
-    
-    @Override
-    public void onGuildMessageDelete(GuildMessageDeleteEvent event) 
+
+    private void sendUpdateAlert()
     {
-        bot.getNowplayingHandler().onMessageDelete(event.getGuild(), event.getMessageIdLong());
+        try
+        {
+            User owner = bot.getJDA().retrieveUserById(bot.getConfig().getOwnerId()).complete();
+            String currentVersion = OtherUtil.getCurrentVersion();
+            String latestVersion = OtherUtil.getLatestVersion();
+            if (OtherUtil.isNewerVersion(currentVersion, latestVersion))
+            {
+                String message = String.format(OtherUtil.NEW_VERSION_AVAILABLE, currentVersion, latestVersion);
+                owner.openPrivateChannel().queue(channel -> channel.sendMessage(message).queue());
+            }
+        }
+        catch (RuntimeException ex)
+        {
+            LOG.debug("Could not perform the update check", ex);
+        }
     }
 
     @Override
     public void onGuildVoiceUpdate(@NotNull GuildVoiceUpdateEvent event)
     {
+        if(event.getMember().getIdLong() == event.getGuild().getSelfMember().getIdLong()
+                && event.getGuild().getAudioManager().getSendingHandler() instanceof AudioHandler handler)
+        {
+            long joinedChannelId = event.getChannelJoined() == null
+                    ? 0L : event.getChannelJoined().getIdLong();
+            handler.observeVoiceChannel(joinedChannelId);
+        }
         bot.getAloneInVoiceHandler().onVoiceUpdate(event);
     }
 
     @Override
-    public void onShutdown(ShutdownEvent event) 
+    public void onShutdown(@NotNull ShutdownEvent event)
     {
         bot.shutdown();
     }
 
     @Override
-    public void onGuildJoin(GuildJoinEvent event) 
+    public void onGuildJoin(@NotNull GuildJoinEvent event)
     {
+        event.getGuild().getAudioManager().setSelfDeafened(true);
+        event.getGuild().getAudioManager().setAutoReconnect(true);
         credit(event.getJDA());
     }
-    
-    // make sure people aren't adding clones to dbots
+
     private void credit(JDA jda)
     {
-        Guild dbots = jda.getGuildById(110373943822540800L);
-        if(dbots==null)
+        Guild listingGuild = jda.getGuildById(110373943822540800L);
+        if (listingGuild == null || bot.getConfig().getDBots())
             return;
-        if(bot.getConfig().getDBots())
-            return;
-        jda.getTextChannelById(119222314964353025L)
-                .sendMessage("This account is running JMusicBot. Please do not list bot clones on this server, <@"+bot.getConfig().getOwnerId()+">.").complete();
-        dbots.leave().queue();
+        if (jda.getTextChannelById(119222314964353025L) != null)
+        {
+            jda.getTextChannelById(119222314964353025L)
+                    .sendMessage("This account is running NeoMusicBot. Please do not list bot clones on this server, <@"
+                            + bot.getConfig().getOwnerId() + ">.").queue();
+        }
+        listingGuild.leave().queue();
     }
 }

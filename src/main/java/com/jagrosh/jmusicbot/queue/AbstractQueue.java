@@ -1,4 +1,8 @@
 /*
+ * Modified by Huaaudio for independent Bilibili/Discord development (2026).
+ * @author Wolfgang Schwendtbauer
+ */
+/*
  * Copyright 2022 John Grosh (jagrosh).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,64 +22,67 @@ package com.jagrosh.jmusicbot.queue;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
- *
- * @author Wolfgang Schwendtbauer
- * @param <T>
+ * Base queue with synchronized mutations and immutable read snapshots.
  */
 public abstract class AbstractQueue<T extends Queueable>
 {
+    protected final List<T> list;
+
     protected AbstractQueue(AbstractQueue<T> queue)
     {
-        this.list = queue != null ? queue.getList() : new LinkedList<>();
+        this.list = queue != null ? new LinkedList<>(queue.getList()) : new LinkedList<>();
     }
-
-    protected final List<T> list;
 
     public abstract int add(T item);
 
-    public void addAt(int index, T item)
+    public synchronized void addAt(int index, T item)
     {
         if(index >= list.size())
             list.add(item);
         else
-            list.add(index, item);
+            list.add(Math.max(0, index), item);
     }
 
-    public int size() {
+    public synchronized int size()
+    {
         return list.size();
     }
 
-    public T pull() {
+    public synchronized T pull()
+    {
         return list.remove(0);
     }
 
-    public boolean isEmpty()
+    public synchronized boolean isEmpty()
     {
         return list.isEmpty();
     }
 
-    public List<T> getList()
+    /** Returns an immutable point-in-time snapshot for pagination and display. */
+    public synchronized List<T> getList()
     {
-        return list;
+        return List.copyOf(list);
     }
 
-    public T get(int index) {
+    public synchronized T get(int index)
+    {
         return list.get(index);
     }
 
-    public T remove(int index)
+    public synchronized T remove(int index)
     {
         return list.remove(index);
     }
 
-    public int removeAll(long identifier)
+    public synchronized int removeAll(long identifier)
     {
         int count = 0;
-        for(int i=list.size()-1; i>=0; i--)
+        for(int i = list.size() - 1; i >= 0; i--)
         {
-            if(list.get(i).getIdentifier()==identifier)
+            if(list.get(i).getIdentifier() == identifier)
             {
                 list.remove(i);
                 count++;
@@ -84,44 +91,36 @@ public abstract class AbstractQueue<T extends Queueable>
         return count;
     }
 
-    public void clear()
+    public synchronized void clear()
     {
         list.clear();
     }
 
-    public int shuffle(long identifier)
+    public synchronized int shuffle(long identifier)
     {
-        List<Integer> iset = new ArrayList<>();
-        for(int i=0; i<list.size(); i++)
+        List<Integer> indexes = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++)
         {
-            if(list.get(i).getIdentifier()==identifier)
-                iset.add(i);
+            if(list.get(i).getIdentifier() == identifier)
+                indexes.add(i);
         }
-        for(int j=0; j<iset.size(); j++)
+        for(int first : indexes)
         {
-            int first = iset.get(j);
-            int second = iset.get((int)(Math.random()*iset.size()));
-            T temp = list.get(first);
+            int second = indexes.get(ThreadLocalRandom.current().nextInt(indexes.size()));
+            T item = list.get(first);
             list.set(first, list.get(second));
-            list.set(second, temp);
+            list.set(second, item);
         }
-        return iset.size();
+        return indexes.size();
     }
 
-    public void skip(int number)
+    public synchronized void skip(int number)
     {
-        if (number > 0) {
-            list.subList(0, number).clear();
-        }
+        if(number > 0)
+            list.subList(0, Math.min(number, list.size())).clear();
     }
 
-    /**
-     * Move an item to a different position in the list
-     * @param from The position of the item
-     * @param to The new position of the item
-     * @return the moved item
-     */
-    public T moveItem(int from, int to)
+    public synchronized T moveItem(int from, int to)
     {
         T item = list.remove(from);
         list.add(to, item);

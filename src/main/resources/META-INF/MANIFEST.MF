@@ -1,3 +1,5 @@
 Manifest-Version: 1.0
+X-Modified-By: Huaaudio (2026)
 Main-Class: com.jagrosh.jmusicbot.JMusicBot
+Enable-Native-Access: ALL-UNNAMED
 
