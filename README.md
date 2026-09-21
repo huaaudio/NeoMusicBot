@@ -9,6 +9,7 @@ Project home: [huaaudio/NeoMusicBot](https://github.com/huaaudio/NeoMusicBot).
 这是 Huaaudio 维护的 Discord 音乐机器人，重点支持 Bilibili 视频与分 P 播放，
 并支持 YouTube、SoundCloud 和 Discord 音频附件。源自 JMusicBot，保留原作者署名与开源许可证。
 本仓库仍在开发中，当前验证结果及待办见[现代化审查记录](docs/modernization-audit.md)。
+维护者发布测试版时，请遵循[测试版发布流程](docs/prerelease-process.md)。
 
 NeoMusicBot is a self-hosted Discord music bot. This branch targets Discord's current
 voice stack: JDA 6 provides Voice Gateway and RTP transport support, while JDAVE

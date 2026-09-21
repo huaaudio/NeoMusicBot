@@ -5,15 +5,15 @@ on:
   workflow_dispatch:
     inputs:
       build_run_id:
-        description: Successful Build and Test workflow run ID
+        description: Successful Build and Test run for this exact default-branch commit
         required: true
         type: string
       version_number:
-        description: Version number or tag, using only letters, digits, dot, underscore, and dash
+        description: Prerelease tag matching pom.xml, for example v0.5.0-beta.1
         required: true
         type: string
       info:
-        description: Release notes
+        description: Release notes including migration, test coverage, and known limitations
         required: true
         type: string
 
@@ -21,41 +21,36 @@ permissions:
   actions: read
   contents: write
 
+concurrency:
+  group: neomusicbot-prerelease
+  cancel-in-progress: false
+
 jobs:
   create_release:
-    name: Release previously tested platform ZIPs
+    name: Publish verified prerelease assets
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     env:
       BUILD_RUN_ID: ${{ inputs.build_run_id }}
       VERSION_NUMBER: ${{ inputs.version_number }}
-      YTDLP_VERSION: "2026.08.19"
-      YTDLP_SHA256: 58162f9bfdc27458ea47bfcb311cf47028f17d8154a8bf7d689861d46399230a
-      DENO_VERSION: "2.9.7"
-      DENO_SHA256: c6527f24f4b16031d3ae4fa9f658d5f11534c8d84ce7dc8502420280919c3490
-      POT_PROVIDER_VERSION: "2.0.0"
-      POT_PROVIDER_COMMIT: 37169ee2656e08c5c2e5dc9df4c598c0cb4c88a8
-      POT_PROVIDER_PLUGIN_SHA256: bce874dfa25896c2798e0f4f8147b7b22e785479eb1e459ab232bf2506c95016
 
     steps:
-      - name: Validate source workflow run
-        id: source
+      - name: Checkout publishing commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Validate successful source workflow and prerelease version
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
-          case "${VERSION_NUMBER}" in
-            *[!A-Za-z0-9._-]*|'')
-              echo "Invalid version number" >&2
-              exit 2
-              ;;
-          esac
-          conclusion="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${BUILD_RUN_ID}" --jq .conclusion)"
-          workflow_name="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${BUILD_RUN_ID}" --jq .name)"
-          head_sha="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${BUILD_RUN_ID}" --jq .head_sha)"
-          test "${conclusion}" = "success"
-          test "${workflow_name}" = "Build and Test"
-          echo "head_sha=${head_sha}" >> "${GITHUB_OUTPUT}"
+          [[ "${BUILD_RUN_ID}" =~ ^[1-9][0-9]*$ ]]
+          gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${BUILD_RUN_ID}" > source-run.json
+          gh api "repos/${GITHUB_REPOSITORY}" > repository.json
+          python scripts/ci/prepare_prerelease.py source source-run.json repository.json
 
       - name: Download tested platform artifacts
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
@@ -65,56 +60,51 @@ jobs:
           pattern: NeoMusicBot-*
           path: artifacts
 
-      - name: Verify and collect immutable release files
+      - name: Verify commit, versions, bundle reports, SBOMs, tools, and media evidence
         shell: bash
+        run: python scripts/ci/prepare_prerelease.py prepare artifacts dist
+
+      - name: Create new tag and upload a prerelease draft
         env:
-          SOURCE_SHA: ${{ steps.source.outputs.head_sha }}
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_NOTES: ${{ inputs.info }}
+        shell: bash
         run: |
           set -euo pipefail
-          mkdir dist
-          for platform in linux-x86-64 windows-x86-64; do
-            artifact_dir="artifacts/NeoMusicBot-${platform}"
-            (
-              cd "${artifact_dir}"
-              sha256sum --check "NeoMusicBot-${platform}.zip.sha256"
-            )
-            cp -- "${artifact_dir}/NeoMusicBot-${platform}.zip" dist/
-            cp -- "${artifact_dir}/bom.json" "dist/NeoMusicBot-${platform}.cdx.json"
-            cp -- "${artifact_dir}/bom.xml" "dist/NeoMusicBot-${platform}.cdx.xml"
-          done
+          python -c 'import os; from pathlib import Path; Path("release-notes.md").write_text(os.environ["RELEASE_NOTES"], encoding="utf-8")'
+          # Creating the ref fails atomically if it already exists. Never move a tag
+          # or overwrite a previous release, including a failed publication draft.
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/git/refs" \
+            -f "ref=refs/tags/${VERSION_NUMBER}" -f "sha=${GITHUB_SHA}" > tag-ref.json
+          gh release create "${VERSION_NUMBER}" dist/* --repo "${GITHUB_REPOSITORY}" \
+            --verify-tag --draft --prerelease --latest=false \
+            --title "NeoMusicBot ${VERSION_NUMBER}" --notes-file release-notes.md
+          release_id="$(gh release view "${VERSION_NUMBER}" --repo "${GITHUB_REPOSITORY}" --json databaseId --jq .databaseId)"
+          [[ "${release_id}" =~ ^[1-9][0-9]*$ ]]
+          printf 'RELEASE_ID=%s\n' "${release_id}" >> "${GITHUB_ENV}"
 
-          candidate="artifacts/NeoMusicBot-media-canary/candidate.txt"
-          test -f "${candidate}"
-          require_line() {
-            grep -Fqx -- "$1" "${candidate}"
-          }
-          require_line "mode=locked"
-          require_line "repository=yt-dlp/yt-dlp"
-          require_line "release.tag=${YTDLP_VERSION}"
-          require_line "neomusicbot.commit=${SOURCE_SHA}"
-          require_line "yt-dlp.version=${YTDLP_VERSION}"
-          require_line "yt-dlp.sha256=${YTDLP_SHA256}"
-          require_line "deno.version=${DENO_VERSION}"
-          require_line "deno.sha256=${DENO_SHA256}"
-          require_line "bgutil-provider.version=${POT_PROVIDER_VERSION}"
-          require_line "bgutil-provider.commit=${POT_PROVIDER_COMMIT}"
-          require_line "bgutil-provider.plugin.sha256=${POT_PROVIDER_PLUGIN_SHA256}"
-          require_line "youtube.anonymous=passed"
-          require_line "youtube.mweb-provider=passed"
-          require_line "bilibili.anonymous=passed"
-          cp -- "${candidate}" dist/NeoMusicBot-media-canary.txt
+      - name: Download draft assets and compare every uploaded byte hash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api "repos/${GITHUB_REPOSITORY}/releases/${RELEASE_ID}" > draft-release.json
+          gh api "repos/${GITHUB_REPOSITORY}/git/ref/tags/${VERSION_NUMBER}" > tag-ref.json
+          python scripts/ci/prepare_prerelease.py draft draft-release.json tag-ref.json
+          gh release download "${VERSION_NUMBER}" --repo "${GITHUB_REPOSITORY}" --pattern '*' --dir downloaded
+          python scripts/ci/prepare_prerelease.py download dist downloaded
 
-          (cd dist && sha256sum ./* > SHA256SUMS)
-
-      - name: Create draft release
-        uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
-        with:
-          token: ${{ github.token }}
-          tag_name: ${{ inputs.version_number }}
-          name: Version ${{ inputs.version_number }}
-          target_commitish: ${{ steps.source.outputs.head_sha }}
-          draft: true
-          prerelease: false
-          body: ${{ inputs.info }}
-          files: dist/*
-          fail_on_unmatched_files: true
+      - name: Publish only as a prerelease and verify the published state
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh release edit "${VERSION_NUMBER}" --repo "${GITHUB_REPOSITORY}" --draft=false --prerelease --latest=false
+          gh api "repos/${GITHUB_REPOSITORY}/releases/${RELEASE_ID}" > published-release.json
+          gh api "repos/${GITHUB_REPOSITORY}/git/ref/tags/${VERSION_NUMBER}" > tag-ref.json
+          python scripts/ci/prepare_prerelease.py published published-release.json tag-ref.json
+          gh release download "${VERSION_NUMBER}" --repo "${GITHUB_REPOSITORY}" --pattern '*' --dir published-assets
+          python scripts/ci/prepare_prerelease.py download dist published-assets
+          printf 'Published verified prerelease: https://github.com/%s/releases/tag/%s\n' "${GITHUB_REPOSITORY}" "${VERSION_NUMBER}" >> "${GITHUB_STEP_SUMMARY}"

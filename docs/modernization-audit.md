@@ -71,6 +71,7 @@
 | AUD-024 / P2 | 超时清理测试依赖子 JVM 在 350 ms 内写 PID | Windows Java 27 在 JVM 启动较慢时，进程已被正确终止却被测试误报为未启动 | 在进程创建时捕获真实 OS 句柄，维持 350 ms 超时及存活检查；测试子进程刻意延迟写 PID 2 秒；`b877a29` 两平台 Java 25/27 均通过 |
 | AUD-025 / P2 | 旧 `--self-test` 只检查 DAVE 加载与 Lavaplayer 解码 | JNA/opus-java 绑定及 JDA 使用的 Tink 接口不在发行包自检覆盖内 | 新增实际 Opus 编解码、JDA 两种 RTP 加密往返及篡改拒绝；完整 ZIP 验证器要求新检查字段；Commons Logging 真实桥接入口亦受日志关闭测试覆盖 |
 | AUD-026 / P1 | `/skip` 等待播放线程后重读请求者频道，并分别读取投票人数与票数；用户此时切换频道或离开 | 在其他频道按更低门槛跳过歌曲、离开后仍可直接跳过、空指针或计票不一致 | 在播放线程内获取 Bot 频道的一份合格听众快照，重新核实投票资格，原子记录投票与执行跳过；普通命令和搜索控件也改为一次捕获频道并判空；6 个行为用例中 5 个修复前失败、修复后全部通过 |
+| AUD-027 / P1 | `Make Release` 只核对工作流名称及 conclusion，版本输入与产物不关联，创建 `prerelease: false` 的草稿 | 可混入其他提交或错误版本的包，不满足测试版发布目标 | 新增来源、默认分支、触发类型、完整 SHA、POM/JAR/SBOM、平台报告与媒体报告关联检查；创建测试版草稿、下载核对全部资产后公开且不设 Latest；12 个 Python 测试及 actionlint 通过，真实发布链路待执行 |
 
 ## 阶段验证证据
 
@@ -98,6 +99,8 @@
 - 升级后本地打包 JAR 的 `--self-test` 全部通过，包括新增 JNA/Opus 和 JDA RTP 加密检查；实际在线音源 Bilibili、第二 P、YouTube、SoundCloud 均解码出 10 帧，无 Cookie/provider。JAR SHA-256：`bf13d9c46de08bfbfbf836cae379b2dc29e0ad8ab9d974c9112bfc505ec01e3c`；脱敏记录 `tools/online-audit/java-probes-transitive.txt`。仍未测试真实 Discord 语音。
 - `b877a29` [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35566990914) 的 Windows/Linux 构建、完整发行包及 Java 27 检查全部通过，包含新增 Opus/RTP 自检。锁定在线探测仍为 YouTube 两模式 authentication-required、Bilibili access-denied，整次流水线未通过。
 - 跳歌修复的 22 个专项测试全部通过；完整 Windows `verify` 共 161 个测试，160 通过、1 个 POSIX 测试跳过，许可证收集及 SBOM 生成成功。修改前后日志分别为 `tools/skip-vote-before.log`、`tools/skip-vote-after.log`，完整日志 `tools/skip-vote-full.log`；云端待回归。
+- `cc185b0` [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35567577355) 的 Windows/Linux 构建、完整 ZIP 与 Java 27 检查全部通过；锁定媒体检查仍为 YouTube 两模式 authentication-required、Bilibili access-denied。
+- 发布校验新增 6 个测试方法，覆盖来源提交/仓库/分支/工作流、测试版版本、包内外 SBOM、工具和报告篡改、在线门禁、资产下载完整性及 Release 状态；连同既有验证器共 12 个 Python 测试通过。actionlint 1.7.12 验证两份工作流，Bash 语法检查通过。平台产物关联检查已加入正常构建，待云端实物回归；尚未创建任何测试版标签或 Release。流程见 [发布说明](prerelease-process.md)。
 
 ## 全模块检查覆盖
 
