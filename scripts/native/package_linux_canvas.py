@@ -46,7 +46,7 @@ def baseline(files):
                 symbol_analysis_is_not_an_independent_older_os_test=True)
 
 
-def isolated_probes(stage, bundle, deno, font, native_dependencies, env):
+def isolated_probes(stage, bundle, deno, font, native_dependencies, env, bwrap):
     os_lib = stage / "os-runtime"
     os_lib.mkdir()
     deno_dependencies = dependencies(deno, env)
@@ -69,7 +69,7 @@ def isolated_probes(stage, bundle, deno, font, native_dependencies, env):
     (fixtures / "fonts.conf").write_text(
         '<?xml version="1.0"?><fontconfig><cachedir>/tmp/font-cache</cachedir></fontconfig>\n')
     command = [
-        "bwrap", "--unshare-all", "--die-with-parent", "--new-session", "--clearenv",
+        str(bwrap), "--unshare-all", "--die-with-parent", "--new-session", "--clearenv",
         "--proc", "/proc", "--dev", "/dev", "--tmpfs", "/tmp", "--dir", "/tmp/home",
         "--ro-bind", str(os_lib), "/lib/x86_64-linux-gnu",
         "--ro-bind", str(loader), "/lib64/ld-linux-x86-64.so.2",
@@ -108,6 +108,7 @@ def main():
     parser.add_argument("--work-dir", type=Path, required=True)
     parser.add_argument("--deno", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--bwrap", type=Path, default=Path("/usr/bin/bwrap"))
     args = parser.parse_args()
     work, deno, output = args.work_dir.resolve(), args.deno.resolve(), args.output_dir.resolve()
     data = json.loads((DEFINITION / "inputs.json").read_text())
@@ -155,7 +156,7 @@ def main():
         "/usr/bin/python3", str(Path(__file__).with_name("shared_versions.py")), str(release)], text=True, env=plain_env))
     if versions != data["expected_shared_versions"]:
         raise ValueError("Actual shared-library versions differ from the definition")
-    probes = isolated_probes(stage, bundle, deno, font, native_dependencies, plain_env)
+    probes = isolated_probes(stage, bundle, deno, font, native_dependencies, plain_env, args.bwrap.resolve())
     elf = baseline(sorted(release.iterdir()))
     archive_path = output / "canvas-v3.2.3-linux-x86-64-source-built.tar.gz"
     with archive_path.open("xb") as raw, gzip.GzipFile(filename="", fileobj=raw, mode="wb", mtime=0) as compressed:

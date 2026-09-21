@@ -43,9 +43,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          sudo apt-get update -q
-          sudo apt-get install -y --no-install-recommends build-essential ninja-build pkg-config bubblewrap unzip
-          bwrap --unshare-all --ro-bind / / /usr/bin/true
+          {
+            sudo apt-get update -q
+            sudo apt-get install -y --no-install-recommends build-essential ninja-build pkg-config bubblewrap unzip apparmor
+            sudo install -D -m 0755 /usr/bin/bwrap /usr/local/lib/neomusicbot-native-ci/bwrap
+            sudo apparmor_parser --replace scripts/native/ci-bwrap.apparmor
+            /usr/local/lib/neomusicbot-native-ci/bwrap --unshare-all --ro-bind / / /usr/bin/true
+          } 2>&1 | tee "${RUNNER_TEMP}/native-prepare.log"
 
       - name: Build from pinned source and SDK inputs
         shell: bash
@@ -80,6 +84,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 scripts/native/package_linux_canvas.py --work-dir "${RUNNER_TEMP}/neomusicbot-native-build" \
+            --bwrap /usr/local/lib/neomusicbot-native-ci/bwrap \
             --deno "${RUNNER_TEMP}/native-deno/deno" --output-dir "${RUNNER_TEMP}/neomusicbot-native-output" \
             2>&1 | tee "${RUNNER_TEMP}/native-package.log"
 
@@ -91,6 +96,7 @@ jobs:
         with:
           name: native-linux-evidence-${{ github.sha }}
           path: |
+            ${{ runner.temp }}/native-prepare.log
             ${{ runner.temp }}/native-build.log
             ${{ runner.temp }}/native-package.log
             ${{ runner.temp }}/native-cargo-materials.log

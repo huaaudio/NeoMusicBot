@@ -112,6 +112,11 @@ librsvg 2.63.2 原始 Cargo.lock 的完整图共 357 个原始 crate，已收集
 新增 `.github/workflows/native-linux.yml` 在 Ubuntu 24.04 上从固定输入构建，
 检查 Cargo 材料、执行隔离功能验收并回读归档；当前仅保存构建证据，不发布或选择发行原生资产。
 工作流语法检查通过，云端实际执行仍待完成。
+首次云端运行 `8a5b49a` / 35638229942 在 bubblewrap 创建 loopback 地址时被拒绝，
+尚未开始编译。Ubuntu 24.04 的应用级 userns 配置见
+[官方说明](https://documentation.ubuntu.com/release-notes/24.04/)；工作流为专用 bubblewrap
+副本加载 `ci-bwrap.apparmor`，随后执行相同的完整命名空间预检。
+该配置只在临时托管执行器使用，本地 WSL 配置不变；修正后的云端结果仍待验证。
 
 还需完成云端源码构建、其余材料及最终二进制绑定，以及 Windows 对应升级评估。
 之后才能生成并固定新 native 资产，替换发行定义，再对最终同一提交执行完整应用验收。

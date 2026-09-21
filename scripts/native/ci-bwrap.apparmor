@@ -1,0 +1,8 @@
+# GitHub-hosted Ubuntu 24.04 only. The CI job installs this dedicated copy.
+# https://documentation.ubuntu.com/release-notes/24.04/
+abi <abi/4.0>,
+include <tunables/global>
+
+profile neomusicbot-native-ci-bwrap /usr/local/lib/neomusicbot-native-ci/bwrap flags=(unconfined) {
+  userns,
+}
