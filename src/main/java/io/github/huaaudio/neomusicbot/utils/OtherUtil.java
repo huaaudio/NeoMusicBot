@@ -31,11 +31,8 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.ApplicationInfo;
-import net.dv8tion.jda.api.entities.User;
 import okhttp3.*;
 import org.json.JSONException;
 import org.json.JSONArray;
@@ -313,22 +310,4 @@ public class OtherUtil
         return newest;
     }
 
-    /**
-     * Checks if the bot NeoMusicBot is being run on is supported & returns the reason if it is not.
-     * @return A string with the reason, or null if it is supported.
-     */
-    public static String getUnsupportedBotReason(JDA jda) 
-    {
-        if (jda.getSelfUser().getFlags().contains(User.UserFlag.VERIFIED_BOT))
-            return "The bot is verified. Using NeoMusicBot in a verified bot is not supported.";
-
-        ApplicationInfo info = jda.retrieveApplicationInfo().complete();
-        if (info.isBotPublic())
-            return "\"Public Bot\" is enabled. Using NeoMusicBot as a public bot is not supported. Please disable it in the "
-                    + "Developer Dashboard at https://discord.com/developers/applications/" + jda.getSelfUser().getId() + "/bot ."
-                    + "You may also need to disable all Installation Contexts at https://discord.com/developers/applications/" 
-                    + jda.getSelfUser().getId() + "/installation .";
-
-        return null;
-    }
 }

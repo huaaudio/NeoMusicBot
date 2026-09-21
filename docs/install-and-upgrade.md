@@ -38,7 +38,8 @@ Python、Node.js 或 npm；Java 仍需按步骤 1 安装。不要删除以点开
 完整审查状态见 [发行材料记录](distribution-licenses.md)。
 
 可先执行 `run_neomusicbot.cmd --self-test`（Linux：`sh ./run_neomusicbot.sh --self-test`）。
-它不读取机器人凭据、不连接 Discord，检查 JDAVE 和内置测试音的 AAC、Opus、MP3 解码。
+它不读取机器人凭据、不连接 Discord，检查 JDAVE 加载、内置测试音的 AAC、Opus、MP3 解码、
+JNA/Opus 编解码，以及 JDA 使用的 AES-GCM/XChaCha20-Poly1305 RTP 加密往返与篡改拒绝。
 `--version` 显示当前版本，`--help` 显示参数。自检通过不代表在线音源可访问或 Discord 已有声音。
 错误参数返回 2，配置生成失败或启动配置无效返回 1，便于服务管理器判断失败。
 

@@ -128,6 +128,11 @@
 - `a8e1992` [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35572454165) 的 Windows/Linux 完整发行包与 Java 27 两平台检查均通过；锁定在线媒体检查仍失败。
 - 桌面控制台基线 6 项中 4 项失败（`tools/gui-console-before.log`），修复后全部通过；新增大于内部缓冲区的 UTF-8 写入用例后，完整 Windows `verify` 共 220 项，219 通过、1 项 POSIX 测试按平台跳过（`tools/gui-console-full.log`）。测试使用真实 Swing 文档和事件线程，覆盖清空、关闭、逐字节/数组偏移、所有字符分块边界、混合换行及多行裁剪；未将这些测试视为整套桌面界面人工验收。
 
+- `d6d0fac` [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35572821137) 的 Windows/Linux 完整发行包与 Java 27 两平台检查均通过，包含控制台回归；锁定在线媒体检查失败。
+- 名称复核将源码 Manifest 与 Shade 入口统一为新主类，保留旧 main 转发入口；移除无调用的旧公共/认证机器人限制方法。重新 `package -DskipTests` 成功，JAR 的新入口和旧入口均输出 `NeoMusicBot 0.4.5`；此步骤没有重复执行全量测试。JAR SHA-256 为 `88f37ee9af3e3c6a071a54b541d5f248e79c77e29a1d3c4fce47f8879804f523`，证据 `tools/branding-package.log`、`tools/branding-entrypoints.json`。
+- 同一 JAR 的离线原生/音频自检全部通过。初次在受限沙箱中使用系统临时目录时 JDAVE 报无法打开 DLL；改用工作区临时目录后通过，再以正常权限使用系统临时目录也通过，定位为执行环境限制。保留失败及两种成功日志 `tools/branding-native-failure.log`、`tools/branding-self-test-workspace-temp.log`、`tools/branding-self-test-system-temp.log`，未削弱自检。
+- 已准备 [测试版说明草稿](prerelease-notes.md)，包括功能、迁移、测试范围和限制；未确定测试版标签，未执行发布。
+
 ## 全模块检查覆盖
 
 - 歌单修复阶段（`7bbdba3`）完整 Windows `verify` 共 154 个测试，153 通过、1 个 POSIX 测试跳过；日志 `tools/playlist-full.log`。

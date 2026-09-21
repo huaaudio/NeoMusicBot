@@ -115,7 +115,7 @@ sh ./mvnw --batch-mode --no-transfer-progress \
 
 ~~~powershell
 # Windows x86-64
-.\\mvnw.cmd --batch-mode --no-transfer-progress -Pnative-windows-x86-64 clean verify
+.\mvnw.cmd --batch-mode --no-transfer-progress -Pnative-windows-x86-64 clean verify
 ~~~
 
 The build produces a platform-classified shaded JAR, CycloneDX JSON/XML SBOMs,
@@ -150,7 +150,7 @@ path override; any arguments are passed to the application.
 On Windows, the release ZIP includes a launcher that configures the bundled tools:
 
 ~~~powershell
-.\\run_neomusicbot.cmd
+.\run_neomusicbot.cmd
 ~~~
 
 Use systemd, Docker, Windows Service Manager, or another supervisor if automatic
