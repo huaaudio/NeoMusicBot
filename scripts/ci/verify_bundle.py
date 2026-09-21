@@ -50,7 +50,9 @@ def verify(archive_path, report_path):
         raise ValueError("Archive checksum mismatch")
     # Spaces and parentheses exercise Windows launcher quoting as well as relocation.
     with tempfile.TemporaryDirectory(prefix="NeoMusicBot verify (clean) ") as work:
-        work = Path(work)
+        # Deno permission scopes must use the same long paths as its module
+        # resolver, not Windows TEMP's possible RUNNER~1 spelling.
+        work = Path(work).resolve()
         bundle = work / "release"
         bundle.mkdir()
         extract(archive_path, bundle)

@@ -108,11 +108,11 @@ public final class Listener extends ListenerAdapter
     {
         try
         {
-            User owner = bot.getJDA().retrieveUserById(bot.getConfig().getOwnerId()).complete();
             String currentVersion = OtherUtil.getCurrentVersion();
             String latestVersion = OtherUtil.getLatestVersion();
             if (OtherUtil.isNewerVersion(currentVersion, latestVersion))
             {
+                User owner = bot.getJDA().retrieveUserById(bot.getConfig().getOwnerId()).complete();
                 String message = String.format(OtherUtil.NEW_VERSION_AVAILABLE, currentVersion, latestVersion);
                 owner.openPrivateChannel().queue(channel -> channel.sendMessage(message).queue());
             }

@@ -25,6 +25,9 @@ import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,8 +38,8 @@ import net.dv8tion.jda.api.entities.ApplicationInfo;
 import net.dv8tion.jda.api.entities.User;
 import okhttp3.*;
 import org.json.JSONException;
+import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 /**
  *
@@ -47,10 +50,13 @@ public class OtherUtil
     public final static String NEW_VERSION_AVAILABLE = "There is a new version of NeoMusicBot available!\n"
                     + "Current version: %s\n"
                     + "New Version: %s\n\n"
-                    + "Please visit https://github.com/huaaudio/NeoMusicBot/releases/latest to get the latest release.";
+                    + "Please visit https://github.com/huaaudio/NeoMusicBot/releases to get the release.";
     private final static String WINDOWS_INVALID_PATH = "c:\\windows\\system32\\";
     private final static Pattern VERSION_PATTERN = Pattern.compile(
-            "^[vV]?(\\d+(?:\\.\\d+)*)(?:-([0-9A-Za-z.-]+))?(?:\\+[0-9A-Za-z.-]+)?$");
+            "^[vV]?(\\d+(?:\\.\\d+)*)(?:-([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$");
+    private static final OkHttpClient UPDATE_HTTP = new OkHttpClient.Builder()
+            .connectTimeout(Duration.ofSeconds(5)).readTimeout(Duration.ofSeconds(5))
+            .callTimeout(Duration.ofSeconds(10)).build();
     
     /**
      * gets a Path from a String
@@ -64,7 +70,7 @@ public class OtherUtil
     {
         Path result = Paths.get(path);
         // special logic to prevent trying to access system32
-        if(result.toAbsolutePath().toString().toLowerCase().startsWith(WINDOWS_INVALID_PATH))
+        if(result.toAbsolutePath().toString().toLowerCase(Locale.ROOT).startsWith(WINDOWS_INVALID_PATH))
         {
             try
             {
@@ -106,7 +112,8 @@ public class OtherUtil
     {
         if(game==null || game.trim().isEmpty() || game.trim().equalsIgnoreCase("default"))
             return null;
-        String lower = game.toLowerCase();
+        game = game.trim();
+        String lower = game.toLowerCase(Locale.ROOT);
         if(lower.startsWith("playing"))
             return Activity.playing(makeNonEmpty(game.substring(7).trim()));
         if(lower.startsWith("listening to"))
@@ -194,7 +201,13 @@ public class OtherUtil
                 return null;
             }
             String suffix = matcher.group(2);
-            return new ParsedVersion(release, suffix == null ? null : suffix.split("\\."));
+            String[] prerelease = suffix == null ? null : suffix.split("\\.");
+            if(prerelease != null)
+                for(String identifier : prerelease)
+                    if(identifier.length() > 1 && identifier.charAt(0) == '0'
+                            && identifier.chars().allMatch(Character::isDigit))
+                        return null;
+            return new ParsedVersion(release, prerelease);
         }
 
         @Override
@@ -250,31 +263,54 @@ public class OtherUtil
     
     public static String getLatestVersion()
     {
-        try
+        return getLatestVersion(getCurrentVersion(), UPDATE_HTTP);
+    }
+
+    static String getLatestVersion(String currentVersion, OkHttpClient client)
+    {
+        ParsedVersion current = ParsedVersion.parse(currentVersion);
+        boolean includePrereleases = current != null && current.prerelease() != null;
+        String endpoint = "https://api.github.com/repos/huaaudio/NeoMusicBot/releases"
+                + (includePrereleases ? "?per_page=100" : "/latest");
+        Request request = new Request.Builder().get().url(endpoint)
+                .header("Accept", "application/vnd.github+json")
+                .header("User-Agent", "NeoMusicBot-update-check").build();
+        try(Response response = client.newCall(request).execute())
         {
-            Response response = new OkHttpClient.Builder().build()
-                    .newCall(new Request.Builder().get().url("https://api.github.com/repos/huaaudio/NeoMusicBot/releases/latest").build())
-                    .execute();
             ResponseBody body = response.body();
-            if(body != null)
-            {
-                try(Reader reader = body.charStream())
-                {
-                    JSONObject obj = new JSONObject(new JSONTokener(reader));
-                    return obj.getString("tag_name");
-                }
-                finally
-                {
-                    response.close();
-                }
-            }
-            else
+            if(!response.isSuccessful() || body == null)
                 return null;
+            int limit = 2 * 1024 * 1024;
+            byte[] content = body.byteStream().readNBytes(limit + 1);
+            if(content.length > limit)
+                return null;
+            String json = new String(content, StandardCharsets.UTF_8);
+            JSONArray releases = includePrereleases ? new JSONArray(json) : new JSONArray().put(new JSONObject(json));
+            return newestPublishedRelease(releases, includePrereleases);
         }
-        catch(IOException | JSONException | NullPointerException ex)
+        catch(IOException | JSONException ex)
         {
             return null;
         }
+    }
+
+    static String newestPublishedRelease(JSONArray releases, boolean includePrereleases)
+    {
+        String newest = null;
+        for(int i = 0; i < releases.length(); i++)
+        {
+            JSONObject release = releases.optJSONObject(i);
+            if(release == null || release.optBoolean("draft", true))
+                continue;
+            String tag = release.optString("tag_name", "");
+            ParsedVersion version = ParsedVersion.parse(tag);
+            if(version == null || (!includePrereleases
+                    && (release.optBoolean("prerelease", true) || version.prerelease() != null)))
+                continue;
+            if(newest == null || isNewerVersion(newest, tag))
+                newest = tag;
+        }
+        return newest;
     }
 
     /**

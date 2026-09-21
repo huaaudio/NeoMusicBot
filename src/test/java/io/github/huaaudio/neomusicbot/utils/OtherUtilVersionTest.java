@@ -29,4 +29,11 @@ class OtherUtilVersionTest
         assertFalse(OtherUtil.isNewerVersion("0.4.5", "0.4.5-rc.2"));
         assertFalse(OtherUtil.isNewerVersion("0.4.5+local", "0.4.5+remote"));
     }
+
+    @Test
+    void malformedPrereleaseTagsCannotCrashTheUpdateCheck()
+    {
+        for(String tag : new String[]{"0.5.0-rc..1", "0.5.0-rc.", "0.5.0-.1", "0.5.0-rc.01"})
+            assertFalse(OtherUtil.isNewerVersion("0.5.0-rc.1", tag), tag);
+    }
 }
