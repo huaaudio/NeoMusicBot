@@ -166,6 +166,32 @@
                             </filters>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                <!-- Preserve each upstream notice instead of keeping an arbitrary
+                                     first copy when dependencies share these resource names. -->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/NOTICE</resource>
+                                </transformer>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/NOTICE.txt</resource>
+                                </transformer>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/LICENSE</resource>
+                                </transformer>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/LICENSE.txt</resource>
+                                </transformer>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/LICENSE.md</resource>
+                                </transformer>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/FastDoubleParser-LICENSE</resource>
+                                </transformer>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/FastDoubleParser-ThirdParty-LICENSE</resource>
+                                </transformer>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/Schubfach-LICENSE</resource>
+                                </transformer>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
                                     <resource>reference.conf</resource>
                                 </transformer>
@@ -204,7 +230,14 @@
                             <cleanLicensesOutputDirectory>true</cleanLicensesOutputDirectory>
                             <licensesOutputDirectory>${project.build.directory}/generated-resources/dependency-licenses</licensesOutputDirectory>
                             <licensesOutputFile>${project.build.directory}/generated-resources/dependency-licenses/licenses.xml</licensesOutputFile>
-                            <errorRemedy>warn</errorRemedy>
+                            <errorRemedy>xmlOutput</errorRemedy>
+                            <licenseUrlReplacements>
+                                <licenseUrlReplacement>
+                                    <regexp>^https?://www\.gnu\.org/licenses/(old-licenses/lgpl-2\.1\.(html|txt)|lgpl-2\.1\.txt)$</regexp>
+                                    <!-- JNA 4.4.0 ships this unmodified LGPL 2.1 text. -->
+                                    <replacement>https://raw.githubusercontent.com/java-native-access/jna/4.4.0/LGPL2.1</replacement>
+                                </licenseUrlReplacement>
+                            </licenseUrlReplacements>
                         </configuration>
                     </execution>
                 </executions>

@@ -8,7 +8,9 @@ from verify_bundle import extract, verify_manifest
 
 class BundleIntegrityTest(unittest.TestCase):
     def test_hidden_cache_and_tampering_detection(self):
-        with tempfile.TemporaryDirectory() as tmp:
+        # Relative roots also exercise canonicalization; Windows CI may return
+        # an 8.3 temporary path whose resolved spelling differs from the input.
+        with tempfile.TemporaryDirectory(dir=".") as tmp:
             root = Path(tmp)
             bundle = root / "input"
             (bundle / ".cache").mkdir(parents=True)

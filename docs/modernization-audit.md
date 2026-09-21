@@ -12,7 +12,7 @@
 | 新依赖 | 提交 `48e8d50` 的 [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35561728333) 中 Windows/Linux 构建、测试、JDAVE 加载、发行包组装均通过；锁定媒体探测仍失败，不能发布 |
 | Java 27 | `48e8d50` 的 Windows/Linux 兼容矩阵均通过；发行字节码与构建基线仍为 Java 25 LTS |
 | 全模块审查 | 进行中，见问题表；未完成项不能按已通过处理 |
-| 干净发行包 | 已增加最终 ZIP 在全新用户目录与含空格路径解压的验证；本地离线解码通过，云端最终 ZIP 验证待运行 |
+| 干净发行包 | `48a4e71` 的 [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35563229793) 已通过 Linux 最终 ZIP 干净解压、启动器、配置、原生解码及 provider 离线启动；Windows 验证器短路径误判已修，待下一轮 CI |
 | Discord 实际语音 | 此轮尚无测试服务器/凭据，未验证真实 DAVE 握手、频道可听性或长期运行；用户曾实测旧版本，不等同本轮升级验收 |
 | Pre-release | 尚未发布；必须使用最终成功 CI 的同一提交和经过验证的完整发行包 |
 
@@ -55,6 +55,8 @@
 | AUD-011 / P1 | Linux 发行包采用通用 `yt-dlp` zipimport 资产 | 在没有 Python 的机器上无法运行，与完整发行包目标不符 | 改用固定哈希的 `yt-dlp_linux`；ZIP 验证器检查 ELF/PE 文件头及工具版本 |
 | AUD-012 / P1 | Windows `Compress-Archive` 与仅在构建目录检查 provider | 隐藏缓存可能漏包，无法证明换机器后离线启动 | 使用 Python ZIP 完整收录文件并生成逐文件 SHA256SUMS；解压到新目录后以全新 HOME 和 `--deny-net --cached-only` 运行 provider；云端待验 |
 | AUD-013 / P1 | Windows 启动器位于带括号的目录，错误提示展开未加引号的 JAR 路径 | CMD 在解析 if 块时提前报错，即使 JAR 存在也不能启动 | 临时干净目录首次复现退出 255；为输出路径加引号，由实际启动器运行回归验证 |
+| AUD-014 / P1 | Maven 缺失许可信息只警告，Shade 遇到同名 NOTICE/LICENSE 只保留首份 | 发行材料遗漏部分依赖许可和声明 | 按上游源码补齐版本限定的许可映射，下载失败阻止打包；验证许可文件覆盖 SBOM 的全部 44 个组件；同名许可/声明合并保留，详见 `src/license/README.md` |
+| AUD-015 / P2 | Windows CI 使用 8.3 临时目录名，ZIP 清单验证比较未规范化的根路径 | 合法包被误判为目录外文件 | 比较前统一 resolve；回归覆盖相对根目录，Windows CI 待复核 |
 
 ## 阶段验证证据
 
@@ -68,6 +70,8 @@
 - 新增独立 `--self-test`：加载 JDAVE，并实际解码本项目生成的 0.4 秒 AAC、Opus、MP3 测试音。Windows 干净 `verify` 共 133 个测试，132 通过、1 POSIX 测试跳过；日志 `tools/bundle-codec-verify.log`。
 - 移除旧仓库内 5 个非支持平台的陈旧 `libconnector.so`；支持的 Windows/Linux x86-64 原生解码器由固定版本的 Lavaplayer native 依赖提供。
 - yt-dlp 独立资产的依赖包含 GPL 组件，不能只携带核心的 Unlicense；发行包补入上游第三方许可证汇总与校验后的源码压缩包。provider 保留完整上游源码和许可证。其余第三方材料覆盖仍在审查，AUD-005 尚未关闭。
+- `48a4e71` Linux CI 的 133 个测试全部通过，最终 ZIP 收录 17,786 个文件并通过全新目录验证；Java 27 两平台通过。Windows 首轮在 Python 路径校验回归失败，已定位为 AUD-015，未宣称该提交跨平台全绿。
+- 严格许可证收集在修正前失败于 base64 缺失 URL，修正后成功；本地 `verify_licenses.py` 确认 SBOM 的 44 个组件均有已保存的完整许可材料。6 个 CI 验证器测试通过。
 
 ## 全模块检查覆盖
 

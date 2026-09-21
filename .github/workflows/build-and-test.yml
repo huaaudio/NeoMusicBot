@@ -54,7 +54,7 @@ jobs:
           check-latest: true
           cache: maven
 
-      - name: Test sanitized media diagnostics
+      - name: Test CI diagnostics and package validators
         run: python -m unittest discover -s scripts/ci -p "test_*.py"
 
       - name: Build, test, and generate SBOM (Linux)
@@ -66,6 +66,12 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: .\mvnw.cmd --batch-mode --no-transfer-progress -P${{ matrix.profile }} clean verify
+
+      - name: Verify upstream license and notice preservation
+        shell: bash
+        run: |
+          python scripts/ci/verify_licenses.py target/generated-resources/dependency-licenses target/bom.json
+          python scripts/ci/verify_shaded_notices.py target/NeoMusicBot-*-${{ matrix.artifact_suffix }}.jar target/bom.json target/surefire-reports
 
       - name: Assemble and verify Linux release bundle
         if: runner.os == 'Linux'

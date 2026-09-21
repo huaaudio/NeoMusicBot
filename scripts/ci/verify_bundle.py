@@ -8,6 +8,7 @@ import sys
 import tempfile
 import zipfile
 from package_bundle import digest
+from verify_licenses import verify as verify_licenses
 
 
 def extract(archive_path, destination):
@@ -27,6 +28,7 @@ def extract(archive_path, destination):
 
 
 def verify_manifest(bundle):
+    bundle = Path(bundle).resolve()
     listed = set()
     for line in (bundle / "SHA256SUMS").read_text(encoding="utf-8").splitlines():
         expected, name = line.split("  ", 1)
@@ -53,6 +55,7 @@ def verify(archive_path, report_path):
         bundle.mkdir()
         extract(archive_path, bundle)
         verify_manifest(bundle)
+        verify_licenses(bundle / "licenses/maven", bundle / "NeoMusicBot.cdx.json")
         for name in ("README.md", "docs/install-and-upgrade.md", "licenses/NeoMusicBot-Apache-2.0.txt",
                      "licenses/maven/licenses.xml", "licenses/yt-dlp-THIRD_PARTY_LICENSES.txt",
                      "sources/yt-dlp.tar.gz", "tools/bgutil-provider/LICENSE",

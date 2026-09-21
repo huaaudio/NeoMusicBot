@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Missing upstream POM metadata, verified against the corresponding sources.
+     Keep overrides scoped to the artifact/version that was inspected. -->
+<licenseSummary>
+  <dependencies>
+    <dependency>
+      <groupId>com\.grack</groupId><artifactId>nanojson</artifactId><version>1\.7</version>
+      <matchLicenses />
+      <licenses><license>
+        <name>Apache License 2.0</name>
+        <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        <comments>Copyright 2011 The nanojson Authors. Verified in JsonParser.java in nanojson-1.7-sources.jar from Maven Central.</comments>
+      </license></licenses>
+    </dependency>
+    <dependency>
+      <groupId>dev\.lavalink\.youtube</groupId><artifactId>common|v2</artifactId><version>1\.18\.2</version>
+      <matchLicenses />
+      <licenses><license>
+        <name>MIT License</name>
+        <url>https://raw.githubusercontent.com/lavalink-devs/youtube-source/1.18.2/LICENSE</url>
+        <comments>Copyright (c) 2024 devoxin; version 1.18.2 upstream LICENSE.</comments>
+      </license></licenses>
+    </dependency>
+    <dependency>
+      <groupId>net\.iharder</groupId><artifactId>base64</artifactId><version>2\.3\.9</version>
+      <matchLicenses><license><name>Public domain</name><distribution>repo</distribution><comments>(?s).*</comments></license></matchLicenses>
+      <licenses><license>
+        <name>Public domain</name>
+        <url>https://repo.maven.apache.org/maven2/net/iharder/base64/2.3.9/base64-2.3.9.pom</url>
+        <comments>The author's public-domain dedication is in the licenses/license/comments element of this unmodified upstream POM; there is no separate license file.</comments>
+      </license></licenses>
+    </dependency>
+    <dependency>
+      <groupId>net\.java\.dev\.jna</groupId><artifactId>jna</artifactId><version>4\.4\.0</version>
+      <matchLicenses>
+        <license><name>LGPL, version 2.1</name><url>http://www\.gnu\.org/licenses/licenses\.html</url><distribution>repo</distribution></license>
+        <license><name>Apache License v2.0</name><url>http://www\.apache\.org/licenses/LICENSE-2\.0\.txt</url><distribution>repo</distribution></license>
+      </matchLicenses>
+      <licenses>
+        <license><name>LGPL, version 2.1</name><url>https://raw.githubusercontent.com/java-native-access/jna/4.4.0/LGPL2.1</url></license>
+        <license><name>Apache License v2.0</name><url>https://raw.githubusercontent.com/java-native-access/jna/4.4.0/AL2.0</url></license>
+      </licenses>
+    </dependency>
+  </dependencies>
+</licenseSummary>
