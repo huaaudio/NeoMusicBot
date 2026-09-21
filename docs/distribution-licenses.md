@@ -123,10 +123,13 @@ Windows 的全部 44 个 DLL 已与 34 个 MSYS2 官方二进制包逐文件 SHA
 Windows 构建将这 34 个源码包（合计 282,568,654 字节）下载、校验并放入
 `sources/canvas/windows`，55 份文本与清单位于 `licenses/canvas/windows`。
 干净 ZIP 验收重新核对当前仓库定义、实际 DLL、源码包和许可文件，不能只比较包内自报清单。
-本地真实文件验证通过；云端打包结果需以包含这项材料收录的后续提交为准。
+本地真实文件验证通过；提交 `be7c094` 的
+[完整 CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35611351107) 已通过。
+两个平台 artifact 与媒体报告已下载，外层哈希/大小与 GitHub 元数据一致；Windows 实际
+ZIP 中的 34 个源码包和 55 份文本已再次复核。证据在 `tools/ci-success-be7c094/verified-materials.json`。
 
 这完成了这 44 个 DLL 的包级来源和材料对应，**仍不表示所有内嵌依赖已经审查完成**。
-例如 librsvg 2.62.0 源码包没有 vendor Cargo 依赖，需要继续补核相应声明及源码覆盖。
+librsvg 2.62.0 的 Cargo 依赖另行收录，见下节；不能从这份包级清单推断 Rust 子组件范围。
 Linux、Canvas 自身构建配方、Deno/yt-dlp 及其他 native/WASM 子组件的工作仍在进行。
 
 原生模块实际导出的版本也已核对：Windows 的 Cairo/FreeType/librsvg/Pango 分别为
@@ -135,3 +138,27 @@ Linux、Canvas 自身构建配方、Deno/yt-dlp 及其他 native/WASM 子组件�
 不能证明其所有底层库均为最新稳定版，后续升级评估必须独立处理。
 本地证据：`tools/canvas-native-audit/msys-packages/inventory.json`、
 `sources/inventory.json`（相对于同一目录）及 `tools/canvas-materials-real.log`。
+
+## Windows librsvg 的 Cargo 补充材料
+
+已从哈希匹配的 MSYS2 源码包提取实际 `PKGBUILD`，确认它先执行
+`cargo update -p windows-sys@0.61.2 --precise 0.60.2` 再 `cargo fetch --locked`。
+因此仅保留 librsvg 原始锁文件不足以记录该构建配方使用的依赖。
+使用 Cargo 1.93.1 执行同一命令，得到单独保存的重建锁文件；这不是上游留存的最终构建锁文件。
+共同包的记录不变，移除 `windows-sys 0.61.2`，加入 `windows-sys 0.60.2` 及九个关联包。
+通过 crates.io 的版本元数据核对，这十个加入版本均早于二进制包的构建时间。
+
+[`librsvg-rust/manifest.json`](../src/license/canvas/librsvg-rust/manifest.json)
+记录两份锁文件的并集：363 个原始 `.crate`，合计 54,778,318 字节。
+Windows 发行包增加全部源码包、原始/重建锁文件、实际配方与 `.BUILDINFO`、642 份包内原始声明文件
+以及 10 份补充许可文本。十四个缺少常规根目录许可文件的包有明确映射；其中部分补充材料为
+已声明许可的 SPDX 标准正文，清楚标记为参考文本，保留原始源码与署名，不冒充作者的原始声明。
+
+该并集包含构建、测试、可选和其他平台依赖，**不是 Windows DLL 实际链接的 crate 数量**。
+`package_librsvg_materials.py` 校验完整锁文件并集、父包绑定、归档哈希/大小、Cargo 包身份及
+许可元数据，并按原始字节提取许可文件；不执行 Cargo 脚本。解压后的验收再次比较仓库定义、
+实际 DLL、父源码包、所有 crate 和材料文件。35 个 Python 检查通过；真实材料包在干净目录解压后，
+全部 34 个父源码包、363 个 crate 及对应文本再次校验通过，证据在
+`tools/librsvg-materials-roundtrip/verification.json`。该本地材料验证不包含程序启动；
+本次新增材料的完整应用 CI 验证另以对应提交的日志为准。
+Linux 原生库及其他工具的材料工作仍在进行，AUD-005 尚未关闭。

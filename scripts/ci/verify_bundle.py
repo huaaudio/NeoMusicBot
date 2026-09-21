@@ -14,6 +14,7 @@ from inventory_provider import verify as verify_provider_inventory
 from prepare_provider import verify as verify_provider_runtime
 from install_canvas_native import verify as verify_canvas_native
 from package_canvas_materials import verify as verify_canvas_materials
+from package_librsvg_materials import verify as verify_librsvg_materials
 
 
 def extract(archive_path, destination):
@@ -68,6 +69,7 @@ def verify(archive_path, report_path):
                              "windows-x86-64" if os.name == "nt" else "linux-x86-64")
         if os.name == "nt":
             verify_canvas_materials(bundle)
+            verify_librsvg_materials(bundle)
         verify_provider_inventory(bundle / "tools/bgutil-provider", bundle / "provider-dependencies.json",
                                   bundle / "licenses/provider")
         for name in ("README.md", "docs/install-and-upgrade.md", "licenses/NeoMusicBot-Apache-2.0.txt",

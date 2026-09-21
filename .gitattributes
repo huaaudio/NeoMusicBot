@@ -11,3 +11,4 @@ mvnw.cmd text eol=crlf
 # Preserve byte-for-byte hashes of captured upstream license documents.
 src/license/provider/*.txt -text
 src/license/canvas/windows/*.txt -text
+src/license/canvas/librsvg-rust/* -text

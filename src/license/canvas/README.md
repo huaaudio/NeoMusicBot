@@ -23,9 +23,11 @@ exceptions, and other terms apply to the identified components; this is not a
 relicensing of NeoMusicBot's independently licensed source.
 
 This is package-level material coverage for those 44 Windows DLLs. It does not
-close the complete distribution review. In particular, librsvg's source archive
-does not vendor its Cargo dependencies; their licenses and source coverage still
-need review. Linux Canvas libraries, the Canvas build recipe itself, and other
+close the complete distribution review. The separate `librsvg-rust/` definition
+adds the full union of the original and recipe-reconstructed Cargo lock graphs:
+363 original source archives, 642 extracted original documents, and 10 supplemental
+texts. Its README explains the reconstruction and the deliberately broader scope
+than the linked DLL. Linux Canvas libraries, the Canvas build recipe itself, and other
 native/WASM components are tracked separately in `docs/distribution-licenses.md`.
 The manifest deliberately marks the embedded dependency review incomplete.
 

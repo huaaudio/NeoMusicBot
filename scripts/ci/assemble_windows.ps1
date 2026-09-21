@@ -171,6 +171,8 @@ $archive = Join-Path $PWD "target\NeoMusicBot-${env:ARTIFACT_SUFFIX}.zip"
 Copy-Item "src\license\provider" (Join-Path $licenses "provider") -Recurse
 python scripts/ci/package_canvas_materials.py $bundle
 if ($LASTEXITCODE -ne 0) { throw "Canvas source and license collection failed" }
+python scripts/ci/package_librsvg_materials.py $bundle
+if ($LASTEXITCODE -ne 0) { throw "librsvg Cargo source and license collection failed" }
 python scripts/ci/inventory_provider.py $providerBundle (Join-Path $bundle "provider-dependencies.json") (Join-Path $licenses "provider")
 if ($LASTEXITCODE -ne 0) { throw "Provider dependency inventory failed" }
 python scripts/ci/package_bundle.py $bundle $archive
