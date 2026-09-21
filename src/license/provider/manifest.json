@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "documents": [
+    {
+      "file": "protobuf-2.14.0-Apache-2.0.txt",
+      "sha256": "c04b4216f1cd4c5a4f7fb2f2a1b0ae70d847e9e0cac7c9dee9bf8cc03177c449",
+      "packages": [
+        "@bufbuild/protobuf@2.14.0"
+      ],
+      "source": "https://raw.githubusercontent.com/bufbuild/protobuf-es/04297e762a64dbcafc299c46785dbc5621b4329f/LICENSE",
+      "note": "Base package license. BSD-3-Clause text for Google varint code remains in dist/commonjs/wire/varint.js and dist/esm/wire/varint.js."
+    },
+    {
+      "file": "saxes-6.0.0-LICENSE.txt",
+      "sha256": "0fac2374380621b22e6b50451057721a9c52935b02d16d106a9f04897f061d0e",
+      "packages": [
+        "saxes@6.0.0"
+      ],
+      "source": "https://raw.githubusercontent.com/lddubeau/saxes/211fa0ebec9b628affc09219199639887174bfc3/LICENSE",
+      "note": "Complete upstream file, including retained historical notices."
+    },
+    {
+      "file": "pkgr-core-0.3.6-MIT.txt",
+      "sha256": "82a222189ab9764f8ec1c052b9661f2c9f12db52387312acbf73b2be5b8b6c32",
+      "packages": [
+        "@pkgr/core@0.3.6"
+      ],
+      "source": "https://raw.githubusercontent.com/un-ts/pkgr/6e1c7260486c7251e61404176a293986229a5869/LICENSE",
+      "note": "The same commit declares packages/core version 0.3.6."
+    },
+    {
+      "file": "humanfs-Apache-2.0.txt",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "packages": [
+        "@humanfs/types@0.15.0"
+      ],
+      "source": "https://raw.githubusercontent.com/humanwhocodes/humanfs/85069f193cbacc371c3beb649ce746f8c5a493be/packages/core/LICENSE",
+      "note": "Types declares Apache-2.0 in package.json and README; standard full license from core in the same monorepo commit. Original type source is retained."
+    },
+    {
+      "file": "natural-compare-1.4.0-MIT.txt",
+      "sha256": "353fe762ba595bf1ffe786acf0f5984bb164205901d74f258af195fc8228c67d",
+      "packages": [
+        "natural-compare@1.4.0"
+      ],
+      "source": "https://lauri.rooden.ee/mit-license.txt",
+      "note": "Author-maintained license URL linked by the shipped README; captured bytes are hash-pinned. README retains the 2012-2015 copyright notice."
+    },
+    {
+      "file": "node-rs-xxhash-1.7.7-MIT.txt",
+      "sha256": "c748f2e7f93fadae76fcb1ccf6b4199e2a4013611871b5fa61000d11a50011c7",
+      "packages": [
+        "@node-rs/xxhash-darwin-x64@1.7.7",
+        "@node-rs/xxhash-darwin-arm64@1.7.7",
+        "@node-rs/xxhash-win32-x64-msvc@1.7.7",
+        "@node-rs/xxhash-linux-x64-gnu@1.7.7",
+        "@node-rs/xxhash-android-arm64@1.7.7",
+        "@node-rs/xxhash-linux-arm64-gnu@1.7.7",
+        "@node-rs/xxhash-linux-arm64-musl@1.7.7",
+        "@node-rs/xxhash-win32-arm64-msvc@1.7.7",
+        "@node-rs/xxhash-linux-arm-gnueabihf@1.7.7",
+        "@node-rs/xxhash-linux-x64-musl@1.7.7",
+        "@node-rs/xxhash-freebsd-x64@1.7.7",
+        "@node-rs/xxhash-win32-ia32-msvc@1.7.7",
+        "@node-rs/xxhash-android-arm-eabi@1.7.7"
+      ],
+      "source": "https://registry.npmjs.org/@node-rs/xxhash/-/xxhash-1.7.7.tgz",
+      "note": "Package-level MIT text from package/LICENSE of the matching parent npm release that pins these native packages; embedded native dependencies require separate review."
+    },
+    {
+      "file": "oxc-resolver-11.24.2-MIT.txt",
+      "sha256": "95ced5ecf1133fbf41d409b5555c86c344f83f3b019926057ddbc07cfdcc27b3",
+      "packages": [
+        "@oxc-resolver/binding-darwin-arm64@11.24.2",
+        "@oxc-resolver/binding-android-arm64@11.24.2",
+        "@oxc-resolver/binding-win32-arm64-msvc@11.24.2",
+        "@oxc-resolver/binding-linux-arm64-gnu@11.24.2",
+        "@oxc-resolver/binding-linux-arm64-musl@11.24.2",
+        "@oxc-resolver/binding-openharmony-arm64@11.24.2",
+        "@oxc-resolver/binding-android-arm-eabi@11.24.2",
+        "@oxc-resolver/binding-linux-arm-gnueabihf@11.24.2",
+        "@oxc-resolver/binding-linux-arm-musleabihf@11.24.2",
+        "@oxc-resolver/binding-linux-ppc64-gnu@11.24.2",
+        "@oxc-resolver/binding-linux-riscv64-gnu@11.24.2",
+        "@oxc-resolver/binding-linux-riscv64-musl@11.24.2",
+        "@oxc-resolver/binding-linux-s390x-gnu@11.24.2",
+        "@oxc-resolver/binding-wasm32-wasi@11.24.2",
+        "@oxc-resolver/binding-darwin-x64@11.24.2",
+        "@oxc-resolver/binding-win32-x64-msvc@11.24.2",
+        "@oxc-resolver/binding-freebsd-x64@11.24.2",
+        "@oxc-resolver/binding-linux-x64-gnu@11.24.2",
+        "@oxc-resolver/binding-linux-x64-musl@11.24.2"
+      ],
+      "source": "https://registry.npmjs.org/oxc-resolver/-/oxc-resolver-11.24.2.tgz",
+      "note": "Package-level MIT text from package/LICENSE of the matching parent npm release that pins these native packages; embedded native dependencies require separate review."
+    },
+    {
+      "file": "quickjs-wasi-2.2.0-QuickJS-NG-MIT.txt",
+      "sha256": "96f73f9d2a16c21a36b418f06073be26e7d6d5e7c1bc99756b21a4f2c74ef171",
+      "packages": [
+        "quickjs-wasi@2.2.0"
+      ],
+      "source": "https://raw.githubusercontent.com/quickjs-ng/quickjs/dec012362bd93876449f3ecff4f835b2eba89bab/LICENSE",
+      "note": "QuickJS-NG submodule commit recorded by the quickjs-wasi 2.2.0 tag."
+    },
+    {
+      "file": "quickjs-wasi-2.2.0-MbedTLS-LICENSE.txt",
+      "sha256": "9b405ef4c89342f5eae1dd828882f931747f71001cfba7d114801039b52ad09b",
+      "packages": [
+        "quickjs-wasi@2.2.0"
+      ],
+      "source": "https://raw.githubusercontent.com/vercel-labs/quickjs-wasi/cc1fea4a6a4ac1d960e0db68d35e1459064a1a23/extensions/crypto/mbedtls/LICENSE",
+      "note": "Complete original dual-license file; alternatives are preserved."
+    },
+    {
+      "file": "quickjs-wasi-2.2.0-Ada-MIT.txt",
+      "sha256": "af0d7d2cef91fc243cf4ad98570b03d1f26f5e0227cad0f5f4a7376e2feb3160",
+      "packages": [
+        "quickjs-wasi@2.2.0"
+      ],
+      "source": "https://raw.githubusercontent.com/ada-url/ada/v3.4.3/LICENSE-MIT",
+      "note": "Vendored extensions/url/ada/ada.h declares ADA_VERSION 3.4.3; both upstream license alternatives are retained."
+    },
+    {
+      "file": "quickjs-wasi-2.2.0-Ada-Apache-2.0.txt",
+      "sha256": "508d4676d4083e874df706f302d9d42e5e7f9aed3f5a7ea614dc6d2b2252a22f",
+      "packages": [
+        "quickjs-wasi@2.2.0"
+      ],
+      "source": "https://raw.githubusercontent.com/ada-url/ada/v3.4.3/LICENSE-APACHE",
+      "note": "Companion alternative to Ada MIT."
+    },
+    {
+      "file": "quickjs-wasi-2.2.0-tl-expected-CC0.txt",
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "packages": [
+        "quickjs-wasi@2.2.0"
+      ],
+      "source": "https://raw.githubusercontent.com/TartanLlama/expected/v1.1.0/COPYING",
+      "note": "Vendored Ada header contains tl::expected with version 1.1.0; complete upstream CC0 file."
+    },
+    {
+      "file": "protobuf-2.14.0-BSD-3-Clause.txt",
+      "sha256": "0e952cb110ff6944789fbe47c25b38819a3866c04c7c5cbea8d0c0d8f3a92f0e",
+      "packages": [
+        "@bufbuild/protobuf@2.14.0"
+      ],
+      "source": "https://registry.npmjs.org/@bufbuild/protobuf/-/protobuf-2.14.0.tgz",
+      "note": "Verbatim leading license comment from package/dist/commonjs/wire/varint.js in the locked npm package; no terms or copyright wording changed."
+    }
+  ]
+}

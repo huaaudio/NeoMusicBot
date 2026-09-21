@@ -7,7 +7,7 @@ import sys
 from package_bundle import digest
 
 
-def inventory(provider):
+def inventory(provider, supplements=None):
     provider = Path(provider).resolve()
     server = provider / "server"
     lock_path = server / "deno.lock"
@@ -89,6 +89,30 @@ def inventory(provider):
                                 package(version)
     if not packages:
         raise ValueError("Provider contains no npm package descriptors")
+    supplemental_documents = []
+    if supplements is not None:
+        supplements = Path(supplements).resolve()
+        metadata = json.loads((supplements / "manifest.json").read_text(encoding="utf-8"))
+        if metadata.get("schema_version") != 1:
+            raise ValueError("Unsupported provider license supplement manifest")
+        seen = set()
+        for document in metadata["documents"]:
+            name = document["file"]
+            path = supplements / name
+            if (Path(name).name != name or "\\" in name or name in seen
+                    or not path.resolve().is_relative_to(supplements)):
+                raise ValueError("Invalid provider license supplement path")
+            seen.add(name)
+            if not path.is_file() or digest(path) != document["sha256"]:
+                raise ValueError("Provider license supplement checksum mismatch")
+            coordinates = set(document["packages"])
+            names = {coordinate.rsplit("@", 1)[0] for coordinate in coordinates}
+            if any(item["name"] in names and coordinate not in coordinates
+                   for coordinate, item in packages.items()):
+                raise ValueError("Provider license supplement needs version review")
+            applicable = sorted(coordinates & packages.keys())
+            if applicable:
+                supplemental_documents.append(dict(document, packages=applicable))
     return {
         "schema_version": 1,
         "scope": "npm packages in provider node_modules and bundled Deno npm cache",
@@ -96,17 +120,18 @@ def inventory(provider):
         "note": "License candidates and declared identifiers require review; native/WASM dependencies are not certified.",
         "lockfile": record_file(lock_path),
         "packages": [packages[key] for key in sorted(packages)],
+        "license_supplements": supplemental_documents,
     }
 
 
-def write(provider, destination):
-    result = inventory(provider)
+def write(provider, destination, supplements=None):
+    result = inventory(provider, supplements)
     Path(destination).write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Inventoried {len(result['packages'])} provider npm packages; license review remains open")
 
 
-def verify(provider, manifest):
-    if json.loads(Path(manifest).read_text(encoding="utf-8")) != inventory(provider):
+def verify(provider, manifest, supplements=None):
+    if json.loads(Path(manifest).read_text(encoding="utf-8")) != inventory(provider, supplements):
         raise ValueError("Provider dependency inventory does not match the extracted bundle")
 
 

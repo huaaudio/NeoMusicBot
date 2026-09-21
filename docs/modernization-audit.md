@@ -113,6 +113,9 @@
 
 - provider 清单在固定提交/Deno 的实际 Windows 安装树上生成成功，包含 304 个包；新增 scope/嵌套/缓存、锁版本不匹配、元数据冲突，以及真实 ZIP 解压迁移后材料被修改/删除的回归。15 个 Python CI 测试、两份工作流 actionlint、Linux 组装脚本语法检查通过；清单明确不声明许可审查完成，实际两平台发行包回归待执行。
 
+- `98ede80` [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35570293384) Windows/Linux 完整 ZIP、原生自检、provider 清单与干净解压复核，以及 Java 27 两平台检查均通过；锁定在线媒体检查失败，未发布测试版。
+- AUD-005 继续补齐 13 份原始第三方许可材料，并建立版本和字节哈希映射；实际 Windows 的 304 包安装树补充材料校验通过。新增补充材料版本变化、路径越界、篡改、缺失及真实 ZIP 迁移后的校验。独立工具全量材料审查仍未完成，详见 [材料记录](distribution-licenses.md)。
+
 ## 全模块检查覆盖
 
 - 歌单修复阶段（`7bbdba3`）完整 Windows `verify` 共 154 个测试，153 通过、1 个 POSIX 测试跳过；日志 `tools/playlist-full.log`。

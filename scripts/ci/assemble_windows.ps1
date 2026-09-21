@@ -160,7 +160,8 @@ if (-not (Test-Path (Join-Path $provider "deno.lock") -PathType Leaf)) {
 }
 
 $archive = Join-Path $PWD "target\NeoMusicBot-${env:ARTIFACT_SUFFIX}.zip"
-python scripts/ci/inventory_provider.py $providerBundle (Join-Path $bundle "provider-dependencies.json")
+Copy-Item "src\license\provider" (Join-Path $licenses "provider") -Recurse
+python scripts/ci/inventory_provider.py $providerBundle (Join-Path $bundle "provider-dependencies.json") (Join-Path $licenses "provider")
 if ($LASTEXITCODE -ne 0) { throw "Provider dependency inventory failed" }
 python scripts/ci/package_bundle.py $bundle $archive
 if ($LASTEXITCODE -ne 0) { throw "Bundle archive creation failed" }

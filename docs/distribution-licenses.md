@@ -36,13 +36,28 @@ Windows/Linux 发行包的 `NeoMusicBot.cdx.json` / `.xml` 描述 Java 依赖；
 进一步检查确认其中 canvas、esrecurse、https-proxy-agent 的 README 有完整许可正文，
 所以“缺少独立文件”本身不能判定为“缺少许可证”。仍需审查其余包及这些包内的附属组件。
 
-优先补齐/核实的例子：`@bufbuild/protobuf@2.14.0` 同时声明 Apache-2.0 与 BSD-3-Clause，
-需要核对两部分材料；`saxes@6.0.0` 上游存在 LICENSE，但 npm 安装根目录未携带；
-`quickjs-wasi@2.2.0` 含 WASM 与扩展二进制，不能只看 JavaScript 包的 MIT 标识；
-canvas 的 BMP 子组件声明与其基本 MIT 许可证分开保存。
+现已补入 `licenses/provider` 的 13 份材料，按精确包版本、来源和 SHA-256 固定：
+
+- protobuf 的上游 Apache 2.0 正文及随包 varint 源文件中的完整 BSD-3-Clause 注释原文。
+- saxes、pkgr/core 的完整上游许可；humanfs/types 声明的 Apache 2.0 正文取自相同提交的 core 许可文件。
+- natural-compare 的 README 指向的作者 MIT 许可正文，原 README 中的版权年份继续保留。
+- xxhash 与 oxc 原生 npm 包的基本 MIT 许可，取自明确列出对应版本原生包的父包；内嵌原生依赖不据此判定完成。
+- quickjs-wasi 2.2.0 固定标签所用 QuickJS-NG 子模块的 MIT、内嵌 Mbed TLS 的完整双许可证，
+  Ada 3.4.3 的 MIT/Apache 两种许可，以及 Ada 内嵌 tl::expected 1.1.0 的 CC0 正文。
+
+组装和干净解压验证会核对补充文件原始字节；相关包版本发生变化时，旧映射拒绝继续使用。
+canvas 的 README 内 MIT 与 BMP 子组件声明原本已随包保留。
+仍待核实的内容包括部分 npm 包的基本许可正文、QuickJS 包装层/WASI 工具链、
+其他 native/WASM 子组件及上表中的 yt-dlp/Deno 材料。
 参考 [protobuf 上游许可](https://github.com/bufbuild/protobuf-es/blob/04297e762a64dbcafc299c46785dbc5621b4329f/LICENSE)、
 [saxes 上游许可](https://github.com/lddubeau/saxes/blob/211fa0ebec9b628affc09219199639887174bfc3/LICENSE)、
 [canvas README](https://github.com/Automattic/node-canvas/blob/v3.2.3/Readme.md)。
+
+QuickJS 对应关系来源：[2.2.0 源码提交](https://github.com/vercel-labs/quickjs-wasi/tree/cc1fea4a6a4ac1d960e0db68d35e1459064a1a23)、
+[QuickJS-NG 许可](https://github.com/quickjs-ng/quickjs/blob/dec012362bd93876449f3ecff4f835b2eba89bab/LICENSE)、
+[内嵌 Mbed TLS 许可](https://github.com/vercel-labs/quickjs-wasi/blob/cc1fea4a6a4ac1d960e0db68d35e1459064a1a23/extensions/crypto/mbedtls/LICENSE)、
+[Ada 3.4.3 许可](https://github.com/ada-url/ada/blob/v3.4.3/LICENSE-MIT)、
+[tl::expected 1.1.0 许可](https://github.com/TartanLlama/expected/blob/v1.1.0/COPYING)。
 
 本地证据保存在忽略目录 `tools/distribution-license-audit/`；清单可按发行脚本重新生成，
 最终两平台以实际 ZIP 内材料和对应 CI 报告为准。AUD-005 仍未关闭，发布前必须完成上述材料核实。

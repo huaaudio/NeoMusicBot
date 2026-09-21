@@ -3,7 +3,7 @@ from pathlib import Path
 import tempfile
 import unittest
 from inventory_provider import inventory, verify, write
-from package_bundle import package
+from package_bundle import package, digest
 from verify_bundle import extract
 
 
@@ -75,6 +75,42 @@ class ProviderInventoryTests(unittest.TestCase):
             candidate.unlink()
             with self.assertRaisesRegex(ValueError, "does not match"):
                 verify(relocated, relocated / "inventory.json")
+
+    def test_supplements_bind_exact_versions_and_original_bytes(self):
+        with tempfile.TemporaryDirectory() as folder:
+            folder = Path(folder)
+            root = folder / "build"
+            root.mkdir()
+            self.fixture(root)
+            supplements = root / "licenses"
+            supplements.mkdir()
+            license_file = supplements / "upstream.txt"
+            license_file.write_bytes(b"Original upstream license\n")
+            document = {"file": "upstream.txt", "sha256": digest(license_file),
+                        "packages": ["@scope/first@1.0.0"], "source": "https://example.invalid/license"}
+            metadata = supplements / "manifest.json"
+            metadata.write_text(json.dumps({"schema_version": 1, "documents": [document]}))
+            result = inventory(root, supplements)
+            self.assertEqual([document], result["license_supplements"])
+            self.assertFalse(result["license_review_complete"])
+            write(root, root / "inventory.json", supplements)
+            package(root, folder / "supplements.zip")
+            relocated = folder / "relocated"
+            relocated.mkdir()
+            extract(folder / "supplements.zip", relocated)
+            verify(relocated, relocated / "inventory.json", relocated / "licenses")
+            for replacement, message in ((dict(document, packages=["@scope/first@0.9.0"]), "version review"),
+                                         (dict(document, file="../upstream.txt"), "supplement path")):
+                metadata.write_text(json.dumps({"schema_version": 1, "documents": [replacement]}))
+                with self.assertRaisesRegex(ValueError, message):
+                    inventory(root, supplements)
+            metadata.write_text(json.dumps({"schema_version": 1, "documents": [document]}))
+            license_file.write_bytes(b"Different license\n")
+            with self.assertRaisesRegex(ValueError, "checksum mismatch"):
+                inventory(root, supplements)
+            license_file.unlink()
+            with self.assertRaisesRegex(ValueError, "checksum mismatch"):
+                inventory(root, supplements)
 
 
 if __name__ == "__main__":

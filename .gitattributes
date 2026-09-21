@@ -8,3 +8,5 @@ mvnw.cmd text eol=crlf
 *.jpg binary
 *.jpeg binary
 *.gif binary
+# Preserve byte-for-byte hashes of captured upstream license documents.
+src/license/provider/*.txt -text
