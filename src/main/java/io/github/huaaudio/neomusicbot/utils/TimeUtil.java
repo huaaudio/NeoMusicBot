@@ -16,6 +16,9 @@
  */
 package io.github.huaaudio.neomusicbot.utils;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class TimeUtil
 {
 
@@ -39,8 +42,9 @@ public class TimeUtil
      */
     public static SeekTime parseTime(String args)
     {
-        if (args.length() == 0) return null;
-        String timestamp = args;
+        if(args == null) return null;
+        String timestamp = args.strip();
+        if(timestamp.isEmpty()) return null;
         boolean relative = false; // seek forward or backward
         boolean isSeekingBackwards = false;
         char first = timestamp.charAt(0);
@@ -48,11 +52,15 @@ public class TimeUtil
         {
             relative = true;
             isSeekingBackwards = first == '-';
-            timestamp = timestamp.substring(1);
+            timestamp = timestamp.substring(1).stripLeading();
         }
+        if(timestamp.regionMatches(true, 0, "0x", 0, 2)) return null;
 
         long milliseconds = parseColonTime(timestamp);
-        if(milliseconds == -1) milliseconds = parseUnitTime(timestamp);
+        // Numeric/colon input must not be reinterpreted as unit tokens after
+        // an overflow (for example, "1e999" becoming 1 + 999 seconds).
+        if(milliseconds == -1 && timestamp.indexOf(':') < 0 && !timestamp.matches("[0-9.,:+eE\\-\\s]+"))
+            milliseconds = parseUnitTime(timestamp);
         if(milliseconds == -1) return null;
 
         milliseconds *= isSeekingBackwards ? -1 : 1;
@@ -66,25 +74,28 @@ public class TimeUtil
      */
     public static long parseColonTime(String timestamp)
     {
-        String[] timestampSplitArray = timestamp.split(":+");
+        if(timestamp == null) return -1;
+        String[] timestampSplitArray = timestamp.split(":+", -1);
         if(timestampSplitArray.length > 3 )
             return -1;
-        double[] timeUnitArray = new double[3]; // hours, minutes, seconds
-        for(int index = 0; index < timestampSplitArray.length; index++)
+        int[] multipliers = {3_600_000, 60_000, 1_000};
+        BigDecimal milliseconds = BigDecimal.ZERO;
+        try
         {
-            String unit = timestampSplitArray[index];
-            if (unit.startsWith("+") || unit.startsWith("-")) return -1;
-            unit = unit.replace(",", ".");
-            try
+            for(int index = 0; index < timestampSplitArray.length; index++)
             {
-                timeUnitArray[index + 3 - timestampSplitArray.length] = Double.parseDouble(unit);
+                String unit = timestampSplitArray[index].strip().replace(",", ".");
+                // Bound exponent length before exact arithmetic to prevent
+                // pathological scale allocation. Preserve finite scientific
+                // notation, but reject Java's NaN/Infinity and hex literals.
+                if(!unit.matches("(?:[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+)(?:[eE][+-]?[0-9]{1,3})?"))
+                    return -1;
+                milliseconds = milliseconds.add(new BigDecimal(unit).multiply(
+                        BigDecimal.valueOf(multipliers[index + 3 - timestampSplitArray.length])));
             }
-            catch (NumberFormatException e)
-            {
-                return -1;
-            }
+            return milliseconds.setScale(0, RoundingMode.HALF_UP).longValueExact();
         }
-        return Math.round(timeUnitArray[0] * 3600000 + timeUnitArray[1] * 60000 + timeUnitArray[2] * 1000);
+        catch(NumberFormatException | ArithmeticException invalid) { return -1; }
     }
 
     /**
@@ -94,31 +105,33 @@ public class TimeUtil
      */
     public static long parseUnitTime(String timestr)
     {
+        if(timestr == null) return -1;
         timestr = timestr.replaceAll("(?i)(\\s|,|and)","")
                 .replaceAll("(?is)(-?\\d+|[a-z]+)", "$1 ")
                 .trim();
         String[] vals = timestr.split("\\s+");
-        int time = 0;
+        long time = 0;
         try
         {
             for(int j=0; j<vals.length; j+=2)
             {
-                int num = Integer.parseInt(vals[j]);
+                long num = Long.parseLong(vals[j]);
+                if(num < 0) return -1;
 
                 if(vals.length > j+1)
                 {
                     if(vals[j+1].toLowerCase().startsWith("m"))
-                        num*=60;
+                        num = Math.multiplyExact(num, 60);
                     else if(vals[j+1].toLowerCase().startsWith("h"))
-                        num*=60*60;
+                        num = Math.multiplyExact(num, 60 * 60);
                     else if(vals[j+1].toLowerCase().startsWith("d"))
-                        num*=60*60*24;
+                        num = Math.multiplyExact(num, 60 * 60 * 24);
                 }
 
-                time+=num*1000;
+                time = Math.addExact(time, Math.multiplyExact(num, 1000));
             }
         }
-        catch(Exception ex)
+        catch(NumberFormatException | ArithmeticException ex)
         {
             return -1;
         }

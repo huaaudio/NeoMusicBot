@@ -19,6 +19,8 @@ package io.github.huaaudio.neomusicbot;
 
 import io.github.huaaudio.neomusicbot.utils.TimeUtil;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,6 +29,40 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class TimeUtilTest
 {
+    @ParameterizedTest
+    @ValueSource(strings = {"NaN", "Infinity", "+Infinity", "1:NaN", "1e999", "1e999 ", "1 e999", ":::",
+            "9223372036854776", "9223372036854775807d", "+-1m", "1h-1m",
+            "0x1p2", "-0X1P2", "  + 0x1p2 "})
+    void invalidOrUnrepresentableTimesDoNotBecomeSeekPositions(String value)
+    {
+        assertNull(TimeUtil.parseTime(value));
+    }
+
+    @Test
+    void unitTimesUseTheFullLongRangeWithoutIntegerWraparound()
+    {
+        assertEquals(4_294_968_000L, TimeUtil.parseTime("4294968s").milliseconds);
+        assertEquals(2_592_000_000L, TimeUtil.parseTime("30d").milliseconds);
+        assertEquals(-2_592_000_000L, TimeUtil.parseTime("-30d").milliseconds);
+    }
+
+    @Test
+    void decimalRoundingAndTheLongBoundaryRemainExact()
+    {
+        assertEquals(1, TimeUtil.parseTime("0.0005").milliseconds);
+        assertEquals(0, TimeUtil.parseTime("0.0004").milliseconds);
+        assertEquals(Long.MAX_VALUE, TimeUtil.parseTime("9223372036854775.807").milliseconds);
+        assertNull(TimeUtil.parseTime("9223372036854775.808"));
+        assertEquals(60_000, TimeUtil.parseTime("1m").milliseconds);
+        assertEquals(60_000, TimeUtil.parseTime("1:00").milliseconds);
+        assertEquals(1_000_000, TimeUtil.parseTime("1e3").milliseconds);
+        assertEquals(1, TimeUtil.parseTime("1e-3").milliseconds);
+        assertNull(TimeUtil.parseTime("1e1000"));
+        assertNull(TimeUtil.parseTime(null));
+        assertNull(TimeUtil.parseTime(" "));
+        assertEquals(90_000, TimeUtil.parseTime(" 1: 30 ").milliseconds);
+    }
+
     @Test
     public void singleDigit()
     {
