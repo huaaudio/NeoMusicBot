@@ -26,12 +26,21 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import java.io.File;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
+import java.nio.file.attribute.PosixFileAttributeView;
 import java.util.*;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -39,6 +48,7 @@ import java.util.stream.Collectors;
  */
 public class PlaylistLoader
 {
+    private static final Logger LOG = LoggerFactory.getLogger(PlaylistLoader.class);
     private final BotConfig config;
     
     public PlaylistLoader(BotConfig config)
@@ -46,17 +56,24 @@ public class PlaylistLoader
         this.config = config;
     }
     
-    public List<String> getPlaylistNames()
+    public synchronized List<String> getPlaylistNames()
     {
-        if(folderExists())
+        try
         {
-            File folder = new File(OtherUtil.getPath(config.getPlaylistsFolder()).toString());
-            return Arrays.asList(folder.listFiles((pathname) -> pathname.getName().endsWith(".txt")))
-                    .stream().map(f -> f.getName().substring(0,f.getName().length()-4)).collect(Collectors.toList());
+            Files.createDirectories(folder());
+            try(var files = Files.list(folder()))
+            {
+                return files.filter(path -> Files.isRegularFile(path, LinkOption.NOFOLLOW_LINKS))
+                        .map(path -> path.getFileName().toString())
+                        .filter(name -> name.endsWith(".txt"))
+                        .map(name -> name.substring(0, name.length() - 4))
+                        .filter(PlaylistLoader::validFileName)
+                        .sorted().toList();
+            }
         }
-        else
+        catch(IOException failure)
         {
-            createFolder();
+            LOG.warn("Could not list local playlists: {}", failure.getClass().getSimpleName());
             return Collections.emptyList();
         }
     }
@@ -65,64 +82,131 @@ public class PlaylistLoader
     {
         try
         {
-            Files.createDirectory(OtherUtil.getPath(config.getPlaylistsFolder()));
-        } 
-        catch (IOException ignore) {}
+            Files.createDirectories(folder());
+        }
+        catch(IOException failure)
+        {
+            LOG.warn("Could not create playlist directory: {}", failure.getClass().getSimpleName());
+        }
     }
     
     public boolean folderExists()
     {
-        return Files.exists(OtherUtil.getPath(config.getPlaylistsFolder()));
+        return Files.isDirectory(folder());
     }
     
-    public void createPlaylist(String name) throws IOException
+    public synchronized void createPlaylist(String name) throws IOException
     {
-        Files.createFile(OtherUtil.getPath(config.getPlaylistsFolder()+File.separator+name+".txt"));
+        Path path = playlistPath(name);
+        Files.createDirectories(folder());
+        Files.createFile(path);
     }
     
-    public void deletePlaylist(String name) throws IOException
+    public synchronized void deletePlaylist(String name) throws IOException
     {
-        Files.delete(OtherUtil.getPath(config.getPlaylistsFolder()+File.separator+name+".txt"));
+        Path path = playlistPath(name);
+        requireRegularFile(path);
+        Files.delete(path);
     }
     
-    public void writePlaylist(String name, String text) throws IOException
+    public synchronized void writePlaylist(String name, String text) throws IOException
     {
-        Files.write(OtherUtil.getPath(config.getPlaylistsFolder()+File.separator+name+".txt"), text.trim().getBytes());
+        Path path = playlistPath(name);
+        Files.createDirectories(folder());
+        if(Files.exists(path, LinkOption.NOFOLLOW_LINKS))
+            requireRegularFile(path);
+        replaceContents(path, text);
+    }
+
+    /** Keep the original file, including comments and shuffle directives, verbatim. */
+    public synchronized void appendPlaylist(String name, List<String> items) throws IOException
+    {
+        Path path = playlistPath(name);
+        requireRegularFile(path);
+        for(String item : items)
+            if(item == null || item.isBlank() || item.contains("\n") || item.contains("\r"))
+                throw new IOException("Playlist entries must each occupy one nonempty line");
+        if(items.isEmpty())
+            return;
+        String original = Files.readString(path, StandardCharsets.UTF_8);
+        String newline = original.contains("\r\n") ? "\r\n" : "\n";
+        String separator = original.isEmpty() || original.endsWith("\n") || original.endsWith("\r") ? "" : newline;
+        replaceContents(path, original + separator + String.join(newline, items) + newline);
+    }
+
+    private Path folder()
+    {
+        return OtherUtil.getPath(config.getPlaylistsFolder()).toAbsolutePath().normalize();
+    }
+
+    private static boolean validFileName(String name)
+    {
+        // Keep existing Unicode/space-containing names readable, but never interpret a name as a path.
+        return name != null && !name.isBlank() && !name.equals(".") && !name.equals("..")
+                && name.chars().noneMatch(c -> c < 32 || c == 127 || "/\\:*?\"<>|".indexOf(c) >= 0);
+    }
+
+    private Path playlistPath(String name) throws IOException
+    {
+        if(!validFileName(name))
+            throw new IOException("Invalid local playlist name");
+        return folder().resolve(name + ".txt");
+    }
+
+    private static void requireRegularFile(Path path) throws IOException
+    {
+        if(!Files.exists(path, LinkOption.NOFOLLOW_LINKS))
+            throw new NoSuchFileException("Local playlist does not exist");
+        if(!Files.isRegularFile(path, LinkOption.NOFOLLOW_LINKS))
+            throw new IOException("Playlist is not a regular file");
+    }
+
+    private static void replaceContents(Path path, String text) throws IOException
+    {
+        Path temporary = Files.createTempFile(path.getParent(), ".playlist-", ".tmp");
+        try
+        {
+            if(Files.exists(path) && Files.getFileAttributeView(path, PosixFileAttributeView.class) != null)
+                Files.setPosixFilePermissions(temporary, Files.getPosixFilePermissions(path));
+            try(FileChannel channel = FileChannel.open(temporary, StandardOpenOption.WRITE))
+            {
+                ByteBuffer contents = StandardCharsets.UTF_8.encode(text);
+                while(contents.hasRemaining()) channel.write(contents);
+                channel.force(true);
+            }
+            // If the filesystem cannot replace atomically, fail without truncating the existing playlist.
+            Files.move(temporary, path, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+        }
+        finally { Files.deleteIfExists(temporary); }
     }
     
-    public Playlist getPlaylist(String name)
+    public synchronized Playlist getPlaylist(String name)
     {
-        if(!getPlaylistNames().contains(name))
+        if(!validFileName(name))
             return null;
         try
         {
-            if(folderExists())
+            Path path = playlistPath(name);
+            requireRegularFile(path);
+            boolean[] shuffle = {false};
+            List<String> list = new ArrayList<>();
+            Files.readAllLines(path, StandardCharsets.UTF_8).forEach(str ->
             {
-                boolean[] shuffle = {false};
-                List<String> list = new ArrayList<>();
-                Files.readAllLines(OtherUtil.getPath(config.getPlaylistsFolder()+File.separator+name+".txt")).forEach(str -> 
+                String s = str.trim();
+                if(s.isEmpty())
+                    return;
+                if(s.startsWith("#") || s.startsWith("//"))
                 {
-                    String s = str.trim();
-                    if(s.isEmpty())
-                        return;
-                    if(s.startsWith("#") || s.startsWith("//"))
-                    {
-                        s = s.replaceAll("\\s+", "");
-                        if(s.equalsIgnoreCase("#shuffle") || s.equalsIgnoreCase("//shuffle"))
-                            shuffle[0]=true;
-                    }
-                    else
-                        list.add(s);
-                });
-                if(shuffle[0])
-                    shuffle(list);
-                return new Playlist(name, list, shuffle[0]);
-            }
-            else
-            {
-                createFolder();
-                return null;
-            }
+                    s = s.replaceAll("\\s+", "");
+                    if(s.equalsIgnoreCase("#shuffle") || s.equalsIgnoreCase("//shuffle"))
+                        shuffle[0]=true;
+                }
+                else
+                    list.add(s);
+            });
+            if(shuffle[0])
+                shuffle(list);
+            return new Playlist(name, list, shuffle[0]);
         }
         catch(IOException e)
         {

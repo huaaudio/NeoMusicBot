@@ -27,6 +27,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -813,10 +815,11 @@ public final class SlashCommandListener extends ListenerAdapter
         String subcommand = event.getSubcommandName();
         if ("repeat".equals(subcommand))
         {
-            Settings settings = bot.getSettingsManager().getSettings(event.getGuild());
+            MusicContext context = musicContext(event, false, false);
+            if(context == null)
+                return;
             RepeatMode mode = RepeatMode.valueOf(string(event, "mode").toUpperCase(Locale.ROOT));
-            AudioHandler handler = bot.getPlayerManager().setUpHandler(event.getGuild());
-            handler.updateSettings(() -> settings.setRepeatMode(mode));
+            context.handler().updateSettings(() -> context.settings().setRepeatMode(mode));
             event.reply(ok("Repeat mode is now `" + mode.getUserFriendlyName() + "`.")).queue();
             return;
         }
@@ -1090,41 +1093,30 @@ public final class SlashCommandListener extends ListenerAdapter
                 {
                     case "create" ->
                     {
-                        if (bot.getPlaylistLoader().getPlaylist(name) != null)
-                            edit(event, fail("Playlist already exists."));
-                        else
-                        {
-                            bot.getPlaylistLoader().createPlaylist(name);
-                            edit(event, ok("Created playlist `" + markdown(name) + "`."));
-                        }
+                        bot.getPlaylistLoader().createPlaylist(name);
+                        edit(event, ok("Created playlist `" + markdown(name) + "`."));
                     }
                     case "delete" ->
                     {
-                        if (bot.getPlaylistLoader().getPlaylist(name) == null)
-                            edit(event, fail("Playlist does not exist."));
-                        else
-                        {
-                            bot.getPlaylistLoader().deletePlaylist(name);
-                            edit(event, ok("Deleted playlist `" + markdown(name) + "`."));
-                        }
+                        bot.getPlaylistLoader().deletePlaylist(name);
+                        edit(event, ok("Deleted playlist `" + markdown(name) + "`."));
                     }
                     case "append" ->
                     {
-                        Playlist playlist = bot.getPlaylistLoader().getPlaylist(name);
                         String items = string(event, "items");
-                        if (playlist == null || items == null || items.isBlank())
+                        if (items == null || items.isBlank())
                         {
                             edit(event, fail("Append requires an existing playlist and one or more URLs."));
                             return;
                         }
-                        List<String> all = new ArrayList<>(playlist.getItems());
+                        List<String> additions = new ArrayList<>();
                         for (String item : items.trim().split("\\s+"))
                         {
                             if (item.isBlank())
                                 continue;
                             try
                             {
-                                all.add(PersistentMediaReferencePolicy.normalize(item));
+                                additions.add(PersistentMediaReferencePolicy.normalize(item));
                             }
                             catch(IllegalArgumentException ex)
                             {
@@ -1132,11 +1124,19 @@ public final class SlashCommandListener extends ListenerAdapter
                                 return;
                             }
                         }
-                        bot.getPlaylistLoader().writePlaylist(name, String.join(System.lineSeparator(), all));
+                        bot.getPlaylistLoader().appendPlaylist(name, additions);
                         edit(event, ok("Appended items to playlist `" + markdown(name) + "`."));
                     }
                     default -> edit(event, fail("Unknown playlist operation."));
                 }
+            }
+            catch(FileAlreadyExistsException ex)
+            {
+                edit(event, fail("Playlist already exists."));
+            }
+            catch(NoSuchFileException ex)
+            {
+                edit(event, fail("Playlist does not exist."));
             }
             catch (IOException ex)
             {

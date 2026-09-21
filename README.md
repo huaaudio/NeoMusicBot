@@ -78,7 +78,7 @@ can be read, startup stops and preserves the files for repair. It does not reset
 channel restrictions to defaults. A deleted or inaccessible configured channel
 also remains restricted until an administrator changes or clears it with `/config`.
 
-See [the 2026-09-21 review](docs/review-2026-09-21.md) for the current implementation
+See [the modernization audit](docs/modernization-audit.md) for the current implementation
 status, fixes, verification, and remaining release work.
 
 ### Environment
@@ -154,6 +154,10 @@ restart is required. Upgrades should replace the entire verified release artifac
 runtime self-update is intentionally unsupported.
 
 ## Development and security
+
+The [online media validation guide](docs/media-validation.md) describes how to check
+the actual source adapters and audio decoding without Discord credentials. Online
+decoding and offline native checks do not establish voice audibility in a Discord channel.
 
 Pull requests are expected to pass both platform builds, JUnit tests, media-tool
 version/checksum checks, and SBOM generation. Keep dependency versions immutable in

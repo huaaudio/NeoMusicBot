@@ -12,7 +12,7 @@
 | 新依赖 | 提交 `48e8d50` 的 [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35561728333) 中 Windows/Linux 构建、测试、JDAVE 加载、发行包组装均通过；锁定媒体探测仍失败，不能发布 |
 | Java 27 | `48e8d50` 的 Windows/Linux 兼容矩阵均通过；发行字节码与构建基线仍为 Java 25 LTS |
 | 全模块审查 | 进行中，见问题表；未完成项不能按已通过处理 |
-| 干净发行包 | `d4a8296` 的 [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35564181621) 已通过 Windows/Linux 最终 ZIP 干净解压、启动器、配置、原生解码及 provider 离线启动；锁定在线媒体探测仍失败，因此整体尚未通过 |
+| 干净发行包 | `f616f13` 的 [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35564696089) 已通过 Windows/Linux 最终 ZIP 干净解压、启动器、配置、原生解码及 provider 离线启动；锁定在线媒体探测仍失败，因此整体尚未通过 |
 | Discord 实际语音 | 此轮尚无测试服务器/凭据，未验证真实 DAVE 握手、频道可听性或长期运行；用户曾实测旧版本，不等同本轮升级验收 |
 | Pre-release | 尚未发布；必须使用最终成功 CI 的同一提交和经过验证的完整发行包 |
 
@@ -40,27 +40,34 @@
 
 ## 可追踪问题
 
+直接依赖已完成一轮升级；[间接依赖清单](dependency-followups.md) 记录新核实的候选版本、引入关系
+及仍需执行的迁移验证。未完成的间接依赖检查不能视作整体依赖现代化完成。
+
 | ID / 严重度 | 位置与触发条件 | 影响 | 处理与验证状态 |
 | --- | --- | --- | --- |
 | AUD-001 / P1 | `scripts/ci/media_canary.sh`：任一音源失败即退出且丢弃所有错误信息 | 无法区分工具参数、限流、认证或解析错误；其他音源未检查 | 已修复；3 个诊断测试通过。`48e8d50` 云端报告 YouTube 两种模式均 authentication-required，Bilibili access-denied；媒体验收仍未通过 |
 | AUD-002 / P1 | `pom.xml` 与解析器：Jackson 3 移除旧 API、JUnit 6 不再自动执行 JUnit 4 | 编译失败或测试覆盖丢失 | 迁移 JSON API 与所有旧测试 imports/assumptions；Windows 122 测试数量保持一致，121 通过、1 POSIX 测试按平台跳过 |
 | AUD-003 / P1 | `SlashCommandListener` 的 Slash 与选择控件入口：配置频道被删除或不可见时缓存返回 null | 频道限制被跳过 | 按持久化 ID 判断，管理员界面显示不可用而非 any；`SettingsChannelRestrictionTest` 验证缓存缺失与显式清除两种情况 |
 | AUD-004 / P1 | `BotConfig.writeDefaultConfig()`：对已有配置执行生成 | 覆盖 Token 和用户配置 | `CREATE_NEW` 拒绝覆盖，CLI 返回失败；回归测试先复现再通过 |
-| AUD-005 / 待核实 | 发行包：依赖许可证下载告警、缓存路径与旧原生文件 | 材料不完整或依赖开发/构建环境 | 待补齐来源和干净目录验收 |
+| AUD-005 / 待核实 | 发行包：依赖许可证下载告警、缓存路径与旧原生文件 | 材料不完整或依赖开发/构建环境 | Maven 许可覆盖与两平台干净目录验收已通过；独立工具及其第三方依赖的源码/许可覆盖继续审查 |
 | AUD-006 / P2 | 内部包名、环境变量、旧 bot-listing 自动消息 | 独立项目仍有继承行为或旧名称 | 已迁移 `io.github.huaaudio.neomusicbot`、`NeoMusicBot` 主类及 `NEOMUSICBOT_*`；旧 main 与变量前缀保留兼容，重复变量拒绝启动；移除硬编码第三方服务器消息/退出逻辑，保留合法来源署名 |
 | AUD-007 / P1 | `BotConfig.writeToFile()`：交互补填 owner 或 token | 重写默认模板导致已有配置与注释丢失 | 使用 HOCON 文档更新指定键，保留其他值；临时文件刷盘后替换，POSIX 新文件权限 0600；回归先复现再通过 |
 | AUD-008 / P1 | `SettingsManager.load()`：主文件损坏且没有有效备份；或频道 ID 拼写错误 | 空设置覆盖原数据、错误 ID 静默变成无限制 | 无法恢复时拒绝启动并保留文件；拒绝错误 ID；两个故障回归先失败、修复后通过 |
 | AUD-009 / P1 | `SettingsManager.drainWrites()`：I/O 写入失败 | dirty 标记丢失，flush 返回成功且退出时不再保存 | 保留待保存状态，flush/后续更新/关闭时重试，不无休止循环；跨平台目录阻塞写入用例先失败、修复后通过 |
 | AUD-010 / P2 | Windows 二次执行 `mvn clean`，`target/bgutil-provider-src/.git` 含只读 pack 文件 | 清理失败，影响本地重复打包 | 发行脚本在校验 provider commit 后移除生成 checkout 的 `.git`；Windows 校验绝对目标位于 target 下；不会删除项目自己的 Git 数据 |
 | AUD-011 / P1 | Linux 发行包采用通用 `yt-dlp` zipimport 资产 | 在没有 Python 的机器上无法运行，与完整发行包目标不符 | 改用固定哈希的 `yt-dlp_linux`；ZIP 验证器检查 ELF/PE 文件头及工具版本 |
-| AUD-012 / P1 | Windows `Compress-Archive` 与仅在构建目录检查 provider | 隐藏缓存可能漏包，无法证明换机器后离线启动 | 使用 Python ZIP 完整收录文件并生成逐文件 SHA256SUMS；解压到新目录后以全新 HOME 和 `--deny-net --cached-only` 运行 provider；云端待验 |
+| AUD-012 / P1 | Windows `Compress-Archive` 与仅在构建目录检查 provider | 隐藏缓存可能漏包，无法证明换机器后离线启动 | 使用 Python ZIP 完整收录文件并生成逐文件 SHA256SUMS；解压到新目录后以全新 HOME 和 `--deny-net --cached-only` 运行 provider；`d4a8296`、`f616f13` 两平台云端实测通过 |
 | AUD-013 / P1 | Windows 启动器位于带括号的目录，错误提示展开未加引号的 JAR 路径 | CMD 在解析 if 块时提前报错，即使 JAR 存在也不能启动 | 临时干净目录首次复现退出 255；为输出路径加引号，由实际启动器运行回归验证 |
 | AUD-014 / P1 | Maven 缺失许可信息只警告，Shade 遇到同名 NOTICE/LICENSE 只保留首份 | 发行材料遗漏部分依赖许可和声明 | 按上游源码补齐版本限定的许可映射，下载失败阻止打包；验证许可文件覆盖 SBOM 的全部 44 个组件；同名许可/声明合并保留，详见 `src/license/README.md` |
-| AUD-015 / P2 | Windows CI 使用 8.3 临时目录名，ZIP 路径比较及 Deno 权限参数未规范化 | 合法包被误判为目录外文件；provider 以长路径读取资源而被短路径权限拒绝 | 路径比较与创建临时根目录后统一 resolve；回归覆盖相对根目录；`3970117` CI 暴露 Deno 参数问题，继续验证修复 |
+| AUD-015 / P2 | Windows CI 使用 8.3 临时目录名，ZIP 路径比较及 Deno 权限参数未规范化 | 合法包被误判为目录外文件；provider 以长路径读取资源而被短路径权限拒绝 | 路径比较与创建临时根目录后统一 resolve；回归覆盖相对根目录；`3970117` CI 暴露 Deno 参数问题；`d4a8296`、`f616f13` 两平台干净解压验证已通过 |
 | AUD-016 / P2 | 更新检查只使用 `/releases/latest`，版本标签包含空 prerelease 段 | 测试版收不到后续 beta 提醒；错误标签触发 NumberFormatException | 测试版查询已发布 releases，正式版保留 stable 通道；拒绝错误标签，HTTP 客户端复用、10 秒总超时、2 MiB 响应上限、所有分支关闭响应；错误标签回归先复现异常 |
 | AUD-017 / P1 | `Bot` 初始化或退出时，播放器初始化、单个语音连接、JDA 关闭发生异常 | 后续组件不清理，设置存储/线程池残留；持有 Bot 锁调用外部库可导致回调等待 | 初始化失败清理已有组件；退出逐项隔离错误、不持有 Bot 监视器；迟到的 JDA/GUI 立即关闭；5 个故障回归修改前失败，修改后通过 |
 | AUD-018 / P1 | `SerialExecutor` 后端拒绝第一次 drain 提交 | scheduled 标志永久停在 true，后续任务被静默接受但不执行，同步调用无限等待 | 入队与调度原子化，拒绝时回滚，关闭后立即拒绝新任务；正常退出排空已接受任务并取消延迟/周期任务；2 个故障回归修改前失败，修改后通过 |
 | AUD-019 / P2 | JVM 退出或窗口关闭与后台清理并发 | 缺少应用层有序退出处理，窗口可能提前强制终止进程 | Bot 注册自己的退出 hook，等待正在进行的清理；取消 JDA 的独立 hook；GUI 后台退出并在清理完成后销毁窗口；独立子 JVM 验证退出时设置存储已关闭 |
+| AUD-020 / P1 | owner 追加歌单先读取解析后的条目，再整体重写 | 丢失注释与 shuffle 指令，改变已有顺序；并发追加可覆盖另一请求 | 存储层串行读改写，保留原文、UTF-8 临时文件刷盘后原子替换；实际 Slash 追加回归先复现丢失，修复后通过；40 项并发追加完整保留 |
+| AUD-021 / P2 | `PlaylistLoader` 首次创建、目录为文件、目录名以 `.txt` 结尾 | 创建失败、列表抛出 NPE、将目录误列为歌单 | 创建父目录、只枚举普通文件、不可用目录返回空列表并记录错误类型；3 个回归修改前失败、修改后通过 |
+| AUD-022 / P2 | 歌单存储方法接收包含 `../` 的名称 | 存储层自身缺少目录边界；当前 owner 命令另有名称校验，但复用 API 可能访问目录外文件 | 存储层拒绝路径字符与控制符，不跟随歌单符号链接；保留合法旧中文名称；越界写入回归先复现覆盖，修改后拒绝 |
+| AUD-023 / P2 | `/dj repeat` 直接写设置，未调用共同的音乐命令上下文 | 有 DJ 权限的用户能在配置限制外修改循环模式 | 复用文字频道与服务器上下文检查；实际 Slash 回归先复现越权修改，修复后拒绝且允许正确频道操作 |
 
 ## 阶段验证证据
 
@@ -79,17 +86,25 @@
 - Shade 产物与测试 classpath 中的运行时 JAR 逐项比对，30 份上游 LICENSE/NOTICE 资源全部保留；`3970117` 的两平台 CI 均通过许可覆盖与声明保留检查。
 - 更新检查专项 7 个测试通过；完整 Windows `verify` 共 138 个测试，137 通过、1 个 POSIX 权限测试按平台跳过，许可证收集及打包成功；日志 `tools/update-full-verify.log`。
 - `d4a8296` 云端两平台构建/完整发行包、Java 27 测试全部成功；在线探测仍为 YouTube 两模式 authentication-required、Bilibili access-denied，没有绕过失败门禁。
+- `f616f13` 云端 Windows/Linux 完整发行包及 Java 27 两平台测试全部通过；同次锁定在线探测仍为 YouTube 两模式 authentication-required、Bilibili access-denied。
+- 本地 Windows 的 `f616f13` 运行时代码（JAR SHA-256 `4ef6ce72995e9e0950203a9540527969fe57052cabcbf66fa3db94c472aff9b8`），配合 yt-dlp 2026.08.19 / Deno 2.9.7，在无 Cookie、无 provider 的匿名模式下，Bilibili、指定第二 P、YouTube 三项均由实际音源适配器解码出 10 帧；日志 `tools/online-audit/java-probes.txt`。这是本地网络短时解码证据，不替代云端门禁或 Discord 语音测试；复现方式见 [在线媒体验收](media-validation.md)。
 - 生命周期回归修改前 8 个测试中 7 个失败；修复后连同既有播放器事件/停止测试共 11 个通过。新增独立子 JVM 退出验证后，完整 Windows 测试共 146 个，145 通过、1 个 POSIX 测试跳过；日志 `tools/lifecycle-before.log`、`tools/lifecycle-after.log`、`tools/lifecycle-full.log`。
 
 ## 全模块检查覆盖
 
+- 本阶段完整 Windows `verify` 共 154 个测试，153 通过、1 个 POSIX 测试跳过；日志 `tools/playlist-full.log`。
+  44 个 SBOM 组件许可覆盖、30 份上游许可/声明保留检查通过。
+  最新本地 JAR SHA-256 为 `fdce6a91e19c0dfeb08e51b4e572294d0e8b0132fc3d0f24820634e7198c7d60`；
+  更新后的在线探测程序再次通过 Bilibili、第二 P 和 YouTube 各 10 帧解码，无 Cookie/provider；
+  日志 `tools/online-audit/java-probes-playlist.txt`。对应代码的云端回归待完成。
+
 以下均需完成代码检查及相应的行为验证，不能仅由单元测试绿色代替审查：
 
 - 启动、配置、更新检查、环境变量、启动脚本：配置及变量兼容、更新渠道/异常标签、入口失败状态已检查修复；Windows 含括号路径启动器实测通过；最新提交跨平台回归待完成。
-- Discord Slash 注册、权限、交互生命周期、频道混淆：待检查。
+- Discord Slash 注册、权限、交互生命周期、频道混淆：已检查多数命令入口、用户/服务器绑定和频道限制；修复 AUD-023；投票期间成员状态竞态、部分异步交互及频道混淆仍待复核。
 - 语音连接、DAVE、重连、退出、播放器资源释放：已检查初始化/退出资源管理并修复 AUD-017/019，原生加载/编解码跨平台通过；语音重连状态机复核及真实 Discord 验收仍待完成。
 - 播放队列、公平排序、并发、暂停/重复/停止、状态恢复：已有基线修复，需升级后复核。
 - Bilibili 分 P、短链接、媒体 URL、Cookie 与子进程：已有基线测试，需新版工具集成验证。
-- YouTube、SoundCloud、Discord 附件、播放列表：待升级后复核。
+- YouTube、SoundCloud、Discord 附件、播放列表：本地匿名 YouTube 短时解码通过；歌单存储及 owner 修改已检查并修复 AUD-020/021/022；其余源与歌单异步加载异常仍待复核。
 - 配置与服务器设置持久化、备份和故障处理：已检查并修复 AUD-004/007/008/009，专项测试通过；最终平台 CI 待复核。
 - CI、SBOM、许可证、哈希、打包、发布门禁：进行中。
