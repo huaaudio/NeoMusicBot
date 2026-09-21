@@ -14,30 +14,29 @@ fi
 
 TOOLS_DIR="${SCRIPT_DIR}/tools"
 
-if [ -z "${JMUSICBOT_YTDLP_PATH:-}" ] && [ -x "${TOOLS_DIR}/yt-dlp" ]; then
-    JMUSICBOT_YTDLP_PATH="${TOOLS_DIR}/yt-dlp"
-    export JMUSICBOT_YTDLP_PATH
+if [ -z "${NEOMUSICBOT_YTDLP_PATH:-}" ] && [ -z "${JMUSICBOT_YTDLP_PATH:-}" ] && [ -x "${TOOLS_DIR}/yt-dlp" ]; then
+    NEOMUSICBOT_YTDLP_PATH="${TOOLS_DIR}/yt-dlp"
+    export NEOMUSICBOT_YTDLP_PATH
 fi
-if [ -z "${JMUSICBOT_DENO_PATH:-}" ] && [ -x "${TOOLS_DIR}/deno" ]; then
-    JMUSICBOT_DENO_PATH="${TOOLS_DIR}/deno"
-    export JMUSICBOT_DENO_PATH
+if [ -z "${NEOMUSICBOT_DENO_PATH:-}" ] && [ -z "${JMUSICBOT_DENO_PATH:-}" ] && [ -x "${TOOLS_DIR}/deno" ]; then
+    NEOMUSICBOT_DENO_PATH="${TOOLS_DIR}/deno"
+    export NEOMUSICBOT_DENO_PATH
 fi
-if [ -z "${JMUSICBOT_YTDLP_PLUGIN_DIR:-}" ] && [ -d "${TOOLS_DIR}/yt-dlp-plugins" ]; then
-    JMUSICBOT_YTDLP_PLUGIN_DIR="${TOOLS_DIR}/yt-dlp-plugins"
-    export JMUSICBOT_YTDLP_PLUGIN_DIR
+if [ -z "${NEOMUSICBOT_YTDLP_PLUGIN_DIR:-}" ] && [ -z "${JMUSICBOT_YTDLP_PLUGIN_DIR:-}" ] && [ -d "${TOOLS_DIR}/yt-dlp-plugins" ]; then
+    NEOMUSICBOT_YTDLP_PLUGIN_DIR="${TOOLS_DIR}/yt-dlp-plugins"
+    export NEOMUSICBOT_YTDLP_PLUGIN_DIR
 fi
-if [ -z "${JMUSICBOT_YOUTUBE_POT_PROVIDER_PATH:-}" ] \
+if [ -z "${NEOMUSICBOT_YOUTUBE_POT_PROVIDER_PATH:-}" ] && [ -z "${JMUSICBOT_YOUTUBE_POT_PROVIDER_PATH:-}" ] \
     && [ -d "${TOOLS_DIR}/bgutil-provider/server" ]; then
-    JMUSICBOT_YOUTUBE_POT_PROVIDER_PATH="${TOOLS_DIR}/bgutil-provider/server"
-    export JMUSICBOT_YOUTUBE_POT_PROVIDER_PATH
+    NEOMUSICBOT_YOUTUBE_POT_PROVIDER_PATH="${TOOLS_DIR}/bgutil-provider/server"
+    export NEOMUSICBOT_YOUTUBE_POT_PROVIDER_PATH
 fi
-if [ -n "${JMUSICBOT_YOUTUBE_POT_PROVIDER_PATH:-}" ] \
-    && [ -d "${JMUSICBOT_YOUTUBE_POT_PROVIDER_PATH}/.deno-dir" ] \
-    && [ -z "${DENO_DIR:-}" ]; then
-    DENO_DIR="${JMUSICBOT_YOUTUBE_POT_PROVIDER_PATH}/.deno-dir"
+PROVIDER_HOME="${NEOMUSICBOT_YOUTUBE_POT_PROVIDER_PATH:-${JMUSICBOT_YOUTUBE_POT_PROVIDER_PATH:-}}"
+if [ -n "${PROVIDER_HOME}" ] && [ -d "${PROVIDER_HOME}/.deno-dir" ] && [ -z "${DENO_DIR:-}" ]; then
+    DENO_DIR="${PROVIDER_HOME}/.deno-dir"
     export DENO_DIR
 fi
-if [ -n "${JMUSICBOT_DENO_PATH:-}" ]; then
+if [ -n "${NEOMUSICBOT_DENO_PATH:-${JMUSICBOT_DENO_PATH:-}}" ]; then
     DENO_NO_PROMPT=1
     DENO_NO_UPDATE_CHECK=1
     export DENO_NO_PROMPT DENO_NO_UPDATE_CHECK

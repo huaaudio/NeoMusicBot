@@ -1,8 +1,8 @@
 # NeoMusicBot
 
-Huaaudio's independently maintained Bilibili-focused fork of
+Huaaudio's independently maintained Bilibili-focused project, derived from
 [JMusicBot by jagrosh](https://github.com/jagrosh/MusicBot), licensed under
-[Apache 2.0](LICENSE). This fork substantially changes the original playback,
+[Apache 2.0](LICENSE). NeoMusicBot substantially changes the original playback,
 command, and build systems; it is not an official upstream release.
 Project home: [huaaudio/NeoMusicBot](https://github.com/huaaudio/NeoMusicBot).
 
@@ -16,13 +16,13 @@ provides the DAVE end-to-end encryption required for non-Stage voice calls.
 
 ## Runtime requirements
 
-- Java 25.
+- Java 25 LTS or Java 27 (both tested in Windows/Linux CI).
 - Linux x86-64 or Windows x86-64. Release artifacts are platform-specific because
   they include the matching JDAVE native library.
 - A Discord application and bot token.
 - Release ZIPs bundle yt-dlp 2026.08.19, Deno 2.9.7, and the complete
   bgutil-ytdlp-pot-provider 2.0.0 Deno script installation. Custom deployments
-  can instead set JMUSICBOT_YTDLP_PATH and JMUSICBOT_DENO_PATH.
+  can instead set NEOMUSICBOT_YTDLP_PATH and NEOMUSICBOT_DENO_PATH.
 
 Do not use an everyday YouTube or Bilibili account for automation. Cookie files are
 optional, disabled by default, and should belong to a dedicated low-privilege
@@ -50,9 +50,12 @@ application logs.
 
 ## Configuration
 
-Existing `JMUSICBOT_*` environment variables and configuration files remain
-supported under their original names, so existing installations can migrate
-without renaming secrets or settings. New release launchers are named
+See the [installation, migration and troubleshooting guide](docs/install-and-upgrade.md)
+for a complete first-run walkthrough.
+
+Use `NEOMUSICBOT_*` environment variables for new installations. Legacy
+`JMUSICBOT_*` aliases and configuration files remain supported; set only one prefix
+for each variable, or startup rejects the duplicate configuration. New release launchers are named
 `run_neomusicbot.sh` and `run_neomusicbot.cmd`, and start `NeoMusicBot.jar`.
 
 ### Bilibili usage
@@ -82,17 +85,17 @@ status, fixes, verification, and remaining release work.
 
 The modern environment interface is:
 
-- JMUSICBOT_CONFIG
-- JMUSICBOT_DISCORD_TOKEN or JMUSICBOT_DISCORD_TOKEN_FILE
-- JMUSICBOT_YTDLP_PATH
-- JMUSICBOT_DENO_PATH
-- JMUSICBOT_YOUTUBE_FALLBACK=auto|off
-- JMUSICBOT_YOUTUBE_POT_PROVIDER=auto|off
-- JMUSICBOT_YOUTUBE_COOKIES_FILE
-- JMUSICBOT_BILIBILI_COOKIES_FILE
-- JMUSICBOT_YTDLP_PLUGIN_DIR
-- JMUSICBOT_YOUTUBE_POT_PROVIDER_PATH
-- JMUSICBOT_COMMAND_GUILD_ID for development-only guild command registration
+- NEOMUSICBOT_CONFIG
+- NEOMUSICBOT_DISCORD_TOKEN or NEOMUSICBOT_DISCORD_TOKEN_FILE
+- NEOMUSICBOT_YTDLP_PATH
+- NEOMUSICBOT_DENO_PATH
+- NEOMUSICBOT_YOUTUBE_FALLBACK=auto|off
+- NEOMUSICBOT_YOUTUBE_POT_PROVIDER=auto|off
+- NEOMUSICBOT_YOUTUBE_COOKIES_FILE
+- NEOMUSICBOT_BILIBILI_COOKIES_FILE
+- NEOMUSICBOT_YTDLP_PLUGIN_DIR
+- NEOMUSICBOT_YOUTUBE_POT_PROVIDER_PATH
+- NEOMUSICBOT_COMMAND_GUILD_ID for development-only guild command registration
 
 Never commit config.txt, serversettings.json, .env files, or exported browser
 cookies. If the same secret is configured through more than one source, startup
@@ -100,7 +103,7 @@ should fail instead of selecting one silently.
 
 ## Build
 
-Building requires JDK 25. The only-script Maven Wrapper downloads and verifies
+The release build uses JDK 25 LTS; Java 27 is also tested. The only-script Maven Wrapper downloads and verifies
 Maven 3.9.16; a global Maven installation is not required:
 
 ~~~sh

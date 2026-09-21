@@ -11,27 +11,27 @@ if not exist "%JAR_PATH%" (
 )
 
 set "TOOLS_DIR=%SCRIPT_DIR%tools"
-if not defined JMUSICBOT_YTDLP_PATH if exist "%TOOLS_DIR%\yt-dlp.exe" (
-  set "JMUSICBOT_YTDLP_PATH=%TOOLS_DIR%\yt-dlp.exe"
+if not defined NEOMUSICBOT_YTDLP_PATH if not defined JMUSICBOT_YTDLP_PATH if exist "%TOOLS_DIR%\yt-dlp.exe" (
+  set "NEOMUSICBOT_YTDLP_PATH=%TOOLS_DIR%\yt-dlp.exe"
 )
-if not defined JMUSICBOT_DENO_PATH if exist "%TOOLS_DIR%\deno.exe" (
-  set "JMUSICBOT_DENO_PATH=%TOOLS_DIR%\deno.exe"
+if not defined NEOMUSICBOT_DENO_PATH if not defined JMUSICBOT_DENO_PATH if exist "%TOOLS_DIR%\deno.exe" (
+  set "NEOMUSICBOT_DENO_PATH=%TOOLS_DIR%\deno.exe"
 )
-if not defined JMUSICBOT_YTDLP_PLUGIN_DIR if exist "%TOOLS_DIR%\yt-dlp-plugins" (
-  set "JMUSICBOT_YTDLP_PLUGIN_DIR=%TOOLS_DIR%\yt-dlp-plugins"
+if not defined NEOMUSICBOT_YTDLP_PLUGIN_DIR if not defined JMUSICBOT_YTDLP_PLUGIN_DIR if exist "%TOOLS_DIR%\yt-dlp-plugins" (
+  set "NEOMUSICBOT_YTDLP_PLUGIN_DIR=%TOOLS_DIR%\yt-dlp-plugins"
 )
-if not defined JMUSICBOT_YOUTUBE_POT_PROVIDER_PATH if exist "%TOOLS_DIR%\bgutil-provider\server" (
-  set "JMUSICBOT_YOUTUBE_POT_PROVIDER_PATH=%TOOLS_DIR%\bgutil-provider\server"
+if not defined NEOMUSICBOT_YOUTUBE_POT_PROVIDER_PATH if not defined JMUSICBOT_YOUTUBE_POT_PROVIDER_PATH if exist "%TOOLS_DIR%\bgutil-provider\server" (
+  set "NEOMUSICBOT_YOUTUBE_POT_PROVIDER_PATH=%TOOLS_DIR%\bgutil-provider\server"
 )
-if not defined DENO_DIR if defined JMUSICBOT_YOUTUBE_POT_PROVIDER_PATH (
-  if exist "%JMUSICBOT_YOUTUBE_POT_PROVIDER_PATH%\.deno-dir" (
-    set "DENO_DIR=%JMUSICBOT_YOUTUBE_POT_PROVIDER_PATH%\.deno-dir"
+set "PROVIDER_HOME=%NEOMUSICBOT_YOUTUBE_POT_PROVIDER_PATH%"
+if not defined PROVIDER_HOME set "PROVIDER_HOME=%JMUSICBOT_YOUTUBE_POT_PROVIDER_PATH%"
+if not defined DENO_DIR if defined PROVIDER_HOME (
+  if exist "%PROVIDER_HOME%\.deno-dir" (
+    set "DENO_DIR=%PROVIDER_HOME%\.deno-dir"
   )
 )
-if defined JMUSICBOT_DENO_PATH (
-  set "DENO_NO_PROMPT=1"
-  set "DENO_NO_UPDATE_CHECK=1"
-)
+set "DENO_NO_PROMPT=1"
+set "DENO_NO_UPDATE_CHECK=1"
 
 if defined JAVA_HOME (
   set "JAVA_BIN=%JAVA_HOME%\bin\java.exe"
