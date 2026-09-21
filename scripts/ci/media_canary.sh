@@ -55,6 +55,7 @@ unzip -tq "${plugin}"
 
 git clone --depth 1 --branch "${POT_PROVIDER_VERSION}" https://github.com/Brainicism/bgutil-ytdlp-pot-provider.git tools/bgutil-provider
 test "$(git -C tools/bgutil-provider rev-parse HEAD)" = "${POT_PROVIDER_COMMIT}"
+python3 scripts/ci/prepare_provider.py tools/bgutil-provider src/provider-runtime "${POT_PROVIDER_COMMIT}"
 provider="${GITHUB_WORKSPACE}/tools/bgutil-provider/server"
 (
     cd "${provider}"

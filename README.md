@@ -22,7 +22,7 @@ provides the DAVE end-to-end encryption required for non-Stage voice calls.
   they include the matching JDAVE native library.
 - A Discord application and bot token.
 - Release ZIPs bundle yt-dlp 2026.08.19, Deno 2.9.7, and the complete
-  bgutil-ytdlp-pot-provider 2.0.0 Deno script installation. Custom deployments
+  bgutil-ytdlp-pot-provider 2.0.0 Deno runtime installation and upstream source. Custom deployments
   can instead set NEOMUSICBOT_YTDLP_PATH and NEOMUSICBOT_DENO_PATH.
 
 Do not use an everyday YouTube or Bilibili account for automation. Cookie files are
@@ -127,6 +127,9 @@ versions, commits, hashes, and lock files are recorded separately in the release
 manifest and provider bundle. `provider-dependencies.json` inventories shipped npm
 packages and license-file candidates; it does not certify their licensing. See the
 [distribution material review](docs/distribution-licenses.md) for remaining work.
+The provider uses a reviewed runtime-only lock with the same upstream package
+versions and integrities. Original package/lock files remain beside the adjusted
+files, with a modification notice; development tools are excluded from installation.
 CI creates a platform ZIP containing the matching
 JDAVE native, these pinned media tools, checksums, project/tool licenses, generated
 Maven licenses under `licenses/maven/`, and a launcher. The Build and Test workflow

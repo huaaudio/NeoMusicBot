@@ -54,6 +54,7 @@ git clone --depth 1 --branch "${POT_PROVIDER_VERSION}" https://github.com/Braini
 test "$(git -C "${provider_source}" rev-parse HEAD)" = "${POT_PROVIDER_COMMIT}"
 # Keep the source used by the distribution without a nested Git checkout.
 rm -rf -- "${provider_source}/.git"
+python3 scripts/ci/prepare_provider.py "${provider_source}" src/provider-runtime "${POT_PROVIDER_COMMIT}"
 (
     cd "${provider_source}/server"
     export DENO_DIR="${PWD}/.deno-dir"

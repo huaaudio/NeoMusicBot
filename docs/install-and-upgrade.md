@@ -36,6 +36,8 @@ Python、Node.js 或 npm；Java 仍需按步骤 1 安装。不要删除以点开
 第三方组件分别适用各自许可证，见 `licenses`、`sources` 和 `THIRD_PARTY_VERSIONS.txt`。
 `provider-dependencies.json` 记录随包携带的 npm 包及许可材料候选路径；
 完整审查状态见 [发行材料记录](distribution-licenses.md)。
+provider 只安装运行依赖，原始源码及配置仍保留；`server/NEOMUSICBOT-RUNTIME.md` 说明调整，
+`package.json.upstream` 和 `deno.lock.upstream` 保存原文件。无需手动运行 npm 或安装开发工具。
 
 可先执行 `run_neomusicbot.cmd --self-test`（Linux：`sh ./run_neomusicbot.sh --self-test`）。
 它不读取机器人凭据、不连接 Discord，检查 JDAVE 加载、内置测试音的 AAC、Opus、MP3 解码、

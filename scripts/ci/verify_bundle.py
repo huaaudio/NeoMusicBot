@@ -10,6 +10,7 @@ import zipfile
 from package_bundle import digest
 from verify_licenses import verify as verify_licenses
 from inventory_provider import verify as verify_provider_inventory
+from prepare_provider import verify as verify_provider_runtime
 
 
 def extract(archive_path, destination):
@@ -59,6 +60,7 @@ def verify(archive_path, report_path):
         extract(archive_path, bundle)
         verify_manifest(bundle)
         verify_licenses(bundle / "licenses/maven", bundle / "NeoMusicBot.cdx.json")
+        verify_provider_runtime(bundle / "tools/bgutil-provider", os.environ["POT_PROVIDER_COMMIT"])
         verify_provider_inventory(bundle / "tools/bgutil-provider", bundle / "provider-dependencies.json",
                                   bundle / "licenses/provider")
         for name in ("README.md", "docs/install-and-upgrade.md", "licenses/NeoMusicBot-Apache-2.0.txt",

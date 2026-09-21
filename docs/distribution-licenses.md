@@ -11,7 +11,7 @@ Windows/Linux 发行包的 `NeoMusicBot.cdx.json` / `.xml` 描述 Java 依赖；
 | Java 运行时依赖 | 44 个 SBOM 组件均有已保存的许可证；31 份 JAR 内原始 LICENSE/NOTICE 在 Shade 后保留 | 最终发行提交仍须通过相同检查；原生文件的内嵌依赖需独立核对 |
 | yt-dlp 2026.08.19 独立程序 | 上游 Unlicense、第三方声明汇总及校验过的 yt-dlp 源码包均已收录 | 逐平台确认嵌入组件的版本、对应源码及构建材料覆盖；核心源码压缩包不等于第三方源码全集 |
 | Deno 2.9.7 | 上游 MIT 许可证及固定哈希的官方二进制 | Rust/V8 等内嵌组件声明覆盖；Cargo.lock 的 1,128 项含构建/测试等依赖，不能直接认定为二进制内组件清单 |
-| bgutil provider 2.0.0 | 固定提交的完整上游源码、GPL-3.0 文本、deno.lock、安装目录与离线缓存 | npm 包的基本许可证、嵌入源码声明、native/WASM 子组件的逐项审查及缺失材料补齐 |
+| bgutil provider 2.0.0 | 固定提交的完整上游源码、GPL-3.0 文本、原始配置/锁文件及经核对的运行锁文件、安装目录与离线缓存 | npm 包的基本许可证、嵌入源码声明、native/WASM 子组件的逐项审查及缺失材料补齐 |
 
 版本来源：[yt-dlp 第三方声明](https://github.com/yt-dlp/yt-dlp/blob/2026.08.19/THIRD_PARTY_LICENSES.txt)、
 [Deno LICENSE](https://github.com/denoland/deno/blob/v2.9.7/LICENSE.md)、
@@ -31,6 +31,19 @@ Windows/Linux 发行包的 `NeoMusicBot.cdx.json` / `.xml` 描述 Java 依赖；
 因此清单明确标记 `license_review_complete: false`，不能把“文件存在”自动视为许可审查完成。
 全包逐文件 SHA256SUMS 仍独立覆盖这些文件。
 
+发行构建现在先应用 [`src/provider-runtime`](../src/provider-runtime/README.md) 中经审查的运行配置：
+只从 provider 的 `package.json` 去掉 `devDependencies`，保留所有运行根依赖及其他配置；
+原文件完整另存为 `package.json.upstream` 和 `deno.lock.upstream`，并附修改说明及哈希记录。
+原始完整源码仍随包保留。实际 npm 安装和缓存使用已提交的运行锁文件与 `--frozen`，
+发行构建不会临时重新选择依赖版本。
+
+本地干净安装确认，原配置即使使用 `deno install --prod`，仍会安装 304 个包。
+运行配置将实际安装降为 183 个包，移除了 121 个开发依赖；每个保留包的版本、完整性值和完整依赖记录
+均与原锁文件匹配。Deno 仅对两个 CSS 包的冗余 peer-context 键作了规范化。
+原锁文件 350 项包含其他平台/上下文记录，不能与实际安装的 304 个包混同。
+运行配置的锁文件为 183 项；Linux/Windows 的实际数量仍由各自发行清单确认。
+原始/运行配置及锁文件都纳入清单和干净解压验证，运行根依赖缺失、版本或依赖记录改变会拒绝构建。
+
 2026-09-21 在 Windows、Deno 2.9.7、固定 provider 提交及 `--frozen` 安装下，
 实际清单包含 304 个不同的 npm 名称/版本组合。最初根目录文件名检查发现 18 项没有单独的 LICENSE/COPYING/NOTICE；
 进一步检查确认其中 canvas、esrecurse、https-proxy-agent 的 README 有完整许可正文，
@@ -47,8 +60,10 @@ Windows/Linux 发行包的 `NeoMusicBot.cdx.json` / `.xml` 描述 Java 依赖；
 
 组装和干净解压验证会核对补充文件原始字节；相关包版本发生变化时，旧映射拒绝继续使用。
 canvas 的 README 内 MIT 与 BMP 子组件声明原本已随包保留。
-仍待核实的内容包括部分 npm 包的基本许可正文、QuickJS 包装层/WASI 工具链、
-其他 native/WASM 子组件及上表中的 yt-dlp/Deno 材料。
+最新运行安装不再包含 `@swc/counter`、eslint-plugin-only-warn、keyv、swc-node、xxhash 和 oxc 原生绑定；
+因此此前仅由这些开发包引入的分发材料缺口不再属于新发行包的依赖范围，旧版清单和证据仍保留。
+仍待核实的基本许可正文为 proxy-agent-negotiate 1.1.0 与 QuickJS 包装层；
+WASI 工具链、canvas/其他嵌入组件及上表中的 yt-dlp/Deno 材料也仍在审查。
 参考 [protobuf 上游许可](https://github.com/bufbuild/protobuf-es/blob/04297e762a64dbcafc299c46785dbc5621b4329f/LICENSE)、
 [saxes 上游许可](https://github.com/lddubeau/saxes/blob/211fa0ebec9b628affc09219199639887174bfc3/LICENSE)、
 [canvas README](https://github.com/Automattic/node-canvas/blob/v3.2.3/Readme.md)。

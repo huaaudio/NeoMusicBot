@@ -84,6 +84,10 @@ if (-not $providerGit.StartsWith($expectedRoot, [System.StringComparison]::Ordin
     throw "Provider Git directory is outside the generated source directory"
 }
 Remove-Item -LiteralPath $providerGit -Recurse -Force
+python scripts/ci/prepare_provider.py $providerSource src/provider-runtime $env:POT_PROVIDER_COMMIT
+if ($LASTEXITCODE -ne 0) {
+    throw "Provider runtime profile validation failed"
+}
 Push-Location (Join-Path $providerSource "server")
 try {
     $env:DENO_DIR = Join-Path $providerSource "server\.deno-dir"

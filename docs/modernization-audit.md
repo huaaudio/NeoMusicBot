@@ -77,6 +77,7 @@
 | AUD-030 / P2 | `AloneInVoiceHandler.isAlone()` 在判空与读取成员间再次获取连接频道 | 此时断开会抛出空指针，语音事件的无人计时更新中断 | 一次捕获频道并使用该快照；确定性断开用例修复前复现空指针，修复后与未连接/有人监听用例均通过 |
 | AUD-031 / P2 | `TimeUtil`：跳转时间使用 int 单位累加或非有限/越界 double，失败后又按单位解析 | `4294968s` 被截成 704 毫秒；`NaN` 被当作 0，超范围时间可能静默饱和或变为另一时间 | 使用精确十进制与 long 溢出检查；拒绝非有限、缺失字段、十六进制及超范围输入，阻止无效数值回退为单位；保留小数、相对跳转及既有有效单位写法，故障回归和完整构建通过 |
 | AUD-032 / P2 | `TextAreaOutputStream`：UTF-8 字符跨 write 边界；一次写入多行或分块写入换行 | 中文/表情出现替代字符；日志行数上限失效，长期运行的界面文档持续增长 | 增量 UTF-8 解码并保留未完成字符，关闭时完成解码；按实际文档行数裁剪，保留最新的未完成行；ConsolePanel 显式使用 UTF-8；4 项确定性故障回归先失败、修复后通过 |
+| AUD-033 / P3 | provider 的默认 Deno 安装将开发依赖也装入发行目录；单加 `--prod` 仍安装全部 304 个包 | 随包分发不用于运行的 lint/编译工具及原生依赖，增加大小和第三方材料范围 | 提交经核对的运行锁文件并保存原配置/锁文件；各运行包的版本、完整性和依赖记录与上游一致；两平台及媒体 canary 共用相同预处理，实际本地安装降为 183 包；云端回归待完成 |
 
 ## 阶段验证证据
 
@@ -132,6 +133,10 @@
 - 名称复核将源码 Manifest 与 Shade 入口统一为新主类，保留旧 main 转发入口；移除无调用的旧公共/认证机器人限制方法。重新 `package -DskipTests` 成功，JAR 的新入口和旧入口均输出 `NeoMusicBot 0.4.5`；此步骤没有重复执行全量测试。JAR SHA-256 为 `88f37ee9af3e3c6a071a54b541d5f248e79c77e29a1d3c4fce47f8879804f523`，证据 `tools/branding-package.log`、`tools/branding-entrypoints.json`。
 - 同一 JAR 的离线原生/音频自检全部通过。初次在受限沙箱中使用系统临时目录时 JDAVE 报无法打开 DLL；改用工作区临时目录后通过，再以正常权限使用系统临时目录也通过，定位为执行环境限制。保留失败及两种成功日志 `tools/branding-native-failure.log`、`tools/branding-self-test-workspace-temp.log`、`tools/branding-self-test-system-temp.log`，未削弱自检。
 - 已准备 [测试版说明草稿](prerelease-notes.md)，包括功能、迁移、测试范围和限制；未确定测试版标签，未执行发布。
+
+- `39f46bc` [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35573383714) 的 Windows/Linux 完整发行包及 Java 27 两平台检查均通过；锁定媒体检查仍失败。
+- provider 运行配置的 5 个新增测试覆盖源提交/数据指纹、运行根依赖、包版本/完整性/依赖记录变化、原始文件字节保留及 ZIP 解压迁移后篡改；共 21 个 Python CI 测试通过。Bash、PowerShell 语法及 3 份工作流 actionlint 通过。固定 provider 提交的实际安装和 `--frozen` 缓存成功，183 个包，离线启动版本为 2.0.0；不会把此结果视为在线 token 生成已验证。
+- 同一运行配置经正式预处理程序从原始源码生成、安装并缓存后，独立 provider ZIP 含 12,069 个文件；全新目录解压后哈希、原始/运行配置和清单验证通过，在全新 home 与 `--cached-only --deny-net` 下启动成功。ZIP SHA-256 为 `ad7a6f0e4b52e91a257a1707b847cba85d3975f5a9629b732bf3a3b03cfc7519`；证据 `tools/distribution-license-audit/provider-runtime-final/report.json`，完整应用两平台 ZIP 仍待云端回归。
 
 ## 全模块检查覆盖
 

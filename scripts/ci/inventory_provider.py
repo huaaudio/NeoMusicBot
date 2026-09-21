@@ -5,6 +5,7 @@ from pathlib import Path
 import re
 import sys
 from package_bundle import digest
+from prepare_provider import verify as verify_runtime_profile
 
 
 def inventory(provider, supplements=None):
@@ -14,6 +15,8 @@ def inventory(provider, supplements=None):
     if not lock_path.resolve().is_relative_to(provider):
         raise ValueError("Provider inventory contains an external lock path")
     lock = json.loads(lock_path.read_text(encoding="utf-8"))
+    if (server / "neomusicbot-runtime.json").exists():
+        verify_runtime_profile(provider)
     packages = {}
     visited = set()
 
@@ -119,6 +122,10 @@ def inventory(provider, supplements=None):
         "license_review_complete": False,
         "note": "License candidates and declared identifiers require review; native/WASM dependencies are not certified.",
         "lockfile": record_file(lock_path),
+        "runtime_profile": [record_file(server / name) for name in
+                            ("neomusicbot-runtime.json", "package.json", "package.json.upstream",
+                             "deno.lock.upstream", "NEOMUSICBOT-RUNTIME.md")]
+                           if (server / "neomusicbot-runtime.json").exists() else [],
         "packages": [packages[key] for key in sorted(packages)],
         "license_supplements": supplemental_documents,
     }
