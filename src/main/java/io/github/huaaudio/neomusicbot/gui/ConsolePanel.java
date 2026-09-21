@@ -19,6 +19,7 @@ package io.github.huaaudio.neomusicbot.gui;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -36,7 +37,7 @@ public class ConsolePanel extends JPanel {
         text.setLineWrap(true);
         text.setWrapStyleWord(true);
         text.setEditable(false);
-        PrintStream con=new PrintStream(new TextAreaOutputStream(text));
+        PrintStream con=new PrintStream(new TextAreaOutputStream(text), true, StandardCharsets.UTF_8);
         System.setOut(con);
         System.setErr(con);
 

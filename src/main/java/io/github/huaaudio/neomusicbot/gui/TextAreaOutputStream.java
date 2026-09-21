@@ -16,143 +16,204 @@
  */
 package io.github.huaaudio.neomusicbot.gui;
 
-import java.awt.*;
-import java.io.*;
-import java.util.*;
+import java.awt.EventQueue;
+import java.io.OutputStream;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CoderResult;
+import java.nio.charset.CodingErrorAction;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
+import java.util.Objects;
+import javax.swing.JTextArea;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+
 /**
- *
+ * Streams UTF-8 to the Swing event thread while retaining the newest log lines.
  * @author Lawrence Dol
  */
-public class TextAreaOutputStream extends OutputStream {
+public class TextAreaOutputStream extends OutputStream
+{
+    private final byte[] oneByte = new byte[1];
+    private final ByteBuffer input = ByteBuffer.allocate(8192);
+    private final CharBuffer output = CharBuffer.allocate(8192);
+    private final CharsetDecoder decoder = StandardCharsets.UTF_8.newDecoder()
+            .onMalformedInput(CodingErrorAction.REPLACE)
+            .onUnmappableCharacter(CodingErrorAction.REPLACE);
+    private Appender appender;
 
-// *************************************************************************************************
-// INSTANCE MEMBERS
-// *************************************************************************************************
-
-private byte[]                          oneByte;                                                    // array for write(int val);
-private Appender                        appender;                                                   // most recent action
-
-public TextAreaOutputStream(JTextArea txtara) {
-    this(txtara,1000);
-    }
-
-public TextAreaOutputStream(JTextArea txtara, int maxlin) {
-    if(maxlin<1) { throw new IllegalArgumentException("TextAreaOutputStream maximum lines must be positive (value="+maxlin+")"); }
-    oneByte=new byte[1];
-    appender=new Appender(txtara,maxlin);
-    }
-
-/** Clear the current console text area. */
-public synchronized void clear() {
-    if(appender!=null) { appender.clear(); }
-    }
-
-@Override
-public synchronized void close() {
-    appender=null;
-    }
-
-@Override
-public synchronized void flush() {
-    /* empty */
-    }
-
-@Override
-public synchronized void write(int val) {
-    oneByte[0]=(byte)val;
-    write(oneByte,0,1);
-    }
-
-@Override
-public synchronized void write(byte[] ba) {
-    write(ba,0,ba.length);
-    }
-
-@Override
-public synchronized void write(byte[] ba,int str,int len) {
-    if(appender!=null) { appender.append(bytesToString(ba,str,len)); }
-    }
-
-//@edu.umd.cs.findbugs.annotations.SuppressWarnings("DM_DEFAULT_ENCODING")
-static private String bytesToString(byte[] ba, int str, int len) {
-    try { 
-        return new String(ba,str,len,"UTF-8"); 
-    } catch(UnsupportedEncodingException thr) { 
-        return new String(ba,str,len); 
-    } // all JVMs are required to support UTF-8
-    }
-
-// *************************************************************************************************
-// STATIC MEMBERS
-// *************************************************************************************************
-
-    static class Appender
-    implements Runnable
+    public TextAreaOutputStream(JTextArea textArea)
     {
-    static private final String         EOL1="\n";
-    static private final String         EOL2=System.getProperty("line.separator",EOL1);
-    
-    private final JTextArea             textArea;
-    private final int                   maxLines;                                                   // maximum lines allowed in text area
-    private final LinkedList<Integer>   lengths;                                                    // length of lines within text area
-    private final List<String>          values;                                                     // values waiting to be appended
+        this(textArea, 1000);
+    }
 
-    private int                         curLength;                                                  // length of current line
-    private boolean                     clear;
-    private boolean                     queue;
+    public TextAreaOutputStream(JTextArea textArea, int maxLines)
+    {
+        if(maxLines < 1)
+            throw new IllegalArgumentException("TextAreaOutputStream maximum lines must be positive (value=" + maxLines + ")");
+        appender = new Appender(Objects.requireNonNull(textArea), maxLines);
+    }
 
-    Appender(JTextArea txtara, int maxlin) {
-        textArea =txtara;
-        maxLines =maxlin;
-        lengths  =new LinkedList<>();
-        values   =new ArrayList<>();
-
-        curLength=0;
-        clear    =false;
-        queue    =true;
-        }
-
-    private synchronized void append(String val) {
-        values.add(val);
-        if(queue) { 
-            queue=false; 
-            EventQueue.invokeLater(this); 
-        }
-        }
-
-    private synchronized void clear() {
-        clear=true;
-        curLength=0;
-        lengths.clear();
-        values.clear();
-        if(queue) { 
-            queue=false; 
-            EventQueue.invokeLater(this); 
-        }
-        }
-
-    // MUST BE THE ONLY METHOD THAT TOUCHES textArea!
-    @Override
-    public synchronized void run() {
-        if(clear) { textArea.setText(""); }
-        values.stream().map((val) -> {
-            curLength+=val.length();
-            return val;
-        }).map((val) -> {
-            if(val.endsWith(EOL1) || val.endsWith(EOL2)) {
-                if(lengths.size()>=maxLines) { textArea.replaceRange("",0,lengths.removeFirst()); }
-                lengths.addLast(curLength);
-                curLength=0;
-            }
-            return val;
-        }).forEach((val) -> {
-            textArea.append(val);
-        });
-        values.clear();
-        clear =false;
-        queue =true;
+    /** Clear pending text and an unfinished character as one stream operation. */
+    public synchronized void clear()
+    {
+        if(appender != null)
+        {
+            decoder.reset();
+            input.clear();
+            appender.clear();
         }
     }
-} /* END PUBLIC CLASS */
+
+    @Override
+    public synchronized void close()
+    {
+        if(appender == null) return;
+        decode(true);
+        CoderResult result;
+        do
+        {
+            output.clear();
+            result = decoder.flush(output);
+            appendDecoded();
+        }
+        while(result.isOverflow());
+        appender = null;
+    }
+
+    @Override
+    public synchronized void flush()
+    {
+        // Decoded text is queued immediately. A flush must not end a partial
+        // UTF-8 character: PrintStream may flush between bytes of that character.
+    }
+
+    @Override
+    public synchronized void write(int value)
+    {
+        oneByte[0] = (byte)value;
+        write(oneByte, 0, 1);
+    }
+
+    @Override
+    public synchronized void write(byte[] bytes)
+    {
+        write(bytes, 0, bytes.length);
+    }
+
+    @Override
+    public synchronized void write(byte[] bytes, int offset, int length)
+    {
+        Objects.checkFromIndexSize(offset, length, bytes.length);
+        if(appender == null) return;
+        while(length > 0)
+        {
+            int count = Math.min(length, input.remaining());
+            input.put(bytes, offset, count);
+            offset += count;
+            length -= count;
+            decode(false);
+        }
+    }
+
+    private void decode(boolean endOfInput)
+    {
+        input.flip();
+        CoderResult result;
+        do
+        {
+            output.clear();
+            result = decoder.decode(input, output, endOfInput);
+            appendDecoded();
+        }
+        while(result.isOverflow());
+        input.compact(); // Keep at most one unfinished UTF-8 sequence.
+    }
+
+    private void appendDecoded()
+    {
+        output.flip();
+        if(output.hasRemaining()) appender.append(output.toString());
+    }
+
+    private static final class Appender implements Runnable
+    {
+        private final JTextArea textArea;
+        private final int maxLines;
+        private final List<String> values = new ArrayList<>();
+        private boolean clear;
+        private boolean scheduled;
+
+        Appender(JTextArea textArea, int maxLines)
+        {
+            this.textArea = textArea;
+            this.maxLines = maxLines;
+        }
+
+        synchronized void append(String value)
+        {
+            values.add(value);
+            schedule();
+        }
+
+        synchronized void clear()
+        {
+            clear = true;
+            values.clear();
+            schedule();
+        }
+
+        private void schedule()
+        {
+            if(!scheduled)
+            {
+                scheduled = true;
+                EventQueue.invokeLater(this);
+            }
+        }
+
+        @Override
+        public void run()
+        {
+            List<String> batch;
+            boolean clearText;
+            synchronized(this)
+            {
+                batch = new ArrayList<>(values);
+                values.clear();
+                clearText = clear;
+                clear = false;
+                scheduled = false;
+            }
+            // Only the event thread touches the document. Do not hold the
+            // producer's lock while Swing notifies document listeners.
+            if(clearText) textArea.setText("");
+            textArea.append(String.join("", batch));
+            trimLines();
+        }
+
+        private void trimLines()
+        {
+            Document document = textArea.getDocument();
+            int length = document.getLength();
+            if(length == 0) return;
+            try
+            {
+                int lines = textArea.getLineCount();
+                // A final newline creates an empty Swing line; it is not a
+                // further log entry. A nonempty unfinished line does count.
+                if("\n".equals(document.getText(length - 1, 1))) lines--;
+                int excess = lines - maxLines;
+                if(excess > 0)
+                    textArea.replaceRange("", 0, textArea.getLineStartOffset(excess));
+            }
+            catch(BadLocationException invalidDocument)
+            {
+                throw new IllegalStateException("Unable to trim the console document", invalidDocument);
+            }
+        }
+    }
+}

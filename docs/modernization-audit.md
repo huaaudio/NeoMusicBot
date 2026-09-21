@@ -76,6 +76,7 @@
 | AUD-029 / P2 | 全局/服务器投票比例和服务器音量缺少数值校验；手动配置或 API 写入越界、非有限、错误类型的数值 | 投票门槛不可达到或被降为一票；非有限值使 JSON 保存异常；音量被默认、截断或溢出 | 加载和 setter 均校验比例与音量；音量按精确整数解析，保留合法数字字符串及服务器比例 -1 继承语义；不修改无效原文件，按既有策略恢复有效备份；22 个故障用例修复前失败、修复后通过 |
 | AUD-030 / P2 | `AloneInVoiceHandler.isAlone()` 在判空与读取成员间再次获取连接频道 | 此时断开会抛出空指针，语音事件的无人计时更新中断 | 一次捕获频道并使用该快照；确定性断开用例修复前复现空指针，修复后与未连接/有人监听用例均通过 |
 | AUD-031 / P2 | `TimeUtil`：跳转时间使用 int 单位累加或非有限/越界 double，失败后又按单位解析 | `4294968s` 被截成 704 毫秒；`NaN` 被当作 0，超范围时间可能静默饱和或变为另一时间 | 使用精确十进制与 long 溢出检查；拒绝非有限、缺失字段、十六进制及超范围输入，阻止无效数值回退为单位；保留小数、相对跳转及既有有效单位写法，故障回归和完整构建通过 |
+| AUD-032 / P2 | `TextAreaOutputStream`：UTF-8 字符跨 write 边界；一次写入多行或分块写入换行 | 中文/表情出现替代字符；日志行数上限失效，长期运行的界面文档持续增长 | 增量 UTF-8 解码并保留未完成字符，关闭时完成解码；按实际文档行数裁剪，保留最新的未完成行；ConsolePanel 显式使用 UTF-8；4 项确定性故障回归先失败、修复后通过 |
 
 ## 阶段验证证据
 
@@ -124,6 +125,9 @@
 - `3311f71` [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35571567405) 的 Windows/Linux 完整发行包与 Java 27 两平台检查均通过；锁定在线媒体仍为 YouTube 两模式 authentication-required、Bilibili access-denied。
 - 时间解析故障基线 22 项中 12 项失败（`tools/seek-time-before.log`）；最终完整 Windows `verify` 共 213 项，212 通过、1 项 POSIX 测试按平台跳过（`tools/seek-time-full-final.log`）。覆盖 Long.MAX_VALUE 毫秒边界、半毫秒舍入、单位溢出、非有限/科学计数法/十六进制输入、空输入及正常相对跳转；最新版云端回归待完成。
 
+- `a8e1992` [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35572454165) 的 Windows/Linux 完整发行包与 Java 27 两平台检查均通过；锁定在线媒体检查仍失败。
+- 桌面控制台基线 6 项中 4 项失败（`tools/gui-console-before.log`），修复后全部通过；新增大于内部缓冲区的 UTF-8 写入用例后，完整 Windows `verify` 共 220 项，219 通过、1 项 POSIX 测试按平台跳过（`tools/gui-console-full.log`）。测试使用真实 Swing 文档和事件线程，覆盖清空、关闭、逐字节/数组偏移、所有字符分块边界、混合换行及多行裁剪；未将这些测试视为整套桌面界面人工验收。
+
 ## 全模块检查覆盖
 
 - 歌单修复阶段（`7bbdba3`）完整 Windows `verify` 共 154 个测试，153 通过、1 个 POSIX 测试跳过；日志 `tools/playlist-full.log`。
@@ -142,3 +146,4 @@
 - YouTube、SoundCloud、Discord 附件、播放列表：新版工具/依赖下，本地匿名 YouTube 与 SoundCloud 短时解码通过；歌单存储及 owner 修改已检查并修复 AUD-020/021/022，异步加载审查修复 AUD-028；其余源仍待复核。
 - 配置与服务器设置持久化、备份和故障处理：已检查并修复 AUD-004/007/008/009/029，专项测试通过；最终平台 CI 待复核。
 - CI、SBOM、许可证、哈希、打包、发布门禁：进行中。
+- 桌面控制台：已复核日志解码与行数限制并修复 AUD-032；GUI 关闭继续使用既有后台有序 shutdown，完整桌面交互人工验收尚未进行。
