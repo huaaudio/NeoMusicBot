@@ -15,6 +15,8 @@ class RuntimeSelfTestTest
         String report = bytes.toString(java.nio.charset.StandardCharsets.UTF_8);
         assertEquals(0, result, report);
         assertTrue(report.contains("native.dave=passed"));
+        assertTrue(report.contains("native.opus=passed"));
+        assertTrue(report.contains("crypto.rtp=passed"));
         assertTrue(report.contains("audio.m4a=passed"));
         assertTrue(report.contains("audio.ogg=passed"));
         assertTrue(report.contains("audio.mp3=passed"));

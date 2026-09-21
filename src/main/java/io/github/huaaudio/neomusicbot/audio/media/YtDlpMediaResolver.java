@@ -65,6 +65,7 @@ public final class YtDlpMediaResolver implements MediaResolver, AutoCloseable
     private static final Pattern YOUTUBE_ID = Pattern.compile("[A-Za-z0-9_-]{11}");
 
     private final YtDlpConfiguration configuration;
+    private final ProcessStarter processStarter;
     private final EphemeralProcessCache processCache;
     private final ResolverLifecycle lifecycle = new ResolverLifecycle();
     private final Semaphore processSlots = new Semaphore(2, true);
@@ -76,7 +77,19 @@ public final class YtDlpMediaResolver implements MediaResolver, AutoCloseable
 
     public YtDlpMediaResolver(YtDlpConfiguration configuration)
     {
+        this(configuration, ProcessBuilder::start);
+    }
+
+    @FunctionalInterface
+    interface ProcessStarter
+    {
+        Process start(ProcessBuilder builder) throws IOException;
+    }
+
+    YtDlpMediaResolver(YtDlpConfiguration configuration, ProcessStarter processStarter)
+    {
         this.configuration = Objects.requireNonNull(configuration, "configuration");
+        this.processStarter = Objects.requireNonNull(processStarter, "processStarter");
         this.processCache = EphemeralProcessCache.create();
         AtomicInteger threadNumber = new AtomicInteger();
         ThreadFactory factory = runnable ->
@@ -337,7 +350,7 @@ public final class YtDlpMediaResolver implements MediaResolver, AutoCloseable
             active = lifecycle.start(() ->
             {
                 configureChildEnvironment(builder.environment());
-                return new ActiveProcess(builder.start());
+                return new ActiveProcess(processStarter.start(builder));
             }, activeProcesses::add);
             Process process = active.process;
             if (lifecycle.isClosed())

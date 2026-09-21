@@ -15,6 +15,24 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class ThirdPartyLoggingPolicyTest
 {
     @Test
+    void actualCommonsLoggingBridgeKeepsHttpWireAndHeaderLogsDisabled()
+    {
+        Logger root = (Logger) org.slf4j.LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
+        Level previous = root.getLevel();
+        try
+        {
+            root.setLevel(Level.DEBUG);
+            for(String name : new String[]{"org.apache.http.headers", "org.apache.http.wire"})
+            {
+                var log = org.apache.commons.logging.LogFactory.getLog(name);
+                assertFalse(log.isDebugEnabled(), "HTTP diagnostics must remain disabled through Commons Logging");
+                assertFalse(log.isErrorEnabled(), "Error chains can also contain signed URLs and credentials");
+            }
+        }
+        finally { root.setLevel(previous); }
+    }
+
+    @Test
     void rootDebugCannotExposeSignedMediaUrlsFromThirdPartyLibraries() throws Exception
     {
         LoggerContext context = new LoggerContext();

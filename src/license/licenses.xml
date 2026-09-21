@@ -4,12 +4,12 @@
 <licenseSummary>
   <dependencies>
     <dependency>
-      <groupId>com\.grack</groupId><artifactId>nanojson</artifactId><version>1\.7</version>
+      <groupId>com\.grack</groupId><artifactId>nanojson</artifactId><version>1\.10</version>
       <matchLicenses />
       <licenses><license>
         <name>Apache License 2.0</name>
         <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        <comments>Copyright 2011 The nanojson Authors. Verified in JsonParser.java in nanojson-1.7-sources.jar from Maven Central.</comments>
+        <comments>Copyright 2011 The nanojson Authors. Verified in JsonParser.java in nanojson-1.10-sources.jar from Maven Central.</comments>
       </license></licenses>
     </dependency>
     <dependency>
@@ -31,14 +31,14 @@
       </license></licenses>
     </dependency>
     <dependency>
-      <groupId>net\.java\.dev\.jna</groupId><artifactId>jna</artifactId><version>4\.4\.0</version>
+      <groupId>net\.java\.dev\.jna</groupId><artifactId>jna</artifactId><version>5\.19\.1</version>
       <matchLicenses>
-        <license><name>LGPL, version 2.1</name><url>http://www\.gnu\.org/licenses/licenses\.html</url><distribution>repo</distribution></license>
-        <license><name>Apache License v2.0</name><url>http://www\.apache\.org/licenses/LICENSE-2\.0\.txt</url><distribution>repo</distribution></license>
+        <license><name>LGPL-2.1-or-later</name><url>https://www\.gnu\.org/licenses/old-licenses/lgpl-2\.1</url><distribution>repo</distribution><comments>(?s).*</comments></license>
+        <license><name>Apache-2.0</name><url>https://www\.apache\.org/licenses/LICENSE-2\.0\.txt</url><distribution>repo</distribution><comments>(?s).*</comments></license>
       </matchLicenses>
       <licenses>
-        <license><name>LGPL, version 2.1</name><url>https://raw.githubusercontent.com/java-native-access/jna/4.4.0/LGPL2.1</url></license>
-        <license><name>Apache License v2.0</name><url>https://raw.githubusercontent.com/java-native-access/jna/4.4.0/AL2.0</url></license>
+        <license><name>LGPL-2.1-or-later</name><url>https://raw.githubusercontent.com/java-native-access/jna/5.19.1/LGPL2.1</url></license>
+        <license><name>Apache-2.0</name><url>https://raw.githubusercontent.com/java-native-access/jna/5.19.1/AL2.0</url></license>
       </licenses>
     </dependency>
   </dependencies>

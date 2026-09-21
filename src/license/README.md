@@ -8,10 +8,10 @@ license files against every component of the generated runtime SBOM.
 
 | Component | Evidence used |
 | --- | --- |
-| nanojson 1.7 | `com/grack/nanojson/JsonParser.java` in [the Maven Central sources JAR](https://repo.maven.apache.org/maven2/com/grack/nanojson/1.7/nanojson-1.7-sources.jar) contains its Apache 2.0 header and copyright. This is version-specific; do not infer the license from the current repository's README. |
+| nanojson 1.10 | `com/grack/nanojson/JsonParser.java` in [the Maven Central sources JAR](https://repo.maven.apache.org/maven2/com/grack/nanojson/1.10/nanojson-1.10-sources.jar) contains its Apache 2.0 header and copyright. This is version-specific; do not infer the license from the current repository's README. |
 | youtube-source common/v2 1.18.2 | [The release tag's MIT license](https://github.com/lavalink-devs/youtube-source/blob/1.18.2/LICENSE), including the original copyright. |
 | base64 2.3.9 | [The published POM](https://repo.maven.apache.org/maven2/net/iharder/base64/2.3.9/base64-2.3.9.pom) contains the author's public-domain dedication and attribution. The saved document is the original POM, not an invented license. |
-| JNA 4.4.0 | [The release's license declaration](https://github.com/java-native-access/jna/blob/4.4.0/LICENSE) and its `LGPL2.1` / `AL2.0` files replace ambiguous or unreachable URLs. Both alternatives remain listed. |
+| JNA 5.19.1 | [The release's license declaration](https://github.com/java-native-access/jna/blob/5.19.1/LICENSE) and its `LGPL2.1` / `AL2.0` files replace ambiguous or unreachable URLs. Both alternatives remain listed. |
 | Logback 1.6.3 / Trove 3.1.0 LGPL 2.1 | Unreachable GNU URLs are redirected to the unmodified LGPL 2.1 text shipped by JNA 4.4.0. The names/alternatives in their own POMs are retained. |
 
 The shaded JAR appends shared upstream LICENSE and NOTICE resources rather than

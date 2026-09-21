@@ -40,8 +40,8 @@
 
 ## 可追踪问题
 
-直接依赖已完成一轮升级；[间接依赖清单](dependency-followups.md) 记录新核实的候选版本、引入关系
-及仍需执行的迁移验证。未完成的间接依赖检查不能视作整体依赖现代化完成。
+直接依赖已完成一轮升级；[间接依赖记录](dependency-followups.md) 记录 13 项已升级版本、引入关系、
+验证范围及保留 HttpComponents 4.x 的具体原因。最新代码的跨平台验收仍需完成。
 
 | ID / 严重度 | 位置与触发条件 | 影响 | 处理与验证状态 |
 | --- | --- | --- | --- |
@@ -68,6 +68,8 @@
 | AUD-021 / P2 | `PlaylistLoader` 首次创建、目录为文件、目录名以 `.txt` 结尾 | 创建失败、列表抛出 NPE、将目录误列为歌单 | 创建父目录、只枚举普通文件、不可用目录返回空列表并记录错误类型；3 个回归修改前失败、修改后通过 |
 | AUD-022 / P2 | 歌单存储方法接收包含 `../` 的名称 | 存储层自身缺少目录边界；当前 owner 命令另有名称校验，但复用 API 可能访问目录外文件 | 存储层拒绝路径字符与控制符，不跟随歌单符号链接；保留合法旧中文名称；越界写入回归先复现覆盖，修改后拒绝 |
 | AUD-023 / P2 | `/dj repeat` 直接写设置，未调用共同的音乐命令上下文 | 有 DJ 权限的用户能在配置限制外修改循环模式 | 复用文字频道与服务器上下文检查；实际 Slash 回归先复现越权修改，修复后拒绝且允许正确频道操作 |
+| AUD-024 / P2 | 超时清理测试依赖子 JVM 在 350 ms 内写 PID | Windows Java 27 在 JVM 启动较慢时，进程已被正确终止却被测试误报为未启动 | 在进程创建时捕获真实 OS 句柄，维持 350 ms 超时及存活检查；测试子进程刻意延迟写 PID 2 秒；本地通过，云端待回归 |
+| AUD-025 / P2 | 旧 `--self-test` 只检查 DAVE 加载与 Lavaplayer 解码 | JNA/opus-java 绑定及 JDA 使用的 Tink 接口不在发行包自检覆盖内 | 新增实际 Opus 编解码、JDA 两种 RTP 加密往返及篡改拒绝；完整 ZIP 验证器要求新检查字段；Commons Logging 真实桥接入口亦受日志关闭测试覆盖 |
 
 ## 阶段验证证据
 
@@ -90,21 +92,25 @@
 - 本地 Windows 的 `f616f13` 运行时代码（JAR SHA-256 `4ef6ce72995e9e0950203a9540527969fe57052cabcbf66fa3db94c472aff9b8`），配合 yt-dlp 2026.08.19 / Deno 2.9.7，在无 Cookie、无 provider 的匿名模式下，Bilibili、指定第二 P、YouTube 三项均由实际音源适配器解码出 10 帧；日志 `tools/online-audit/java-probes.txt`。这是本地网络短时解码证据，不替代云端门禁或 Discord 语音测试；复现方式见 [在线媒体验收](media-validation.md)。
 - 生命周期回归修改前 8 个测试中 7 个失败；修复后连同既有播放器事件/停止测试共 11 个通过。新增独立子 JVM 退出验证后，完整 Windows 测试共 146 个，145 通过、1 个 POSIX 测试跳过；日志 `tools/lifecycle-before.log`、`tools/lifecycle-after.log`、`tools/lifecycle-full.log`。
 
+- `7bbdba3` [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35565880533) 的 Windows/Linux 构建与完整 ZIP 均成功，Linux Java 27 成功；Windows Java 27 在 AUD-024 所述测试时序失败。在线探测仍为 YouTube 两模式 authentication-required、Bilibili access-denied。
+- 13 项间接依赖升级后，完整 Windows `verify dependency:tree` 共 155 个测试，154 通过、1 个 POSIX 测试跳过；日志 `tools/transitive-full-final.log`。SBOM 仍为 44 项，全部有已保存许可；31 份上游许可/声明完整保留；6 个 Python CI 验证器测试通过。
+- 升级后本地打包 JAR 的 `--self-test` 全部通过，包括新增 JNA/Opus 和 JDA RTP 加密检查；实际在线音源 Bilibili、第二 P、YouTube、SoundCloud 均解码出 10 帧，无 Cookie/provider。JAR SHA-256：`bf13d9c46de08bfbfbf836cae379b2dc29e0ad8ab9d974c9112bfc505ec01e3c`；脱敏记录 `tools/online-audit/java-probes-transitive.txt`。仍未测试真实 Discord 语音。
+
 ## 全模块检查覆盖
 
-- 本阶段完整 Windows `verify` 共 154 个测试，153 通过、1 个 POSIX 测试跳过；日志 `tools/playlist-full.log`。
+- 歌单修复阶段（`7bbdba3`）完整 Windows `verify` 共 154 个测试，153 通过、1 个 POSIX 测试跳过；日志 `tools/playlist-full.log`。
   44 个 SBOM 组件许可覆盖、30 份上游许可/声明保留检查通过。
-  最新本地 JAR SHA-256 为 `fdce6a91e19c0dfeb08e51b4e572294d0e8b0132fc3d0f24820634e7198c7d60`；
+  该阶段本地 JAR SHA-256 为 `fdce6a91e19c0dfeb08e51b4e572294d0e8b0132fc3d0f24820634e7198c7d60`；
   更新后的在线探测程序再次通过 Bilibili、第二 P 和 YouTube 各 10 帧解码，无 Cookie/provider；
-  日志 `tools/online-audit/java-probes-playlist.txt`。对应代码的云端回归待完成。
+  日志 `tools/online-audit/java-probes-playlist.txt`。对应云端结果及后续依赖升级证据见上一节。
 
 以下均需完成代码检查及相应的行为验证，不能仅由单元测试绿色代替审查：
 
 - 启动、配置、更新检查、环境变量、启动脚本：配置及变量兼容、更新渠道/异常标签、入口失败状态已检查修复；Windows 含括号路径启动器实测通过；最新提交跨平台回归待完成。
 - Discord Slash 注册、权限、交互生命周期、频道混淆：已检查多数命令入口、用户/服务器绑定和频道限制；修复 AUD-023；投票期间成员状态竞态、部分异步交互及频道混淆仍待复核。
-- 语音连接、DAVE、重连、退出、播放器资源释放：已检查初始化/退出资源管理并修复 AUD-017/019，原生加载/编解码跨平台通过；语音重连状态机复核及真实 Discord 验收仍待完成。
+- 语音连接、DAVE、重连、退出、播放器资源释放：已检查初始化/退出资源管理并修复 AUD-017/019，此前原生加载/编解码跨平台通过，新版 JNA/Opus 与 RTP 加密自检本地通过、云端待回归；语音重连状态机复核及真实 Discord 验收仍待完成。
 - 播放队列、公平排序、并发、暂停/重复/停止、状态恢复：已有基线修复，需升级后复核。
 - Bilibili 分 P、短链接、媒体 URL、Cookie 与子进程：已有基线测试，需新版工具集成验证。
-- YouTube、SoundCloud、Discord 附件、播放列表：本地匿名 YouTube 短时解码通过；歌单存储及 owner 修改已检查并修复 AUD-020/021/022；其余源与歌单异步加载异常仍待复核。
+- YouTube、SoundCloud、Discord 附件、播放列表：新版工具/依赖下，本地匿名 YouTube 与 SoundCloud 短时解码通过；歌单存储及 owner 修改已检查并修复 AUD-020/021/022；其余源与歌单异步加载异常仍待复核。
 - 配置与服务器设置持久化、备份和故障处理：已检查并修复 AUD-004/007/008/009，专项测试通过；最终平台 CI 待复核。
 - CI、SBOM、许可证、哈希、打包、发布门禁：进行中。

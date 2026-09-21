@@ -17,6 +17,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -69,19 +70,24 @@ public class YtDlpProcessLifecycleTest
     {
         Path pidFile = Files.createTempFile("yt-dlp-timeout", ".pid");
         Files.delete(pidFile);
-        long pid = -1;
-        try (YtDlpMediaResolver resolver = resolver())
+        AtomicReference<Process> started = new AtomicReference<>();
+        try (YtDlpMediaResolver resolver = resolver(builder -> {
+            Process process = builder.start();
+            started.set(process);
+            return process;
+        }))
         {
             YtDlpException failure = assertThrows(YtDlpException.class,
-                    () -> execute(resolver, fakeCommand("sleep", pidFile.toString()),
+                    () -> execute(resolver, fakeCommand("sleep", pidFile.toString(), "2000"),
                             Duration.ofMillis(350)));
             assertEquals(YtDlpException.Kind.TIMEOUT, failure.getKind());
-            pid = awaitPid(pidFile);
-            assertProcessStops(pid);
+            // The OS process is observable even when its JVM has not reached main().
+            assertNotNull(started.get());
+            assertProcessStops(started.get().pid());
         }
         finally
         {
-            forceStop(pid);
+            if(started.get() != null) forceStop(started.get().pid());
         }
     }
 
@@ -170,9 +176,14 @@ public class YtDlpProcessLifecycleTest
 
     private static YtDlpMediaResolver resolver()
     {
+        return resolver(ProcessBuilder::start);
+    }
+
+    private static YtDlpMediaResolver resolver(YtDlpMediaResolver.ProcessStarter starter)
+    {
         return new YtDlpMediaResolver(new YtDlpConfiguration(
                 "unused-test-executable", "deno", null, null, null, null,
-                true, false, Duration.ofSeconds(30), Duration.ofSeconds(60)));
+                true, false, Duration.ofSeconds(30), Duration.ofSeconds(60)), starter);
     }
 
     private static List<String> fakeCommand(String... arguments)
@@ -291,6 +302,7 @@ public class YtDlpProcessLifecycleTest
                 }
                 case "sleep" ->
                 {
+                    if(arguments.length > 2) Thread.sleep(Long.parseLong(arguments[2]));
                     Files.writeString(Path.of(arguments[1]), Long.toString(ProcessHandle.current().pid()));
                     Thread.sleep(60_000);
                 }

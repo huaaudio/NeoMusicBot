@@ -156,7 +156,8 @@ runtime self-update is intentionally unsupported.
 ## Development and security
 
 The [online media validation guide](docs/media-validation.md) describes how to check
-the actual source adapters and audio decoding without Discord credentials. Online
+JDA's native Opus and RTP encryption dependencies offline, and the actual source
+adapters and audio decoding online, without Discord credentials. Online
 decoding and offline native checks do not establish voice audibility in a Discord channel.
 
 Pull requests are expected to pass both platform builds, JUnit tests, media-tool

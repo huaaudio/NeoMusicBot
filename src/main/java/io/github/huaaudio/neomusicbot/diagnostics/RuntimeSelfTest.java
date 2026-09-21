@@ -26,6 +26,10 @@ public final class RuntimeSelfTest
             if(LibDave.getMaxSupportedProtocolVersion() <= 0)
                 throw new IllegalStateException("No supported DAVE protocol");
             output.println("native.dave=passed");
+            byte[] opus = VoiceRuntimeSelfTest.verifyOpus();
+            output.println("native.opus=passed");
+            VoiceRuntimeSelfTest.verifyTransportEncryption(opus);
+            output.println("crypto.rtp=passed");
             for(String format : new String[]{"m4a", "ogg", "mp3"})
             {
                 int frames = decodeTone(format);

@@ -102,7 +102,8 @@ def verify(archive_path, report_path):
             raise ValueError("Existing configuration was overwritten")
         run(launcher, 1, 20)  # No credentials: must exit, without prompting or contacting Discord.
         self_test = run([*launcher, "--self-test"])
-        for marker in ("native.dave=passed", "audio.m4a=passed", "audio.ogg=passed", "audio.mp3=passed", "self-test=passed"):
+        for marker in ("native.dave=passed", "native.opus=passed", "crypto.rtp=passed",
+                       "audio.m4a=passed", "audio.ogg=passed", "audio.mp3=passed", "self-test=passed"):
             if marker not in self_test:
                 raise ValueError("Packaged native/codec self-test failed")
         suffix = ".exe" if os.name == "nt" else ""
@@ -128,6 +129,7 @@ def verify(archive_path, report_path):
             raise ValueError("Relocated provider could not run offline")
         lines = ["bundle=passed", f"neomusicbot.commit={os.environ['GITHUB_SHA']}",
                  f"version={version}", f"archive.sha256={expected}", "config=passed", "native.dave=passed",
+                 "native.opus=passed", "crypto.rtp=passed",
                  "audio.aac=passed", "audio.opus=passed", "audio.mp3=passed", "provider.offline=passed",
                  "discord.voice=not-tested", "online.media=not-tested"]
         report_path.parent.mkdir(parents=True, exist_ok=True)
