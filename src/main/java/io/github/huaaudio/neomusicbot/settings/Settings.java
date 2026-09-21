@@ -52,6 +52,8 @@ public class Settings
                     int volume, String defaultPlaylist, RepeatMode repeatMode,
                     double skipRatio, QueueType queueType)
     {
+        validateVolume(volume);
+        validateSkipRatio(skipRatio);
         this.manager = manager;
         this.textId = textId;
         this.voiceId = voiceId;
@@ -145,6 +147,7 @@ public class Settings
 
     public void setVolume(int volume)
     {
+        validateVolume(volume);
         manager.updateSettings(() -> this.volume = volume);
     }
 
@@ -160,7 +163,21 @@ public class Settings
 
     public void setSkipRatio(double skipRatio)
     {
+        validateSkipRatio(skipRatio);
         manager.updateSettings(() -> this.skipRatio = skipRatio);
+    }
+
+    private static void validateVolume(int volume)
+    {
+        if(volume < 0 || volume > 150)
+            throw new IllegalArgumentException("volume must be an integer from 0 to 150");
+    }
+
+    private static void validateSkipRatio(double ratio)
+    {
+        // -1 is the legacy persisted sentinel for the global config's ratio.
+        if(!Double.isFinite(ratio) || (ratio != -1 && (ratio < 0 || ratio > 1)))
+            throw new IllegalArgumentException("skip_ratio must be from 0 to 1, or -1 to inherit the global ratio");
     }
 
     public void setQueueType(QueueType queueType)

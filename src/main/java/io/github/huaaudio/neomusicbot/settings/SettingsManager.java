@@ -21,6 +21,7 @@ package io.github.huaaudio.neomusicbot.settings;
 
 import io.github.huaaudio.neomusicbot.utils.OtherUtil;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
@@ -156,11 +157,26 @@ public class SettingsManager implements AutoCloseable
                 value.has("text_channel_id") ? value.getString("text_channel_id") : null,
                 value.has("voice_channel_id") ? value.getString("voice_channel_id") : null,
                 value.has("dj_role_id") ? value.getString("dj_role_id") : null,
-                value.optInt("volume", 100),
+                parseVolume(value),
                 value.has("default_playlist") ? value.getString("default_playlist") : null,
                 value.has("repeat_mode") ? value.getEnum(RepeatMode.class, "repeat_mode") : RepeatMode.OFF,
                 value.has("skip_ratio") ? value.getDouble("skip_ratio") : -1,
                 value.has("queue_type") ? value.getEnum(QueueType.class, "queue_type") : QueueType.FAIR);
+    }
+
+    private static int parseVolume(JSONObject value)
+    {
+        if(!value.has("volume")) return 100;
+        try
+        {
+            // optInt/getInt can silently default, truncate fractions, or wrap
+            // a large integer. Keep compatible numeric strings, without loss.
+            return new BigDecimal(value.get("volume").toString()).intValueExact();
+        }
+        catch(NumberFormatException | ArithmeticException invalid)
+        {
+            throw new IllegalArgumentException("volume must be an integer from 0 to 150");
+        }
     }
 
     public Settings getSettings(Guild guild)

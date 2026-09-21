@@ -107,6 +107,8 @@ public class BotConfig
             aloneTimeUntilStop = config.getLong("alonetimeuntilstop");
             playlistsFolder = config.getString("playlistsfolder");
             skipRatio = config.getDouble("skipratio");
+            if(!Double.isFinite(skipRatio) || skipRatio < 0 || skipRatio > 1)
+                throw new IllegalArgumentException("skipratio must be a finite number from 0 to 1");
 
             boolean write = false;
             if(token == null || token.isBlank() || TOKEN_PLACEHOLDER.equalsIgnoreCase(token))

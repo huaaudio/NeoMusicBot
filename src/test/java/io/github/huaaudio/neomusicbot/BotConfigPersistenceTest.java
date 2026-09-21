@@ -7,6 +7,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.api.parallel.ResourceLock;
 import org.junit.jupiter.api.parallel.Resources;
@@ -58,6 +60,31 @@ class BotConfigPersistenceTest
         assertFalse(config.isValid());
         assertFalse(prompt.messages.isEmpty());
         assertTrue(prompt.messages.stream().noneMatch(message -> message.contains("private-sentinel-value")));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"-0.1", "1.01", "NaN", "Infinity", "1e999"})
+    void invalidGlobalSkipRatiosStopStartupWithoutRewritingConfiguration(String ratio) throws Exception
+    {
+        Path path = directory.resolve("config.txt");
+        String original = "token = test-token\nowner = 123\nskipratio = " + ratio + "\n";
+        Files.writeString(path, original);
+        BotConfig config = new BotConfig(new RecordingPrompt(null));
+        withConfig(path, config::load);
+        assertFalse(config.isValid(), "An invalid vote threshold must not become active");
+        assertEquals(original, Files.readString(path));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"0", "0.55", "1"})
+    void supportedGlobalSkipRatiosRemainValid(String ratio) throws Exception
+    {
+        Path path = directory.resolve("config.txt");
+        Files.writeString(path, "token = test-token\nowner = 123\nskipratio = " + ratio + "\n");
+        BotConfig config = new BotConfig(new RecordingPrompt(null));
+        withConfig(path, config::load);
+        assertTrue(config.isValid());
+        assertEquals(Double.parseDouble(ratio), config.getSkipRatio());
     }
 
     private static void withConfig(Path path, Runnable operation)
