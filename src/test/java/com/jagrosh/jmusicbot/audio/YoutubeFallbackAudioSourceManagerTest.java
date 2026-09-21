@@ -1,3 +1,4 @@
+/* Modified by Huaaudio: migrate to JUnit Jupiter (2026). */
 package com.jagrosh.jmusicbot.audio;
 
 import com.jagrosh.jmusicbot.audio.media.YtDlpConfiguration;
@@ -10,14 +11,14 @@ import dev.lavalink.youtube.YoutubeAudioSourceManager;
 
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicInteger;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static com.sedmelluq.discord.lavaplayer.tools.FriendlyException.Severity.COMMON;
 import static com.sedmelluq.discord.lavaplayer.tools.FriendlyException.Severity.FAULT;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class YoutubeFallbackAudioSourceManagerTest
 {

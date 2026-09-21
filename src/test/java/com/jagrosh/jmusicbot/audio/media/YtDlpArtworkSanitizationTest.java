@@ -1,12 +1,13 @@
+/* Modified by Huaaudio: migrate to JUnit Jupiter (2026). */
 package com.jagrosh.jmusicbot.audio.media;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Test;
+import tools.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class YtDlpArtworkSanitizationTest
 {

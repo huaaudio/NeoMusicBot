@@ -1,11 +1,12 @@
+/* Modified by Huaaudio: migrate to JUnit Jupiter (2026). */
 package com.jagrosh.jmusicbot.audio;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DiscordAttachmentAudioSourceManagerTest
 {

@@ -1,3 +1,4 @@
+/* Modified by Huaaudio: migrate to JUnit Jupiter (2026). */
 /*
  * Copyright 2020 John Grosh <john.a.grosh@gmail.com>.
  *
@@ -17,9 +18,9 @@ package com.jagrosh.jmusicbot;
 
 
 import com.jagrosh.jmusicbot.utils.TimeUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Whew., Inc.

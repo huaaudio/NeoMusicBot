@@ -1,7 +1,8 @@
+/* Modified by Huaaudio: migrate to JUnit Jupiter (2026). */
 package com.jagrosh.jmusicbot.audio.media;
 
-import org.junit.Assume;
-import org.junit.Test;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -17,9 +18,9 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class YtDlpCookieFileSecurityTest
 {
@@ -53,7 +54,7 @@ public class YtDlpCookieFileSecurityTest
         Files.writeString(file, "# Netscape HTTP Cookie File\n", StandardCharsets.UTF_8);
         PosixFileAttributeView posix =
                 Files.getFileAttributeView(file, PosixFileAttributeView.class);
-        Assume.assumeNotNull(posix);
+        Assumptions.assumeTrue(posix != null, "POSIX file permissions require a POSIX filesystem");
         Files.setPosixFilePermissions(file, Set.of(
                 PosixFilePermission.OWNER_READ, PosixFilePermission.OWNER_WRITE,
                 PosixFilePermission.GROUP_READ));

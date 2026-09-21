@@ -58,13 +58,13 @@ test "$(git -C tools/bgutil-provider rev-parse HEAD)" = "${POT_PROVIDER_COMMIT}"
 provider="${GITHUB_WORKSPACE}/tools/bgutil-provider/server"
 (
     cd "${provider}"
-    env DENO_DIR="${provider}/.deno-dir" "${GITHUB_WORKSPACE}/tools/deno" install --allow-scripts=npm:canvas --frozen
-    env DENO_DIR="${provider}/.deno-dir" "${GITHUB_WORKSPACE}/tools/deno" cache --frozen src/generate_once.ts
+    env DENO_DIR="${provider}/.deno-dir" "${GITHUB_WORKSPACE}/tools/deno" install --node-modules-linker=hoisted --allow-scripts=npm:canvas --frozen
+    env DENO_DIR="${provider}/.deno-dir" "${GITHUB_WORKSPACE}/tools/deno" cache --node-modules-linker=hoisted --frozen src/generate_once.ts
 )
 
 cache="${RUNNER_TEMP}/bgutil-cache"
 mkdir -p "${cache}/bgutil-ytdlp-pot-provider"
-version="$(env DENO_DIR="${provider}/.deno-dir" DENO_NO_PROMPT=1 DENO_NO_UPDATE_CHECK=1 FORCE_COLOR=false HOME="${RUNNER_TEMP}" XDG_CACHE_HOME="${cache}" tools/deno run --cached-only --allow-env --allow-net "--allow-ffi=${provider}/node_modules" "--allow-write=${cache}/bgutil-ytdlp-pot-provider" "--allow-read=${cache}/bgutil-ytdlp-pot-provider,${provider}/node_modules" "${provider}/src/generate_once.ts" --version)"
+version="$(env DENO_DIR="${provider}/.deno-dir" DENO_NO_PROMPT=1 DENO_NO_UPDATE_CHECK=1 FORCE_COLOR=false HOME="${RUNNER_TEMP}" XDG_CACHE_HOME="${cache}" tools/deno run --cached-only --node-modules-linker=hoisted --allow-env --allow-net "--allow-ffi=${provider}/node_modules" "--allow-write=${cache}/bgutil-ytdlp-pot-provider" "--allow-read=${cache}/bgutil-ytdlp-pot-provider,${provider}/node_modules" "${provider}/src/generate_once.ts" --version)"
 test "${version}" = "${POT_PROVIDER_VERSION}"
 printf '%s\n' "deno.version=${DENO_VERSION}" "deno.sha256=${DENO_SHA256}" "bgutil-provider.version=${POT_PROVIDER_VERSION}" "bgutil-provider.commit=${POT_PROVIDER_COMMIT}" "bgutil-provider.plugin.sha256=${POT_PROVIDER_PLUGIN_SHA256}" >> reports/candidate.txt
 
@@ -87,6 +87,9 @@ common_args=(
     --no-remote-components
     --no-progress
     --color never
+    --socket-timeout 15
+    --retries 1
+    --extractor-retries 1
     --simulate
     --dump-single-json
     --js-runtimes "deno:${deno}"
@@ -117,27 +120,36 @@ validate_audio_json() {
     ' "${json_file}" > /dev/null
 }
 
-if ! "${ytdlp}" "${common_args[@]}" --extractor-args "youtube:fetch_pot=never" -- "https://www.youtube.com/watch?v=YE7VzlLtp-4" > "${RUNNER_TEMP}/youtube-anonymous.json" 2> "${RUNNER_TEMP}/youtube-anonymous.log"; then
-    echo "Anonymous YouTube canary failed; raw output was withheld because it may contain signed media URLs." >&2
-    exit 1
-fi
-validate_audio_json "YE7VzlLtp-4" "youtube" "${RUNNER_TEMP}/youtube-anonymous.json"
-printf '%s\n' "youtube.anonymous=passed" >> reports/candidate.txt
+# Probe every source even if another fails. Keep the release gate strict while
+# preserving a sanitized report that distinguishes network failures from code bugs.
+failures=0
+run_probe() {
+    local name="$1" expected_id="$2" extractor="$3" url="$4"
+    shift 4
+    local json_file="${RUNNER_TEMP}/${name}.json"
+    local log_file="${RUNNER_TEMP}/${name}.log"
+    local reason
+    if timeout --kill-after=5s 120s "${ytdlp}" "${common_args[@]}" "$@" -- "${url}" > "${json_file}" 2> "${log_file}"; then
+        if validate_audio_json "${expected_id}" "${extractor}" "${json_file}" 2>> "${log_file}"; then
+            printf '%s\n' "${name}=passed" >> reports/candidate.txt
+            echo "${name}: passed"
+        else
+            printf '%s\n' "${name}=failed" "${name}.reason=invalid-media-output" >> reports/candidate.txt
+            echo "${name}: invalid-media-output" >&2
+            failures=$((failures + 1))
+        fi
+    else
+        reason="$(python3 scripts/ci/classify_media_failure.py "${log_file}")"
+        printf '%s\n' "${name}=failed" "${name}.reason=${reason}" >> reports/candidate.txt
+        echo "${name}: ${reason}; raw extractor output withheld" >&2
+        failures=$((failures + 1))
+    fi
+    rm -f -- "${json_file}" "${log_file}"
+}
 
+run_probe "youtube.anonymous" "YE7VzlLtp-4" "youtube" "https://www.youtube.com/watch?v=YE7VzlLtp-4" --extractor-args "youtube:fetch_pot=never"
 sleep 5
-if ! "${ytdlp}" "${common_args[@]}" --extractor-args "youtube:player_client=mweb;fetch_pot=always" --extractor-args "youtubepot-bgutilscript:server_home=${provider}" -- "https://www.youtube.com/watch?v=YE7VzlLtp-4" > "${RUNNER_TEMP}/youtube-provider.json" 2> "${RUNNER_TEMP}/youtube-provider.log"; then
-    echo "mweb PO-provider canary failed; raw output was withheld because it may contain token material." >&2
-    exit 1
-fi
-validate_audio_json "YE7VzlLtp-4" "youtube" "${RUNNER_TEMP}/youtube-provider.json"
-printf '%s\n' "youtube.mweb-provider=passed" >> reports/candidate.txt
-
+run_probe "youtube.mweb-provider" "YE7VzlLtp-4" "youtube" "https://www.youtube.com/watch?v=YE7VzlLtp-4" --extractor-args "youtube:player_client=mweb;fetch_pot=always" --extractor-args "youtubepot-bgutilscript:server_home=${provider}"
 sleep 5
-if ! "${ytdlp}" "${common_args[@]}" -- "https://www.bilibili.com/video/BV13x41117TL" > "${RUNNER_TEMP}/bilibili.json" 2> "${RUNNER_TEMP}/bilibili.log"; then
-    echo "Anonymous Bilibili canary failed; raw output was withheld because it may contain signed media URLs." >&2
-    exit 1
-fi
-validate_audio_json "BV13x41117TL" "bili" "${RUNNER_TEMP}/bilibili.json"
-printf '%s\n' "bilibili.anonymous=passed" >> reports/candidate.txt
-
-rm -f "${RUNNER_TEMP}/youtube-anonymous.json" "${RUNNER_TEMP}/youtube-anonymous.log" "${RUNNER_TEMP}/youtube-provider.json" "${RUNNER_TEMP}/youtube-provider.log" "${RUNNER_TEMP}/bilibili.json" "${RUNNER_TEMP}/bilibili.log"
+run_probe "bilibili.anonymous" "BV13x41117TL" "bili" "https://www.bilibili.com/video/BV13x41117TL"
+test "${failures}" -eq 0

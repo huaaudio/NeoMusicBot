@@ -20,8 +20,8 @@ provides the DAVE end-to-end encryption required for non-Stage voice calls.
 - Linux x86-64 or Windows x86-64. Release artifacts are platform-specific because
   they include the matching JDAVE native library.
 - A Discord application and bot token.
-- Release ZIPs bundle yt-dlp 2026.07.04, Deno 2.9.3, and the complete
-  bgutil-ytdlp-pot-provider 1.3.1 Deno script installation. Custom deployments
+- Release ZIPs bundle yt-dlp 2026.08.19, Deno 2.9.7, and the complete
+  bgutil-ytdlp-pot-provider 2.0.0 Deno script installation. Custom deployments
   can instead set JMUSICBOT_YTDLP_PATH and JMUSICBOT_DENO_PATH.
 
 Do not use an everyday YouTube or Bilibili account for automation. Cookie files are

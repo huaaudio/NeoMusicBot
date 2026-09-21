@@ -1,6 +1,7 @@
+/* Modified by Huaaudio: migrate to JUnit Jupiter (2026). */
 package com.jagrosh.jmusicbot.audio.media;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.nio.file.attribute.AclEntry;
 import java.nio.file.attribute.AclEntryFlag;
@@ -9,8 +10,8 @@ import java.nio.file.attribute.AclEntryType;
 import java.nio.file.attribute.UserPrincipal;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CookieFilePermissionPolicyTest
 {

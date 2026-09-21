@@ -8,6 +8,8 @@
 
 *.class
 *.iml
+__pycache__/
+*.py[cod]
 nb*.xml
 
 # Runtime state and secrets

@@ -73,10 +73,10 @@ public final class JMusicBot
     private static void startBot()
     {
         Prompt prompt = new Prompt("NeoMusicBot");
-        if (Runtime.version().feature() != 25)
+        if (Runtime.version().feature() < 25)
         {
             prompt.alert(Prompt.Level.ERROR, "NeoMusicBot",
-                    "This release requires exactly Java 25. Detected Java "
+                    "This release requires Java 25 or newer. Detected Java "
                             + Runtime.version().feature() + ".");
             return;
         }

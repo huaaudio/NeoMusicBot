@@ -10,11 +10,11 @@ permissions:
   contents: read
 
 env:
-  YTDLP_VERSION: "2026.07.04"
-  DENO_VERSION: "2.9.3"
-  POT_PROVIDER_VERSION: "1.3.1"
-  POT_PROVIDER_COMMIT: "7608dd51ee813b48cf9a6d68c6e42cb197ce10e0"
-  POT_PROVIDER_PLUGIN_SHA256: "b8ceec7f76143da172aaf5ebeec0c2d218e5680c063b931586bca48567069b38"
+  YTDLP_VERSION: "2026.08.19"
+  DENO_VERSION: "2.9.7"
+  POT_PROVIDER_VERSION: "2.0.0"
+  POT_PROVIDER_COMMIT: "37169ee2656e08c5c2e5dc9df4c598c0cb4c88a8"
+  POT_PROVIDER_PLUGIN_SHA256: "bce874dfa25896c2798e0f4f8147b7b22e785479eb1e459ab232bf2506c95016"
 
 jobs:
   build:
@@ -28,29 +28,33 @@ jobs:
             profile: native-linux-x86-64
             artifact_suffix: linux-x86-64
             ytdlp_asset: yt-dlp
-            ytdlp_sha256: 495be29ff4d9d4e9be7eabdfef225221e5d5282e77f2f505abc6dca80349f3fd
+            ytdlp_sha256: 1fa6733c37ea6fb51c99ad8fe785e7b7e5f3246c9b980230329d4fb72ed8d4d6
             deno_asset: deno-x86_64-unknown-linux-gnu.zip
-            deno_sha256: 8101865641cbede56f08ad19c0a67a87df84bce127fee0d3e3e1f7467717ffa6
+            deno_sha256: c6527f24f4b16031d3ae4fa9f658d5f11534c8d84ce7dc8502420280919c3490
           - name: Windows x86-64
             os: windows-latest
             profile: native-windows-x86-64
             artifact_suffix: windows-x86-64
             ytdlp_asset: yt-dlp.exe
-            ytdlp_sha256: 52fe3c26dcf71fbdc85b528589020bb0b8e383155cfa81b64dd447bbe35e24b8
+            ytdlp_sha256: 66674953fe251b89f4d08c5f0e35e0728679bd67ab3d7d05c0562af101dd3e7a
             deno_asset: deno-x86_64-pc-windows-msvc.zip
-            deno_sha256: 60343461ac5fe3a31f4ef12667f2946bb852e20655c8610aeb7e751e87f7df3a
+            deno_sha256: a0c3101b4158d1dfb7d6a78a7bf0f3de80c96bb423c152beec8beb22786f2238
     runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up JDK 25
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
           java-version: "25"
           distribution: temurin
+          check-latest: true
           cache: maven
+
+      - name: Test sanitized media diagnostics
+        run: python -m unittest discover -s scripts/ci -p "test_*.py"
 
       - name: Build, test, and generate SBOM (Linux)
         if: runner.os == 'Linux'
@@ -85,7 +89,7 @@ jobs:
         run: .\scripts\ci\assemble_windows.ps1
 
       - name: Upload tested platform bundle
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: NeoMusicBot-${{ matrix.artifact_suffix }}
           if-no-files-found: error
@@ -97,6 +101,25 @@ jobs:
             target/bom.json
             target/bom.xml
 
+  modern_java:
+    name: Java 27 / ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: oracle-openjdk
+          java-version: "27"
+          cache: maven
+      - name: Test latest stable Java, including JDAVE native loading
+        shell: bash
+        run: sh ./mvnw --batch-mode --no-transfer-progress test
+
   locked_media_canary:
     name: Locked media resolver canary
     needs: build
@@ -105,20 +128,21 @@ jobs:
     env:
       YTDLP_REPOSITORY: yt-dlp/yt-dlp
       YTDLP_ASSET: yt-dlp
-      YTDLP_SHA256: 495be29ff4d9d4e9be7eabdfef225221e5d5282e77f2f505abc6dca80349f3fd
+      YTDLP_SHA256: 1fa6733c37ea6fb51c99ad8fe785e7b7e5f3246c9b980230329d4fb72ed8d4d6
       DENO_ASSET: deno-x86_64-unknown-linux-gnu.zip
-      DENO_SHA256: 8101865641cbede56f08ad19c0a67a87df84bce127fee0d3e3e1f7467717ffa6
+      DENO_SHA256: c6527f24f4b16031d3ae4fa9f658d5f11534c8d84ce7dc8502420280919c3490
 
     steps:
       - name: Checkout locked canary definitions
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Test the exact release media toolchain
         shell: bash
         run: bash scripts/ci/media_canary.sh
 
       - name: Upload sanitized locked media canary report
-        uses: actions/upload-artifact@v4
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: NeoMusicBot-media-canary
           if-no-files-found: error

@@ -77,8 +77,8 @@ public final class SlashCommandListener extends ListenerAdapter
     private static final long COMPONENT_TTL_SECONDS = 45;
     private static final long DIAGNOSTIC_CACHE_MILLIS = TimeUnit.MINUTES.toMillis(5);
     private static final int VERSION_OUTPUT_LIMIT = 4 * 1024;
-    private static final String LOCKED_YT_DLP_VERSION = "2026.07.04";
-    private static final String LOCKED_DENO_VERSION = "2.9.3";
+    private static final String LOCKED_YT_DLP_VERSION = "2026.08.19";
+    private static final String LOCKED_DENO_VERSION = "2.9.7";
     private static final Pattern SAFE_PLAYLIST_NAME = Pattern.compile("[A-Za-z0-9][A-Za-z0-9._-]{0,63}");
     private static final Pattern URL_QUERY = Pattern.compile("(https?://[^\\s?]+)\\?[^\\s]+", Pattern.CASE_INSENSITIVE);
     private static final Pattern COMPONENT_ID = Pattern.compile(
@@ -1290,7 +1290,7 @@ public final class SlashCommandListener extends ListenerAdapter
                     boolean fallbackReady = readiness.youtubeFallbackReady() && ytDlpReady && denoReady;
                     String provider = !readiness.potProviderEnabled() ? "off"
                             : readiness.potProviderReady() && ytDlpReady && denoReady
-                                    ? "1.3.1 (assets present)" : "1.3.1 (unavailable)";
+                                    ? "2.0.0 (assets present)" : "2.0.0 (unavailable)";
                     String youtubeFallback = featureState(readiness.youtubeFallbackEnabled(),
                             fallbackReady);
                     String ejs = fallbackReady
