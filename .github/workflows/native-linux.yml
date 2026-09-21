@@ -1,0 +1,102 @@
+name: Build Linux Native Runtime
+
+on:
+  push:
+    paths:
+      - .github/workflows/native-linux.yml
+      - scripts/native/**
+      - scripts/ci/canvas_probe.cjs
+      - scripts/ci/install_canvas_native.py
+      - scripts/ci/package_librsvg_materials.py
+      - src/provider-runtime/native-linux/**
+      - src/license/canvas/linux-librsvg-rust/**
+  pull_request:
+    paths:
+      - .github/workflows/native-linux.yml
+      - scripts/native/**
+      - scripts/ci/canvas_probe.cjs
+      - scripts/ci/install_canvas_native.py
+      - scripts/ci/package_librsvg_materials.py
+      - src/provider-runtime/native-linux/**
+      - src/license/canvas/linux-librsvg-rust/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: neomusicbot-native-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  source_build:
+    name: Ubuntu 24.04 source build and isolated archive verification
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout recipe
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Prepare the Ubuntu build baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -q
+          sudo apt-get install -y --no-install-recommends build-essential ninja-build pkg-config bubblewrap unzip
+          bwrap --unshare-all --ro-bind / / /usr/bin/true
+
+      - name: Build from pinned source and SDK inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/native/build_linux_canvas.py \
+            --work-dir "${RUNNER_TEMP}/neomusicbot-native-build" \
+            --cache-dir "${RUNNER_TEMP}/neomusicbot-native-downloads" --jobs 4 \
+            2>&1 | tee "${RUNNER_TEMP}/native-build.log"
+
+      - name: Check locked Cargo source materials
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s scripts/native -p 'test_*.py'
+          python3 scripts/native/package_linux_cargo.py \
+            --output-dir "${RUNNER_TEMP}/neomusicbot-linux-cargo" \
+            --cache-dir "${RUNNER_TEMP}/neomusicbot-cargo-downloads" \
+            2>&1 | tee "${RUNNER_TEMP}/native-cargo-materials.log"
+
+      - name: Fetch the pinned validation runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --output "${RUNNER_TEMP}/deno.zip" \
+            https://github.com/denoland/deno/releases/download/v2.9.7/deno-x86_64-unknown-linux-gnu.zip
+          echo "c6527f24f4b16031d3ae4fa9f658d5f11534c8d84ce7dc8502420280919c3490  ${RUNNER_TEMP}/deno.zip" | sha256sum --check --strict
+          unzip -q "${RUNNER_TEMP}/deno.zip" -d "${RUNNER_TEMP}/native-deno"
+
+      - name: Verify library versions, isolated formats and fonts, and archive readback
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/native/package_linux_canvas.py --work-dir "${RUNNER_TEMP}/neomusicbot-native-build" \
+            --deno "${RUNNER_TEMP}/native-deno/deno" --output-dir "${RUNNER_TEMP}/neomusicbot-native-output" \
+            2>&1 | tee "${RUNNER_TEMP}/native-package.log"
+
+      # Keep evidence while source/license integration is being completed.
+      # This workflow does not publish or select binaries for application releases.
+      - name: Preserve build evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: native-linux-evidence-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/native-build.log
+            ${{ runner.temp }}/native-package.log
+            ${{ runner.temp }}/native-cargo-materials.log
+            ${{ runner.temp }}/neomusicbot-native-output/native-build-report.json
+            ${{ runner.temp }}/neomusicbot-native-output/inputs.json
+            ${{ runner.temp }}/neomusicbot-native-output/package.json
+            ${{ runner.temp }}/neomusicbot-native-output/package-lock.json
+          if-no-files-found: error
+          retention-days: 30

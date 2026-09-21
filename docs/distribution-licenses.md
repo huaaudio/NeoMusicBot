@@ -163,6 +163,13 @@ Windows 发行包增加全部源码包、原始/重建锁文件、实际配方�
 本次新增材料的完整应用 CI 验证另以对应提交的日志为准。
 Linux 原生库及其他工具的材料工作仍在进行，AUD-005 尚未关闭。
 
-Linux 的新源码构建已验证 Cairo 1.18.6 / librsvg 2.63.2 与 Canvas、Deno 兼容，
-且通过完整原生库集合的隔离搬迁实验，见[升级记录](native-linux-upgrade.md)。
-新库尚未替换上述发行资产，其余原生依赖和最终材料仍需审查。
+Linux 的新源码构建原型已升级 Cairo、librsvg、Pango、GLib、HarfBuzz、Fontconfig、FreeType，
+37 个原生文件通过 Deno 的隔离搬迁、图像格式与显式字体检查，见[升级记录](native-linux-upgrade.md)。
+本地已收集并校验 20 个 Ubuntu 对应源码包和 librsvg 完整锁图的 357 个 crate / 641 份原始声明。
+11 个缺少常规许可文件的 crate 已关联 8 份补充正文：defmt-parser、mutants 使用各自 VCS 提交的
+原始父仓库许可，selectors 的 MPL 声明使用明确标注的标准参考正文，其余来源按与已审查的
+Windows 源码字节一致性复核。定义见
+[`linux-librsvg-rust/manifest.json`](../src/license/canvas/linux-librsvg-rust/manifest.json)。
+`package_linux_cargo.py` 已对完整实际材料重新收集、提取和验证，5 项回归覆盖缺包、父源码错配、
+补充文本篡改和缺失引用；证据 `tools/linux-cargo-materials-validated.log`。
+新库尚未替换上述发行资产，最终二进制绑定、CI 与其余材料仍需验收。

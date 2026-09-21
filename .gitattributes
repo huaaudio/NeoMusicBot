@@ -12,3 +12,6 @@ mvnw.cmd text eol=crlf
 src/license/provider/*.txt -text
 src/license/canvas/windows/*.txt -text
 src/license/canvas/librsvg-rust/* -text
+src/license/canvas/linux-librsvg-rust/* -text
+# Build input hashes must be identical in Windows and Linux checkouts.
+src/provider-runtime/native-linux/* -text

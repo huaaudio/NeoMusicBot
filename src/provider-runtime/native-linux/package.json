@@ -1,0 +1,9 @@
+{
+  "name": "neomusicbot-canvas-build-tools",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "node-addon-api": "7.1.1",
+    "node-gyp": "13.0.2"
+  }
+}
