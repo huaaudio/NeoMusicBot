@@ -132,13 +132,13 @@ public final class SlashCommandListener extends ListenerAdapter
             }
             guild.updateCommands().addCommands(SlashCommandSchema.create()).queue(
                     ignored -> LOG.info("Registered development Slash commands in guild {}", guild.getId()),
-                    error -> LOG.error("Failed to register development Slash commands", error));
+                    error -> LOG.error("Failed to register development Slash commands: {}", sanitizedFailure(error)));
         }
         else
         {
             event.getJDA().updateCommands().addCommands(SlashCommandSchema.create()).queue(
                     ignored -> LOG.info("Registered global Slash commands"),
-                    error -> LOG.error("Failed to register global Slash commands", error));
+                    error -> LOG.error("Failed to register global Slash commands: {}", sanitizedFailure(error)));
         }
     }
 
@@ -228,9 +228,9 @@ public final class SlashCommandListener extends ListenerAdapter
                 event.getHook().editOriginal(renderQueue(session))
                         .setComponents(queueControls(lookup.id(), session))
                         .queue(ignoredEdit -> { },
-                                failure -> LOG.warn("Could not update queue pagination", failure));
+                                failure -> LOG.warn("Could not update queue pagination: {}", sanitizedFailure(failure)));
             }
-        }, failure -> LOG.warn("Could not acknowledge queue pagination", failure));
+        }, failure -> LOG.warn("Could not acknowledge queue pagination: {}", sanitizedFailure(failure)));
     }
 
     @Override
@@ -302,11 +302,11 @@ public final class SlashCommandListener extends ListenerAdapter
                     + (position < 0 ? "and started playback." : "at queue position `" + (position + 1) + "`.")))
                     .setComponents()
                     .queue(ignoredEdit -> { },
-                            failure -> LOG.warn("Could not update selected search result", failure));
+                            failure -> LOG.warn("Could not update selected search result: {}", sanitizedFailure(failure)));
         }, failure ->
         {
             context.handler().finishPendingLoad(session.loadToken());
-            LOG.warn("Could not acknowledge selected search result", failure);
+            LOG.warn("Could not acknowledge selected search result: {}", sanitizedFailure(failure));
         });
     }
 
@@ -472,7 +472,7 @@ public final class SlashCommandListener extends ListenerAdapter
                 {
                     componentSessions.remove(id, session);
                     handler.finishPendingLoad(loadToken);
-                    LOG.warn("Could not publish YouTube search controls", failure);
+                    LOG.warn("Could not publish YouTube search controls: {}", sanitizedFailure(failure));
                 });
     }
 
@@ -543,7 +543,7 @@ public final class SlashCommandListener extends ListenerAdapter
                 .queue(ignored -> scheduleExpiration(id), failure ->
                 {
                     componentSessions.remove(id, session);
-                    LOG.warn("Could not publish queue pagination controls", failure);
+                    LOG.warn("Could not publish queue pagination controls: {}", sanitizedFailure(failure));
                 });
     }
 
@@ -1833,7 +1833,7 @@ public final class SlashCommandListener extends ListenerAdapter
         ComponentSession removed = componentSessions.remove(id);
         releaseComponentSession(removed);
         event.getMessage().editMessageComponents().queue(
-                ignored -> { }, failure -> LOG.debug("Could not clear expired components", failure));
+                ignored -> { }, failure -> LOG.debug("Could not clear expired components: {}", sanitizedFailure(failure)));
         componentError(event, "This control has expired. Run the command again.");
     }
 
@@ -1868,7 +1868,7 @@ public final class SlashCommandListener extends ListenerAdapter
                 releaseComponentSession(session);
                 if (session != null && !session.hook().isExpired())
                     session.hook().editOriginalComponents().queue(
-                            ignored -> { }, failure -> LOG.debug("Could not clear expired components", failure));
+                            ignored -> { }, failure -> LOG.debug("Could not clear expired components: {}", sanitizedFailure(failure)));
             }, COMPONENT_TTL_SECONDS, TimeUnit.SECONDS);
         }
         catch (RejectedExecutionException ignored)
@@ -1991,16 +1991,12 @@ public final class SlashCommandListener extends ListenerAdapter
     private void edit(SlashCommandInteractionEvent event, String message)
     {
         event.getHook().editOriginal(limit(redact(message))).queue(
-                ignored -> { }, failure -> LOG.warn("Could not edit Slash command response", failure));
+                ignored -> { }, failure -> LOG.warn("Could not edit Slash command response: {}", sanitizedFailure(failure)));
     }
 
     static String sanitizedFailure(Throwable error)
     {
-        if (error == null)
-            return "UnknownFailure: no details";
-        String type = error.getClass().getSimpleName();
-        String message = redact(error.getMessage()).trim();
-        return type + ": " + (message.isEmpty() ? "no details" : message);
+        return SensitiveLogSanitizer.describe(error);
     }
 
     private String ok(String message)

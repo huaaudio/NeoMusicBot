@@ -20,6 +20,7 @@
 package io.github.huaaudio.neomusicbot.audio;
 
 import io.github.huaaudio.neomusicbot.Bot;
+import io.github.huaaudio.neomusicbot.audio.media.SensitiveLogSanitizer;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Map;
@@ -65,7 +66,7 @@ public class AloneInVoiceHandler
         {
             // A ScheduledExecutor suppresses every later execution when a
             // fixed-delay task throws. Keep the lifecycle monitor alive.
-            LOG.warn("Could not evaluate alone-in-voice state", ex);
+            LOG.warn("Could not evaluate alone-in-voice state: {}", SensitiveLogSanitizer.describe(ex));
         }
     }
 

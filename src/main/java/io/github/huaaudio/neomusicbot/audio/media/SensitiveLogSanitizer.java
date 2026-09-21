@@ -28,6 +28,15 @@ public final class SensitiveLogSanitizer
     {
     }
 
+    /** Bounded failure summary; never attach the original cause/suppressed chain to a logger. */
+    public static String describe(Throwable error)
+    {
+        if(error == null) return "UnknownFailure: no details";
+        String message = error.getMessage();
+        return error.getClass().getSimpleName() + ": "
+                + (message == null || message.isBlank() ? "no details" : sanitize(message));
+    }
+
     public static String sanitize(String value)
     {
         if (value == null || value.isBlank())

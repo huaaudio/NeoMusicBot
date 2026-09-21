@@ -21,6 +21,7 @@ package io.github.huaaudio.neomusicbot;
 
 import io.github.huaaudio.neomusicbot.audio.AudioHandler;
 import io.github.huaaudio.neomusicbot.audio.GuildPlaybackSession;
+import io.github.huaaudio.neomusicbot.audio.media.SensitiveLogSanitizer;
 import io.github.huaaudio.neomusicbot.utils.OtherUtil;
 import java.util.concurrent.TimeUnit;
 import net.dv8tion.jda.api.entities.User;
@@ -94,7 +95,7 @@ public final class Listener extends ListenerAdapter
                         handler.rollbackVoiceReservation(channel.getIdLong());
                     bot.closeAudioConnection(guild.getIdLong());
                 }
-                LOG.warn("Could not start the default playlist for guild {}", guild.getId(), ex);
+                LOG.warn("Could not start the default playlist for guild {}: {}", guild.getId(), SensitiveLogSanitizer.describe(ex));
             }
         });
 
@@ -119,7 +120,7 @@ public final class Listener extends ListenerAdapter
         }
         catch (RuntimeException ex)
         {
-            LOG.debug("Could not perform the update check", ex);
+            LOG.debug("Could not perform the update check: {}", SensitiveLogSanitizer.describe(ex));
         }
     }
 
