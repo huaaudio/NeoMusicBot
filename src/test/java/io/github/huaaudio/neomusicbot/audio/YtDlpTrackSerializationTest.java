@@ -10,20 +10,25 @@ import io.github.huaaudio.neomusicbot.audio.media.ResolvedMedia;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.ResourceLock;
+import org.junit.jupiter.api.parallel.Resources;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
+import java.util.Locale;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class YtDlpTrackSerializationTest
 {
     @Test
+    @ResourceLock(Resources.LOCALE)
     public void serializesOnlyTheStableKey() throws Exception
     {
         MediaTrackKey key = new MediaTrackKey(MediaSource.BILIBILI, "BV1ab411c7de", 2);
@@ -44,12 +49,15 @@ public class YtDlpTrackSerializationTest
             }
         };
         DefaultAudioPlayerManager playerManager = new DefaultAudioPlayerManager();
+        Locale originalLocale = Locale.getDefault();
         try
         {
+            Locale.setDefault(Locale.forLanguageTag("tr-TR"));
             YtDlpAudioSourceManager source = new YtDlpAudioSourceManager(
                     "bilibili-test", MediaSource.BILIBILI, resolver, playerManager);
             AudioTrack track = source.createTrack(new MediaEntry(key,
                     new MediaMetadata("title", "author", 1_000, key.webUri(), null, false)));
+            assertEquals("bilibili:BV1ab411c7de:2", track.getIdentifier());
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             source.encodeTrack(track, new DataOutputStream(bytes));
             String encoded = bytes.toString(StandardCharsets.ISO_8859_1);
@@ -59,6 +67,7 @@ public class YtDlpTrackSerializationTest
         }
         finally
         {
+            Locale.setDefault(originalLocale);
             playerManager.shutdown();
         }
     }

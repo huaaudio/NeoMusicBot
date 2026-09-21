@@ -1,6 +1,7 @@
 package io.github.huaaudio.neomusicbot.audio.media;
 
 import java.net.URI;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -42,7 +43,7 @@ public record MediaTrackKey(MediaSource source, String canonicalId, Integer subI
 
     public String serializedId()
     {
-        return source.name().toLowerCase() + ':' + canonicalId
+        return source.name().toLowerCase(Locale.ROOT) + ':' + canonicalId
                 + (subIndex == null ? "" : ":" + subIndex);
     }
 }
