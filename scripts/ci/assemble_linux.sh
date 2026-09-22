@@ -94,6 +94,7 @@ python3 scripts/ci/package_ytdlp_notices.py "${bundle}" --platform "${ARTIFACT_S
 python3 scripts/ci/package_ytdlp_source_access.py "${bundle}" --platform "${ARTIFACT_SUFFIX}"
 python3 scripts/ci/package_deno_materials.py "${bundle}" --platform "${ARTIFACT_SUFFIX}"
 python3 scripts/ci/inventory_provider.py "${tools}/bgutil-provider" "${bundle}/provider-dependencies.json" "${licenses}/provider"
+python3 scripts/ci/package_linux_source_access.py "${bundle}"
 python3 scripts/ci/package_shared_source_access.py "${bundle}"
 python3 scripts/ci/package_bundle.py "${bundle}" "target/NeoMusicBot-${ARTIFACT_SUFFIX}.zip"
 python3 scripts/ci/verify_bundle.py "target/NeoMusicBot-${ARTIFACT_SUFFIX}.zip" "target/bundle-verification.txt"

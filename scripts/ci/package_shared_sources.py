@@ -22,8 +22,8 @@ def source_records():
     return records
 
 
-def verify(archive):
-    expected = source_records()
+def verify(archive, records=None):
+    expected = source_records() if records is None else records
     with zipfile.ZipFile(archive) as zipped:
         names = zipped.namelist()
         if len(names) != len(set(names)) or set(names) != set(expected):
@@ -38,14 +38,14 @@ def verify(archive):
     return {'files': len(expected), 'bytes': Path(archive).stat().st_size, 'sha256': digest(archive)}
 
 
-def collect(runtime_archive, output):
+def collect(runtime_archive, output, records=None, prefixes=('sources/deno/', 'sources/quickjs/')):
     output = Path(output)
     if output.exists():
         raise ValueError('Source companion output already exists')
-    expected = source_records()
+    expected = source_records() if records is None else records
     with zipfile.ZipFile(runtime_archive) as source:
         selected = [x.filename for x in source.infolist()
-                    if x.filename.startswith(('sources/deno/', 'sources/quickjs/')) and not x.is_dir()]
+                    if x.filename.startswith(prefixes) and not x.is_dir()]
         if len(selected) != len(set(selected)) or set(selected) != set(expected):
             raise ValueError('Runtime source file set differs from reviewed definitions')
         with zipfile.ZipFile(output, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=6) as destination:
@@ -55,7 +55,7 @@ def collect(runtime_archive, output):
                 info.external_attr = 0o100644 << 16
                 with source.open(name) as body, destination.open(info, 'w', force_zip64=True) as target:
                     shutil.copyfileobj(body, target)
-    return verify(output)
+    return verify(output, expected)
 
 
 if __name__ == '__main__':

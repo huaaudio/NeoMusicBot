@@ -147,3 +147,8 @@ Bilibili 关键词、收藏夹和整份合集导入尚未实现。
 Cookie 可选且默认关闭；仅通过相应的 `NEOMUSICBOT_*_COOKIES_FILE` 指向本地文件。
 Linux 下 Cookie 文件须为当前用户所有、权限不向其他用户开放；文件要求详见配置错误提示。
 提交问题时提供系统、Java、发行版本/提交、脱敏诊断和复现步骤，不要贴 Token、Cookie 或带签名的媒体 URL。
+
+
+## 对应源码附件
+
+正常运行只需下载所选平台的应用 ZIP。发行包内的 `licenses` 目录保留许可证和声明；其中的 `shared-source-access.json`、`yt-dlp-source-access.json` 和 `canvas/*-source-access.json` 给出独立源码附件的固定下载地址和 SHA-256。需要研究或重新构建依赖时，再下载相应源码附件。Bot 正常启动不会自动下载这些源码。

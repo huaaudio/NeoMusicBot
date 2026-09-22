@@ -15,17 +15,17 @@ RECORD = 'licenses/shared-source-access.json'
 SOURCE_ROOTS = ('sources/deno', 'sources/quickjs')
 
 
-def definition():
-    data = json.loads(ASSET.read_text(encoding='utf-8'))
-    if data['schema_version'] != 1 or data['files'] != source_records():
+def definition(asset=ASSET, records=None):
+    data = json.loads(asset.read_text(encoding='utf-8'))
+    if data['schema_version'] != 1 or data['files'] != (source_records() if records is None else records):
         raise ValueError('Shared source access differs from current definitions')
     return data
 
 
-def prepare(bundle):
+def prepare(bundle, asset=ASSET, source_roots=SOURCE_ROOTS, records=None, access_record=RECORD):
     bundle = Path(bundle).resolve()
-    data = definition()
-    roots = [bundle / relative for relative in SOURCE_ROOTS]
+    data = definition(asset, records)
+    roots = [bundle / relative for relative in source_roots]
     for root in roots:
         if not root.resolve().is_relative_to(bundle) or root.is_symlink():
             raise ValueError('Source directory escapes bundle')
@@ -37,22 +37,22 @@ def prepare(bundle):
         if not path.resolve().is_relative_to(bundle) or path.is_symlink():
             raise ValueError('Source file escapes bundle')
         checked_file(path, record)
-    target = bundle / RECORD
+    target = bundle / access_record
     if target.exists() or not target.resolve().is_relative_to(bundle):
         raise ValueError('Source access record must be new and inside bundle')
     target.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(ASSET, target)
+    shutil.copyfile(asset, target)
     for root in roots:
         shutil.rmtree(root)
 
 
-def restore_for_verification(bundle, archive=None):
+def restore_for_verification(bundle, archive=None, asset=ASSET, source_roots=SOURCE_ROOTS, records=None, access_record=RECORD, verifier=verify_sources):
     """Populate only absent source directories in the disposable verification tree."""
     bundle = Path(bundle).resolve()
-    data = definition()
-    if (bundle / RECORD).read_bytes() != ASSET.read_bytes():
+    data = definition(asset, records)
+    if (bundle / access_record).read_bytes() != asset.read_bytes():
         raise ValueError('Shipped shared source access record differs')
-    for relative in SOURCE_ROOTS:
+    for relative in source_roots:
         path = bundle / relative
         if path.exists() or path.is_symlink() or not path.resolve().is_relative_to(bundle):
             raise ValueError('External source destination must be absent and inside verification tree')
@@ -64,7 +64,7 @@ def restore_for_verification(bundle, archive=None):
         else:
             path = Path(archive)
         checked_file(path, data)
-        verify_sources(path)
+        verifier(path)
         with zipfile.ZipFile(path) as zipped:
             for name in data['files']:
                 target = bundle / name

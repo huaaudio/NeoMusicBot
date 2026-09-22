@@ -70,11 +70,13 @@ def verify(archive_path, report_path):
         verify_canvas_native(bundle / "tools/bgutil-provider",
                              "windows-x86-64" if os.name == "nt" else "linux-x86-64")
         if os.name == "nt":
+            from package_windows_source_access import restore_for_verification as restore_windows_sources
+            restore_windows_sources(bundle)
             verify_canvas_materials(bundle)
             verify_librsvg_materials(bundle)
         else:
-            from package_linux_native_materials import verify as verify_linux_native_materials
-            verify_linux_native_materials(bundle)
+            from package_linux_source_access import restore_for_verification as restore_linux_sources
+            restore_linux_sources(bundle)
         from package_ytdlp_notices import verify as verify_ytdlp_notices
         verify_ytdlp_notices(bundle, "windows-x86-64" if os.name == "nt" else "linux-x86-64")
         from package_ytdlp_source_access import verify as verify_ytdlp_sources
