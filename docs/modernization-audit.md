@@ -5,9 +5,13 @@
 
 ## 验收状态
 
-最近应用 CI 完整成功：`b500d6e` 的普通 push [35638761235](https://github.com/huaaudio/NeoMusicBot/actions/runs/35638761235)
-四个构建和三项媒体全部成功；两个实际发行包的来源、逐文件哈希、原生库及已收集的许可材料再次复核通过。
-独立的新原生库源码工作流仍在修复验收，不能把应用 CI 成功当作新库已可发布。
+最近应用 CI 完整成功：`329c95b` 的 [35640374441](https://github.com/huaaudio/NeoMusicBot/actions/runs/35640374441)。
+2026-09-22 下载三个实际 artifact，外层哈希与大小通过；两平台 ZIP 再次通过发布关联门禁、
+原生文件与已收集许可材料核验，三项媒体报告均通过且提交一致。
+记录为 `tools/ci-success-329c95b/verified-artifacts.json` 与 `verified-materials.json`。
+独立 Linux 原生源码 CI [35640374408](https://github.com/huaaudio/NeoMusicBot/actions/runs/35640374408)
+也已成功，下载报告与仓库输入匹配；该次未上传实际原生归档，尚不能选择它作为发行资产。
+新工作流已补上归档保留及独立回读入口，完整说明见 [原生升级记录](native-linux-upgrade.md)。
 以下早期提交记录用于保留故障和修复过程，不代表最新流水线仍有相同故障。
 
 | 项目 | 当前证据 / 待完成事项 |

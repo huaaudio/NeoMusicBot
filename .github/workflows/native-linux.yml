@@ -88,6 +88,9 @@ jobs:
             --deno "${RUNNER_TEMP}/native-deno/deno" --output-dir "${RUNNER_TEMP}/neomusicbot-native-output" \
             2>&1 | tee "${RUNNER_TEMP}/native-package.log"
 
+      - name: Read back retained native archive against repository inputs
+        run: python3 scripts/native/verify_linux_canvas.py "${{ runner.temp }}/neomusicbot-native-output"
+
       # Keep evidence while source/license integration is being completed.
       # This workflow does not publish or select binaries for application releases.
       - name: Preserve build evidence
@@ -101,6 +104,7 @@ jobs:
             ${{ runner.temp }}/native-package.log
             ${{ runner.temp }}/native-cargo-materials.log
             ${{ runner.temp }}/neomusicbot-native-output/native-build-report.json
+            ${{ runner.temp }}/neomusicbot-native-output/canvas-v3.2.3-linux-x86-64-source-built.tar.gz
             ${{ runner.temp }}/neomusicbot-native-output/inputs.json
             ${{ runner.temp }}/neomusicbot-native-output/package.json
             ${{ runner.temp }}/neomusicbot-native-output/package-lock.json
