@@ -173,3 +173,16 @@ Windows 源码字节一致性复核。定义见
 `package_linux_cargo.py` 已对完整实际材料重新收集、提取和验证，5 项回归覆盖缺包、父源码错配、
 补充文本篡改和缺失引用；证据 `tools/linux-cargo-materials-validated.log`。
 新库尚未替换上述发行资产，最终二进制绑定、CI 与其余材料仍需验收。
+
+## Linux 来源材料正式收集与二进制绑定
+
+2026-09-22 将原型目录里的来源映射正式固定到 `src/license/canvas/linux-sources`。
+20 个 Ubuntu 源码包/62 个文件与固定 SDK 包的 Source/Version 和原始库字节对应，
+21 份版权文本按原始字节收录；八个运行源码、node-addon-api 头文件源码，以及明确标注范围的
+Node/Rust SDK 归档另保留 203 份原始声明。构建配方及锁定输入随材料包保留。
+采集程序不会安装 Debian 包或读取宿主版权文件，回读也不依赖实验目录。
+
+已用 `ea3182d` 成功原生 CI 的实际归档完成绑定，再合并完整 Linux librsvg Cargo 材料，
+组装 1,327 文件的 ZIP 并在 Windows 干净目录通过回读。详见 [构建记录](native-linux-upgrade.md)。
+这证明已收集材料与该次实际二进制相符，不证明所有内嵌依赖或整个发行包审查完成；
+新云端材料工作流仍需实物验收，AUD-005 保持开放。

@@ -1,0 +1,2866 @@
+{
+  "schema_version": 1,
+  "platform": "linux-x86-64",
+  "build_inputs_sha256": "2a57fee60b55ebfd07e246e627b52b59fefbdbf585a36b9ef73c07469833da12",
+  "native_origins": [
+    {
+      "path": "build/Release/canvas.node",
+      "original_path": "sources/canvas/package/build/Release/canvas.node",
+      "origin_type": "upstream-source-build",
+      "source": {
+        "name": "canvas",
+        "version": "3.2.3",
+        "url": "https://registry.npmjs.org/canvas/-/canvas-3.2.3.tgz",
+        "sha256": "8b0e958df3511566da8e797da68035d0b2425f13a4b6879b5b3e39bca2f96217",
+        "filename": "canvas-3.2.3.tgz",
+        "source_folder": "package"
+      }
+    },
+    {
+      "path": "build/Release/libbrotlicommon.so.1",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libbrotlicommon.so.1.1.0",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libbrotli1",
+        "version": "1.1.0-2build2",
+        "filename": "libbrotli1_1.1.0-2build2_amd64.deb",
+        "bytes": 330730,
+        "sha256": "74492419b8fda803774b8c9acef6afc5d2f9ff31782635aae212906adae7b277",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/b/brotli/libbrotli1_1.1.0-2build2_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libbrotlicommon.so.1.1.0",
+      "source_package": "brotli",
+      "source_version": "1.1.0-2build2",
+      "original_sha256": "a91ead095d2c80520c55a89057bbe10b031a075340442e63f44b310f93883a1b"
+    },
+    {
+      "path": "build/Release/libbrotlidec.so.1",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libbrotlidec.so.1.1.0",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libbrotli1",
+        "version": "1.1.0-2build2",
+        "filename": "libbrotli1_1.1.0-2build2_amd64.deb",
+        "bytes": 330730,
+        "sha256": "74492419b8fda803774b8c9acef6afc5d2f9ff31782635aae212906adae7b277",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/b/brotli/libbrotli1_1.1.0-2build2_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libbrotlidec.so.1.1.0",
+      "source_package": "brotli",
+      "source_version": "1.1.0-2build2",
+      "original_sha256": "64d8a5019d4c294b89fde1193343ea324bbd8603652554e5545f0a01595fa2c5"
+    },
+    {
+      "path": "build/Release/libbz2.so.1.0",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libbz2.so.1.0.4",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libbz2-1.0",
+        "version": "1.0.8-5.1ubuntu0.1",
+        "filename": "libbz2-1.0_1.0.8-5.1ubuntu0.1_amd64.deb",
+        "bytes": 34562,
+        "sha256": "36ee08b00b1ee5018b2fce02881b7d2d73c9b4e32990bde3388400d86c48126a",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/b/bzip2/libbz2-1.0_1.0.8-5.1ubuntu0.1_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libbz2.so.1.0.4",
+      "source_package": "bzip2",
+      "source_version": "1.0.8-5.1ubuntu0.1",
+      "original_sha256": "cc08c9f50a8009ffd6391e0116a100369b11ca9238fa52392c019e6645b122a1"
+    },
+    {
+      "path": "build/Release/libcairo-gobject.so.2",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libcairo-gobject.so.2.11806.6",
+      "origin_type": "upstream-source-build",
+      "source": {
+        "name": "cairo",
+        "version": "1.18.6",
+        "url": "https://cairographics.org/releases/cairo-1.18.6.tar.xz",
+        "sha256": "1c767308174337a74694da0f3ec069c271452163a1ef4540964c50c301f157d4",
+        "filename": "cairo-1.18.6.tar.xz",
+        "source_folder": "cairo-1.18.6"
+      }
+    },
+    {
+      "path": "build/Release/libcairo.so.2",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libcairo.so.2.11806.6",
+      "origin_type": "upstream-source-build",
+      "source": {
+        "name": "cairo",
+        "version": "1.18.6",
+        "url": "https://cairographics.org/releases/cairo-1.18.6.tar.xz",
+        "sha256": "1c767308174337a74694da0f3ec069c271452163a1ef4540964c50c301f157d4",
+        "filename": "cairo-1.18.6.tar.xz",
+        "source_folder": "cairo-1.18.6"
+      }
+    },
+    {
+      "path": "build/Release/libdatrie.so.1",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libdatrie.so.1.4.0",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libdatrie1",
+        "version": "0.2.13-3build1",
+        "filename": "libdatrie1_0.2.13-3build1_amd64.deb",
+        "bytes": 18992,
+        "sha256": "1ae164e40e413eac4fbd38ce1c6ef9591f7a03278ad9076d71fa29258727f447",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/libd/libdatrie/libdatrie1_0.2.13-3build1_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libdatrie.so.1.4.0",
+      "source_package": "libdatrie",
+      "source_version": "0.2.13-3build1",
+      "original_sha256": "507f33edbbc19b80637d6d66f8e3f62fac097d0b4e9ee6f6f23f535ecea26a61"
+    },
+    {
+      "path": "build/Release/libdav1d.so.7",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libdav1d.so.7.0.0",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libdav1d7",
+        "version": "1.4.1-1build1",
+        "filename": "libdav1d7_1.4.1-1build1_amd64.deb",
+        "bytes": 604018,
+        "sha256": "7246303bd3ed4b99a2fb98e6199950ceb2520e7572265aefa0a6e44352adb3f0",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/universe/d/dav1d/libdav1d7_1.4.1-1build1_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libdav1d.so.7.0.0",
+      "source_package": "dav1d",
+      "source_version": "1.4.1-1build1",
+      "original_sha256": "314d53716c5f74d39dcfcfe29e341671ad25bf43022a218e54d019c35ce5222c"
+    },
+    {
+      "path": "build/Release/libexpat.so.1",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libexpat.so.1.9.1",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libexpat1",
+        "version": "2.6.1-2ubuntu0.4",
+        "filename": "libexpat1_2.6.1-2ubuntu0.4_amd64.deb",
+        "bytes": 88214,
+        "sha256": "126a5612e652bdc2edee19ae8fe4308db72b5b3b0a5581bf885b44a093baf3e5",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/e/expat/libexpat1_2.6.1-2ubuntu0.4_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libexpat.so.1.9.1",
+      "source_package": "expat",
+      "source_version": "2.6.1-2ubuntu0.4",
+      "original_sha256": "c42ff317838b4b4639e2ea801905f0317177c6df7e31b2f0d0240e3c3ac0cfde"
+    },
+    {
+      "path": "build/Release/libffi.so.8",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libffi.so.8.1.4",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libffi8",
+        "version": "3.4.6-1build1",
+        "filename": "libffi8_3.4.6-1build1_amd64.deb",
+        "bytes": 24718,
+        "sha256": "637e6a7744de08cd331a41f4efd0d24e6ea9064843dea9d1c6ca87bdb5f038a2",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/libf/libffi/libffi8_3.4.6-1build1_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libffi.so.8.1.4",
+      "source_package": "libffi",
+      "source_version": "3.4.6-1build1",
+      "original_sha256": "00f593fe192f2851b8ce23b25cec2488d769beb5a8f63e8c9e563071e1075153"
+    },
+    {
+      "path": "build/Release/libfontconfig.so.1",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libfontconfig.so.1.17.0",
+      "origin_type": "upstream-source-build",
+      "source": {
+        "name": "fontconfig",
+        "version": "2.18.3",
+        "url": "https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/2.18.3/fontconfig-2.18.3.tar.xz",
+        "sha256": "4f7b554a38cdf78c033f666c8871f3749e14a094f65a07f630c91ed0b43d35e3",
+        "filename": "fontconfig-2.18.3.tar.xz",
+        "source_folder": "fontconfig-2.18.3"
+      }
+    },
+    {
+      "path": "build/Release/libfreetype.so.6",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libfreetype.so.6.20.6",
+      "origin_type": "upstream-source-build",
+      "source": {
+        "name": "freetype",
+        "version": "2.14.3",
+        "url": "https://download-mirror.savannah.gnu.org/releases/freetype/freetype-2.14.3.tar.xz",
+        "sha256": "36bc4f1cc413335368ee656c42afca65c5a3987e8768cc28cf11ba775e785a5f",
+        "filename": "freetype-2.14.3.tar.xz",
+        "source_folder": "freetype-2.14.3"
+      }
+    },
+    {
+      "path": "build/Release/libfribidi.so.0",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libfribidi.so.0.4.0",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libfribidi0",
+        "version": "1.0.13-3build1",
+        "filename": "libfribidi0_1.0.13-3build1_amd64.deb",
+        "bytes": 26150,
+        "sha256": "6cd50259d39ce0dfafee2632c6268538e6a02590e77161a133e9683af346dd1d",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/f/fribidi/libfribidi0_1.0.13-3build1_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libfribidi.so.0.4.0",
+      "source_package": "fribidi",
+      "source_version": "1.0.13-3build1",
+      "original_sha256": "550020af7ff4f77e3f05500e71051b676ee76f530479c2a836dfe899fcaf8395"
+    },
+    {
+      "path": "build/Release/libgcc_s.so.1",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libgcc_s.so.1",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libgcc-s1",
+        "version": "14.2.0-4ubuntu2~24.04.1",
+        "filename": "libgcc-s1_14.2.0-4ubuntu2~24.04.1_amd64.deb",
+        "bytes": 78392,
+        "sha256": "aa7fadbe33b78bcf99885318040601c550c208929565b179891d9a3cc2aa68cd",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/gcc-14/libgcc-s1_14.2.0-4ubuntu2%7e24.04.1_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libgcc_s.so.1",
+      "source_package": "gcc-14",
+      "source_version": "14.2.0-4ubuntu2~24.04.1",
+      "original_sha256": "d93224d2b0dab4247598be683adca02f5cf00586f99c187579cd7e92058fb7cb"
+    },
+    {
+      "path": "build/Release/libgdk_pixbuf-2.0.so.0",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libgdk_pixbuf-2.0.so.0.4200.10",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libgdk-pixbuf-2.0-0",
+        "version": "2.42.10+dfsg-3ubuntu3.3",
+        "filename": "libgdk-pixbuf-2.0-0_2.42.10+dfsg-3ubuntu3.3_amd64.deb",
+        "bytes": 147442,
+        "sha256": "de84e0d777d9c9e39148d8491338e6b8c62bc2d066867266b1643a7a725a86ba",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/gdk-pixbuf/libgdk-pixbuf-2.0-0_2.42.10%2bdfsg-3ubuntu3.3_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libgdk_pixbuf-2.0.so.0.4200.10",
+      "source_package": "gdk-pixbuf",
+      "source_version": "2.42.10+dfsg-3ubuntu3.3",
+      "original_sha256": "f9f51980f9d8978507c3637fa5d4e89f9910d01d74c91905f27158efca27279d"
+    },
+    {
+      "path": "build/Release/libgif.so.7",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libgif.so.7.2.0",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libgif7",
+        "version": "5.2.2-1ubuntu1.2",
+        "filename": "libgif7_5.2.2-1ubuntu1.2_amd64.deb",
+        "bytes": 35608,
+        "sha256": "8137945ac9167f26d0264f403ffb48a45974f096e8acab5479e33fdba6c28a36",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/giflib/libgif7_5.2.2-1ubuntu1.2_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libgif.so.7.2.0",
+      "source_package": "giflib",
+      "source_version": "5.2.2-1ubuntu1.2",
+      "original_sha256": "70ac81372d0ddbdf03dbdd7a9f994df625928cedf794b7c0a06c9eac27a4edc3"
+    },
+    {
+      "path": "build/Release/libgio-2.0.so.0",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libgio-2.0.so.0.9000.0",
+      "origin_type": "upstream-source-build",
+      "source": {
+        "name": "glib",
+        "version": "2.90.0",
+        "url": "https://download.gnome.org/sources/glib/2.90/glib-2.90.0.tar.xz",
+        "sha256": "17d15cac2af80a33271127408e0abc2748eb297c595c2a26409e81e14e7d1b8f",
+        "filename": "glib-2.90.0.tar.xz",
+        "source_folder": "glib-2.90.0"
+      }
+    },
+    {
+      "path": "build/Release/libglib-2.0.so.0",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.9000.0",
+      "origin_type": "upstream-source-build",
+      "source": {
+        "name": "glib",
+        "version": "2.90.0",
+        "url": "https://download.gnome.org/sources/glib/2.90/glib-2.90.0.tar.xz",
+        "sha256": "17d15cac2af80a33271127408e0abc2748eb297c595c2a26409e81e14e7d1b8f",
+        "filename": "glib-2.90.0.tar.xz",
+        "source_folder": "glib-2.90.0"
+      }
+    },
+    {
+      "path": "build/Release/libgmodule-2.0.so.0",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libgmodule-2.0.so.0.9000.0",
+      "origin_type": "upstream-source-build",
+      "source": {
+        "name": "glib",
+        "version": "2.90.0",
+        "url": "https://download.gnome.org/sources/glib/2.90/glib-2.90.0.tar.xz",
+        "sha256": "17d15cac2af80a33271127408e0abc2748eb297c595c2a26409e81e14e7d1b8f",
+        "filename": "glib-2.90.0.tar.xz",
+        "source_folder": "glib-2.90.0"
+      }
+    },
+    {
+      "path": "build/Release/libgobject-2.0.so.0",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.9000.0",
+      "origin_type": "upstream-source-build",
+      "source": {
+        "name": "glib",
+        "version": "2.90.0",
+        "url": "https://download.gnome.org/sources/glib/2.90/glib-2.90.0.tar.xz",
+        "sha256": "17d15cac2af80a33271127408e0abc2748eb297c595c2a26409e81e14e7d1b8f",
+        "filename": "glib-2.90.0.tar.xz",
+        "source_folder": "glib-2.90.0"
+      }
+    },
+    {
+      "path": "build/Release/libgraphite2.so.3",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libgraphite2.so.3.2.1",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libgraphite2-3",
+        "version": "1.3.14-2ubuntu0.24.04.1",
+        "filename": "libgraphite2-3_1.3.14-2ubuntu0.24.04.1_amd64.deb",
+        "bytes": 73352,
+        "sha256": "2413ea0f6670d6610ee7c2f550551d69fa341f4b9c78e20eb397f0d1bbe914cb",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/graphite2/libgraphite2-3_1.3.14-2ubuntu0.24.04.1_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libgraphite2.so.3.2.1",
+      "source_package": "graphite2",
+      "source_version": "1.3.14-2ubuntu0.24.04.1",
+      "original_sha256": "fcfaf843b25b58b88319ced52f826fc8213a661f3693c916f88641eddffe05b8"
+    },
+    {
+      "path": "build/Release/libharfbuzz.so.0",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libharfbuzz.so.0.61450.0",
+      "origin_type": "upstream-source-build",
+      "source": {
+        "name": "harfbuzz",
+        "version": "14.5.0",
+        "url": "https://github.com/harfbuzz/harfbuzz/releases/download/14.5.0/harfbuzz-14.5.0.tar.xz",
+        "sha256": "b7132e148358a45185c9feafd049dbaf243649d3c44414b3534d9c95d18592b9",
+        "filename": "harfbuzz-14.5.0.tar.xz",
+        "source_folder": "harfbuzz-14.5.0"
+      }
+    },
+    {
+      "path": "build/Release/libicudata.so.74",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libicudata.so.74.2",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libicu74",
+        "version": "74.2-1ubuntu3.1",
+        "filename": "libicu74_74.2-1ubuntu3.1_amd64.deb",
+        "bytes": 10860078,
+        "sha256": "c9a70989678660eed9a1e904c74fa043da8bec8e2036856fc16e31ced79b04f8",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/i/icu/libicu74_74.2-1ubuntu3.1_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libicudata.so.74.2",
+      "source_package": "icu",
+      "source_version": "74.2-1ubuntu3.1",
+      "original_sha256": "ddbb3718b8bd9cbd780e5ab08b4503c30a6c4fa0706ebe5d074ed6b596c1714e"
+    },
+    {
+      "path": "build/Release/libicuuc.so.74",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libicuuc.so.74.2",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libicu74",
+        "version": "74.2-1ubuntu3.1",
+        "filename": "libicu74_74.2-1ubuntu3.1_amd64.deb",
+        "bytes": 10860078,
+        "sha256": "c9a70989678660eed9a1e904c74fa043da8bec8e2036856fc16e31ced79b04f8",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/i/icu/libicu74_74.2-1ubuntu3.1_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libicuuc.so.74.2",
+      "source_package": "icu",
+      "source_version": "74.2-1ubuntu3.1",
+      "original_sha256": "7560aadde38e5f4237a47a1ddd5891f9b36768a77a60faae30beee003ac01901"
+    },
+    {
+      "path": "build/Release/libjpeg.so.8",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libjpeg.so.8.2.2",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libjpeg-turbo8",
+        "version": "2.1.5-2ubuntu2",
+        "filename": "libjpeg-turbo8_2.1.5-2ubuntu2_amd64.deb",
+        "bytes": 149982,
+        "sha256": "f68b5b23bc8a1688fb787d2aed7e2cdf895a73022f6a5025e183162dac4500b2",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/libj/libjpeg-turbo/libjpeg-turbo8_2.1.5-2ubuntu2_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libjpeg.so.8.2.2",
+      "source_package": "libjpeg-turbo",
+      "source_version": "2.1.5-2ubuntu2",
+      "original_sha256": "ac09f2cd6f8a3b8e3cb123999ce275f9bcbe31c6cf9e20212c8f297772591d15"
+    },
+    {
+      "path": "build/Release/liblzma.so.5",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/liblzma.so.5.4.5",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "liblzma5",
+        "version": "5.6.1+really5.4.5-1ubuntu0.3",
+        "filename": "liblzma5_5.6.1+really5.4.5-1ubuntu0.3_amd64.deb",
+        "bytes": 127352,
+        "sha256": "d2eabd41ca77d2c2dd9d5d4ef478cccb64ffde6279c47cf4699a857d46785a52",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/x/xz-utils/liblzma5_5.6.1%2breally5.4.5-1ubuntu0.3_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/liblzma.so.5.4.5",
+      "source_package": "xz-utils",
+      "source_version": "5.6.1+really5.4.5-1ubuntu0.3",
+      "original_sha256": "696e868dd0700a19a6d65fc01608ec2d70d3cb91f65710e89180cd2e688f30cb"
+    },
+    {
+      "path": "build/Release/libpango-1.0.so.0",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libpango-1.0.so.0.5800.2",
+      "origin_type": "upstream-source-build",
+      "source": {
+        "name": "pango",
+        "version": "1.58.2",
+        "url": "https://download.gnome.org/sources/pango/1.58/pango-1.58.2.tar.xz",
+        "sha256": "342385b6ca3b7c73455d7c80a13b7dbe4489e00bc3bd4c5bd6ed4dce421e374a",
+        "filename": "pango-1.58.2.tar.xz",
+        "source_folder": "pango-1.58.2"
+      }
+    },
+    {
+      "path": "build/Release/libpangocairo-1.0.so.0",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libpangocairo-1.0.so.0.5800.2",
+      "origin_type": "upstream-source-build",
+      "source": {
+        "name": "pango",
+        "version": "1.58.2",
+        "url": "https://download.gnome.org/sources/pango/1.58/pango-1.58.2.tar.xz",
+        "sha256": "342385b6ca3b7c73455d7c80a13b7dbe4489e00bc3bd4c5bd6ed4dce421e374a",
+        "filename": "pango-1.58.2.tar.xz",
+        "source_folder": "pango-1.58.2"
+      }
+    },
+    {
+      "path": "build/Release/libpangoft2-1.0.so.0",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libpangoft2-1.0.so.0.5800.2",
+      "origin_type": "upstream-source-build",
+      "source": {
+        "name": "pango",
+        "version": "1.58.2",
+        "url": "https://download.gnome.org/sources/pango/1.58/pango-1.58.2.tar.xz",
+        "sha256": "342385b6ca3b7c73455d7c80a13b7dbe4489e00bc3bd4c5bd6ed4dce421e374a",
+        "filename": "pango-1.58.2.tar.xz",
+        "source_folder": "pango-1.58.2"
+      }
+    },
+    {
+      "path": "build/Release/libpcre2-8.so.0",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libpcre2-8.so.0.11.2",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libpcre2-8-0",
+        "version": "10.42-4ubuntu2.1",
+        "filename": "libpcre2-8-0_10.42-4ubuntu2.1_amd64.deb",
+        "bytes": 226662,
+        "sha256": "110a797a57673d3ee497a141cf988199258058c57525799c63194d81822529a0",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/p/pcre2/libpcre2-8-0_10.42-4ubuntu2.1_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libpcre2-8.so.0.11.2",
+      "source_package": "pcre2",
+      "source_version": "10.42-4ubuntu2.1",
+      "original_sha256": "e00576d71d81d3ba0cfa4903c835a44a8723aac96f72f79ff75200b4cff9071b"
+    },
+    {
+      "path": "build/Release/libpixman-1.so.0",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libpixman-1.so.0.42.2",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libpixman-1-0",
+        "version": "0.42.2-1build1",
+        "filename": "libpixman-1-0_0.42.2-1build1_amd64.deb",
+        "bytes": 279306,
+        "sha256": "d9c2931c4c424615eeab9dd5ae08bfc608b84e803c1d3ccddf319270db213421",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/p/pixman/libpixman-1-0_0.42.2-1build1_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libpixman-1.so.0.42.2",
+      "source_package": "pixman",
+      "source_version": "0.42.2-1build1",
+      "original_sha256": "73aa0daeedb7228754d798b194e2ff69c8b82a689b9aa4f1d8ab32a8763b0cc5"
+    },
+    {
+      "path": "build/Release/libpng16.so.16",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libpng16.so.16.43.0",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libpng16-16t64",
+        "version": "1.6.43-5ubuntu0.6",
+        "filename": "libpng16-16t64_1.6.43-5ubuntu0.6_amd64.deb",
+        "bytes": 188776,
+        "sha256": "ac0163f58b8aa52dfdd17cdc10a83f3db084cb91a62686023f5c983d6ff89f8b",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/libp/libpng1.6/libpng16-16t64_1.6.43-5ubuntu0.6_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libpng16.so.16.43.0",
+      "source_package": "libpng1.6",
+      "source_version": "1.6.43-5ubuntu0.6",
+      "original_sha256": "eac265b3506df0d9110dd9143e1d0503e2daabafe1d98b23fac8ca17b71d1f6b"
+    },
+    {
+      "path": "build/Release/librsvg-2.so.2",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/librsvg-2.so.2.63.2",
+      "origin_type": "upstream-source-build",
+      "source": {
+        "name": "librsvg",
+        "version": "2.63.2",
+        "url": "https://download.gnome.org/sources/librsvg/2.63/librsvg-2.63.2.tar.xz",
+        "sha256": "852b18e1a00b8605528825a27dc7748bff2a5dd254028f59dc22a34ea57e81b6",
+        "filename": "librsvg-2.63.2.tar.xz",
+        "source_folder": "librsvg-2.63.2"
+      }
+    },
+    {
+      "path": "build/Release/libstdc++.so.6",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libstdc++6",
+        "version": "14.2.0-4ubuntu2~24.04.1",
+        "filename": "libstdc++6_14.2.0-4ubuntu2~24.04.1_amd64.deb",
+        "bytes": 792064,
+        "sha256": "a51f8de7829211db961a31f02158058ad1a95f92ac6d0a5dff6350e2821c54c0",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/gcc-14/libstdc%2b%2b6_14.2.0-4ubuntu2%7e24.04.1_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33",
+      "source_package": "gcc-14",
+      "source_version": "14.2.0-4ubuntu2~24.04.1",
+      "original_sha256": "1fd75fe70354a416d75aef22bcae68c47bd25d20e2d0568c30b1a9838cf62f11"
+    },
+    {
+      "path": "build/Release/libthai.so.0",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libthai.so.0.3.1",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libthai0",
+        "version": "0.1.29-2build1",
+        "filename": "libthai0_0.1.29-2build1_amd64.deb",
+        "bytes": 18914,
+        "sha256": "5ada7045c5f84a4b774e6449151800aa6470e8d01dc9d6124ef4a44ae6af5508",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/libt/libthai/libthai0_0.1.29-2build1_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libthai.so.0.3.1",
+      "source_package": "libthai",
+      "source_version": "0.1.29-2build1",
+      "original_sha256": "1a72e318418dc0ee6014401de9d9976516fe127358c07c305e1198b9814e2b31"
+    },
+    {
+      "path": "build/Release/libxml2.so.2",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libxml2.so.2.9.14",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "libxml2",
+        "version": "2.9.14+dfsg-1.3ubuntu3.8",
+        "filename": "libxml2_2.9.14+dfsg-1.3ubuntu3.8_amd64.deb",
+        "bytes": 763972,
+        "sha256": "bfd07c01d6e5ab3e327f3ca5819409b1914bbfb3f1a016d53e4dabd5f96143bb",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/libx/libxml2/libxml2_2.9.14%2bdfsg-1.3ubuntu3.8_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libxml2.so.2.9.14",
+      "source_package": "libxml2",
+      "source_version": "2.9.14+dfsg-1.3ubuntu3.8",
+      "original_sha256": "8b6f68c242929aebe49eb28f800dc3e8ee7147298c94bdabc834f61eff1ac177"
+    },
+    {
+      "path": "build/Release/libz.so.1",
+      "original_path": "sdk/usr/lib/x86_64-linux-gnu/libz.so.1.3",
+      "origin_type": "ubuntu-binary-package",
+      "package": {
+        "package": "zlib1g",
+        "version": "1:1.3.dfsg-3.1ubuntu2.2",
+        "filename": "zlib1g_1%3a1.3.dfsg-3.1ubuntu2.2_amd64.deb",
+        "bytes": 62988,
+        "sha256": "84b9cf5752b29c9f92c27cd4c4ba9bbcc70b5ccf9b1b515421a28ae23212e273",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/z/zlib/zlib1g_1.3.dfsg-3.1ubuntu2.2_amd64.deb"
+      },
+      "archive_member": "usr/lib/x86_64-linux-gnu/libz.so.1.3",
+      "source_package": "zlib",
+      "source_version": "1:1.3.dfsg-3.1ubuntu2.2",
+      "original_sha256": "86200da370f20476a2507e9097a789b5ef97269b4ca8d5e164ad82dab9d99892"
+    }
+  ],
+  "ubuntu_sources": [
+    {
+      "source_package": "brotli",
+      "source_version": "1.1.0-2build2",
+      "files": [
+        {
+          "file": "brotli_1.1.0-2build2.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/b/brotli/brotli_1.1.0-2build2.dsc",
+          "sha256": "c58421959677a80d942924685007e8d5b5d1160fd7f61a1f0a9062bf08835856",
+          "bytes": 2401,
+          "role": "source-control-file"
+        },
+        {
+          "file": "brotli_1.1.0.orig.tar.gz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/b/brotli/brotli_1.1.0.orig.tar.gz",
+          "sha256": "10973f4b4199eafa1d5735ef661ddb2ec2f97319ee9fd1824d4aabe08cff5265",
+          "bytes": 512036,
+          "role": "source-archive"
+        },
+        {
+          "file": "brotli_1.1.0-2build2.debian.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/b/brotli/brotli_1.1.0-2build2.debian.tar.xz",
+          "sha256": "96603222d7b6edb3253a846852972b6bde5b86814907d5540249e6950980a943",
+          "bytes": 5644,
+          "role": "source-archive"
+        }
+      ]
+    },
+    {
+      "source_package": "bzip2",
+      "source_version": "1.0.8-5.1ubuntu0.1",
+      "files": [
+        {
+          "file": "bzip2_1.0.8-5.1ubuntu0.1.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/b/bzip2/bzip2_1.0.8-5.1ubuntu0.1.dsc",
+          "sha256": "87d782671790af480ab3c3b258885ad2c239e41772e0116ceda6446c493f9dd4",
+          "bytes": 1699,
+          "role": "source-control-file"
+        },
+        {
+          "file": "bzip2_1.0.8.orig.tar.gz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/b/bzip2/bzip2_1.0.8.orig.tar.gz",
+          "sha256": "ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269",
+          "bytes": 810029,
+          "role": "source-archive"
+        },
+        {
+          "file": "bzip2_1.0.8-5.1ubuntu0.1.debian.tar.bz2",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/b/bzip2/bzip2_1.0.8-5.1ubuntu0.1.debian.tar.bz2",
+          "sha256": "77c61e0490ff7cf49aa8ffe62e117e85b3af08e14341c4b851f8d7ec757fe099",
+          "bytes": 27529,
+          "role": "source-archive"
+        }
+      ]
+    },
+    {
+      "source_package": "dav1d",
+      "source_version": "1.4.1-1build1",
+      "files": [
+        {
+          "file": "dav1d_1.4.1-1build1.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/universe/d/dav1d/dav1d_1.4.1-1build1.dsc",
+          "sha256": "729d4465b87c09b8cb2d3b11973ce013c78cceb907da492f0e0540dcc4bc8fc7",
+          "bytes": 2427,
+          "role": "source-control-file"
+        },
+        {
+          "file": "dav1d_1.4.1.orig.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/universe/d/dav1d/dav1d_1.4.1.orig.tar.xz",
+          "sha256": "8d407dd5fe7986413c937b14e67f36aebd06e1fa5cfec679d10e548476f2d5f8",
+          "bytes": 948044,
+          "role": "source-archive"
+        },
+        {
+          "file": "dav1d_1.4.1.orig.tar.xz.asc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/universe/d/dav1d/dav1d_1.4.1.orig.tar.xz.asc",
+          "sha256": "030272d427ee6736b80172800e0f0686606623b0bd9f420d52136da04583685f",
+          "bytes": 195,
+          "role": "source-archive"
+        },
+        {
+          "file": "dav1d_1.4.1-1build1.debian.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/universe/d/dav1d/dav1d_1.4.1-1build1.debian.tar.xz",
+          "sha256": "6a6df0c13152730114efac193663525fd0a5a0fd59a1b07a19428fccf2848e71",
+          "bytes": 8508,
+          "role": "source-archive"
+        }
+      ]
+    },
+    {
+      "source_package": "expat",
+      "source_version": "2.6.1-2ubuntu0.4",
+      "files": [
+        {
+          "file": "expat_2.6.1-2ubuntu0.4.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/e/expat/expat_2.6.1-2ubuntu0.4.dsc",
+          "sha256": "a25d3fde103454ad5d34d4770bd5adb60bb5872da775df74cad193b5c4de1dff",
+          "bytes": 1945,
+          "role": "source-control-file"
+        },
+        {
+          "file": "expat_2.6.1.orig.tar.gz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/e/expat/expat_2.6.1.orig.tar.gz",
+          "sha256": "14113ed69357172a0bf5a268793c8b5b01afc77c7a2e5fb8dd0b06cb87c02c4a",
+          "bytes": 8414649,
+          "role": "source-archive"
+        },
+        {
+          "file": "expat_2.6.1-2ubuntu0.4.debian.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/e/expat/expat_2.6.1-2ubuntu0.4.debian.tar.xz",
+          "sha256": "8a24bd6c87fe292a2f00a2df71f7d2bbe3713fa63b1952c8552cdac4288d10fd",
+          "bytes": 31092,
+          "role": "source-archive"
+        }
+      ]
+    },
+    {
+      "source_package": "fribidi",
+      "source_version": "1.0.13-3build1",
+      "files": [
+        {
+          "file": "fribidi_1.0.13-3build1.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/f/fribidi/fribidi_1.0.13-3build1.dsc",
+          "sha256": "2df939e37ac9c71ed8de3c1dd55641f069fd2ed1bfa162e2ce03c819084ddbd1",
+          "bytes": 2439,
+          "role": "source-control-file"
+        },
+        {
+          "file": "fribidi_1.0.13.orig.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/f/fribidi/fribidi_1.0.13.orig.tar.xz",
+          "sha256": "7fa16c80c81bd622f7b198d31356da139cc318a63fc7761217af4130903f54a2",
+          "bytes": 1170100,
+          "role": "source-archive"
+        },
+        {
+          "file": "fribidi_1.0.13-3build1.debian.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/f/fribidi/fribidi_1.0.13-3build1.debian.tar.xz",
+          "sha256": "d6dd83149e92d0c335f56d5abebcad96591d291ad3d242efeeebcdab38dd20fc",
+          "bytes": 8992,
+          "role": "source-archive"
+        }
+      ]
+    },
+    {
+      "source_package": "gcc-14",
+      "source_version": "14.2.0-4ubuntu2~24.04.1",
+      "files": [
+        {
+          "file": "gcc-14_14.2.0-4ubuntu2~24.04.1.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/gcc-14/gcc-14_14.2.0-4ubuntu2~24.04.1.dsc",
+          "sha256": "50950080874a6ec6780dd60c243e21d9cda9d736bb32bca98d16095d27cc01b5",
+          "bytes": 46930,
+          "role": "source-control-file"
+        },
+        {
+          "file": "gcc-14_14.2.0.orig.tar.gz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/gcc-14/gcc-14_14.2.0.orig.tar.gz",
+          "sha256": "768c314c11eeab56ccebb91eb42ec4a41122fa94f0d83400126401942622197b",
+          "bytes": 97158172,
+          "role": "source-archive"
+        },
+        {
+          "file": "gcc-14_14.2.0-4ubuntu2~24.04.1.debian.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/gcc-14/gcc-14_14.2.0-4ubuntu2~24.04.1.debian.tar.xz",
+          "sha256": "cfece214c2fb790ef5f3baffb9a53e40618e7ae12d053610b251e94d77d08ade",
+          "bytes": 1950432,
+          "role": "source-archive"
+        }
+      ]
+    },
+    {
+      "source_package": "gdk-pixbuf",
+      "source_version": "2.42.10+dfsg-3ubuntu3.3",
+      "files": [
+        {
+          "file": "gdk-pixbuf_2.42.10+dfsg-3ubuntu3.3.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/gdk-pixbuf/gdk-pixbuf_2.42.10+dfsg-3ubuntu3.3.dsc",
+          "sha256": "b86025ff9d9ff4e39ec4b1773f23648f18556d154867e28b2f8fc1e589be80d0",
+          "bytes": 3187,
+          "role": "source-control-file"
+        },
+        {
+          "file": "gdk-pixbuf_2.42.10+dfsg.orig.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/gdk-pixbuf/gdk-pixbuf_2.42.10+dfsg.orig.tar.xz",
+          "sha256": "46663e445468e92f4a0ca876b02aed4f8758595ee3acfaa6ef3ba2b29e1c1930",
+          "bytes": 6439240,
+          "role": "source-archive"
+        },
+        {
+          "file": "gdk-pixbuf_2.42.10+dfsg-3ubuntu3.3.debian.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/gdk-pixbuf/gdk-pixbuf_2.42.10+dfsg-3ubuntu3.3.debian.tar.xz",
+          "sha256": "62966dc916fb4476b0d36ccdb53040845290a55f2f3efe2358ecb567c8295906",
+          "bytes": 29808,
+          "role": "source-archive"
+        }
+      ]
+    },
+    {
+      "source_package": "giflib",
+      "source_version": "5.2.2-1ubuntu1.2",
+      "files": [
+        {
+          "file": "giflib_5.2.2-1ubuntu1.2.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/giflib/giflib_5.2.2-1ubuntu1.2.dsc",
+          "sha256": "a50e037ee000d290def80f3a08a4485e3f94b14eaa9ccc050dafb3e1a75f11d1",
+          "bytes": 2032,
+          "role": "source-control-file"
+        },
+        {
+          "file": "giflib_5.2.2.orig.tar.gz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/giflib/giflib_5.2.2.orig.tar.gz",
+          "sha256": "be7ffbd057cadebe2aa144542fd90c6838c6a083b5e8a9048b8ee3b66b29d5fb",
+          "bytes": 447175,
+          "role": "source-archive"
+        },
+        {
+          "file": "giflib_5.2.2-1ubuntu1.2.debian.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/giflib/giflib_5.2.2-1ubuntu1.2.debian.tar.xz",
+          "sha256": "3c2b54dba8401c9025acdce37e5345ff5eb6e7829702abbbaec4498a56da8e34",
+          "bytes": 17220,
+          "role": "source-archive"
+        }
+      ]
+    },
+    {
+      "source_package": "graphite2",
+      "source_version": "1.3.14-2ubuntu0.24.04.1",
+      "files": [
+        {
+          "file": "graphite2_1.3.14-2ubuntu0.24.04.1.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/graphite2/graphite2_1.3.14-2ubuntu0.24.04.1.dsc",
+          "sha256": "c34a4358cdadcf881fe9794e13c27650f1c5de7bcd3aaf9a40a908047c4d44b4",
+          "bytes": 2682,
+          "role": "source-control-file"
+        },
+        {
+          "file": "graphite2_1.3.14.orig.tar.gz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/graphite2/graphite2_1.3.14.orig.tar.gz",
+          "sha256": "7a3b342c5681921ce2e0c2496509d30b5b078399d5a7bd2358f95166d57d91df",
+          "bytes": 6629829,
+          "role": "source-archive"
+        },
+        {
+          "file": "graphite2_1.3.14-2ubuntu0.24.04.1.debian.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/graphite2/graphite2_1.3.14-2ubuntu0.24.04.1.debian.tar.xz",
+          "sha256": "1a860887ab20f97acd841511d2318649cee3a31ad990a150f2999c36afa72693",
+          "bytes": 15004,
+          "role": "source-archive"
+        }
+      ]
+    },
+    {
+      "source_package": "icu",
+      "source_version": "74.2-1ubuntu3.1",
+      "files": [
+        {
+          "file": "icu_74.2-1ubuntu3.1.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/i/icu/icu_74.2-1ubuntu3.1.dsc",
+          "sha256": "6cbf2e7018b5d16d634994e32af96f4d60f4468c36674c57f897b68812bbd883",
+          "bytes": 2350,
+          "role": "source-control-file"
+        },
+        {
+          "file": "icu_74.2.orig.tar.gz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/i/icu/icu_74.2.orig.tar.gz",
+          "sha256": "5e4fb11d6a3e6b85afb55de8da8a71538f1d8fd64fce893986b37d60e5bb0091",
+          "bytes": 26618071,
+          "role": "source-archive"
+        },
+        {
+          "file": "icu_74.2.orig.tar.gz.asc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/i/icu/icu_74.2.orig.tar.gz.asc",
+          "sha256": "1ca528b0017bae639fec7e89e3f988d0fa7def3e2436e5f7f5f9ec7dec2d9ece",
+          "bytes": 659,
+          "role": "source-archive"
+        },
+        {
+          "file": "icu_74.2-1ubuntu3.1.debian.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/i/icu/icu_74.2-1ubuntu3.1.debian.tar.xz",
+          "sha256": "45c74f50709547b0bfe3de020fd77be92c44d55e7020e718b0a47a0d0382f074",
+          "bytes": 64432,
+          "role": "source-archive"
+        }
+      ]
+    },
+    {
+      "source_package": "libdatrie",
+      "source_version": "0.2.13-3build1",
+      "files": [
+        {
+          "file": "libdatrie_0.2.13-3build1.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/libd/libdatrie/libdatrie_0.2.13-3build1.dsc",
+          "sha256": "9d4bef261b1f1a5abd62c99ecdee5cd8b5dc09987b13d1ba1b66a73f1b1f0c6f",
+          "bytes": 2368,
+          "role": "source-control-file"
+        },
+        {
+          "file": "libdatrie_0.2.13.orig.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/libd/libdatrie/libdatrie_0.2.13.orig.tar.xz",
+          "sha256": "12231bb2be2581a7f0fb9904092d24b0ed2a271a16835071ed97bed65267f4be",
+          "bytes": 314072,
+          "role": "source-archive"
+        },
+        {
+          "file": "libdatrie_0.2.13-3build1.debian.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/libd/libdatrie/libdatrie_0.2.13-3build1.debian.tar.xz",
+          "sha256": "7e321906339b790e881700643bba7e4fa66accf61788d466a94eaba25e30637b",
+          "bytes": 9776,
+          "role": "source-archive"
+        }
+      ]
+    },
+    {
+      "source_package": "libffi",
+      "source_version": "3.4.6-1build1",
+      "files": [
+        {
+          "file": "libffi_3.4.6-1build1.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/libf/libffi/libffi_3.4.6-1build1.dsc",
+          "sha256": "a7a2c320c04149192a6dd78df8be28b2b27fd38e48d76f2ee6ba0c19ae0758f6",
+          "bytes": 2055,
+          "role": "source-control-file"
+        },
+        {
+          "file": "libffi_3.4.6.orig.tar.gz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/libf/libffi/libffi_3.4.6.orig.tar.gz",
+          "sha256": "9ac790464c1eb2f5ab5809e978a1683e9393131aede72d1b0a0703771d3c6cda",
+          "bytes": 598175,
+          "role": "source-archive"
+        },
+        {
+          "file": "libffi_3.4.6-1build1.debian.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/libf/libffi/libffi_3.4.6-1build1.debian.tar.xz",
+          "sha256": "9d8712818b833baf002a2413552194b8770800cb20b802ba1d3714156eba14fe",
+          "bytes": 10736,
+          "role": "source-archive"
+        }
+      ]
+    },
+    {
+      "source_package": "libjpeg-turbo",
+      "source_version": "2.1.5-2ubuntu2",
+      "files": [
+        {
+          "file": "libjpeg-turbo_2.1.5-2ubuntu2.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/libj/libjpeg-turbo/libjpeg-turbo_2.1.5-2ubuntu2.dsc",
+          "sha256": "7d17c0964d491cad7237491f28f1ee42d8335a57f9b1c01a5cd141bea418d3a2",
+          "bytes": 2535,
+          "role": "source-control-file"
+        },
+        {
+          "file": "libjpeg-turbo_2.1.5.orig.tar.gz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/libj/libjpeg-turbo/libjpeg-turbo_2.1.5.orig.tar.gz",
+          "sha256": "254f3642b04e309fee775123133c6464181addc150499561020312ec61c1bf7c",
+          "bytes": 2264471,
+          "role": "source-archive"
+        },
+        {
+          "file": "libjpeg-turbo_2.1.5-2ubuntu2.debian.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/libj/libjpeg-turbo/libjpeg-turbo_2.1.5-2ubuntu2.debian.tar.xz",
+          "sha256": "57be35d38b31a88aae42a1242126b22b75395e4d3225092f8cca74082605f6d4",
+          "bytes": 108492,
+          "role": "source-archive"
+        }
+      ]
+    },
+    {
+      "source_package": "libpng1.6",
+      "source_version": "1.6.43-5ubuntu0.6",
+      "files": [
+        {
+          "file": "libpng1.6_1.6.43-5ubuntu0.6.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/libp/libpng1.6/libpng1.6_1.6.43-5ubuntu0.6.dsc",
+          "sha256": "b5c3539ad4f9289480671a5a89aad2d9ad60c5eae79255460f1e929be1e272ad",
+          "bytes": 2384,
+          "role": "source-control-file"
+        },
+        {
+          "file": "libpng1.6_1.6.43.orig.tar.gz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/libp/libpng1.6/libpng1.6_1.6.43.orig.tar.gz",
+          "sha256": "fecc95b46cf05e8e3fc8a414750e0ba5aad00d89e9fdf175e94ff041caf1a03a",
+          "bytes": 1554715,
+          "role": "source-archive"
+        },
+        {
+          "file": "libpng1.6_1.6.43-5ubuntu0.6.debian.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/libp/libpng1.6/libpng1.6_1.6.43-5ubuntu0.6.debian.tar.xz",
+          "sha256": "2410934848547a4c826e102b54e2abdf005fa4e0fbc4aa1e9fe3200638cd9328",
+          "bytes": 50432,
+          "role": "source-archive"
+        }
+      ]
+    },
+    {
+      "source_package": "libthai",
+      "source_version": "0.1.29-2build1",
+      "files": [
+        {
+          "file": "libthai_0.1.29-2build1.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/libt/libthai/libthai_0.1.29-2build1.dsc",
+          "sha256": "a20705f03af7fca8f1bbed128e09020ed958f1bd092859e9133c6c600401a5e5",
+          "bytes": 2451,
+          "role": "source-control-file"
+        },
+        {
+          "file": "libthai_0.1.29.orig.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/libt/libthai/libthai_0.1.29.orig.tar.xz",
+          "sha256": "fc80cc7dcb50e11302b417cebd24f2d30a8b987292e77e003267b9100d0f4bcd",
+          "bytes": 417728,
+          "role": "source-archive"
+        },
+        {
+          "file": "libthai_0.1.29-2build1.debian.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/libt/libthai/libthai_0.1.29-2build1.debian.tar.xz",
+          "sha256": "3538d2a717c5f9e329a2a9c3f62ae3b82d277b047d042df105a98d9417894357",
+          "bytes": 12744,
+          "role": "source-archive"
+        }
+      ]
+    },
+    {
+      "source_package": "libxml2",
+      "source_version": "2.9.14+dfsg-1.3ubuntu3.8",
+      "files": [
+        {
+          "file": "libxml2_2.9.14+dfsg-1.3ubuntu3.8.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/libx/libxml2/libxml2_2.9.14+dfsg-1.3ubuntu3.8.dsc",
+          "sha256": "699272267e3a2f7581a51d7289c0ba524e9785dc76db877e43eb8c9da9532cbb",
+          "bytes": 3079,
+          "role": "source-control-file"
+        },
+        {
+          "file": "libxml2_2.9.14+dfsg.orig.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/libx/libxml2/libxml2_2.9.14+dfsg.orig.tar.xz",
+          "sha256": "4fe913dec8b1ab89d13b489b419a8203176ea39e931eaa0d25b17eafb9c279e9",
+          "bytes": 2351200,
+          "role": "source-archive"
+        },
+        {
+          "file": "libxml2_2.9.14+dfsg-1.3ubuntu3.8.debian.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/libx/libxml2/libxml2_2.9.14+dfsg-1.3ubuntu3.8.debian.tar.xz",
+          "sha256": "f0f8de7efd6370a8fe39a5c88e9a2ee9350ee2882ccc8aaf8ae8f30fbde34ff4",
+          "bytes": 58596,
+          "role": "source-archive"
+        }
+      ]
+    },
+    {
+      "source_package": "pcre2",
+      "source_version": "10.42-4ubuntu2.1",
+      "files": [
+        {
+          "file": "pcre2_10.42-4ubuntu2.1.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/p/pcre2/pcre2_10.42-4ubuntu2.1.dsc",
+          "sha256": "6272177be186d6f8ad16b668bb508b2e07645e05b5b8402d446492cb6d18104e",
+          "bytes": 2277,
+          "role": "source-control-file"
+        },
+        {
+          "file": "pcre2_10.42.orig.tar.gz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/p/pcre2/pcre2_10.42.orig.tar.gz",
+          "sha256": "c33b418e3b936ee3153de2c61cc638e7e4fe3156022a5c77d0711bcbb9d64f1f",
+          "bytes": 2397194,
+          "role": "source-archive"
+        },
+        {
+          "file": "pcre2_10.42-4ubuntu2.1.diff.gz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/p/pcre2/pcre2_10.42-4ubuntu2.1.diff.gz",
+          "sha256": "29c5cb6ff392544bf48bd3ec2a98aa0da5297457fa4f4199a1c392ec3d41f19c",
+          "bytes": 8431,
+          "role": "source-archive"
+        }
+      ]
+    },
+    {
+      "source_package": "pixman",
+      "source_version": "0.42.2-1build1",
+      "files": [
+        {
+          "file": "pixman_0.42.2-1build1.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/p/pixman/pixman_0.42.2-1build1.dsc",
+          "sha256": "15369200fce8d64216d6f1b7968c8172982b03b2d0caf2372225a7f55e8f78b8",
+          "bytes": 2153,
+          "role": "source-control-file"
+        },
+        {
+          "file": "pixman_0.42.2.orig.tar.gz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/p/pixman/pixman_0.42.2.orig.tar.gz",
+          "sha256": "ea1480efada2fd948bc75366f7c349e1c96d3297d09a3fe62626e38e234a625e",
+          "bytes": 959669,
+          "role": "source-archive"
+        },
+        {
+          "file": "pixman_0.42.2-1build1.diff.gz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/p/pixman/pixman_0.42.2-1build1.diff.gz",
+          "sha256": "fa53ab054cbf755ac80258f2b747b9b66c921f37e5e066bc7585058a6c58a1f9",
+          "bytes": 327276,
+          "role": "source-archive"
+        }
+      ]
+    },
+    {
+      "source_package": "xz-utils",
+      "source_version": "5.6.1+really5.4.5-1ubuntu0.3",
+      "files": [
+        {
+          "file": "xz-utils_5.6.1+really5.4.5-1ubuntu0.3.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/x/xz-utils/xz-utils_5.6.1+really5.4.5-1ubuntu0.3.dsc",
+          "sha256": "34c2be772533a5c31e881bc620cedaf9be3d315feb677f00e12c136c299d126a",
+          "bytes": 2505,
+          "role": "source-control-file"
+        },
+        {
+          "file": "xz-utils_5.6.1+really5.4.5.orig.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/x/xz-utils/xz-utils_5.6.1+really5.4.5.orig.tar.xz",
+          "sha256": "da9dec6c12cf2ecf269c31ab65b5de18e8e52b96f35d5bcd08c12b43e6878803",
+          "bytes": 1680520,
+          "role": "source-archive"
+        },
+        {
+          "file": "xz-utils_5.6.1+really5.4.5-1ubuntu0.3.debian.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/x/xz-utils/xz-utils_5.6.1+really5.4.5-1ubuntu0.3.debian.tar.xz",
+          "sha256": "03f321901f6e1c56235cd7ae6a6784c104b1b1060ca3afa5a5806e345ee72e01",
+          "bytes": 31672,
+          "role": "source-archive"
+        }
+      ]
+    },
+    {
+      "source_package": "zlib",
+      "source_version": "1:1.3.dfsg-3.1ubuntu2.2",
+      "files": [
+        {
+          "file": "zlib_1.3.dfsg-3.1ubuntu2.2.dsc",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/z/zlib/zlib_1.3.dfsg-3.1ubuntu2.2.dsc",
+          "sha256": "56a7cd029863cbddafce831e4e63cccfa84017f93617929cb7c02f80bb5a122a",
+          "bytes": 2987,
+          "role": "source-control-file"
+        },
+        {
+          "file": "zlib_1.3.dfsg.orig.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/z/zlib/zlib_1.3.dfsg.orig.tar.xz",
+          "sha256": "5eea0322c1c21c75cad3b607ac1c43ff5c71e014b8ac4a34300b5e2b80d02e70",
+          "bytes": 1128572,
+          "role": "source-archive"
+        },
+        {
+          "file": "zlib_1.3.dfsg-3.1ubuntu2.2.debian.tar.xz",
+          "url": "https://archive.ubuntu.com/ubuntu/pool/main/z/zlib/zlib_1.3.dfsg-3.1ubuntu2.2.debian.tar.xz",
+          "sha256": "de1c2d532ecb7caf99ccb905fb03c37fe0c8117fbdc79d05be4474b71e6398c2",
+          "bytes": 61316,
+          "role": "source-archive"
+        }
+      ]
+    }
+  ],
+  "upstream_materials": [
+    {
+      "component": "cairo",
+      "scope": "runtime-source",
+      "archive": {
+        "name": "cairo",
+        "version": "1.18.6",
+        "url": "https://cairographics.org/releases/cairo-1.18.6.tar.xz",
+        "sha256": "1c767308174337a74694da0f3ec069c271452163a1ef4540964c50c301f157d4",
+        "filename": "cairo-1.18.6.tar.xz",
+        "source_folder": "cairo-1.18.6",
+        "bytes": 32725456
+      },
+      "documents": [
+        {
+          "archive_member": "cairo-1.18.6/AUTHORS",
+          "file": "cairo/cairo-1.18.6/AUTHORS",
+          "bytes": 8148,
+          "sha256": "7118b55c2d911781622ecb281d9e11fd7eeb5f46c8925e6d740f96f89e79a8fe"
+        },
+        {
+          "archive_member": "cairo-1.18.6/COPYING",
+          "file": "cairo/cairo-1.18.6/COPYING",
+          "bytes": 1576,
+          "sha256": "67228a9f7c5f9b67c58f556f1be178f62da4d9e2e6285318d8c74d567255abdf"
+        },
+        {
+          "archive_member": "cairo-1.18.6/COPYING-LGPL-2.1",
+          "file": "cairo/cairo-1.18.6/COPYING-LGPL-2.1",
+          "bytes": 26533,
+          "sha256": "9e9e8608c4cdda51a78cc3a385f4ec9a2e4c96d5ecad74ac8bca5fca3e563b7d"
+        },
+        {
+          "archive_member": "cairo-1.18.6/COPYING-MPL-1.1",
+          "file": "cairo/cairo-1.18.6/COPYING-MPL-1.1",
+          "bytes": 25755,
+          "sha256": "53692a2ed6c6a2c6ec9b32dd0b820dfae91e0a1fcdf625ca9ed0bdf8705fcc4f"
+        },
+        {
+          "archive_member": "cairo-1.18.6/perf/COPYING",
+          "file": "cairo/cairo-1.18.6/perf/COPYING",
+          "bytes": 229,
+          "sha256": "6f93b45ea874706058ae35bc02df79c3f9daf00948672eea8394cc25d1327d49"
+        },
+        {
+          "archive_member": "cairo-1.18.6/test/COPYING",
+          "file": "cairo/cairo-1.18.6/test/COPYING",
+          "bytes": 1026,
+          "sha256": "a37812e0e27a211272d4c27fa45028c3653e78bb708acccb77c94128dc72b98e"
+        },
+        {
+          "archive_member": "cairo-1.18.6/util/COPYING",
+          "file": "cairo/cairo-1.18.6/util/COPYING",
+          "bytes": 138,
+          "sha256": "008e976b6e5e7155ee24322073f42cab7cd6daf90bc2322f1d5c3aacab94111c"
+        },
+        {
+          "archive_member": "cairo-1.18.6/util/cairo-script/COPYING",
+          "file": "cairo/cairo-1.18.6/util/cairo-script/COPYING",
+          "bytes": 656,
+          "sha256": "25f4d4ce651b1ee6aff713ff986275d6c190a8537e36437886f8bf1497b0a174"
+        },
+        {
+          "archive_member": "cairo-1.18.6/util/cairo-trace/COPYING",
+          "file": "cairo/cairo-1.18.6/util/cairo-trace/COPYING",
+          "bytes": 179,
+          "sha256": "421158645572270264a980b8b130dd988138e4dae20144e22455446e0ef90902"
+        },
+        {
+          "archive_member": "cairo-1.18.6/util/cairo-trace/COPYING-GPL-3",
+          "file": "cairo/cairo-1.18.6/util/cairo-trace/COPYING-GPL-3",
+          "bytes": 35147,
+          "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+        }
+      ]
+    },
+    {
+      "component": "librsvg",
+      "scope": "runtime-source",
+      "archive": {
+        "name": "librsvg",
+        "version": "2.63.2",
+        "url": "https://download.gnome.org/sources/librsvg/2.63/librsvg-2.63.2.tar.xz",
+        "sha256": "852b18e1a00b8605528825a27dc7748bff2a5dd254028f59dc22a34ea57e81b6",
+        "filename": "librsvg-2.63.2.tar.xz",
+        "source_folder": "librsvg-2.63.2",
+        "bytes": 6768408
+      },
+      "documents": [
+        {
+          "archive_member": "librsvg-2.63.2/AUTHORS",
+          "file": "librsvg/librsvg-2.63.2/AUTHORS",
+          "bytes": 1798,
+          "sha256": "14e765b9c1097d93f4b842a6ad23172b530cc00dfe7a5aae1b9afefdca54531b"
+        },
+        {
+          "archive_member": "librsvg-2.63.2/COPYING.LIB",
+          "file": "librsvg/librsvg-2.63.2/COPYING.LIB",
+          "bytes": 26530,
+          "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+        },
+        {
+          "archive_member": "librsvg-2.63.2/librsvg-rebind/LICENSE",
+          "file": "librsvg/librsvg-2.63.2/librsvg-rebind/LICENSE",
+          "bytes": 1023,
+          "sha256": "f9c4c77baa3828004ee54b8a4f2db2e88ed44a6237a493965bf551fac0fcb62d"
+        }
+      ]
+    },
+    {
+      "component": "pango",
+      "scope": "runtime-source",
+      "archive": {
+        "name": "pango",
+        "version": "1.58.2",
+        "url": "https://download.gnome.org/sources/pango/1.58/pango-1.58.2.tar.xz",
+        "sha256": "342385b6ca3b7c73455d7c80a13b7dbe4489e00bc3bd4c5bd6ed4dce421e374a",
+        "filename": "pango-1.58.2.tar.xz",
+        "source_folder": "pango-1.58.2",
+        "bytes": 1918112
+      },
+      "documents": [
+        {
+          "archive_member": "pango-1.58.2/COPYING",
+          "file": "pango/pango-1.58.2/COPYING",
+          "bytes": 25292,
+          "sha256": "d245807f90032872d1438d741ed21e2490e1175dc8aa3afa5ddb6c8e529b58e5"
+        }
+      ]
+    },
+    {
+      "component": "harfbuzz",
+      "scope": "runtime-source",
+      "archive": {
+        "name": "harfbuzz",
+        "version": "14.5.0",
+        "url": "https://github.com/harfbuzz/harfbuzz/releases/download/14.5.0/harfbuzz-14.5.0.tar.xz",
+        "sha256": "b7132e148358a45185c9feafd049dbaf243649d3c44414b3534d9c95d18592b9",
+        "filename": "harfbuzz-14.5.0.tar.xz",
+        "source_folder": "harfbuzz-14.5.0",
+        "bytes": 20262956
+      },
+      "documents": [
+        {
+          "archive_member": "harfbuzz-14.5.0/AUTHORS",
+          "file": "harfbuzz/harfbuzz-14.5.0/AUTHORS",
+          "bytes": 201,
+          "sha256": "19bfe8f5ed100636cd24ab0c90a3f71c21d8b02d9ba00719447a0faab364d49f"
+        },
+        {
+          "archive_member": "harfbuzz-14.5.0/COPYING",
+          "file": "harfbuzz/harfbuzz-14.5.0/COPYING",
+          "bytes": 1971,
+          "sha256": "ba8f810f2455c2f08e2d56bb49b72f37fcf68f1f4fade38977cfd7372050ad64"
+        },
+        {
+          "archive_member": "harfbuzz-14.5.0/perf/texts/COPYING",
+          "file": "harfbuzz/harfbuzz-14.5.0/perf/texts/COPYING",
+          "bytes": 1289,
+          "sha256": "cf977e70247d5fa9d44955e4d8ed23b503c31f78570f62136756278c2cfcb3c3"
+        },
+        {
+          "archive_member": "harfbuzz-14.5.0/src/ms-use/COPYING",
+          "file": "harfbuzz/harfbuzz-14.5.0/src/ms-use/COPYING",
+          "bytes": 1141,
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+        },
+        {
+          "archive_member": "harfbuzz-14.5.0/test/COPYING",
+          "file": "harfbuzz/harfbuzz-14.5.0/test/COPYING",
+          "bytes": 4370,
+          "sha256": "9b35b8485f69cd298fccbb3c40a827dc06cf1185553bef827903497d2944a8d7"
+        },
+        {
+          "archive_member": "harfbuzz-14.5.0/test/shape/data/aots/COPYING",
+          "file": "harfbuzz/harfbuzz-14.5.0/test/shape/data/aots/COPYING",
+          "bytes": 593,
+          "sha256": "f55f74bf740db07bb032a90aa74af4307adea3d489c1ccba12453cf0c0a764cb"
+        },
+        {
+          "archive_member": "harfbuzz-14.5.0/test/shape/data/text-rendering-tests/COPYING",
+          "file": "harfbuzz/harfbuzz-14.5.0/test/shape/data/text-rendering-tests/COPYING",
+          "bytes": 584,
+          "sha256": "d24039e4d22c9bc72096f6174374539d92a3d6e1163938546ec59179fe095e6f"
+        }
+      ]
+    },
+    {
+      "component": "freetype",
+      "scope": "runtime-source",
+      "archive": {
+        "name": "freetype",
+        "version": "2.14.3",
+        "url": "https://download-mirror.savannah.gnu.org/releases/freetype/freetype-2.14.3.tar.xz",
+        "sha256": "36bc4f1cc413335368ee656c42afca65c5a3987e8768cc28cf11ba775e785a5f",
+        "filename": "freetype-2.14.3.tar.xz",
+        "source_folder": "freetype-2.14.3",
+        "bytes": 2670220
+      },
+      "documents": [
+        {
+          "archive_member": "freetype-2.14.3/docs/GPLv2.TXT",
+          "file": "freetype/freetype-2.14.3/docs/GPLv2.TXT",
+          "bytes": 17994,
+          "sha256": "c4120c6752c910c299e3bd9cb3a46ff262c268303ca2069b61f92f10a5656c18"
+        },
+        {
+          "archive_member": "freetype-2.14.3/docs/FTL.TXT",
+          "file": "freetype/freetype-2.14.3/docs/FTL.TXT",
+          "bytes": 6743,
+          "sha256": "5a5ee54c5001bbad1cdc1a57cc3dd4c42199b2da09d39c7ee41fab002d02967f"
+        },
+        {
+          "archive_member": "freetype-2.14.3/LICENSE.TXT",
+          "file": "freetype/freetype-2.14.3/LICENSE.TXT",
+          "bytes": 2149,
+          "sha256": "bd36c8b474855fa294c2ec5c184544478ef3720aad37d65a6296a4f264fd2d3b"
+        }
+      ]
+    },
+    {
+      "component": "glib",
+      "scope": "runtime-source",
+      "archive": {
+        "name": "glib",
+        "version": "2.90.0",
+        "url": "https://download.gnome.org/sources/glib/2.90/glib-2.90.0.tar.xz",
+        "sha256": "17d15cac2af80a33271127408e0abc2748eb297c595c2a26409e81e14e7d1b8f",
+        "filename": "glib-2.90.0.tar.xz",
+        "source_folder": "glib-2.90.0",
+        "bytes": 5830480
+      },
+      "documents": [
+        {
+          "archive_member": "glib-2.90.0/LICENSES/AFL-2.0.txt",
+          "file": "glib/glib-2.90.0/LICENSES/AFL-2.0.txt",
+          "bytes": 8987,
+          "sha256": "7ecc7db84298adb05d2cf10339c63a5315a1c5c270a68d97d7d40a53b508ccde"
+        },
+        {
+          "archive_member": "glib-2.90.0/LICENSES/Apache-2.0.txt",
+          "file": "glib/glib-2.90.0/LICENSES/Apache-2.0.txt",
+          "bytes": 10280,
+          "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff"
+        },
+        {
+          "archive_member": "glib-2.90.0/LICENSES/CC-BY-SA-3.0.txt",
+          "file": "glib/glib-2.90.0/LICENSES/CC-BY-SA-3.0.txt",
+          "bytes": 22240,
+          "sha256": "3f941b3b89cf7b8370ceb83cc76d2120d471b58735d8ca60238a751a48d7f72f"
+        },
+        {
+          "archive_member": "glib-2.90.0/LICENSES/CC0-1.0.txt",
+          "file": "glib/glib-2.90.0/LICENSES/CC0-1.0.txt",
+          "bytes": 7048,
+          "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+        },
+        {
+          "archive_member": "glib-2.90.0/LICENSES/GPL-2.0-or-later.txt",
+          "file": "glib/glib-2.90.0/LICENSES/GPL-2.0-or-later.txt",
+          "bytes": 17337,
+          "sha256": "aaf135472f81c5b4a0dca9367e5bb5e9750032b5bebe5442b36e4c0a47430df3"
+        },
+        {
+          "archive_member": "glib-2.90.0/LICENSES/LGPL-2.1-only.txt",
+          "file": "glib/glib-2.90.0/LICENSES/LGPL-2.1-only.txt",
+          "bytes": 25967,
+          "sha256": "fa6f36630bb1e0c571d34b2bbdf188d08495c9dbf58f28cac112f303fc1f58fb"
+        },
+        {
+          "archive_member": "glib-2.90.0/LICENSES/LGPL-2.1-or-later.txt",
+          "file": "glib/glib-2.90.0/LICENSES/LGPL-2.1-or-later.txt",
+          "bytes": 25967,
+          "sha256": "fa6f36630bb1e0c571d34b2bbdf188d08495c9dbf58f28cac112f303fc1f58fb"
+        },
+        {
+          "archive_member": "glib-2.90.0/LICENSES/LLVM-exception.txt",
+          "file": "glib/glib-2.90.0/LICENSES/LLVM-exception.txt",
+          "bytes": 919,
+          "sha256": "e34c58338bd89d43e709e226610d8f32b3e3c47f4ad9a99a8dc1d4ac7842488e"
+        },
+        {
+          "archive_member": "glib-2.90.0/LICENSES/LicenseRef-old-glib-tests.txt",
+          "file": "glib/glib-2.90.0/LICENSES/LicenseRef-old-glib-tests.txt",
+          "bytes": 841,
+          "sha256": "fb261b2d5dbe76c4850f90da763210bc385e52428df6bbfd7b06295ac8a32914"
+        },
+        {
+          "archive_member": "glib-2.90.0/LICENSES/MIT.txt",
+          "file": "glib/glib-2.90.0/LICENSES/MIT.txt",
+          "bytes": 1078,
+          "sha256": "b85dcd3e453d05982552c52b5fc9e0bdd6d23c6f8e844b984a88af32570b0cc0"
+        },
+        {
+          "archive_member": "glib-2.90.0/LICENSES/MPL-1.1.txt",
+          "file": "glib/glib-2.90.0/LICENSES/MPL-1.1.txt",
+          "bytes": 23669,
+          "sha256": "6214f8b1300bb9f37b16ebc146f8f61af0187e0025042ff95c8b3030744a8795"
+        },
+        {
+          "archive_member": "glib-2.90.0/docs/reference/AUTHORS",
+          "file": "glib/glib-2.90.0/docs/reference/AUTHORS",
+          "bytes": 122,
+          "sha256": "b4f60a02b2b1f82764f8295b2eafbfcd4c33f596d70abcf5cb3c3623b1cfbc6d"
+        },
+        {
+          "archive_member": "glib-2.90.0/docs/reference/COPYING",
+          "file": "glib/glib-2.90.0/docs/reference/COPYING",
+          "bytes": 1698,
+          "sha256": "b1ec1d0e5947f81e815d8771f7d4d90671a94bb10a42dc687fb566de461a57aa"
+        },
+        {
+          "archive_member": "glib-2.90.0/gmodule/AUTHORS",
+          "file": "glib/glib-2.90.0/gmodule/AUTHORS",
+          "bytes": 25,
+          "sha256": "28073c8c65c072387b778ba00b6c24a2ff1b573ca4415e151aa91fab5a6454be"
+        },
+        {
+          "archive_member": "glib-2.90.0/subprojects/gvdb/COPYING",
+          "file": "glib/glib-2.90.0/subprojects/gvdb/COPYING",
+          "bytes": 26445,
+          "sha256": "bdbcdaa7858872393e9d6b216bbdc8a23e99d98dd6cdb7cda19458025b9e19fc"
+        },
+        {
+          "archive_member": "glib-2.90.0/subprojects/gvdb/LICENSES/LGPL-2.1-or-later.txt",
+          "file": "glib/glib-2.90.0/subprojects/gvdb/LICENSES/LGPL-2.1-or-later.txt",
+          "bytes": 26001,
+          "sha256": "5749785c8bdefafcb5d798270ed0a967036fe2ca63dcedade1627565dfef81d2"
+        }
+      ]
+    },
+    {
+      "component": "fontconfig",
+      "scope": "runtime-source",
+      "archive": {
+        "name": "fontconfig",
+        "version": "2.18.3",
+        "url": "https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/2.18.3/fontconfig-2.18.3.tar.xz",
+        "sha256": "4f7b554a38cdf78c033f666c8871f3749e14a094f65a07f630c91ed0b43d35e3",
+        "filename": "fontconfig-2.18.3.tar.xz",
+        "source_folder": "fontconfig-2.18.3",
+        "bytes": 1172016
+      },
+      "documents": [
+        {
+          "archive_member": "fontconfig-2.18.3/AUTHORS",
+          "file": "fontconfig/fontconfig-2.18.3/AUTHORS",
+          "bytes": 62,
+          "sha256": "db6d73a160bb2de10268f88ef60aae91771fefdeee4992b791c76ce6592a4a4b"
+        },
+        {
+          "archive_member": "fontconfig-2.18.3/COPYING",
+          "file": "fontconfig/fontconfig-2.18.3/COPYING",
+          "bytes": 8616,
+          "sha256": "51a51aa9823704fd90bccc616cdd17ebabb5b2b3e9cbde886ca02c7002288067"
+        }
+      ]
+    },
+    {
+      "component": "canvas",
+      "scope": "runtime-source",
+      "archive": {
+        "name": "canvas",
+        "version": "3.2.3",
+        "url": "https://registry.npmjs.org/canvas/-/canvas-3.2.3.tgz",
+        "sha256": "8b0e958df3511566da8e797da68035d0b2425f13a4b6879b5b3e39bca2f96217",
+        "filename": "canvas-3.2.3.tgz",
+        "source_folder": "package",
+        "bytes": 96010
+      },
+      "documents": [
+        {
+          "archive_member": "package/src/bmp/LICENSE.md",
+          "file": "canvas/package/src/bmp/LICENSE.md",
+          "bytes": 1232,
+          "sha256": "bc4c710e3829994e377c65b6671d2efe79236d852f1b514514c311706ea152bf"
+        }
+      ]
+    },
+    {
+      "component": "node",
+      "scope": "build-sdk-header-notices",
+      "archive": {
+        "name": "node",
+        "version": "24.21.0",
+        "url": "https://nodejs.org/dist/v24.21.0/node-v24.21.0-linux-x64.tar.xz",
+        "sha256": "fd8e59d5a511510f6a298afb548f18c7d2b1be404d8b4a27d94fbe49f56cb2d6",
+        "filename": "node-v24.21.0-linux-x64.tar.xz",
+        "source_folder": "node-v24.21.0-linux-x64",
+        "bytes": 31890184
+      },
+      "documents": [
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/LICENSE",
+          "bytes": 9742,
+          "sha256": "7610d223851f421d315df5e77974f1c68a04b97e02060e5bbbcf13d95e3ca257"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@isaacs/string-locale-compare/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@isaacs/string-locale-compare/LICENSE",
+          "bytes": 748,
+          "sha256": "05dc4d785ac3a488676d3ed10e901b75ad89dafcc63f8e66610fd4a39cc5c7e8"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@isaacs/fs-minipass/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@isaacs/fs-minipass/LICENSE",
+          "bytes": 765,
+          "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/arborist/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/arborist/LICENSE.md",
+          "bytes": 798,
+          "sha256": "27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/arborist/bin/license.js",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/arborist/bin/license.js",
+          "bytes": 1485,
+          "sha256": "3c7c2b07a2591835cb6c60687a23e425540565d9ccb65fef17478c6073bf6841"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/config/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/config/LICENSE",
+          "bytes": 739,
+          "sha256": "898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/fs/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/fs/LICENSE.md",
+          "bytes": 798,
+          "sha256": "27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/fs/lib/cp/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/fs/lib/cp/LICENSE",
+          "bytes": 1084,
+          "sha256": "1e76029602ae9b21cc4e612db2496d92febed882ba13ba745f8b3309e85f9d39"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/git/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/git/LICENSE",
+          "bytes": 733,
+          "sha256": "565acf764f4583abe4cf4b02128f01b5d4d1b4c62c253e92df7ed6a8a8ad406b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/installed-package-contents/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/installed-package-contents/LICENSE",
+          "bytes": 739,
+          "sha256": "898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/map-workspaces/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/map-workspaces/LICENSE.md",
+          "bytes": 798,
+          "sha256": "27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/metavuln-calculator/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/metavuln-calculator/LICENSE",
+          "bytes": 739,
+          "sha256": "898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/name-from-folder/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/name-from-folder/LICENSE",
+          "bytes": 721,
+          "sha256": "802fae69bfe8fcb201f15b6a12505580028158679c3ed3254df5ea8f0912aed4"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/node-gyp/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/node-gyp/LICENSE",
+          "bytes": 746,
+          "sha256": "8da13c785af46eb3d0bf2ce4c34bdf191b8c57bf43e410e9359d5b5eab5f4b0f"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/package-json/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/package-json/LICENSE",
+          "bytes": 719,
+          "sha256": "65675229fc81818c9490a1942f361f7ef31cd525bef9111e62a6c84e9bd4769d"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/package-json/lib/license.js",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/package-json/lib/license.js",
+          "bytes": 860,
+          "sha256": "bc4c06b48b593b8b63f3e1557f52bdd37ebf40295033cfdb03d420d181809c11"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/promise-spawn/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/promise-spawn/LICENSE",
+          "bytes": 733,
+          "sha256": "565acf764f4583abe4cf4b02128f01b5d4d1b4c62c253e92df7ed6a8a8ad406b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/query/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/query/LICENSE",
+          "bytes": 798,
+          "sha256": "27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/run-script/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/run-script/LICENSE",
+          "bytes": 739,
+          "sha256": "898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/redact/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@npmcli/redact/LICENSE",
+          "bytes": 1060,
+          "sha256": "d0b7cddf14a2005e05b397a950b9f69e1de412b8c6749e5b5d70610fb119e9ee"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/abbrev/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/abbrev/LICENSE",
+          "bytes": 2011,
+          "sha256": "9e0d5c7989f7e9f07d7c4b158aceff270f235eb7464ace41c5e7b200834a43e0"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/https-proxy-agent/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/https-proxy-agent/LICENSE",
+          "bytes": 1101,
+          "sha256": "8d8c55319c7729d57be811c747452636688d54f19701ee0752b6b15ad3771d9a"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/negotiator/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/negotiator/LICENSE",
+          "bytes": 1177,
+          "sha256": "553d4d20029a24e315b428a1a54a9e109eaa340f2e958a4f50a92362c2c4070b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/aproba/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/aproba/LICENSE",
+          "bytes": 752,
+          "sha256": "0cef05dfff8b6aa7f35596984f5709f0d17c2582924a751efa471a76de7cdc11"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/archy/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/archy/LICENSE",
+          "bytes": 1073,
+          "sha256": "435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/bin-links/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/bin-links/LICENSE",
+          "bytes": 739,
+          "sha256": "898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/binary-extensions/license",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/binary-extensions/license",
+          "bytes": 1167,
+          "sha256": "96f0820026bd6dadc4af99c6dba7111d2e0190c092c376a746c13863e151d072"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/cacache/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/cacache/LICENSE.md",
+          "bytes": 755,
+          "sha256": "720836c9bdad386485a492ab41fe08007ecf85ca278ddd8f9333494dcac4949d"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/chalk/license",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/chalk/license",
+          "bytes": 1117,
+          "sha256": "5c932d88256b4ab958f64a856fa48e8bd1f55bc1d96b8149c65689e0c61789d3"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/chownr/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/chownr/LICENSE.md",
+          "bytes": 1764,
+          "sha256": "a49c9ba464796f65b59fca3f1e6ca40912df1e859f575383223f7ec6c5baae09"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/cidr-regex/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/cidr-regex/LICENSE",
+          "bytes": 1290,
+          "sha256": "23e60503dc06abf04b9e535e17797b4e0f9224e6c5abf9207317d5a67c88c743"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/balanced-match/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/balanced-match/LICENSE.md",
+          "bytes": 1155,
+          "sha256": "d408f38ffa3355c5faec517153295338892eb0f1ea43f57874bb23c6075979b5"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/cmd-shim/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/cmd-shim/LICENSE",
+          "bytes": 756,
+          "sha256": "ec361617c0473d39347b020eaa6dceedaebab43879fa1cd8b8f0f97a8e80a475"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/tinyglobby/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/tinyglobby/LICENSE",
+          "bytes": 1076,
+          "sha256": "22c68811e174cbbfb3813d4135918df4f540959c14d872e601d9abe83d3cde8f"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/tinyglobby/node_modules/fdir/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/tinyglobby/node_modules/fdir/LICENSE",
+          "bytes": 1053,
+          "sha256": "9a39f2aadab11a3697edd668ff2d8ad885b649737b7ab4d3bf12b34e5ada0c86"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/tinyglobby/node_modules/picomatch/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/tinyglobby/node_modules/picomatch/LICENSE",
+          "bytes": 1091,
+          "sha256": "d0cd141b0c322fded5dfad1d4645bb2fedfc05b7321fe1009469638190d59ef9"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/common-ancestor-path/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/common-ancestor-path/LICENSE.md",
+          "bytes": 1552,
+          "sha256": "8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/proggy/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/proggy/LICENSE",
+          "bytes": 742,
+          "sha256": "dc32a0dee275e0a9aeffbc974dbf4899a30dcdc2e5ffa8934aecb69261065864"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/cssesc/LICENSE-MIT.txt",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/cssesc/LICENSE-MIT.txt",
+          "bytes": 1077,
+          "sha256": "483acb265f182907d1caf6cff9c16c96f31325ed23792832cc5d8b12d5f88c8a"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/debug/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/debug/LICENSE",
+          "bytes": 1139,
+          "sha256": "3a61c6c96caf5c1d9b623fb9b04c822b783dfcb78aa7e49c76a3f643e6ed7f95"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/ci-info/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/ci-info/LICENSE",
+          "bytes": 1086,
+          "sha256": "f58943cb354fb2707fea2f7b26b04e6014ddb56835cdfd414c9d2c6c59165b64"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/diff/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/diff/LICENSE",
+          "bytes": 1546,
+          "sha256": "eda81a415869e67809f6a9f3fd6056062cb83a462118e07eec5e92b2e0c40ce9"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/env-paths/license",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/env-paths/license",
+          "bytes": 1109,
+          "sha256": "48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/fastest-levenshtein/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/fastest-levenshtein/LICENSE.md",
+          "bytes": 1072,
+          "sha256": "b8baf91be313643f3e87a01da77704b68e12795184a62e51e537a5a43c2932f3"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/fs-minipass/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/fs-minipass/LICENSE",
+          "bytes": 765,
+          "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/glob/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/glob/LICENSE.md",
+          "bytes": 1764,
+          "sha256": "a49c9ba464796f65b59fca3f1e6ca40912df1e859f575383223f7ec6c5baae09"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/graceful-fs/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/graceful-fs/LICENSE",
+          "bytes": 791,
+          "sha256": "f65c5d9f22a317b2a10803bd1868461ce6499c2ed7217bc80c0cc772a748789c"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/hosted-git-info/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/hosted-git-info/LICENSE",
+          "bytes": 733,
+          "sha256": "c1476ec53119cd4c8370f91f5152ac76312a29b4fae2d49b5e0e0970fe0fa5ee"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/http-cache-semantics/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/http-cache-semantics/LICENSE",
+          "bytes": 1274,
+          "sha256": "ab868ad5a2ef5068560d9cd3b2180ec63c140bb4c5cae1ba779d300a0ac74fa3"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/agent-base/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/agent-base/LICENSE",
+          "bytes": 1101,
+          "sha256": "8d8c55319c7729d57be811c747452636688d54f19701ee0752b6b15ad3771d9a"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/http-proxy-agent/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/http-proxy-agent/LICENSE",
+          "bytes": 1102,
+          "sha256": "71368fd0f5b4129191e9afcd1e1ef2dc89a9090d3e4d80bbab92dafd032b3bef"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/iconv-lite/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/iconv-lite/LICENSE",
+          "bytes": 1064,
+          "sha256": "ac779f7314c74f232ef847ea86e714abe25cf6eeb5cc97b69451b74e2af6492d"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/ignore-walk/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/ignore-walk/LICENSE",
+          "bytes": 765,
+          "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/socks-proxy-agent/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/socks-proxy-agent/LICENSE",
+          "bytes": 1101,
+          "sha256": "8d8c55319c7729d57be811c747452636688d54f19701ee0752b6b15ad3771d9a"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/ini/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/ini/LICENSE",
+          "bytes": 765,
+          "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/init-package-json/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/init-package-json/LICENSE.md",
+          "bytes": 717,
+          "sha256": "7f75bb21103e77b7acfcf88a6ad0286741a18b5d13c4326160346e8cf7e356ad"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/is-cidr/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/is-cidr/LICENSE",
+          "bytes": 1290,
+          "sha256": "23e60503dc06abf04b9e535e17797b4e0f9224e6c5abf9207317d5a67c88c743"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/brace-expansion/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/brace-expansion/LICENSE",
+          "bytes": 1144,
+          "sha256": "9c63a23124d68cd30cd316a94a1a0bca34f032786df6df69fc4b5f136bac8d2e"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/isexe/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/isexe/LICENSE.md",
+          "bytes": 1552,
+          "sha256": "8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/json-parse-even-better-errors/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/json-parse-even-better-errors/LICENSE.md",
+          "bytes": 1209,
+          "sha256": "50627796eb4236cd05674e71d090e594447995225b7d94cd59e57c25fa3a0217"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/json-stringify-nice/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/json-stringify-nice/LICENSE",
+          "bytes": 765,
+          "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/jsonparse/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/jsonparse/LICENSE",
+          "bytes": 1087,
+          "sha256": "ed251dc3a48522399fffe95fe04d94fbcadcd9edd0e7689f3b71cf73403a6138"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/just-diff-apply/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/just-diff-apply/LICENSE",
+          "bytes": 1078,
+          "sha256": "ebb30d70f7ebd918f223ce6ed7621fa4cef3ec2d59d6707c23868b01def28ce2"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/just-diff/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/just-diff/LICENSE",
+          "bytes": 1078,
+          "sha256": "ebb30d70f7ebd918f223ce6ed7621fa4cef3ec2d59d6707c23868b01def28ce2"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmaccess/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmaccess/LICENSE",
+          "bytes": 717,
+          "sha256": "77d72758faff2d3a086b1c77f66f4dcfa63a1ee1a9bab5df4ab3c2e8f3eb646d"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmdiff/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmdiff/LICENSE",
+          "bytes": 741,
+          "sha256": "7967f87257c7d5f0ef29012d472a8b99a0fb1c5202b6d861a2c81671329a2ee4"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmexec/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmexec/LICENSE",
+          "bytes": 741,
+          "sha256": "7967f87257c7d5f0ef29012d472a8b99a0fb1c5202b6d861a2c81671329a2ee4"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmfund/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmfund/LICENSE",
+          "bytes": 738,
+          "sha256": "9dd1bc5666fd1e32f086518046532e993f5307749327aff37cecf98355f2b9a0"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmorg/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmorg/LICENSE",
+          "bytes": 717,
+          "sha256": "77d72758faff2d3a086b1c77f66f4dcfa63a1ee1a9bab5df4ab3c2e8f3eb646d"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmpack/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmpack/LICENSE",
+          "bytes": 717,
+          "sha256": "77d72758faff2d3a086b1c77f66f4dcfa63a1ee1a9bab5df4ab3c2e8f3eb646d"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmpublish/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmpublish/LICENSE",
+          "bytes": 717,
+          "sha256": "77d72758faff2d3a086b1c77f66f4dcfa63a1ee1a9bab5df4ab3c2e8f3eb646d"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmsearch/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmsearch/LICENSE",
+          "bytes": 717,
+          "sha256": "77d72758faff2d3a086b1c77f66f4dcfa63a1ee1a9bab5df4ab3c2e8f3eb646d"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmteam/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmteam/LICENSE",
+          "bytes": 717,
+          "sha256": "77d72758faff2d3a086b1c77f66f4dcfa63a1ee1a9bab5df4ab3c2e8f3eb646d"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmversion/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/libnpmversion/LICENSE",
+          "bytes": 748,
+          "sha256": "05dc4d785ac3a488676d3ed10e901b75ad89dafcc63f8e66610fd4a39cc5c7e8"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/lru-cache/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/lru-cache/LICENSE.md",
+          "bytes": 1552,
+          "sha256": "8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/make-fetch-happen/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/make-fetch-happen/LICENSE",
+          "bytes": 765,
+          "sha256": "a806e21000ee60cfd64a6f1416f29c7552b4834701974e86c0156f99c0cdd806"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minimatch/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minimatch/LICENSE.md",
+          "bytes": 1550,
+          "sha256": "2c7c5d22ed5a8ee968c64757710979afcd77438c48b4a265b94e615babd8a901"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minipass-collect/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minipass-collect/LICENSE",
+          "bytes": 775,
+          "sha256": "b630651f34d0e0284ea940601bbe0a58f306ad7e9819e351d9dfab812f8d0f38"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minipass-fetch/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minipass-fetch/LICENSE",
+          "bytes": 1308,
+          "sha256": "1dedee6f84f5875ce4dc398d4d767274eb952a43cfd510a6ada856b2ed347472"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minipass-flush/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minipass-flush/LICENSE.md",
+          "bytes": 1552,
+          "sha256": "8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minipass-pipeline/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minipass-pipeline/LICENSE",
+          "bytes": 765,
+          "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minipass-pipeline/node_modules/minipass/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minipass-pipeline/node_modules/minipass/LICENSE",
+          "bytes": 787,
+          "sha256": "a5a110eb524bf3217958e405b5e3411277e915a2f5902c330348877000337e53"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minipass-pipeline/node_modules/yallist/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minipass-pipeline/node_modules/yallist/LICENSE",
+          "bytes": 765,
+          "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minipass-sized/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minipass-sized/LICENSE",
+          "bytes": 765,
+          "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minipass/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minipass/LICENSE.md",
+          "bytes": 1552,
+          "sha256": "8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minizlib/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/minizlib/LICENSE",
+          "bytes": 1339,
+          "sha256": "df05697a04b8997c79d423930534e59cc18828f6e22d0c8c2d62fcbea1c4f50b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/ms/license.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/ms/license.md",
+          "bytes": 1079,
+          "sha256": "1662fae9b5314d11cf51284e2dcd1f006a354f7343f08712a730fcff9a359801"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/mute-stream/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/mute-stream/LICENSE",
+          "bytes": 765,
+          "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/node-gyp/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/node-gyp/LICENSE",
+          "bytes": 1102,
+          "sha256": "662a1b0115251cfb29c6aed0f221f8847bc49c6365d1c53a62c9f4bccc2489c3"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/node-gyp/gyp/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/node-gyp/gyp/LICENSE",
+          "bytes": 1537,
+          "sha256": "ca90abb6ed71de0774461ef9f928de33e748b617aeb79f9e52415cf08d69230e"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/LICENSE",
+          "bytes": 197,
+          "sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/LICENSE.APACHE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/LICENSE.APACHE",
+          "bytes": 10174,
+          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/LICENSE.BSD",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/LICENSE.BSD",
+          "bytes": 1344,
+          "sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/nopt/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/nopt/LICENSE",
+          "bytes": 765,
+          "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-audit-report/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-audit-report/LICENSE",
+          "bytes": 755,
+          "sha256": "720836c9bdad386485a492ab41fe08007ecf85ca278ddd8f9333494dcac4949d"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-bundled/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-bundled/LICENSE",
+          "bytes": 756,
+          "sha256": "ec361617c0473d39347b020eaa6dceedaebab43879fa1cd8b8f0f97a8e80a475"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-install-checks/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-install-checks/LICENSE",
+          "bytes": 1333,
+          "sha256": "f674630c4d3e668dabac6d955fb5f74c75b4a63a707ac93a8833b74bdc57221e"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-normalize-package-bin/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-normalize-package-bin/LICENSE",
+          "bytes": 739,
+          "sha256": "898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-package-arg/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-package-arg/LICENSE",
+          "bytes": 739,
+          "sha256": "898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-packlist/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-packlist/LICENSE",
+          "bytes": 765,
+          "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-pick-manifest/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-pick-manifest/LICENSE.md",
+          "bytes": 755,
+          "sha256": "720836c9bdad386485a492ab41fe08007ecf85ca278ddd8f9333494dcac4949d"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-profile/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-profile/LICENSE.md",
+          "bytes": 798,
+          "sha256": "27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-registry-fetch/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-registry-fetch/LICENSE.md",
+          "bytes": 798,
+          "sha256": "27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-user-validate/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/npm-user-validate/LICENSE",
+          "bytes": 1295,
+          "sha256": "8b8404b77ea2a20e045fbad73de1661091a852bfe1f4997e0b646c688f3d18e4"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/p-map/license",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/p-map/license",
+          "bytes": 1117,
+          "sha256": "5c932d88256b4ab958f64a856fa48e8bd1f55bc1d96b8149c65689e0c61789d3"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/pacote/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/pacote/LICENSE",
+          "bytes": 791,
+          "sha256": "36ec394cd0f976603cfec687c19175a703c1c0d9db717a76915391e756522c8e"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/parse-conflict-json/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/parse-conflict-json/LICENSE.md",
+          "bytes": 798,
+          "sha256": "27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/postcss-selector-parser/LICENSE-MIT",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/postcss-selector-parser/LICENSE-MIT",
+          "bytes": 1092,
+          "sha256": "2998094b38f7ace25f141fb36f334d8338f65a1812978d618b1161f4d77ae10e"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/proc-log/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/proc-log/LICENSE",
+          "bytes": 742,
+          "sha256": "dc32a0dee275e0a9aeffbc974dbf4899a30dcdc2e5ffa8934aecb69261065864"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/promise-all-reject-late/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/promise-all-reject-late/LICENSE",
+          "bytes": 748,
+          "sha256": "05dc4d785ac3a488676d3ed10e901b75ad89dafcc63f8e66610fd4a39cc5c7e8"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/promise-call-limit/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/promise-call-limit/LICENSE",
+          "bytes": 748,
+          "sha256": "05dc4d785ac3a488676d3ed10e901b75ad89dafcc63f8e66610fd4a39cc5c7e8"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/promzard/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/promzard/LICENSE",
+          "bytes": 748,
+          "sha256": "05dc4d785ac3a488676d3ed10e901b75ad89dafcc63f8e66610fd4a39cc5c7e8"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/qrcode-terminal/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/qrcode-terminal/LICENSE",
+          "bytes": 11962,
+          "sha256": "b3c7a2fadb2515b8106eae58439a4b9c0581a4eaa88d6a265701f8d4dd7dadb8"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/read-cmd-shim/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/read-cmd-shim/LICENSE",
+          "bytes": 752,
+          "sha256": "0cef05dfff8b6aa7f35596984f5709f0d17c2582924a751efa471a76de7cdc11"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/read/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/read/LICENSE",
+          "bytes": 765,
+          "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/ip-address/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/ip-address/LICENSE",
+          "bytes": 1061,
+          "sha256": "f8d791359a50cbcac82c29cb7b0b1b889b28be76fdd35b8ee33f0f7c8704702a"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@gar/promise-retry/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@gar/promise-retry/LICENSE",
+          "bytes": 1156,
+          "sha256": "1c66b5311fc6328ab70616d2cf8e20a8e0a787f534831cf8a311b20098b617a5"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/undici/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/undici/LICENSE",
+          "bytes": 1090,
+          "sha256": "a6db8096b2707bc0102d256917d4d33f298ba36d8c3f25de067a2b5bb379db27"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/undici/lib/web/fetch/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/undici/lib/web/fetch/LICENSE",
+          "bytes": 1071,
+          "sha256": "a21d6c8d3fc631198b97e57584697f7f9c37805c71c6cf9a12e4442b40394b88"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/safer-buffer/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/safer-buffer/LICENSE",
+          "bytes": 1094,
+          "sha256": "4bc935e71be198c67ddf3c2b5fddb195f6edc182bfc155a96a6db61b44b494b9"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/semver/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/semver/LICENSE",
+          "bytes": 765,
+          "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/signal-exit/LICENSE.txt",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/signal-exit/LICENSE.txt",
+          "bytes": 790,
+          "sha256": "b173e19b9a78df305577ace0e52ef45a4bcc915ea28b47b256dc3b68dcb1f7e7"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/smart-buffer/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/smart-buffer/LICENSE",
+          "bytes": 1087,
+          "sha256": "c46e2c333e1c9e6fcfd130cf91b8e54bf67b60fabbc04996f7e199b990353ff3"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/socks/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/socks/LICENSE",
+          "bytes": 1082,
+          "sha256": "4f4f28866154c8d758241a64296e8790d45d7d912ff7b029930778c06d8f2a72"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/spdx-expression-parse/AUTHORS",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/spdx-expression-parse/AUTHORS",
+          "bytes": 203,
+          "sha256": "44ba6c2bc625f3b99bce248a62b29b088538f4f337f9e04679547c1195e634a4"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/spdx-expression-parse/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/spdx-expression-parse/LICENSE",
+          "bytes": 1111,
+          "sha256": "7edb57f7065309027de249642341292a5b21410d5773cc55bba73ff9cf01060e"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/ssri/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/ssri/LICENSE.md",
+          "bytes": 760,
+          "sha256": "3749709146345fa15546aaba4e3ab1b3b92a4d930077b5bc32d90815cb63afaf"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/tar/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/tar/LICENSE.md",
+          "bytes": 1552,
+          "sha256": "8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/text-table/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/text-table/LICENSE",
+          "bytes": 1073,
+          "sha256": "435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/tiny-relative-date/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/tiny-relative-date/LICENSE.md",
+          "bytes": 1068,
+          "sha256": "b219efd4921cb32913a471269807d931b4973190d48269bedcfda6205c526100"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/treeverse/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/treeverse/LICENSE",
+          "bytes": 756,
+          "sha256": "ec361617c0473d39347b020eaa6dceedaebab43879fa1cd8b8f0f97a8e80a475"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/util-deprecate/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/util-deprecate/LICENSE",
+          "bytes": 1102,
+          "sha256": "0154425673db15cdfa80ecba2c9b1f1a867f7197a006764712849bfc3a93cbb7"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/validate-npm-package-name/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/validate-npm-package-name/LICENSE",
+          "bytes": 728,
+          "sha256": "f3e1645267f7dd77ee6545283cc1766e5883e8fb3b5088fe2cfb995defbb3dde"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/walk-up-path/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/walk-up-path/LICENSE",
+          "bytes": 758,
+          "sha256": "825dacf686e3d026be4a5b3e4efb8ddd67a8676f9e96085a53cfa045a5bd0509"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/which/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/which/LICENSE",
+          "bytes": 765,
+          "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/write-file-atomic/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/write-file-atomic/LICENSE.md",
+          "bytes": 733,
+          "sha256": "ff75aaa5aaf56005eeea7723b287f9df3dd45b33b310a7eb347d3ab28ea26593"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/yallist/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/yallist/LICENSE.md",
+          "bytes": 1764,
+          "sha256": "a49c9ba464796f65b59fca3f1e6ca40912df1e859f575383223f7ec6c5baae09"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/sigstore/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/sigstore/LICENSE",
+          "bytes": 11351,
+          "sha256": "364a130d2ca340bd56eb1e6d045fc6929bb0f9d0aa018f2c1949b29517e1cdd0"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/tuf-js/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/tuf-js/LICENSE",
+          "bytes": 1088,
+          "sha256": "564bcb001d6e131452a8e9fba0f0ccc59e8b881f84ce3e46e319a5a33e191e10"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@sigstore/protobuf-specs/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@sigstore/protobuf-specs/LICENSE",
+          "bytes": 11351,
+          "sha256": "364a130d2ca340bd56eb1e6d045fc6929bb0f9d0aa018f2c1949b29517e1cdd0"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@sigstore/tuf/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@sigstore/tuf/LICENSE",
+          "bytes": 11351,
+          "sha256": "364a130d2ca340bd56eb1e6d045fc6929bb0f9d0aa018f2c1949b29517e1cdd0"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@sigstore/bundle/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@sigstore/bundle/LICENSE",
+          "bytes": 11351,
+          "sha256": "364a130d2ca340bd56eb1e6d045fc6929bb0f9d0aa018f2c1949b29517e1cdd0"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@sigstore/core/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@sigstore/core/LICENSE",
+          "bytes": 11351,
+          "sha256": "364a130d2ca340bd56eb1e6d045fc6929bb0f9d0aa018f2c1949b29517e1cdd0"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@sigstore/sign/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@sigstore/sign/LICENSE",
+          "bytes": 11351,
+          "sha256": "364a130d2ca340bd56eb1e6d045fc6929bb0f9d0aa018f2c1949b29517e1cdd0"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@tufjs/canonical-json/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@tufjs/canonical-json/LICENSE",
+          "bytes": 1088,
+          "sha256": "564bcb001d6e131452a8e9fba0f0ccc59e8b881f84ce3e46e319a5a33e191e10"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@tufjs/models/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/@tufjs/models/LICENSE",
+          "bytes": 1088,
+          "sha256": "564bcb001d6e131452a8e9fba0f0ccc59e8b881f84ce3e46e319a5a33e191e10"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/path-scurry/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/path-scurry/LICENSE.md",
+          "bytes": 1552,
+          "sha256": "8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/supports-color/license",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/supports-color/license",
+          "bytes": 1117,
+          "sha256": "5c932d88256b4ab958f64a856fa48e8bd1f55bc1d96b8149c65689e0c61789d3"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/exponential-backoff/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/npm/node_modules/exponential-backoff/LICENSE",
+          "bytes": 11351,
+          "sha256": "f5afc95c69e116ea6b1755f91a8763f53eadb78b4f1582a08d2d18586a03a117"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/lib/node_modules/corepack/LICENSE.md",
+          "file": "node/node-v24.21.0-linux-x64/lib/node_modules/corepack/LICENSE.md",
+          "bytes": 1063,
+          "sha256": "30a7b8ba5c4483d97d6123f5634da2362d578fb81f42ed6e1dfbb84fb1cd8fe4"
+        },
+        {
+          "archive_member": "node-v24.21.0-linux-x64/LICENSE",
+          "file": "node/node-v24.21.0-linux-x64/LICENSE",
+          "bytes": 157609,
+          "sha256": "5888dbb9a1d2b18f2c3e6c5f6af1b39de658372b402a0577b002777f14c62ace"
+        }
+      ]
+    },
+    {
+      "component": "rust-std",
+      "scope": "rust-standard-library-notices",
+      "archive": {
+        "name": "rust-std",
+        "url": "https://static.rust-lang.org/dist/2026-09-03/rust-std-1.98.1-x86_64-unknown-linux-gnu.tar.xz",
+        "sha256": "fa3ff450172a16c026944030230c5069947af93c728d9179971d44e5e0cfb561",
+        "bytes": 30715684
+      },
+      "documents": [
+        {
+          "archive_member": "rust-std-1.98.1-x86_64-unknown-linux-gnu/LICENSE-APACHE",
+          "file": "rust-std/rust-std-1.98.1-x86_64-unknown-linux-gnu/LICENSE-APACHE",
+          "bytes": 9723,
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+        },
+        {
+          "archive_member": "rust-std-1.98.1-x86_64-unknown-linux-gnu/COPYRIGHT",
+          "file": "rust-std/rust-std-1.98.1-x86_64-unknown-linux-gnu/COPYRIGHT",
+          "bytes": 1571,
+          "sha256": "172020dbfd5b53a226dfde77616190a48dcff519b0bc0e6deb91a8450782c4af"
+        },
+        {
+          "archive_member": "rust-std-1.98.1-x86_64-unknown-linux-gnu/LICENSE-MIT",
+          "file": "rust-std/rust-std-1.98.1-x86_64-unknown-linux-gnu/LICENSE-MIT",
+          "bytes": 1068,
+          "sha256": "b71bd43a069ca0641a9ecfe585ca7b3c53b5cc1608f8b68321168698e28b5ea1"
+        }
+      ]
+    },
+    {
+      "component": "rustc",
+      "scope": "rust-toolchain-third-party-notices",
+      "archive": {
+        "name": "rustc",
+        "url": "https://static.rust-lang.org/dist/2026-09-03/rustc-1.98.1-x86_64-unknown-linux-gnu.tar.xz",
+        "sha256": "e974f036b28565f37c0f3bd92ddefa809bee16c04f9dcf07b9ed96e05aaaf7c4",
+        "bytes": 79727616
+      },
+      "documents": [
+        {
+          "archive_member": "rustc-1.98.1-x86_64-unknown-linux-gnu/LICENSE-APACHE",
+          "file": "rustc/rustc-1.98.1-x86_64-unknown-linux-gnu/LICENSE-APACHE",
+          "bytes": 9723,
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+        },
+        {
+          "archive_member": "rustc-1.98.1-x86_64-unknown-linux-gnu/COPYRIGHT",
+          "file": "rustc/rustc-1.98.1-x86_64-unknown-linux-gnu/COPYRIGHT",
+          "bytes": 1571,
+          "sha256": "172020dbfd5b53a226dfde77616190a48dcff519b0bc0e6deb91a8450782c4af"
+        },
+        {
+          "archive_member": "rustc-1.98.1-x86_64-unknown-linux-gnu/LICENSE-MIT",
+          "file": "rustc/rustc-1.98.1-x86_64-unknown-linux-gnu/LICENSE-MIT",
+          "bytes": 1068,
+          "sha256": "b71bd43a069ca0641a9ecfe585ca7b3c53b5cc1608f8b68321168698e28b5ea1"
+        },
+        {
+          "archive_member": "rustc-1.98.1-x86_64-unknown-linux-gnu/rustc/share/doc/rust/COPYRIGHT.html",
+          "file": "rustc/rustc-1.98.1-x86_64-unknown-linux-gnu/rustc/share/doc/rust/COPYRIGHT.html",
+          "bytes": 15380909,
+          "sha256": "5b0c93fc4e6d4b072eaa521b1762d1e746f4c368f65e81a0e5308e2772dac85e"
+        },
+        {
+          "archive_member": "rustc-1.98.1-x86_64-unknown-linux-gnu/rustc/share/doc/rust/COPYRIGHT-library.html",
+          "file": "rustc/rustc-1.98.1-x86_64-unknown-linux-gnu/rustc/share/doc/rust/COPYRIGHT-library.html",
+          "bytes": 1512520,
+          "sha256": "68129500b616d5838629e68f55ff3aed5e096dacf60ce9eb41bbe599a563afa6"
+        }
+      ]
+    },
+    {
+      "component": "node-addon-api",
+      "scope": "runtime-header-source",
+      "archive": {
+        "name": "node-addon-api",
+        "version": "7.1.1",
+        "url": "https://registry.npmjs.org/node-addon-api/-/node-addon-api-7.1.1.tgz",
+        "filename": "node-addon-api-7.1.1.tgz",
+        "sha256": "b10455d15a977c0cd17a1cb0eb679e03d939f8ef8d4302eb33e1f78dacc71f82",
+        "npm_integrity": "sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ==",
+        "bytes": 60031
+      },
+      "documents": [
+        {
+          "archive_member": "package/LICENSE.md",
+          "file": "node-addon-api/package/LICENSE.md",
+          "bytes": 1150,
+          "sha256": "89024017b88a9f2b763f79b941a4f2db3b4428edfcacdc0b23866b2da633ad0c"
+        }
+      ]
+    }
+  ],
+  "ubuntu_copyright_documents": [
+    {
+      "file": "libbz2-1.0-libbz2-1.0-copyright.txt",
+      "package": "libbz2-1.0",
+      "archive_member": "usr/share/doc/libbz2-1.0/copyright",
+      "origin_type": "matched-binary-package",
+      "archive": {
+        "package": "libbz2-1.0",
+        "version": "1.0.8-5.1ubuntu0.1",
+        "filename": "libbz2-1.0_1.0.8-5.1ubuntu0.1_amd64.deb",
+        "bytes": 34562,
+        "sha256": "36ee08b00b1ee5018b2fce02881b7d2d73c9b4e32990bde3388400d86c48126a",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/b/bzip2/libbz2-1.0_1.0.8-5.1ubuntu0.1_amd64.deb"
+      },
+      "sha256": "832ed535ff3c3d025a8d2348eb1b697b89addcf2eaadbc17650262040b9145e2",
+      "bytes": 2228
+    },
+    {
+      "file": "libgcc-s1-debian-copyright.txt",
+      "package": "libgcc-s1",
+      "archive_member": "debian/copyright",
+      "origin_type": "matching-parent-source-package",
+      "archive": {
+        "file": "gcc-14_14.2.0-4ubuntu2~24.04.1.debian.tar.xz",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/gcc-14/gcc-14_14.2.0-4ubuntu2~24.04.1.debian.tar.xz",
+        "sha256": "cfece214c2fb790ef5f3baffb9a53e40618e7ae12d053610b251e94d77d08ade",
+        "bytes": 1950432,
+        "role": "source-archive"
+      },
+      "sha256": "20390f8a6f3b1e4d7cb45dd8652dabb259bbef688cbad839bcdb0b9ba7252f79",
+      "bytes": 69004
+    },
+    {
+      "file": "liblzma5-liblzma5-copyright.txt",
+      "package": "liblzma5",
+      "archive_member": "usr/share/doc/liblzma5/copyright",
+      "origin_type": "matched-binary-package",
+      "archive": {
+        "package": "liblzma5",
+        "version": "5.6.1+really5.4.5-1ubuntu0.3",
+        "filename": "liblzma5_5.6.1+really5.4.5-1ubuntu0.3_amd64.deb",
+        "bytes": 127352,
+        "sha256": "d2eabd41ca77d2c2dd9d5d4ef478cccb64ffde6279c47cf4699a857d46785a52",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/x/xz-utils/liblzma5_5.6.1%2breally5.4.5-1ubuntu0.3_amd64.deb"
+      },
+      "sha256": "a2dc8fac0f496e1c58aff67018cf0c6b88336316afa5642f9335b71642e28aa8",
+      "bytes": 15465
+    },
+    {
+      "file": "libpcre2-8-0-libpcre2-8-0-copyright.txt",
+      "package": "libpcre2-8-0",
+      "archive_member": "usr/share/doc/libpcre2-8-0/copyright",
+      "origin_type": "matched-binary-package",
+      "archive": {
+        "package": "libpcre2-8-0",
+        "version": "10.42-4ubuntu2.1",
+        "filename": "libpcre2-8-0_10.42-4ubuntu2.1_amd64.deb",
+        "bytes": 226662,
+        "sha256": "110a797a57673d3ee497a141cf988199258058c57525799c63194d81822529a0",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/p/pcre2/libpcre2-8-0_10.42-4ubuntu2.1_amd64.deb"
+      },
+      "sha256": "030511beb4d9d620ad09914c369c36ec0528dcf301d1923cc643c948ee7c6a38",
+      "bytes": 6626
+    },
+    {
+      "file": "zlib1g-zlib1g-copyright.txt",
+      "package": "zlib1g",
+      "archive_member": "usr/share/doc/zlib1g/copyright",
+      "origin_type": "matched-binary-package",
+      "archive": {
+        "package": "zlib1g",
+        "version": "1:1.3.dfsg-3.1ubuntu2.2",
+        "filename": "zlib1g_1%3a1.3.dfsg-3.1ubuntu2.2_amd64.deb",
+        "bytes": 62988,
+        "sha256": "84b9cf5752b29c9f92c27cd4c4ba9bbcc70b5ccf9b1b515421a28ae23212e273",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/z/zlib/zlib1g_1.3.dfsg-3.1ubuntu2.2_amd64.deb"
+      },
+      "sha256": "9e5b96d63773a5d177ba264254390f792be07e41748ebd94730981c6cac31cc6",
+      "bytes": 2927
+    },
+    {
+      "file": "libffi8-libffi8-copyright.txt",
+      "package": "libffi8",
+      "archive_member": "usr/share/doc/libffi8/copyright",
+      "origin_type": "matched-binary-package",
+      "archive": {
+        "package": "libffi8",
+        "version": "3.4.6-1build1",
+        "filename": "libffi8_3.4.6-1build1_amd64.deb",
+        "bytes": 24718,
+        "sha256": "637e6a7744de08cd331a41f4efd0d24e6ea9064843dea9d1c6ca87bdb5f038a2",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/libf/libffi/libffi8_3.4.6-1build1_amd64.deb"
+      },
+      "sha256": "737ff68f0eb104d3b0d96b291c3a8f40a775a3ec2b53f9b2e4bcfe3188bde118",
+      "bytes": 10165
+    },
+    {
+      "file": "libstdc++6-debian-copyright.txt",
+      "package": "libstdc++6",
+      "archive_member": "debian/copyright",
+      "origin_type": "matching-parent-source-package",
+      "archive": {
+        "file": "gcc-14_14.2.0-4ubuntu2~24.04.1.debian.tar.xz",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/gcc-14/gcc-14_14.2.0-4ubuntu2~24.04.1.debian.tar.xz",
+        "sha256": "cfece214c2fb790ef5f3baffb9a53e40618e7ae12d053610b251e94d77d08ade",
+        "bytes": 1950432,
+        "role": "source-archive"
+      },
+      "sha256": "20390f8a6f3b1e4d7cb45dd8652dabb259bbef688cbad839bcdb0b9ba7252f79",
+      "bytes": 69004
+    },
+    {
+      "file": "libexpat1-libexpat1-copyright.txt",
+      "package": "libexpat1",
+      "archive_member": "usr/share/doc/libexpat1/copyright",
+      "origin_type": "matched-binary-package",
+      "archive": {
+        "package": "libexpat1",
+        "version": "2.6.1-2ubuntu0.4",
+        "filename": "libexpat1_2.6.1-2ubuntu0.4_amd64.deb",
+        "bytes": 88214,
+        "sha256": "126a5612e652bdc2edee19ae8fe4308db72b5b3b0a5581bf885b44a093baf3e5",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/e/expat/libexpat1_2.6.1-2ubuntu0.4_amd64.deb"
+      },
+      "sha256": "60919fe1a156395ff14511bb6ff79756c50ade2fff59ac60c9bae1d8a7fe6292",
+      "bytes": 1756
+    },
+    {
+      "file": "libfribidi0-libfribidi0-copyright.txt",
+      "package": "libfribidi0",
+      "archive_member": "usr/share/doc/libfribidi0/copyright",
+      "origin_type": "matched-binary-package",
+      "archive": {
+        "package": "libfribidi0",
+        "version": "1.0.13-3build1",
+        "filename": "libfribidi0_1.0.13-3build1_amd64.deb",
+        "bytes": 26150,
+        "sha256": "6cd50259d39ce0dfafee2632c6268538e6a02590e77161a133e9683af346dd1d",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/f/fribidi/libfribidi0_1.0.13-3build1_amd64.deb"
+      },
+      "sha256": "39000badbcd15a4a144cfa2d2f0d906d4d9183f42350e8193ac775baded86b7c",
+      "bytes": 1450
+    },
+    {
+      "file": "libicu74-libicu74-copyright.txt",
+      "package": "libicu74",
+      "archive_member": "usr/share/doc/libicu74/copyright",
+      "origin_type": "matched-binary-package",
+      "archive": {
+        "package": "libicu74",
+        "version": "74.2-1ubuntu3.1",
+        "filename": "libicu74_74.2-1ubuntu3.1_amd64.deb",
+        "bytes": 10860078,
+        "sha256": "c9a70989678660eed9a1e904c74fa043da8bec8e2036856fc16e31ced79b04f8",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/i/icu/libicu74_74.2-1ubuntu3.1_amd64.deb"
+      },
+      "sha256": "5bbff5f646ce750ac0a347e7f91793279b7422a1119820b5f75d98879c201c68",
+      "bytes": 2214
+    },
+    {
+      "file": "libxml2-libxml2-copyright.txt",
+      "package": "libxml2",
+      "archive_member": "usr/share/doc/libxml2/copyright",
+      "origin_type": "matched-binary-package",
+      "archive": {
+        "package": "libxml2",
+        "version": "2.9.14+dfsg-1.3ubuntu3.8",
+        "filename": "libxml2_2.9.14+dfsg-1.3ubuntu3.8_amd64.deb",
+        "bytes": 763972,
+        "sha256": "bfd07c01d6e5ab3e327f3ca5819409b1914bbfb3f1a016d53e4dabd5f96143bb",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/libx/libxml2/libxml2_2.9.14%2bdfsg-1.3ubuntu3.8_amd64.deb"
+      },
+      "sha256": "ee746b96cfa5be73c3ea3e4cfb1285e9b315d4c9267f99b2ee9c5d911d9fe3f4",
+      "bytes": 3067
+    },
+    {
+      "file": "libpng16-16t64-libpng16-16t64-copyright.txt",
+      "package": "libpng16-16t64",
+      "archive_member": "usr/share/doc/libpng16-16t64/copyright",
+      "origin_type": "matched-binary-package",
+      "archive": {
+        "package": "libpng16-16t64",
+        "version": "1.6.43-5ubuntu0.6",
+        "filename": "libpng16-16t64_1.6.43-5ubuntu0.6_amd64.deb",
+        "bytes": 188776,
+        "sha256": "ac0163f58b8aa52dfdd17cdc10a83f3db084cb91a62686023f5c983d6ff89f8b",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/libp/libpng1.6/libpng16-16t64_1.6.43-5ubuntu0.6_amd64.deb"
+      },
+      "sha256": "4620d402b97601a910946acccbbe2e15bdffac11615bf9046520990d3b00f2b9",
+      "bytes": 13051
+    },
+    {
+      "file": "libbrotli1-libbrotli1-copyright.txt",
+      "package": "libbrotli1",
+      "archive_member": "usr/share/doc/libbrotli1/copyright",
+      "origin_type": "matched-binary-package",
+      "archive": {
+        "package": "libbrotli1",
+        "version": "1.1.0-2build2",
+        "filename": "libbrotli1_1.1.0-2build2_amd64.deb",
+        "bytes": 330730,
+        "sha256": "74492419b8fda803774b8c9acef6afc5d2f9ff31782635aae212906adae7b277",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/b/brotli/libbrotli1_1.1.0-2build2_amd64.deb"
+      },
+      "sha256": "24a64e5bb83d0960d1835696a1e23c0896ad6055b0ca47c66ab0eb9a766324b1",
+      "bytes": 1354
+    },
+    {
+      "file": "libdatrie1-libdatrie1-copyright.txt",
+      "package": "libdatrie1",
+      "archive_member": "usr/share/doc/libdatrie1/copyright",
+      "origin_type": "matched-binary-package",
+      "archive": {
+        "package": "libdatrie1",
+        "version": "0.2.13-3build1",
+        "filename": "libdatrie1_0.2.13-3build1_amd64.deb",
+        "bytes": 18992,
+        "sha256": "1ae164e40e413eac4fbd38ce1c6ef9591f7a03278ad9076d71fa29258727f447",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/libd/libdatrie/libdatrie1_0.2.13-3build1_amd64.deb"
+      },
+      "sha256": "7c994f175cb0da0bbe158f729ca43bc6193bb99d3c8bc82b41c46d93904b584d",
+      "bytes": 2129
+    },
+    {
+      "file": "libdav1d7-libdav1d7-copyright.txt",
+      "package": "libdav1d7",
+      "archive_member": "usr/share/doc/libdav1d7/copyright",
+      "origin_type": "matched-binary-package",
+      "archive": {
+        "package": "libdav1d7",
+        "version": "1.4.1-1build1",
+        "filename": "libdav1d7_1.4.1-1build1_amd64.deb",
+        "bytes": 604018,
+        "sha256": "7246303bd3ed4b99a2fb98e6199950ceb2520e7572265aefa0a6e44352adb3f0",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/universe/d/dav1d/libdav1d7_1.4.1-1build1_amd64.deb"
+      },
+      "sha256": "38aaebbbf5ab0c19a5d4029acb5ce6566f8bd95e07eff6f6472753f5bea83d97",
+      "bytes": 9722
+    },
+    {
+      "file": "libgdk-pixbuf-2.0-0-libgdk-pixbuf-2.0-0-copyright.txt",
+      "package": "libgdk-pixbuf-2.0-0",
+      "archive_member": "usr/share/doc/libgdk-pixbuf-2.0-0/copyright",
+      "origin_type": "matched-binary-package",
+      "archive": {
+        "package": "libgdk-pixbuf-2.0-0",
+        "version": "2.42.10+dfsg-3ubuntu3.3",
+        "filename": "libgdk-pixbuf-2.0-0_2.42.10+dfsg-3ubuntu3.3_amd64.deb",
+        "bytes": 147442,
+        "sha256": "de84e0d777d9c9e39148d8491338e6b8c62bc2d066867266b1643a7a725a86ba",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/gdk-pixbuf/libgdk-pixbuf-2.0-0_2.42.10%2bdfsg-3ubuntu3.3_amd64.deb"
+      },
+      "sha256": "a0189e53d508d32aeec6462c4740013de70b40f06e507f5e700d3cceb6e8f178",
+      "bytes": 5506
+    },
+    {
+      "file": "libgif7-libgif7-copyright.txt",
+      "package": "libgif7",
+      "archive_member": "usr/share/doc/libgif7/copyright",
+      "origin_type": "matched-binary-package",
+      "archive": {
+        "package": "libgif7",
+        "version": "5.2.2-1ubuntu1.2",
+        "filename": "libgif7_5.2.2-1ubuntu1.2_amd64.deb",
+        "bytes": 35608,
+        "sha256": "8137945ac9167f26d0264f403ffb48a45974f096e8acab5479e33fdba6c28a36",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/giflib/libgif7_5.2.2-1ubuntu1.2_amd64.deb"
+      },
+      "sha256": "479e834b17e61f0afe5f4a62e1794a4543208dea955820399e2d9589a1938fb0",
+      "bytes": 2371
+    },
+    {
+      "file": "libgraphite2-3-libgraphite2-3-copyright.txt",
+      "package": "libgraphite2-3",
+      "archive_member": "usr/share/doc/libgraphite2-3/copyright",
+      "origin_type": "matched-binary-package",
+      "archive": {
+        "package": "libgraphite2-3",
+        "version": "1.3.14-2ubuntu0.24.04.1",
+        "filename": "libgraphite2-3_1.3.14-2ubuntu0.24.04.1_amd64.deb",
+        "bytes": 73352,
+        "sha256": "2413ea0f6670d6610ee7c2f550551d69fa341f4b9c78e20eb397f0d1bbe914cb",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/graphite2/libgraphite2-3_1.3.14-2ubuntu0.24.04.1_amd64.deb"
+      },
+      "sha256": "a33017ba0308c41bdbde4751bff349ab7b26af45fadbb1e3e7ac67c372985572",
+      "bytes": 9348
+    },
+    {
+      "file": "libjpeg-turbo8-libjpeg-turbo8-copyright.txt",
+      "package": "libjpeg-turbo8",
+      "archive_member": "usr/share/doc/libjpeg-turbo8/copyright",
+      "origin_type": "matched-binary-package",
+      "archive": {
+        "package": "libjpeg-turbo8",
+        "version": "2.1.5-2ubuntu2",
+        "filename": "libjpeg-turbo8_2.1.5-2ubuntu2_amd64.deb",
+        "bytes": 149982,
+        "sha256": "f68b5b23bc8a1688fb787d2aed7e2cdf895a73022f6a5025e183162dac4500b2",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/libj/libjpeg-turbo/libjpeg-turbo8_2.1.5-2ubuntu2_amd64.deb"
+      },
+      "sha256": "3821184e23385bf2cdc01f56bd999b34036fc3aa03d5135d41680374eb81bf8a",
+      "bytes": 38846
+    },
+    {
+      "file": "libpixman-1-0-libpixman-1-0-copyright.txt",
+      "package": "libpixman-1-0",
+      "archive_member": "usr/share/doc/libpixman-1-0/copyright",
+      "origin_type": "matched-binary-package",
+      "archive": {
+        "package": "libpixman-1-0",
+        "version": "0.42.2-1build1",
+        "filename": "libpixman-1-0_0.42.2-1build1_amd64.deb",
+        "bytes": 279306,
+        "sha256": "d9c2931c4c424615eeab9dd5ae08bfc608b84e803c1d3ccddf319270db213421",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/p/pixman/libpixman-1-0_0.42.2-1build1_amd64.deb"
+      },
+      "sha256": "1b3fb5690861e15ca4fd6640fd4def4b2576617942eec04b6fcb7d8bc6c4c9da",
+      "bytes": 2247
+    },
+    {
+      "file": "libthai0-libthai0-copyright.txt",
+      "package": "libthai0",
+      "archive_member": "usr/share/doc/libthai0/copyright",
+      "origin_type": "matched-binary-package",
+      "archive": {
+        "package": "libthai0",
+        "version": "0.1.29-2build1",
+        "filename": "libthai0_0.1.29-2build1_amd64.deb",
+        "bytes": 18914,
+        "sha256": "5ada7045c5f84a4b774e6449151800aa6470e8d01dc9d6124ef4a44ae6af5508",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/libt/libthai/libthai0_0.1.29-2build1_amd64.deb"
+      },
+      "sha256": "62d2835587b92a6abdbe62fe4524a7b6a59ac478df2c591eb98c3fbce6c3fa08",
+      "bytes": 2458
+    }
+  ]
+}

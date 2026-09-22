@@ -129,9 +129,26 @@ Cargo 锁、37 个文件集合、七个共享库版本、格式/字体/GIF 隔�
 云端报告的原生归档 SHA-256 为 `947c3dc70536187f264830939a8e08124774b0be2f5ddc3128cd71923c966182`，
 与本地 `f1e2871c…` 不同；当前配方不承诺逐字节可复现，不能用本地归档替代云端文件。
 该次工作流只保留报告，未上传实际原生归档，因此尚未在下载后复核其二进制。
-本轮补上归档上传和 `verify_linux_canvas.py` 独立回读门禁，待新提交的 CI 实物验收。
+随后 `ea3182d` / [35675601359](https://github.com/huaaudio/NeoMusicBot/actions/runs/35675601359)
+已保留实际归档；下载 artifact 的哈希和大小核对通过，37 个原生文件经独立回读全部匹配。
+该次实际归档 SHA-256 为 `6c10ee3ea0f297bd3459e4035cc68a744821a68712dfc535f2bb5fff350b0cbf`，
+证据为 `tools/native-ci-ea3182d/verified-evidence.json`。
 核验记录为 `tools/native-ci-329c95b/verified-evidence.json`。
 
-还需完成其余材料及最终二进制绑定、保留完整归档的新 CI 实物回读，以及 Windows 对应升级评估。
+源码与原生来源映射现已从 `tools` 实验脚本移入
+[`linux-sources`](../src/license/canvas/linux-sources/README.md) 的固定定义和
+`package_linux_sources.py`。实际收集核对 20 个 Ubuntu 源码包的 62 个文件、21 份原始版权文本，
+以及 12 个上游源码/SDK 归档中的 203 份原始声明。SDK 的 Node/Rust 归档明确标注范围，
+不冒充完整上游源码或实际链接组件清单；Ubuntu 包只用 `dpkg-deb` 读取，不安装。
+每次收集重新核对二进制包的版本、Source 字段、原始库和声明字节，并绑定实际原生报告及归档。
+声明路径、源包身份、旧二进制绑定与内容篡改回归已加入 22 项原生 Python 测试。
+
+`package_linux_material_bundle.py` 将此集合、357 个 Cargo 源码包及 641 份原始声明/8 份补充材料，
+与实际原生归档组装为完整 ZIP，并在干净目录读回。Windows 实际回读通过，ZIP 共 1,327 个文件，
+SHA-256 为 `51ee69f8764a0116cd1141777755125ec2ce9f08d028b8b406b1117e07617cec`；
+本地证据为 `tools/native-materials-ea3182d.zip`。新增工作流会保留相同范围的云端材料包，
+该工作流变更的云端结果仍待验证。本地材料包不是已发布的运行资产。
+
+还需完成剩余内嵌组件/许可审查、新材料流程的云端实物回读，以及 Windows 对应升级评估。
 之后才能生成并固定新 native 资产，替换发行定义，再对最终同一提交执行完整应用验收。
 目前这些实验产物不是已发布资产，也没有改变用户下载到的发行运行库。

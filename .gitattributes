@@ -15,3 +15,8 @@ src/license/canvas/librsvg-rust/* -text
 src/license/canvas/linux-librsvg-rust/* -text
 # Build input hashes must be identical in Windows and Linux checkouts.
 src/provider-runtime/native-linux/* -text
+# Preserve captured originals and cross-platform native recipe snapshots.
+src/license/canvas/linux-sources/* -text
+scripts/native/*.py text eol=lf
+scripts/native/*.cjs text eol=lf
+scripts/ci/canvas_probe.cjs text eol=lf

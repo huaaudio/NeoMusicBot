@@ -5,13 +5,14 @@
 
 ## 验收状态
 
-最近应用 CI 完整成功：`329c95b` 的 [35640374441](https://github.com/huaaudio/NeoMusicBot/actions/runs/35640374441)。
+最近应用 CI 完整成功：`ea3182d` 的 [35675601361](https://github.com/huaaudio/NeoMusicBot/actions/runs/35675601361)。
 2026-09-22 下载三个实际 artifact，外层哈希与大小通过；两平台 ZIP 再次通过发布关联门禁、
 原生文件与已收集许可材料核验，三项媒体报告均通过且提交一致。
-记录为 `tools/ci-success-329c95b/verified-artifacts.json` 与 `verified-materials.json`。
-独立 Linux 原生源码 CI [35640374408](https://github.com/huaaudio/NeoMusicBot/actions/runs/35640374408)
-也已成功，下载报告与仓库输入匹配；该次未上传实际原生归档，尚不能选择它作为发行资产。
-新工作流已补上归档保留及独立回读入口，完整说明见 [原生升级记录](native-linux-upgrade.md)。
+记录为 `tools/ci-success-ea3182d/verified-artifacts.json` 与 `verified-materials.json`。
+独立 Linux 原生源码 CI [35675601359](https://github.com/huaaudio/NeoMusicBot/actions/runs/35675601359)
+也已成功；其实际归档已下载并逐文件回读，37 个文件与报告和仓库定义一致。
+原生来源材料已正式定义并与该实际归档绑定，本地完整材料 ZIP 回读通过；
+新增云端材料收集工作流的实物回读、其余材料审查和发行资产选择尚待完成，见 [原生升级记录](native-linux-upgrade.md)。
 以下早期提交记录用于保留故障和修复过程，不代表最新流水线仍有相同故障。
 
 | 项目 | 当前证据 / 待完成事项 |
