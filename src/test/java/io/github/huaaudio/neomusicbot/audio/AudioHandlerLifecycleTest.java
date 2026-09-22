@@ -73,6 +73,43 @@ class AudioHandlerLifecycleTest
         }
     }
 
+    @Test
+    void playbackFailureDoesNotExposeCredentialsOrSignedPaths() throws Exception
+    {
+        var logger = (ch.qos.logback.classic.Logger) org.slf4j.LoggerFactory.getLogger(AudioHandler.class);
+        var captured = new ch.qos.logback.core.read.ListAppender<ch.qos.logback.classic.spi.ILoggingEvent>();
+        captured.setContext(logger.getLoggerContext());
+        captured.start();
+        logger.addAppender(captured);
+        try(Fixture fixture = new Fixture(directory))
+        {
+            fixture.handler.onTrackException(fixture.player,
+                    track("https://fake-user:fake-password@media.invalid/signed-path-secret/audio#fragment-secret"),
+                    new com.sedmelluq.discord.lavaplayer.tools.FriendlyException(
+                            "decode failed https://media.invalid/?token=message-secret",
+                            com.sedmelluq.discord.lavaplayer.tools.FriendlyException.Severity.COMMON,
+                            new IllegalStateException("cause-secret")));
+            assertEquals(1, captured.list.size());
+            var event = captured.list.getFirst();
+            String message = event.getFormattedMessage();
+            assertAll(
+                    () -> assertFalse(message.contains("fake-user")),
+                    () -> assertFalse(message.contains("fake-password")),
+                    () -> assertFalse(message.contains("signed-path-secret")),
+                    () -> assertFalse(message.contains("fragment-secret")),
+                    () -> assertFalse(message.contains("message-secret")),
+                    () -> assertFalse(message.contains("cause-secret")),
+                    () -> assertTrue(message.contains("decode failed")),
+                    () -> assertTrue(message.contains("COMMON")),
+                    () -> assertNull(event.getThrowableProxy()));
+        }
+        finally
+        {
+            logger.detachAppender(captured);
+            captured.stop();
+        }
+    }
+
     private static AudioTrack track(String id)
     {
         return new BaseAudioTrack(new AudioTrackInfo(id, "test", 20L, id, false, null))

@@ -451,9 +451,9 @@ public class AudioHandler extends AudioEventAdapter implements AudioSendHandler
     {
         if(identifier == null)
             return "<unknown>";
-        int query = identifier.indexOf('?');
-        String redacted = query < 0 ? identifier : identifier.substring(0, query) + "?<redacted>";
-        redacted = redacted.replace('\r', ' ').replace('\n', ' ');
+        // Identifiers can be signed URLs or contain URI credentials. Apply the
+        // same policy as extractor diagnostics before bounding the log field.
+        String redacted = SensitiveLogSanitizer.sanitize(identifier);
         return redacted.length() > 256 ? redacted.substring(0, 256) + "..." : redacted;
     }
 }

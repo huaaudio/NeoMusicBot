@@ -185,4 +185,23 @@ Node/Rust SDK 归档另保留 203 份原始声明。构建配方及锁定输入�
 已用 `ea3182d` 成功原生 CI 的实际归档完成绑定，再合并完整 Linux librsvg Cargo 材料，
 组装 1,327 文件的 ZIP 并在 Windows 干净目录通过回读。详见 [构建记录](native-linux-upgrade.md)。
 这证明已收集材料与该次实际二进制相符，不证明所有内嵌依赖或整个发行包审查完成；
-新云端材料工作流仍需实物验收，AUD-005 保持开放。
+`a10d3f4` 的云端完整材料包已通过下载后干净目录实物回读，详见上述构建记录；AUD-005 保持开放。
+
+
+## 独立工具材料审查进度
+
+Deno 2.9.7 固定源码提交 `0c071246a412575e07423263404a5d13e7ed6aa2` 的锁文件包含
+1,046 个 registry 包，原始归档均按锁定 SHA-256 校验，保留 1,662 份包内声明。
+82 个工作区包均在固定 Deno 源码快照中按名称、版本和 Cargo.toml 对应；Deno、rusty_v8
+及其固定子模块另收集 22 个源码归档和 532 份原始声明。
+这是包含构建、测试、可选及其他平台依赖的完整来源集合，不是实际链接组件清单。
+
+117 个 registry 包未找到常规声明文件，其中 51 个已取得固定提交的补充候选；
+沿父目录查找并核对 Git blob 后另取得 17 个包的候选。候选适用范围尚未逐项确认，
+不得视为材料审查完成。证据为 `tools/deno-material-audit/summary.json` 和
+`ancestor-supplements.json`（相对于同一目录）。完整集合尚未接入最终两个平台 ZIP。
+
+实际 Windows yt-dlp 发行文件在禁用配置和插件、不输入媒体 URL 的情况下报告：
+Python 3.10.11、OpenSSL 1.1.1t、Cryptodome 3.23.0、brotli 1.2.0、curl_cffi 0.16.0，
+以及其他 Python/EJS 组件；证据为 `tools/yt-dlp-binary-runtime.log`。
+这些嵌入组件仍需对应来源和升级评估，不能以 yt-dlp 主程序版本替代其依赖审查。
