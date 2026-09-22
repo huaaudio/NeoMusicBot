@@ -238,3 +238,7 @@ Linux 原生完整材料云端回读基线为 `a10d3f4` 的 [35678485785](https:
 发现并修复 AUD-043 / P3：`NeoMusicBot` 曾在主线程创建并显示 Swing 窗口。现在通过 `GUI.open()` 在事件线程创建和显示；调用方等待初始化完成，中断时保留中断状态并进入现有启动失败清理。后台 shutdown 与日志事件线程刷新保留。相关控制台、退出、设置故障恢复与歌单行为回归 31 项通过（`tools/gui-persistence-review-tests.log`）；这些测试不构成完整桌面人工操作验收，窗口视觉与交互手工验收仍未进行。
 
 复核 `make-release.yml` 与 `prepare_prerelease.py`：只接受同一默认分支提交的成功 Build and Test；检查包内外 SBOM、JAR 版本、原生/工具/材料报告和三项媒体结果；标签原子创建，草稿上传后逐文件哈希回读，再以非 Latest 的 Pre-release 公开并再次回读。源码附件已固定并公开，但应用发布尚未执行。候选版本选为 `0.5.0-beta.1`，远端查询未发现占用该版本的标签；最终创建仍由原子标签接口保证不覆盖。
+
+### 跨平台源码访问记录修复（AUD-044）
+
+`34ce106` 的完整 CI 已通过，但实际产物在本地跨平台回读时发现 Windows 的两份自有源码访问 JSON 被 Git 转换为 CRLF；Linux 为 LF，因此严格原文字节检查拒绝 Windows 包。逐字节诊断确认差异仅为换行，JSON 内容一致。`.gitattributes` 现明确将 `shared-sources.json` 与 `canvas/windows-source-access.json` 固定为 LF；三种 `core.autocrlf` 配置下实际 Git 检出共六项字节比较通过（`tools/source-record-checkout-verified.json`）。保留原有字节检查，未用语义比较绕过。修复后的提交必须重新完成完整 CI 和两平台产物回读，旧候选不发布。

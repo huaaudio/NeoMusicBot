@@ -20,3 +20,7 @@ src/license/canvas/linux-sources/* -text
 scripts/native/*.py text eol=lf
 scripts/native/*.cjs text eol=lf
 scripts/ci/canvas_probe.cjs text eol=lf
+
+# Authored source access records are compared byte-for-byte across platform ZIPs.
+src/license/shared-sources.json text eol=lf
+src/license/canvas/windows-source-access.json text eol=lf
