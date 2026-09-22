@@ -231,3 +231,10 @@ Linux 原生完整材料云端回读基线为 `a10d3f4` 的 [35678485785](https:
 - `SlashCommandListener` 搜索与分页控件：复核 UUID 会话、动作白名单、服务器/用户绑定、TTL、当前音乐上下文、加载令牌、选择时原子移除，以及发布/确认失败和超时释放。此次为代码复核；未新增真实 Discord 搜索菜单和分页人工验收，不能把普通播放 Slash 验收扩大为这些控件的人工通过。
 
 对应本地 Java 25 行为回归共 26 项全部通过，日志 `tools/module-review-media-interactions.log`；覆盖附件 URL/播放列表、HTTP 请求和重定向、HLS、Bilibili 身份与分 P、进程生命周期及版本探测最小环境。`SlashCommandSecurityTest` 在当前代码中只覆盖版本探测环境，不能将其名称视作全部交互权限已由测试覆盖。最终两平台完整 CI 仍须通过。
+
+
+### GUI 与发布流程复核（2026-09-22）
+
+发现并修复 AUD-043 / P3：`NeoMusicBot` 曾在主线程创建并显示 Swing 窗口。现在通过 `GUI.open()` 在事件线程创建和显示；调用方等待初始化完成，中断时保留中断状态并进入现有启动失败清理。后台 shutdown 与日志事件线程刷新保留。相关控制台、退出、设置故障恢复与歌单行为回归 31 项通过（`tools/gui-persistence-review-tests.log`）；这些测试不构成完整桌面人工操作验收，窗口视觉与交互手工验收仍未进行。
+
+复核 `make-release.yml` 与 `prepare_prerelease.py`：只接受同一默认分支提交的成功 Build and Test；检查包内外 SBOM、JAR 版本、原生/工具/材料报告和三项媒体结果；标签原子创建，草稿上传后逐文件哈希回读，再以非 Latest 的 Pre-release 公开并再次回读。源码附件已固定并公开，但应用发布尚未执行。候选版本选为 `0.5.0-beta.1`，远端查询未发现占用该版本的标签；最终创建仍由原子标签接口保证不覆盖。

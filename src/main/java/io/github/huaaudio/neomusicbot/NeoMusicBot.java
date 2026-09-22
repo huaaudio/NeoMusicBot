@@ -121,9 +121,12 @@ public final class NeoMusicBot
             {
                 try
                 {
-                    GUI gui = new GUI(bot);
-                    bot.setGUI(gui);
-                    gui.init();
+                    GUI.open(bot);
+                }
+                catch(InterruptedException interrupted)
+                {
+                    Thread.currentThread().interrupt();
+                    throw new IllegalStateException("Interrupted while starting the GUI", interrupted);
                 }
                 catch(Exception failure)
                 {

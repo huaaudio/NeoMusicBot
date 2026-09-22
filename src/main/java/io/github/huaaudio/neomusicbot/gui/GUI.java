@@ -16,6 +16,8 @@
  */
 package io.github.huaaudio.neomusicbot.gui;
 
+import java.awt.EventQueue;
+import java.lang.reflect.InvocationTargetException;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import javax.swing.JFrame;
@@ -33,6 +35,21 @@ public class GUI extends JFrame
     private final ConsolePanel console;
     private final Bot bot;
     
+    /** Create and show Swing components on their event dispatch thread. */
+    public static void open(Bot bot) throws InvocationTargetException, InterruptedException
+    {
+        Runnable show = () ->
+        {
+            GUI gui = new GUI(bot);
+            bot.setGUI(gui);
+            gui.init();
+        };
+        if(EventQueue.isDispatchThread())
+            show.run();
+        else
+            EventQueue.invokeAndWait(show);
+    }
+
     public GUI(Bot bot) 
     {
         super();
