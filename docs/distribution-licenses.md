@@ -221,3 +221,26 @@ Windows 实际嵌入的 24 个文件与官方 Python 3.10.11 嵌入发行包字�
 配方固定的六个外部源码归档也已保留。这些比对不等于所有 native 子依赖覆盖。
 本地完整索引为 `tools/ytdlp-embedded-audit/summary.json`；来源材料尚未正式接入最终 ZIP，
 内嵌 curl、Rust/加密依赖、平台运行库及适用声明审查仍需完成，AUD-005 保持开放。
+
+## QuickJS/WASI 来源与实际二进制绑定（2026-09-22）
+
+`package_quickjs_materials.py` 现将 QuickJS WASI 2.2.0 的精确 npm 归档、固定版本主源码、
+QuickJS-NG 子模块、WASI SDK 32 配方及其固定 wasi-libc/LLVM 源码纳入两个平台包。
+共六份完整归档；除原始源码内的声明外，另保留 17 份原始声明文件供阅读。
+现有 provider 补充材料继续提供 Ada、tl::expected、Mbed TLS 等许可文本。
+
+实际 `7e9a242` 两平台包的主 WASM 及六个扩展与 npm 归档完全匹配；每个平台的安装目录和 Deno 缓存共两个副本均验证。
+七个 WASM 的 producers 段均报告 Clang 22.1.0-wasi-sdk，LLVM 提交
+`4434dabb69916856b824f68a64b029c67175e532` 与 SDK 32 子模块一致。
+配方明确使用 WASI libc、编译器支持、模拟时钟/信号库，URL 扩展另外链接 libc++ 的 `string.cpp.o`。
+这些对应源码、构建材料、运行库原始许可及行内声明现已保留，不再仅依赖包装层 MIT 声明。
+完整 LLVM 源码包含构建、测试及其他平台代码，不把它们全部认定为运行时链接组件。
+
+正式校验会拒绝版本/锁完整性不符、来源遗漏、WASM 文件集合改变、缓存副本损坏、编译器提交错配，
+以及声明原文字节不符。两平台干净解压验证和预发布门禁新增 `provider.quickjs=passed`；
+这项新增门禁仍须由新提交的实际 CI 包验证，历史包不追补该报告字段。
+此项不代表 Deno、yt-dlp 或整个 AUD-005 已关闭。
+
+两平台对应的独立 QuickJS 材料 ZIP 均已干净解压回读通过（各 125 个文件），
+证据为 `tools/quickjs-platform-readback/verified.json`；55 项 CI 脚本测试通过。
+这些局部实物验证不能替代包含新增门禁的完整应用 CI 与最终预发布验收。

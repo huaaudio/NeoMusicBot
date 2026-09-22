@@ -5,14 +5,16 @@
 
 ## 验收状态
 
-最近应用 CI 完整成功：`ea3182d` 的 [35675601361](https://github.com/huaaudio/NeoMusicBot/actions/runs/35675601361)。
-2026-09-22 下载三个实际 artifact，外层哈希与大小通过；两平台 ZIP 再次通过发布关联门禁、
+最近完成实物回读的应用 CI：`7e9a242` 的 [35682198431](https://github.com/huaaudio/NeoMusicBot/actions/runs/35682198431)。
+2026-09-22 下载三个实际 artifact，外层哈希与大小通过；两平台 ZIP 再次通过当次发布关联门禁、
 原生文件与已收集许可材料核验，三项媒体报告均通过且提交一致。
-记录为 `tools/ci-success-ea3182d/verified-artifacts.json` 与 `verified-materials.json`。
-独立 Linux 原生源码 CI [35675601359](https://github.com/huaaudio/NeoMusicBot/actions/runs/35675601359)
-也已成功；其实际归档已下载并逐文件回读，37 个文件与报告和仓库定义一致。
-原生来源材料已正式定义并与该实际归档绑定，本地完整材料 ZIP 回读通过；
-新增云端材料收集工作流的实物回读、其余材料审查和发行资产选择尚待完成，见 [原生升级记录](native-linux-upgrade.md)。
+记录为 `tools/ci-success-7e9a242/verified-artifacts.json` 与 `verified-materials.json`。
+新增 QuickJS 材料门禁尚须由包含该改动的新提交完成 CI，不能追补历史报告。
+Linux 原生完整材料云端回读基线为 `a10d3f4` 的 [35678485785](https://github.com/huaaudio/NeoMusicBot/actions/runs/35678485785)；
+37 个原生文件与报告和仓库定义一致，源码、声明及 Cargo 集合的实际材料 ZIP 通过干净回读。
+`7e9a242` 增补匹配的 Rust 标准库/编译器源码，本地 5,169 文件材料 ZIP 已回读通过；
+相应 [原生 CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35682198358) 已成功，云端实物正在下载复核。
+其余材料审查和发行资产选择尚待完成，见 [原生升级记录](native-linux-upgrade.md)。
 以下早期提交记录用于保留故障和修复过程，不代表最新流水线仍有相同故障。
 
 | 项目 | 当前证据 / 待完成事项 |
@@ -23,7 +25,7 @@
 | Java 27 | `48e8d50` 的 Windows/Linux 兼容矩阵均通过；发行字节码与构建基线仍为 Java 25 LTS |
 | 全模块审查 | 进行中，见问题表；未完成项不能按已通过处理 |
 | 干净发行包 | `f616f13` 的 [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35564696089) 已通过 Windows/Linux 最终 ZIP 干净解压、启动器、配置、原生解码及 provider 离线启动；锁定在线媒体探测仍失败，因此整体尚未通过 |
-| Discord 实际语音 | 此轮尚无测试服务器/凭据，未验证真实 DAVE 握手、频道可听性或长期运行；用户曾实测旧版本，不等同本轮升级验收 |
+| Discord 实际语音 | 已完成本轮授权频道内可听播放、连续两首、分 P、控制、至少十分钟播放及无人退出；另有真实 DAVE 和应用语音重连证据，见[验收记录](discord-voice-acceptance.md)。最终发行包仍须验证 |
 | Pre-release | 尚未发布；必须使用最终成功 CI 的同一提交和经过验证的完整发行包 |
 
 ## 依赖选择与迁移
@@ -32,7 +34,7 @@
 
 | 组件 | 原版本 → 选定版本 | 来源 / 迁移与保留理由 |
 | --- | --- | --- |
-| JDA | 6.5.0 → 6.7.0 | [Release](https://github.com/discord-jda/JDA/releases/tag/v6.7.0)；复核频道混淆与交互频道权限语义，真实语音待验收 |
+| JDA | 6.5.0 → 6.7.0 | [Release](https://github.com/discord-jda/JDA/releases/tag/v6.7.0)；复核频道混淆与交互频道权限语义，本轮真实语音验收见单独记录 |
 | JDAVE | 0.1.8 → 0.1.8 | [官方仓库](https://github.com/MinnDevelopment/jdave)；当前稳定版，要求 Java 25 FFM；两个平台均运行原生加载测试 |
 | Lavaplayer | 2.2.7 → 2.2.7 | [Releases](https://github.com/lavalink-devs/lavaplayer/releases)；当前稳定版，需复核打包后的解码原生库 |
 | youtube-source | 1.18.1 → 1.18.2 | [Release](https://github.com/lavalink-devs/youtube-source/releases/tag/1.18.2)；升级后仍需真实媒体验证 |
