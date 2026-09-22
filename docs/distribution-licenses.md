@@ -205,3 +205,19 @@ Deno 2.9.7 固定源码提交 `0c071246a412575e07423263404a5d13e7ed6aa2` 的锁�
 Python 3.10.11、OpenSSL 1.1.1t、Cryptodome 3.23.0、brotli 1.2.0、curl_cffi 0.16.0，
 以及其他 Python/EJS 组件；证据为 `tools/yt-dlp-binary-runtime.log`。
 这些嵌入组件仍需对应来源和升级评估，不能以 yt-dlp 主程序版本替代其依赖审查。
+
+
+2026-09-22 继续对 `5c0a3d2` 实际两平台 ZIP 内的 yt-dlp 做静态盘点：Windows
+150 个 CArchive 条目/1,584 个 Python 模块，Linux 158 个条目/1,644 个模块，
+逐项保留字节哈希，未执行或反序列化内嵌模块代码。仅报告版本的本地探针补充了
+cffi、charset-normalizer、idna、pycparser 等缺少发行元数据的组件版本。
+Linux 实测 Python 3.14.7/OpenSSL 3.5.7，与 Windows 的 3.10.11/1.1.1t 不同。
+
+已按实测版本采集 17 个 PyPI 原始源码包，核对 PyPI SHA-256 并保留 28 份原始声明；
+另保存两版 CPython 官方固定提交源码，以及 yt-dlp 固定提交
+`594bd50c2c78ac432f81600d309fdc4e0a92d82c` 的原始工作流及带哈希依赖输入。
+Windows 实际嵌入的 24 个文件与官方 Python 3.10.11 嵌入发行包字节相同；
+其中 libffi、libssl、libcrypto 另与 CPython 官方外部二进制仓库对应文件逐字节匹配，
+配方固定的六个外部源码归档也已保留。这些比对不等于所有 native 子依赖覆盖。
+本地完整索引为 `tools/ytdlp-embedded-audit/summary.json`；来源材料尚未正式接入最终 ZIP，
+内嵌 curl、Rust/加密依赖、平台运行库及适用声明审查仍需完成，AUD-005 保持开放。

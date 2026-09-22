@@ -79,6 +79,11 @@ def validate(definition=DEFINITION, build_definition=BUILD_DEFINITION):
     expected = {item['name']: item for item in build['sources']}
     expected['node'] = build['tools']['node']
     expected.update({item['name']: item for item in build['tools']['rust']['components'] if item['name'] in ('rustc', 'rust-std')})
+    rust = build['tools']['rust']
+    version = rust['version'].split()[0]
+    expected['rust-source'] = dict(name='rust-source', version=version,
+        url=f"https://static.rust-lang.org/dist/{rust['date']}/rustc-{version}-src.tar.xz",
+        filename=f'rustc-{version}-src.tar.xz')
     addon = json.loads((build_definition / 'package-lock.json').read_text())['packages']['node_modules/node-addon-api']
     expected['node-addon-api'] = dict(name='node-addon-api', version=addon['version'], url=addon['resolved'], npm_integrity=addon['integrity'])
     seen = set()
@@ -87,6 +92,8 @@ def validate(definition=DEFINITION, build_definition=BUILD_DEFINITION):
         if name in seen or name not in expected or any(record.get(k) != v for k, v in expected[name].items()):
             raise ValueError('Upstream material differs from pinned build source or SDK')
         seen.add(name)
+        if name == 'rust-source':
+            validate_rust_identity(component, rust['version'])
         check_record(record)
         paths = set()
         for document in component['documents']:
@@ -147,6 +154,42 @@ def validate(definition=DEFINITION, build_definition=BUILD_DEFINITION):
     if document_packages != binary_packages:
         raise ValueError('Missing Ubuntu package copyright')
     return data
+
+
+def validate_rust_identity(component, sdk_version):
+    match = re.fullmatch(r'([^ ]+) \(([a-f0-9]+) ([0-9-]+)\)', sdk_version)
+    if not match:
+        raise ValueError('Invalid Rust SDK version identity')
+    version, short_commit, date = match.groups()
+    root = f'rustc-{version}-src/'
+    identity = component.get('identity', {})
+    commit = identity.get(root + 'git-commit-hash', '')
+    if not re.fullmatch('[a-f0-9]{40}', commit) or not commit.startswith(short_commit):
+        raise ValueError('Rust source commit differs from SDK')
+    expected = {root + 'version': sdk_version, root + 'src/version': version,
+                root + 'git-commit-hash': commit,
+                root + 'git-commit-info': f'{commit}\n{short_commit}\n{date}'}
+    if identity != expected:
+        raise ValueError('Rust source identity differs from SDK')
+
+
+def verify_rust_identity(archive_path, component):
+    if component['component'] != 'rust-source':
+        return
+    expected = component['identity']
+    found = set()
+    with tarfile.open(archive_path) as archive:
+        for member in archive:
+            name = member.name.removeprefix('./')
+            if name not in expected:
+                continue
+            if name in found or not member.isfile() or member.size > 4096:
+                raise ValueError('Invalid Rust source identity member')
+            if archive.extractfile(member).read().decode('utf-8').strip() != expected[name]:
+                raise ValueError('Rust source archive identity mismatch')
+            found.add(name)
+    if found != expected.keys():
+        raise ValueError('Rust source archive identity missing')
 
 
 def verify_descriptor(folder, source):
@@ -271,6 +314,7 @@ def verify(output, native_output, definition=DEFINITION):
                 integrity = 'sha512-' + base64.b64encode(hashlib.file_digest(stream, 'sha512').digest()).decode()
             if integrity != archive['npm_integrity']:
                 raise ValueError('Runtime header archive differs from npm integrity')
+        verify_rust_identity(sources / relative, component)
         for document, _ in notice_bytes(sources / relative, component['documents']):
             license_paths.add('upstream/' + document['file'])
             checked_file(licenses / 'upstream' / document['file'], document)
@@ -316,6 +360,7 @@ def package(output, cache, native_output, definition=DEFINITION):
         shutil.copyfile(definition / item['file'], target)
     for component in data['upstream_materials']:
         archive = sources / 'upstream' / component['component'] / filename(component['archive'])
+        verify_rust_identity(archive, component)
         for document, body in notice_bytes(archive, component['documents']):
             target = licenses / 'upstream' / document['file']
             target.parent.mkdir(parents=True, exist_ok=True)

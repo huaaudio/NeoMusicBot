@@ -206,3 +206,6 @@
 - 桌面控制台：已复核日志解码与行数限制并修复 AUD-032；GUI 关闭继续使用既有后台有序 shutdown，完整桌面交互人工验收尚未进行。
 
 - AUD-041 的故障基线为 `tools/audio-logging-before.log`：1 个用例包含 4 个失败断言；修复后播放生命周期、连接状态、会话原子性、恢复及脱敏共 20 项测试通过，日志 `tools/audio-logging-after.log`。本轮为本地 Java 行为验证，尚不代表该修复的两平台最终发行或真实 Discord 验收通过。
+
+
+- 本轮已在授权 Discord 频道完成真实 Slash 注册、Bilibili 可听播放、两首自动衔接、指定分 P、跳过、单曲循环、暂停恢复、停止离开、至少十分钟持续播放及无人退出的用户验收。补充探针观察到 DAVE 协议 1 的就绪转换与实际扩长加密帧；真实语音 TCP 故障后，项目连接监听器经历 `CONNECTED → RECONNECTING → CONNECTED`，保留同一轨道并继续推进。详见 [语音验收记录](discord-voice-acceptance.md)。证据限定于所记载的代码/依赖组合与故障场景，最终预发布资产仍需对应验证。

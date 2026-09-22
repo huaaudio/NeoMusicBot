@@ -9,7 +9,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from package_linux_sources import DEFINITION, binding, notice_bytes, validate, verify_descriptor
+from package_linux_sources import DEFINITION, binding, notice_bytes, validate, verify_descriptor, verify_rust_identity
 
 
 class LinuxSourceDefinitionTests(unittest.TestCase):
@@ -28,7 +28,7 @@ class LinuxSourceDefinitionTests(unittest.TestCase):
         data = validate(self.definition)
         self.assertEqual(37, len(data['native_origins']))
         self.assertEqual(20, len(data['ubuntu_sources']))
-        self.assertEqual(203, sum(len(c['documents']) for c in data['upstream_materials']))
+        self.assertEqual(4044, sum(len(c['documents']) for c in data['upstream_materials']))
 
     def test_source_omission_cannot_shrink_required_collection(self):
         self.data['ubuntu_sources'].pop()
@@ -40,6 +40,23 @@ class LinuxSourceDefinitionTests(unittest.TestCase):
         next(c for c in self.data['upstream_materials'] if c['component'] == 'node')['archive']['version'] = 'wrong'
         self.save()
         with self.assertRaisesRegex(ValueError, 'pinned build source or SDK'):
+            validate(self.definition)
+
+    def test_rust_source_identity_must_match_the_compiler(self):
+        source = next(c for c in self.data['upstream_materials'] if c['component'] == 'rust-source')
+        baseline = copy.deepcopy(source)
+        for key in ('version', 'git-commit-hash', 'git-commit-info', 'src/version'):
+            source.clear()
+            source.update(copy.deepcopy(baseline))
+            source['identity']['rustc-1.98.1-src/' + key] = 'wrong'
+            self.save()
+            with self.assertRaisesRegex(ValueError, 'Rust source'):
+                validate(self.definition)
+
+    def test_rust_source_cannot_be_omitted(self):
+        self.data['upstream_materials'] = [c for c in self.data['upstream_materials'] if c['component'] != 'rust-source']
+        self.save()
+        with self.assertRaisesRegex(ValueError, 'Missing upstream'):
             validate(self.definition)
 
     def test_source_parent_cannot_be_swapped_for_a_different_package(self):
@@ -117,6 +134,22 @@ class SourceArchiveChecksTests(unittest.TestCase):
         source['files'].pop()
         with self.assertRaisesRegex(ValueError, 'descriptor checksums'):
             verify_descriptor(self.root, source)
+
+    def test_rust_archive_rejects_missing_duplicate_and_changed_identity(self):
+        path = self.root / 'rust.tar.gz'
+        component = dict(component='rust-source', identity={'rust/version': '1.98.1'})
+        for entries, fails in (([b'1.98.1\n'], False), ([], True),
+                               ([b'1.98.1', b'1.98.1'], True), ([b'1.98.0'], True)):
+            with tarfile.open(path, 'w:gz') as archive:
+                for body in entries:
+                    item = tarfile.TarInfo('rust/version')
+                    item.size = len(body)
+                    archive.addfile(item, io.BytesIO(body))
+            if fails:
+                with self.assertRaises(ValueError):
+                    verify_rust_identity(path, component)
+            else:
+                verify_rust_identity(path, component)
 
     def test_notice_extraction_rejects_duplicate_or_modified_original(self):
         original = b'Original copyright\r\n'

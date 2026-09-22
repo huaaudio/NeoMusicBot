@@ -8,11 +8,14 @@ metadata and native/copyright bytes are re-read with dpkg-deb without installing
 packages. Two runtime packages use the copyright document from their exact
 parent source archive, rather than following a host documentation symlink.
 
-The twelve upstream material archives comprise eight runtime source archives,
+The thirteen upstream material archives comprise eight runtime source archives,
 node-addon-api header sources, and the exact Node/Rust SDK archives whose
-original notices were collected. Node and Rust SDK archives are not represented
+original notices were collected, plus the matching full Rust source release.
+The Rust source version and commit identity are checked against the fixed SDK
+and re-read from the actual source archive during collection and readback.
+Node and Rust SDK archives are not represented
 as full upstream source releases or as an inventory of linked runtime objects.
-Their notices include build-only components. All 203 original documents retain
+Their notices include build-only components. All 4,044 original documents retain
 their archive paths and bytes. The complete librsvg Cargo source graph and its
 supplemental documents remain in the separate linux-librsvg-rust collection.
 
