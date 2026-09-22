@@ -244,3 +244,53 @@ QuickJS-NG 子模块、WASI SDK 32 配方及其固定 wasi-libc/LLVM 源码纳�
 两平台对应的独立 QuickJS 材料 ZIP 均已干净解压回读通过（各 125 个文件），
 证据为 `tools/quickjs-platform-readback/verified.json`；55 项 CI 脚本测试通过。
 这些局部实物验证不能替代包含新增门禁的完整应用 CI 与最终预发布验收。
+
+## Deno 固定来源定义（2026-09-22）
+
+已将收集结果整理为 `src/license/deno` 和 `validate_deno_materials.py`：
+固定 1,046 个 registry crate、82 个工作区清单、22 份 Deno/V8/子模块源码，
+另补入 Rust 1.95.0 完整源码及 TypeScript 6.0.3 原始 npm 包和对应提交源码。
+源码归档总计 702,158,848 字节；版本、Cargo.lock、V8 子模块、原始 Cargo/VCS 元数据与声明映射分别校验。
+Deno 的工具链与 Canvas 使用的 Rust 1.98.1 不同，不能共用其源码完成结论。
+
+Windows 实际 Deno 中的 Rust 提交标识 `59807616e1fa2540724bfbac14d7976d7e4a3860`
+与所收集 Rust 1.95.0 原始身份文件匹配。Linux 没有相同的内嵌路径标识，
+其关联依据固定官方二进制与源码中的工具链配方，不冒充直接编译器标识比对。
+`deno_core_icudata` 的 10,822,192 字节数据与固定 V8 ICU 的 `common/icudtl.dat` 完全相同；
+完整 ICU 源码及原始数据声明已保留。TypeScript 的原始发布材料和第三方声明另行补齐，
+Deno 修改后的 JavaScript 及更新说明仍保留在原始 Deno 源码中。
+
+对 117 个没有常规原始声明文件的 crate，66 个已将完整原文按精确 VCS 提交及祖先目录范围关联；
+其余 51 个保留完整原始 crate、Cargo 许可/作者声明、能取得的原始版权短声明，并明确标注附加的 SPDX 标准文本。
+其中两个 gpu-descriptor 包的 COPYING 只有版权及许可引用，不能当作完整正文；
+引用的仓库内文件返回 404，因此保留原声明并附其明确可选的 Apache-2.0 标准文本。
+没有猜测或填入版权人、年份。此映射有 79 份补充文件，不能单独证明所有内嵌组件已完成审查。
+
+原始归档声明路径共 5,728 项，包含完整源码中的构建/测试材料及 Deno 空 LICENSE 测试夹具；
+空夹具不构成许可授权。正式源码校验器会核对原始字节、遗漏/重复项及错误版本映射，
+新增回归与现有 CI 脚本共 69 项通过。Deno 材料已接入两平台组装和干净解压验证，
+发布门禁必须包含 `runtime.deno.materials=passed`；本次提交的云端应用 ZIP 仍待验证，
+整体运行时范围审查、发行集成与最终实物验证仍是未完成项，AUD-005 保持开放。
+
+QuickJS 的新增门禁已由 `5c2c3da` [完整应用 CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35683045221)
+及下载后的两平台实际 ZIP 回读确认：每个平台两份副本、七个 WASM、六份来源归档、17 份原文均匹配。
+证据为 `tools/ci-success-5c2c3da/verified-materials.json`。
+
+## yt-dlp 内嵌 curl 来源补充（2026-09-22）
+
+实际两平台 yt-dlp 中的 curl_cffi 0.16.0 原生文件已与 PyPI 原始 wheel 逐字节对应：
+Windows 的 `_wrapper.pyd` 与 libcurl DLL，以及 Linux 的 `_wrapper.abi3.so` 均完全匹配。
+保留两个 wheel 的官方 SHA-256、原始声明和内嵌文件映射，证据为
+`tools/ytdlp-embedded-audit/curl-native/wheel-binding.json`。
+
+其原始构建脚本选择 curl-impersonate 2.0.0；已固定上游提交
+`ec41b71ce888806bfec56ada7a7258d333eb3d19` 的完整源码、补丁和 CMake 配方。
+配方中的 zlib、zstd、Brotli、BoringSSL、nghttp2、ngtcp2、nghttp3、curl 八份源码
+均按上游配方 SHA-256 校验通过，另外保留 29 份原始声明。
+这证明所选构建材料与固定配方对应，尚未证明官方 wheel 的逐字节可重构性；
+其他内嵌组件的来源与适用声明审查、正式发行集成仍待完成。
+
+本地 Deno 材料实物验证：从 `5c2c3da` 已核验应用包取出两平台实际 Deno，
+分别组装、生成 SHA256SUMS、打包并干净解压；每个平台 6,884 个文件的完整性与来源绑定通过。
+证据为 `tools/deno-platform-readback/verified.json`。此检查限定于 Deno 程序和材料，
+不替代新增提交的完整应用 ZIP、运行验证或整个 AUD-005 的审查结论。

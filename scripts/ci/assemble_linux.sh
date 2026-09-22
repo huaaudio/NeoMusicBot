@@ -89,6 +89,7 @@ test -f "${provider}/deno.lock"
 
 cp -a -- src/license/provider "${licenses}/provider"
 python3 scripts/ci/package_quickjs_materials.py "${bundle}"
+python3 scripts/ci/package_deno_materials.py "${bundle}" --platform "${ARTIFACT_SUFFIX}"
 python3 scripts/ci/inventory_provider.py "${tools}/bgutil-provider" "${bundle}/provider-dependencies.json" "${licenses}/provider"
 python3 scripts/ci/package_bundle.py "${bundle}" "target/NeoMusicBot-${ARTIFACT_SUFFIX}.zip"
 python3 scripts/ci/verify_bundle.py "target/NeoMusicBot-${ARTIFACT_SUFFIX}.zip" "target/bundle-verification.txt"

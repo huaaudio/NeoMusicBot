@@ -16,6 +16,7 @@ from install_canvas_native import verify as verify_canvas_native
 from package_canvas_materials import verify as verify_canvas_materials
 from package_librsvg_materials import verify as verify_librsvg_materials
 from package_quickjs_materials import verify as verify_quickjs_materials
+from package_deno_materials import verify as verify_deno_materials
 
 
 def extract(archive_path, destination):
@@ -72,6 +73,7 @@ def verify(archive_path, report_path):
             verify_canvas_materials(bundle)
             verify_librsvg_materials(bundle)
         verify_quickjs_materials(bundle)
+        verify_deno_materials(bundle, "windows-x86-64" if os.name == "nt" else "linux-x86-64")
         verify_provider_inventory(bundle / "tools/bgutil-provider", bundle / "provider-dependencies.json",
                                   bundle / "licenses/provider")
         for name in ("README.md", "docs/install-and-upgrade.md", "licenses/NeoMusicBot-Apache-2.0.txt",
@@ -156,7 +158,7 @@ def verify(archive_path, report_path):
                  f"version={version}", f"archive.sha256={expected}", "config=passed", "native.dave=passed",
                  "native.opus=passed", "crypto.rtp=passed",
                  "audio.aac=passed", "audio.opus=passed", "audio.mp3=passed", "provider.offline=passed",
-                 "provider.inventory=passed", "provider.native=passed", "provider.quickjs=passed",
+                 "provider.inventory=passed", "provider.native=passed", "provider.quickjs=passed", "runtime.deno.materials=passed",
                  "discord.voice=not-tested", "online.media=not-tested"]
         report_path.parent.mkdir(parents=True, exist_ok=True)
         report_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
