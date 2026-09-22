@@ -75,7 +75,7 @@ Java 仍需自行安装。GitHub 的 Source code 压缩包与单个 JAR 均不�
 
 - 完成剩余模块审查及 [AUD-005 第三方材料审查](distribution-licenses.md)。
 - 发布版本需重新通过完整 CI。开发提交 `08aa25b` 已通过[两平台构建与三项在线媒体检查](https://github.com/huaaudio/NeoMusicBot/actions/runs/35576688077)；媒体 job 使用隔离的一次性 runner，不能将其旧产物用于后续版本。
-- 获取实际 Discord 测试环境并记录语音验收；此前用户实测旧版本不等于升级后验收。
+- 本轮授权 Discord 语音验收已完成，范围及代码/依赖组合见 [验收记录](discord-voice-acceptance.md)；最终发行资产须保留准确关联，未做的场景不得扩大声称。
 - 确定测试版版本并重新构建最终提交，将本说明中的测试范围替换为确切结果。
 - 按[发布流程](prerelease-process.md)上传、下载核对、公开为 Pre-release，再次读回验证。
 
