@@ -352,4 +352,4 @@ SHA-256 `472aefe951c7db35e1657c1d13fd337140511ed6f2b329205105ad441c5a02b7`。
 
 yt-dlp 2026.08.19 已采用此方式，固定附件位于 `yt-dlp-2026.08.19-runtime-sources-r1` 不可变预发布。两平台打包写入 `licenses/yt-dlp-source-access.json` 和 `licenses/yt-dlp-corresponding-sources.json`，发布门禁要求 `runtime.ytdlp.sources=passed`。本地两平台实际程序的最小 ZIP 已完成干净解压和公开源码下载验证；这项证据不等同于最终完整应用 ZIP 已通过验收。
 
-Deno、QuickJS 和 Canvas 的源码目前仍在运行 ZIP 中，其独立附件迁移尚未完成。历史 CI 外层传输 ZIP 已在确认其内层 ZIP 哈希与保留副本一致后清理；这些磁盘缓存不属于应用源码大小。
+Deno 与 QuickJS 已接入共享源码附件分离：运行 ZIP 保留 `licenses/shared-source-access.json` 和原始声明；干净解压检查从固定公开地址下载附件，验证整体及逐文件哈希，再执行原有材料校验。共享附件的公开发布读回尚待完成。Canvas 源码的独立附件迁移尚未完成。历史 CI 外层传输 ZIP 已在确认其内层 ZIP 哈希与保留副本一致后清理；这些磁盘缓存不属于应用源码大小。

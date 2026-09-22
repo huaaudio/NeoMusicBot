@@ -183,6 +183,8 @@ python scripts/ci/package_deno_materials.py $bundle --platform $env:ARTIFACT_SUF
 if ($LASTEXITCODE -ne 0) { throw "Deno source and license collection failed" }
 python scripts/ci/inventory_provider.py $providerBundle (Join-Path $bundle "provider-dependencies.json") (Join-Path $licenses "provider")
 if ($LASTEXITCODE -ne 0) { throw "Provider dependency inventory failed" }
+python scripts/ci/package_shared_source_access.py $bundle
+if ($LASTEXITCODE -ne 0) { throw "Shared source separation failed" }
 python scripts/ci/package_bundle.py $bundle $archive
 if ($LASTEXITCODE -ne 0) { throw "Bundle archive creation failed" }
 python scripts/ci/verify_bundle.py $archive "target/bundle-verification.txt"

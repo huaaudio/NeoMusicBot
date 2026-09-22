@@ -79,6 +79,8 @@ def verify(archive_path, report_path):
         verify_ytdlp_notices(bundle, "windows-x86-64" if os.name == "nt" else "linux-x86-64")
         from package_ytdlp_source_access import verify as verify_ytdlp_sources
         verify_ytdlp_sources(bundle, "windows-x86-64" if os.name == "nt" else "linux-x86-64")
+        from package_shared_source_access import restore_for_verification
+        restore_for_verification(bundle)
         verify_quickjs_materials(bundle)
         verify_deno_materials(bundle, "windows-x86-64" if os.name == "nt" else "linux-x86-64")
         verify_provider_inventory(bundle / "tools/bgutil-provider", bundle / "provider-dependencies.json",
