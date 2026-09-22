@@ -219,3 +219,15 @@ Linux 原生完整材料云端回读基线为 `a10d3f4` 的 [35678485785](https:
 - 本轮已在授权 Discord 频道完成真实 Slash 注册、Bilibili 可听播放、两首自动衔接、指定分 P、跳过、单曲循环、暂停恢复、停止离开、至少十分钟持续播放及无人退出的用户验收。补充探针观察到 DAVE 协议 1 的就绪转换与实际扩长加密帧；真实语音 TCP 故障后，项目连接监听器经历 `CONNECTED → RECONNECTING → CONNECTED`，保留同一轨道并继续推进。详见 [语音验收记录](discord-voice-acceptance.md)。证据限定于所记载的代码/依赖组合与故障场景，最终预发布资产仍需对应验证。
 
 - AUD-042：`tools/queue-concurrency-before.log` 中公平插入与清空竞争复现 `IndexOutOfBoundsException`；修复后 `QueueConcurrencyTest,FairQueueTest,GuildPlaybackSessionAtomicityTest,PlaybackResumeTest` 共 18 项全部通过（`tools/queue-concurrency-after.log`）。改动仅补齐同步约定，未改变公平排序；此证据不表示生产 Slash 已发生相同故障。
+
+### 2026-09-22 补充代码复核：媒体边界与异步控件
+
+基于 `c21b0ad` 复核以下实际执行路径，而非仅依据测试数量：
+
+- `DiscordAttachmentAudioSourceManager`：首次加载和反序列化均验证 HTTPS、Discord CDN 主机、附件路径及公网地址；采用只接受直接音频的容器表，拒绝返回间接播放列表引用。
+- `FilteredHttpAudioSourceManager`、`PublicMediaHttpContextFilter` 和 `YtDlpAudioSourceManager`：播放请求使用 GET/HEAD、公网 URL 与连接时 DNS 检查，禁用 HTTP 重定向和 Cookie 管理；HLS 使用同一过滤接口，保留解析器所需请求头。
+- `SafeM3uPlaylistContainerProbe`：只接受含 HLS 指令的 M3U，不把普通播放列表转换成可再次分发的任意音源引用。
+- `YtDlpMediaResolver`：进程并发槽、关闭状态重查、有限输出捕获、超时/中断清理及 `finally` 释放已复核；后代进程采样及有界终止仍属于当前实现范围，不承诺覆盖恶意进程主动脱离父进程树的情形。
+- `SlashCommandListener` 搜索与分页控件：复核 UUID 会话、动作白名单、服务器/用户绑定、TTL、当前音乐上下文、加载令牌、选择时原子移除，以及发布/确认失败和超时释放。此次为代码复核；未新增真实 Discord 搜索菜单和分页人工验收，不能把普通播放 Slash 验收扩大为这些控件的人工通过。
+
+对应本地 Java 25 行为回归共 26 项全部通过，日志 `tools/module-review-media-interactions.log`；覆盖附件 URL/播放列表、HTTP 请求和重定向、HLS、Bilibili 身份与分 P、进程生命周期及版本探测最小环境。`SlashCommandSecurityTest` 在当前代码中只覆盖版本探测环境，不能将其名称视作全部交互权限已由测试覆盖。最终两平台完整 CI 仍须通过。
