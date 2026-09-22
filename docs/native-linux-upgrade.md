@@ -168,3 +168,32 @@ SHA-256 为 `51ee69f8764a0116cd1141777755125ec2ce9f08d028b8b406b1117e07617cec`�
 当前定义共 13 个上游归档、4,044 份原始声明；这里包含编译器、测试和其他平台组件，
 不能把整个源码树当作实际链接组件清单。此项不改变 native 二进制或运行资产选择，
 也不代表 Deno、yt-dlp 等独立工具的材料审查已关闭。
+
+## Windows 对应升级评估与本轮选择（2026-09-22）
+
+本轮保留固定的官方 Canvas 3.2.3 Windows 资产及其整套配套 DLL。对应来源记录中的
+Cairo 为 1.18.4-4、Fontconfig 2.17.1-1、FreeType 2.14.3-1、GLib 2.88.0-1、
+HarfBuzz 13.2.1-1、Pango 1.56.4-3、librsvg 2.62.0-1，不能套用 Linux 升级版本表。
+实际 Windows 发行包已通过像素读回、PNG/JPEG 编解码、SVG 输入和 PDF/SVG 输出检查；
+其来源包和原始声明也已绑定。选择依据是已有整套二进制、来源映射和实际应用验证，
+而 Windows 新工具链重建与整套 ABI 验证尚未建立；本轮不单独替换其中一个 DLL。
+
+这不是认定旧版本不受上游缺陷影响。[Cairo 1.18.6 发布说明](https://www.cairographics.org/news/cairo-1.18.6/)
+包含 Windows/DirectWrite 线程安全、裁剪崩溃及 CFF 边界修复。当前测试没有覆盖全部相关路径，
+也没有证明 provider 中这些路径不可达。Windows 仍携带旧 Cairo 的事实列为测试版已知限制；
+后续升级应整体重建/验证字体图形栈，并重新绑定材料。此选择完成本轮“升级或保留依据”的评估，
+不等于该平台全部依赖缺陷已经消除。
+
+## 已验证原生产物的应用包导入
+
+`src/provider-runtime/native-linux/asset-candidate.json` 固定来自 `5c2c3da` / CI 35683045284
+的实际产物：完整材料 ZIP SHA-256 为 `311c72bd6b34f5fe5029c0bda208c54784f6dc8f092110931685efbfee773782`，
+原生归档为 `6c10ee3ea0f297bd3459e4035cc68a744821a68712dfc535f2bb5fff350b0cbf`。
+`scripts/ci/package_linux_native_materials.py` 校验整个材料 ZIP、原始构建证据、来源与 Cargo 材料，
+再导入应用包布局；逐一检查 provider 实际安装的 37 个文件与固定报告相符。
+
+实际云端归档已在新目录导入并全部回读通过，记录 `tools/linux-native-candidate-import.log`。
+新增五项回归涵盖正确绑定、库被替换、多余旧库、错误构建关联、保留归档篡改；
+整个 CI Python 测试集 77 项通过（`tools/linux-native-import-tests.log`）。
+该结果仍是候选资产的集成验证；远程固定资产发布和发行定义切换尚待完成，
+不会因为存在候选定义就自动改变当前运行库选择。

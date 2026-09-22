@@ -78,3 +78,9 @@ Java 仍需自行安装。GitHub 的 Source code 压缩包与单个 JAR 均不�
 - 获取实际 Discord 测试环境并记录语音验收；此前用户实测旧版本不等于升级后验收。
 - 确定测试版版本并重新构建最终提交，将本说明中的测试范围替换为确切结果。
 - 按[发布流程](prerelease-process.md)上传、下载核对、公开为 Pre-release，再次读回验证。
+
+### Windows 原生组件保留范围
+
+Windows 保留已验证的官方 Canvas 3.2.3 配套原生库，其中 Cairo 为 1.18.4，尚未包含
+1.18.6 的 Windows/DirectWrite、裁剪和 CFF 边界修复。图像功能检查通过不能证明全部缺陷
+路径不可达；具体版本、验证范围和保留依据见 [原生升级记录](native-linux-upgrade.md)。
