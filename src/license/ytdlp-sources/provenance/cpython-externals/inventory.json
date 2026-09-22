@@ -1,0 +1,199 @@
+{
+  "parent_cpython_version": "3.10.11",
+  "parent_recipe": "../python-sources/3.10.11/originals/PCbuild/get_externals.bat",
+  "records": [
+    {
+      "repository": "python/cpython-source-deps",
+      "ref": "libffi-3.3.0",
+      "license_review_complete": false,
+      "commit": "35a5081d073058159e8db96c43029f88c1da501a",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/35a5081d073058159e8db96c43029f88c1da501a",
+      "sha256": "34e0130e4065b0efc71a6c5af75e9b451c96a9a8f8418e911c59b7dc6f2452e4",
+      "bytes": 508528,
+      "documents": [
+        {
+          "path": "LICENSE",
+          "sha256": "0f4d7a0bfb83c37465d42dc305f124189196cc0cc2cc8d6f8461103682aebbc5",
+          "bytes": 1132
+        },
+        {
+          "path": "LICENSE-BUILDTOOLS",
+          "sha256": "789923f0572afcfbfd6b9d6b96ac866941190a95082b6058734f6542aa0ce855",
+          "bytes": 18682
+        }
+      ],
+      "binary_byte_matches": []
+    },
+    {
+      "repository": "python/cpython-source-deps",
+      "ref": "bzip2-1.0.8",
+      "license_review_complete": false,
+      "commit": "05301997b2f9590f49c672cf3dfd3d3dfa7ad521",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/05301997b2f9590f49c672cf3dfd3d3dfa7ad521",
+      "sha256": "ab14accac86cdd92021d50465deeb221b476d6675bd1383d3c7fb83751c2e0a3",
+      "bytes": 819016,
+      "documents": [
+        {
+          "path": "LICENSE",
+          "sha256": "c6dbbf828498be844a89eaa3b84adbab3199e342eb5cb2ed2f0d4ba7ec0f38a3",
+          "bytes": 1896
+        }
+      ],
+      "binary_byte_matches": []
+    },
+    {
+      "repository": "python/cpython-source-deps",
+      "ref": "sqlite-3.40.1.0",
+      "license_review_complete": false,
+      "commit": "db4ca556b25787c263ee72a4b764c4be474c322f",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/db4ca556b25787c263ee72a4b764c4be474c322f",
+      "sha256": "61a33a1f61b30617564ae869296339b19dfd30b9b32a0e1b3493d8b93b23b54c",
+      "bytes": 2595070,
+      "documents": [],
+      "binary_byte_matches": []
+    },
+    {
+      "repository": "python/cpython-source-deps",
+      "ref": "zlib-1.2.13",
+      "license_review_complete": false,
+      "commit": "9071e5ae1bd90c30518404b95ec0be0d4cf6cf84",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/9071e5ae1bd90c30518404b95ec0be0d4cf6cf84",
+      "sha256": "0200469024cfc47334c7f6a28855a54d33740a7207d1b9e860fbbaf0bebfca63",
+      "bytes": 1554772,
+      "documents": [
+        {
+          "path": "LICENSE",
+          "sha256": "845efc77857d485d91fb3e0b884aaa929368c717ae8186b66fe1ed2495753243",
+          "bytes": 1002
+        },
+        {
+          "path": "contrib/dotzlib/LICENSE_1_0.txt",
+          "sha256": "36266a8fd073568394cb81cdb2b124f7fdae2c64c1a7ed09db34b4d22efa2951",
+          "bytes": 1359
+        }
+      ],
+      "binary_byte_matches": []
+    },
+    {
+      "repository": "python/cpython-source-deps",
+      "ref": "openssl-1.1.1t",
+      "license_review_complete": false,
+      "commit": "82bfdc9e019e4892c5bd8f90b71c42fbf79f29d0",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/82bfdc9e019e4892c5bd8f90b71c42fbf79f29d0",
+      "sha256": "e5aa38e691368396daed27e4f336f5f0f5ca0ff8c6f7f673394500224079e654",
+      "bytes": 10068642,
+      "documents": [
+        {
+          "path": "LICENSE",
+          "sha256": "c32913b33252e71190af2066f08115c69bc9fddadf3bf29296e20c835389841c",
+          "bytes": 6121
+        },
+        {
+          "path": "external/perl/Text-Template-1.46/COPYING",
+          "sha256": "4d23c8c814e5baf007d854f01d8502e77dc56a41144934e003fb32c4e052d20f",
+          "bytes": 18043
+        },
+        {
+          "path": "util/perl/OpenSSL/copyright.pm",
+          "sha256": "748b449de0564cd2b85e5d96bd41a2b624ef1c4bfab254af34a63c1a2fe88798",
+          "bytes": 1036
+        }
+      ],
+      "binary_byte_matches": []
+    },
+    {
+      "repository": "python/cpython-source-deps",
+      "ref": "xz-5.2.5",
+      "license_review_complete": false,
+      "commit": "c6bc0c612605622aaef101a33a751f9de2ecc193",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/c6bc0c612605622aaef101a33a751f9de2ecc193",
+      "sha256": "115433c946ee069e857fd04cf41b38a4a74ed45d868a3b2e08ccd4a1f04f39d0",
+      "bytes": 1745919,
+      "documents": [
+        {
+          "path": "COPYING",
+          "sha256": "bcb02973ef6e87ea73d331b3a80df7748407f17efdb784b61b47e0e610d3bb5c",
+          "bytes": 2775
+        },
+        {
+          "path": "COPYING.GPLv2",
+          "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643",
+          "bytes": 18092
+        },
+        {
+          "path": "COPYING.GPLv3",
+          "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+          "bytes": 35147
+        },
+        {
+          "path": "COPYING.LGPLv2.1",
+          "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551",
+          "bytes": 26530
+        }
+      ],
+      "binary_byte_matches": []
+    },
+    {
+      "repository": "python/cpython-bin-deps",
+      "ref": "libffi-3.3.0",
+      "license_review_complete": false,
+      "commit": "1cf06233e3ceb49dc0a73c55e04b1174b436b632",
+      "url": "https://codeload.github.com/python/cpython-bin-deps/tar.gz/1cf06233e3ceb49dc0a73c55e04b1174b436b632",
+      "sha256": "1041268a6a068f69d5fa2fb053dab6b11c25789e0a5fb2be4b505eba16620d3c",
+      "bytes": 99305,
+      "documents": [
+        {
+          "path": "LICENSE",
+          "sha256": "0f4d7a0bfb83c37465d42dc305f124189196cc0cc2cc8d6f8461103682aebbc5",
+          "bytes": 1132
+        }
+      ],
+      "binary_byte_matches": [
+        {
+          "original_path": "amd64/libffi-7.dll",
+          "actual_embedded_path": "libffi-7.dll",
+          "sha256": "f60dd9f2fcbd495674dfc1555effb710eb081fc7d4cae5fa58c438ab50405081"
+        }
+      ]
+    },
+    {
+      "repository": "python/cpython-bin-deps",
+      "ref": "openssl-bin-1.1.1t",
+      "license_review_complete": false,
+      "commit": "81a3a6a51d4d9f9703f5a58ecaf2aa17db2c09f2",
+      "url": "https://codeload.github.com/python/cpython-bin-deps/tar.gz/81a3a6a51d4d9f9703f5a58ecaf2aa17db2c09f2",
+      "sha256": "94ddc84fb2ba837b1b2987ee600a74f810801f39ed2b8cc8693486327bef8b86",
+      "bytes": 16917132,
+      "documents": [
+        {
+          "path": "amd64/LICENSE",
+          "sha256": "15b8e85f410b23610e424681c010e1b2833c9805f977131713ad6f7decf3fe90",
+          "bytes": 6246
+        },
+        {
+          "path": "arm64/LICENSE",
+          "sha256": "15b8e85f410b23610e424681c010e1b2833c9805f977131713ad6f7decf3fe90",
+          "bytes": 6246
+        },
+        {
+          "path": "win32/LICENSE",
+          "sha256": "15b8e85f410b23610e424681c010e1b2833c9805f977131713ad6f7decf3fe90",
+          "bytes": 6246
+        }
+      ],
+      "binary_byte_matches": [
+        {
+          "original_path": "amd64/libcrypto-1_1.dll",
+          "actual_embedded_path": "libcrypto-1_1.dll",
+          "sha256": "9b7b4a0ad212095a8c2e35c71694d8a1764cd72a829e8e17c8afe3a55f147939"
+        },
+        {
+          "original_path": "amd64/libssl-1_1.dll",
+          "actual_embedded_path": "libssl-1_1.dll",
+          "sha256": "d74ce01319ae6f54483a19375524aa39d9f5fd91f06cf7df238ca25e043130fd"
+        }
+      ]
+    }
+  ],
+  "complete_native_provenance": false
+}

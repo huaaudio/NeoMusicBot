@@ -1,0 +1,888 @@
+{
+  "schema_version": 1,
+  "version": "2026.08.19",
+  "platforms": {
+    "windows-x86-64": "66674953fe251b89f4d08c5f0e35e0728679bd67ab3d7d05c0562af101dd3e7a",
+    "linux-x86-64": "58162f9bfdc27458ea47bfcb311cf47028f17d8154a8bf7d689861d46399230a"
+  },
+  "archives": [
+    {
+      "file": "upstream-build/yt-dlp-source.tar.gz",
+      "url": "https://codeload.github.com/yt-dlp/yt-dlp/tar.gz/594bd50c2c78ac432f81600d309fdc4e0a92d82c",
+      "sha256": "9434bc31521a5ce0badaaa7315cd4e687c837a722d4e6f60b6f78725f8b83163",
+      "bytes": 3113178,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "source-materials/certifi-2026.07.22/certifi-2026.7.22.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/a3/c2/24167ea9858356b47a87a50d39908bfdb72ceeefe0041586e704e5376b3a/certifi-2026.7.22.tar.gz",
+      "sha256": "741e2c3b351ddf169a738da9f2c048608ff7f2c5cc02f1ebc6b118bb090d5d55",
+      "bytes": 138112,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "source-materials/curl_cffi-0.16.0/curl_cffi-0.16.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/b4/23/d32e113b16dbfb458bea408871ed98dd12f306a366a04215e84537e0af7e/curl_cffi-0.16.0.tar.gz",
+      "sha256": "b00b423da8028eb6221e3b63bcd63d681150c07cee8b16000d1f7ea292731895",
+      "bytes": 238344,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "source-materials/brotli-1.2.0/brotli-1.2.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/f7/16/c92ca344d646e71a43b8bb353f0a6490d7f6e06210f8554c8f874e454285/brotli-1.2.0.tar.gz",
+      "sha256": "e310f77e41941c13340a95976fe66a8a95b01e783d430eeaf7a2f87e0a57dd0a",
+      "bytes": 7388632,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "source-materials/pycryptodomex-3.23.0/pycryptodomex-3.23.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/c9/85/e24bf90972a30b0fcd16c73009add1d7d7cd9140c2498a68252028899e41/pycryptodomex-3.23.0.tar.gz",
+      "sha256": "71909758f010c82bc99b0abf4ea12012c98962fbf0583c2164f8b84533c2e4da",
+      "bytes": 4922157,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "source-materials/mutagen-1.48.1/mutagen-1.48.1.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/df/70/1675da133ea92227da41bf5b24e1c66be597ff736a1533ade41da986852f/mutagen-1.48.1.tar.gz",
+      "sha256": "8f95637ab9f6f305cec6bd1294e197debe207998e3e068596563c74f86b0a173",
+      "bytes": 1276978,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "source-materials/requests-2.34.2/requests-2.34.2.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/ac/c3/e2a2b89f2d3e2179abd6d00ebd70bff6273f37fb3e0cc209f48b39d00cbf/requests-2.34.2.tar.gz",
+      "sha256": "f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed",
+      "bytes": 142856,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "source-materials/urllib3-2.7.0/urllib3-2.7.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/53/0c/06f8b233b8fd13b9e5ee11424ef85419ba0d8ba0b3138bf360be2ff56953/urllib3-2.7.0.tar.gz",
+      "sha256": "231e0ec3b63ceb14667c67be60f2f2c40a518cb38b03af60abc813da26505f4c",
+      "bytes": 433602,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "source-materials/websockets-16.1.1/websockets-16.1.1.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/21/f7/bc3a25c5ec26ce62ce487690becc2f3710bbc7b33338f005ad390db0b986/websockets-16.1.1.tar.gz",
+      "sha256": "db234eda965dcce15df96bb9709f587cd87d4d52aaf0e80e2f34ec04c7670c57",
+      "bytes": 182204,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "source-materials/websockets-17.0.1/websockets-17.0.1.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/f7/96/e01084f83a64bcb3a27994bd0cb0db68ff29d9c6707fae37ec19b18ba990/websockets-17.0.1.tar.gz",
+      "sha256": "5baa9bc0dfbae8c507e51c8cf1b6d4628086f7a87bbd3a9952bd5f035451f1cc",
+      "bytes": 183298,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "source-materials/yt-dlp-ejs-0.8.0/yt_dlp_ejs-0.8.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/d3/e6/cceb9530e8f4e5940f6f7822d90e9d94f1b85343329a16baaf47bbbb3de1/yt_dlp_ejs-0.8.0.tar.gz",
+      "sha256": "d5fa1639f63b5c4af8d932495f60689d5370f1a095782c944f7f62a303eb104e",
+      "bytes": 96571,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "source-materials/SecretStorage-3.5.0/secretstorage-3.5.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/1c/03/e834bcd866f2f8a49a85eaff47340affa3bfa391ee9912a952a1faa68c7b/secretstorage-3.5.0.tar.gz",
+      "sha256": "f04b8e4689cbce351744d5537bf6b1329c6fc68f91fa666f60a380edddcd11be",
+      "bytes": 19884,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "source-materials/cryptography-50.0.0/cryptography-50.0.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/de/41/6cbdcf9142d00fe82836fbb51e503e58088575cf7a0fe1dbff6695bf0840/cryptography-50.0.0.tar.gz",
+      "sha256": "eeac2acb5a20ed25e0ad6d1df9891a520b78b404266b6d11778f25d5d691a6c9",
+      "bytes": 880201,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "source-materials/idna-3.18/idna-3.18.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/cd/63/9496c57188a2ee585e0f1db071d75089a11e98aa86eb99d9d7618fc1edce/idna-3.18.tar.gz",
+      "sha256": "ffb385a7e039654cef1ab9ef32c6fafe283c0c0467bba1d9029738ce4a14a848",
+      "bytes": 196711,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "source-materials/cffi-2.1.1/cffi-2.1.1.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/9e/ef/008a1939e372c06329a3fce4279c02f328488f3526744906eeec3da7ad5f/cffi-2.1.1.tar.gz",
+      "sha256": "dd31f52ea1086513bb9df30f8fcee9b8918323ae067a3d5b78bc826a000712be",
+      "bytes": 530807,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "source-materials/pycparser-3.00/pycparser-3.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/1b/7d/92392ff7815c21062bea51aa7b87d45576f649f16458d78b7cf94b9ab2e6/pycparser-3.0.tar.gz",
+      "sha256": "600f49d217304a5902ac3c37e1281c9fe94e4d0489de643a9504c5cdfdfc6b29",
+      "bytes": 103492,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "source-materials/charset_normalizer-3.5.0/charset_normalizer-3.5.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/cb/31/4971872b3ed8715346231fb6eb4da8fcba65a4143c189db151ee28a2812b/charset_normalizer-3.5.0.tar.gz",
+      "sha256": "49bd5feb59b0bf3cbf6ebcf4352e371c95b9da9bacd4449f8b64d0ad2c10a26e",
+      "bytes": 169295,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "source-materials/jeepney-0.9.0/jeepney-0.9.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/7b/6f/357efd7602486741aa73ffc0617fb310a29b588ed0fd69c2399acbb85b0c/jeepney-0.9.0.tar.gz",
+      "sha256": "cf0e9e845622b81e4a28df94c40345400256ec608d0e55bb8a3feaa9163f5732",
+      "bytes": 106758,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "python-sources/3.10.11/cpython.tar.gz",
+      "url": "https://codeload.github.com/python/cpython/tar.gz/7d4cc5aa854fdea4d01a5b9c59e37c6e62f1103d",
+      "sha256": "4e70326ceb5b71ae3a48cf4cd53c15c5e632dd535fe6f78aa3f0bafdf2628b52",
+      "bytes": 26335944,
+      "platforms": [
+        "windows-x86-64"
+      ]
+    },
+    {
+      "file": "python-sources/3.14.7/cpython.tar.gz",
+      "url": "https://codeload.github.com/python/cpython/tar.gz/823f0323ee6ec1402088b73bce1a38473cac36dc",
+      "sha256": "50e9367f9b4593e8fb78aedf913172b506930b27cdf21be918214c233de1de46",
+      "bytes": 32026227,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cpython-externals/cpython-source-deps-libffi-3.3.0/original.tar.gz",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/35a5081d073058159e8db96c43029f88c1da501a",
+      "sha256": "34e0130e4065b0efc71a6c5af75e9b451c96a9a8f8418e911c59b7dc6f2452e4",
+      "bytes": 508528,
+      "platforms": [
+        "windows-x86-64"
+      ]
+    },
+    {
+      "file": "cpython-externals/cpython-source-deps-bzip2-1.0.8/original.tar.gz",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/05301997b2f9590f49c672cf3dfd3d3dfa7ad521",
+      "sha256": "ab14accac86cdd92021d50465deeb221b476d6675bd1383d3c7fb83751c2e0a3",
+      "bytes": 819016,
+      "platforms": [
+        "windows-x86-64"
+      ]
+    },
+    {
+      "file": "cpython-externals/cpython-source-deps-sqlite-3.40.1.0/original.tar.gz",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/db4ca556b25787c263ee72a4b764c4be474c322f",
+      "sha256": "61a33a1f61b30617564ae869296339b19dfd30b9b32a0e1b3493d8b93b23b54c",
+      "bytes": 2595070,
+      "platforms": [
+        "windows-x86-64"
+      ]
+    },
+    {
+      "file": "cpython-externals/cpython-source-deps-zlib-1.2.13/original.tar.gz",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/9071e5ae1bd90c30518404b95ec0be0d4cf6cf84",
+      "sha256": "0200469024cfc47334c7f6a28855a54d33740a7207d1b9e860fbbaf0bebfca63",
+      "bytes": 1554772,
+      "platforms": [
+        "windows-x86-64"
+      ]
+    },
+    {
+      "file": "cpython-externals/cpython-source-deps-openssl-1.1.1t/original.tar.gz",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/82bfdc9e019e4892c5bd8f90b71c42fbf79f29d0",
+      "sha256": "e5aa38e691368396daed27e4f336f5f0f5ca0ff8c6f7f673394500224079e654",
+      "bytes": 10068642,
+      "platforms": [
+        "windows-x86-64"
+      ]
+    },
+    {
+      "file": "cpython-externals/cpython-source-deps-xz-5.2.5/original.tar.gz",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/c6bc0c612605622aaef101a33a751f9de2ecc193",
+      "sha256": "115433c946ee069e857fd04cf41b38a4a74ed45d868a3b2e08ccd4a1f04f39d0",
+      "bytes": 1745919,
+      "platforms": [
+        "windows-x86-64"
+      ]
+    },
+    {
+      "file": "curl-native/curl-impersonate-source.tar.gz",
+      "url": "https://codeload.github.com/lexiforest/curl-impersonate/tar.gz/ec41b71ce888806bfec56ada7a7258d333eb3d19",
+      "sha256": "9f64512f18dc8b9ce0d95f0ea9588065e69048456e53817506a0241a13798cd7",
+      "bytes": 207810,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "curl-native/dependencies/zlib/zlib-1.3.1.tar.gz",
+      "url": "https://github.com/madler/zlib/releases/download/v1.3.1/zlib-1.3.1.tar.gz",
+      "sha256": "9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23",
+      "bytes": 1512791,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "curl-native/dependencies/zstd/zstd-1.5.7.tar.gz",
+      "url": "https://github.com/facebook/zstd/releases/download/v1.5.7/zstd-1.5.7.tar.gz",
+      "sha256": "eb33e51f49a15e023950cd7825ca74a4a2b43db8354825ac24fc1b7ee09e6fa3",
+      "bytes": 2434947,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "curl-native/dependencies/brotli/v1.2.0.tar.gz",
+      "url": "https://github.com/google/brotli/archive/refs/tags/v1.2.0.tar.gz",
+      "sha256": "816c96e8e8f193b40151dad7e8ff37b1221d019dbcb9c35cd3fadbfe6477dfec",
+      "bytes": 646315,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "curl-native/dependencies/boringssl/156c7b75ae9b8c3b3f847acf264f17594c3859fb.zip",
+      "url": "https://github.com/google/boringssl/archive/156c7b75ae9b8c3b3f847acf264f17594c3859fb.zip",
+      "sha256": "450e169b284697c6eafe523cb7679f4221fbe1a0993f773a566c33b188762844",
+      "bytes": 80313844,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "curl-native/dependencies/nghttp2/nghttp2-1.63.0.tar.bz2",
+      "url": "https://github.com/nghttp2/nghttp2/releases/download/v1.63.0/nghttp2-1.63.0.tar.bz2",
+      "sha256": "607b174554d22a828bc532d1d734fe0f729b5d5ed207f2f12e96a62e83f29c55",
+      "bytes": 2012107,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "curl-native/dependencies/ngtcp2/ngtcp2-1.20.0.tar.bz2",
+      "url": "https://github.com/ngtcp2/ngtcp2/releases/download/v1.20.0/ngtcp2-1.20.0.tar.bz2",
+      "sha256": "871ec97ad86803cf312901b0c393b0ee70163e25a87c9b2894d1234341ce4e97",
+      "bytes": 898205,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "curl-native/dependencies/nghttp3/nghttp3-1.15.0.tar.bz2",
+      "url": "https://github.com/ngtcp2/nghttp3/releases/download/v1.15.0/nghttp3-1.15.0.tar.bz2",
+      "sha256": "c6c491a52804814098e446630e6efc459afc0d3da7952ffe6cbdc0b3f99b2b62",
+      "bytes": 519681,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "curl-native/dependencies/curl/curl-8_21_0.tar.gz",
+      "url": "https://github.com/curl/curl/archive/curl-8_21_0.tar.gz",
+      "sha256": "ec753aa6f408a3ca9f0d6d5f7a77417aecd1544db13c03ae5d443612bf367364",
+      "bytes": 3592963,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "linux-build-image/native-sources/openssl-3.5.7.tar.gz",
+      "url": "https://github.com/openssl/openssl/releases/download/openssl-3.5.7/openssl-3.5.7.tar.gz",
+      "sha256": "a8c0d28a529ca480f9f36cf5792e2cd21984552a3c8e4aa11a24aa31aeac98e8",
+      "bytes": 53153930,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "linux-build-image/native-sources/sqlite-autoconf-3530400.tar.gz",
+      "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+      "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c",
+      "bytes": 3283177,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "linux-build-image/native-sources/mpdecimal-4.0.1.tar.gz",
+      "url": "https://www.bytereef.org/software/mpdecimal/releases/mpdecimal-4.0.1.tar.gz",
+      "sha256": "96d33abb4bb0070c7be0fed4246cd38416188325f820468214471938545b1ac8",
+      "bytes": 316268,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "linux-build-image/native-sources/zstd-1.5.7.tar.gz",
+      "url": "https://github.com/facebook/zstd/releases/download/v1.5.7/zstd-1.5.7.tar.gz",
+      "sha256": "eb33e51f49a15e023950cd7825ca74a4a2b43db8354825ac24fc1b7ee09e6fa3",
+      "bytes": 2434947,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "linux-build-image/rpm-sources/bzip2-1.0.6-13.el7.src.rpm",
+      "url": "https://vault.centos.org/7.9.2009/os/Source/SPackages/bzip2-1.0.6-13.el7.src.rpm",
+      "sha256": "132b1a84977f5491075073413c42be1d08e20296849efe203b7482c18f9c96b7",
+      "bytes": 797246,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "linux-build-image/rpm-sources/gcc-4.8.5-44.el7.src.rpm",
+      "url": "https://vault.centos.org/7.9.2009/os/Source/SPackages/gcc-4.8.5-44.el7.src.rpm",
+      "sha256": "642c4085f6af9565e39583e54a9d7a5d9e6b93dd8c8e9474aec8a892d6c7aa36",
+      "bytes": 79314655,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "linux-build-image/rpm-sources/libffi-3.0.13-19.el7.src.rpm",
+      "url": "https://vault.centos.org/7.9.2009/os/Source/SPackages/libffi-3.0.13-19.el7.src.rpm",
+      "sha256": "32e2d46c0e249b6c370600effe8ccc576b4cd0dbccf5e58206fd05182756f8a8",
+      "bytes": 899936,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "linux-build-image/rpm-sources/ncurses-5.9-14.20130511.el7_4.src.rpm",
+      "url": "https://vault.centos.org/7.9.2009/os/Source/SPackages/ncurses-5.9-14.20130511.el7_4.src.rpm",
+      "sha256": "7250cb2d8e0dbaf1ec64be098662858486948eb53c3e924b9de873e40857b236",
+      "bytes": 3940747,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "linux-build-image/rpm-sources/readline-6.2-11.el7.src.rpm",
+      "url": "https://vault.centos.org/7.9.2009/os/Source/SPackages/readline-6.2-11.el7.src.rpm",
+      "sha256": "9678eb2f67b1784e5fba3ed0d59cba3ce6f3a3936936dfae956f7aed44b4cbf0",
+      "bytes": 2301820,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "linux-build-image/rpm-sources/util-linux-2.23.2-65.el7_9.1.src.rpm",
+      "url": "https://vault.centos.org/7.9.2009/updates/Source/SPackages/util-linux-2.23.2-65.el7_9.1.src.rpm",
+      "sha256": "aa85c8f6443d8843a3b5c3ed23f38e42f5bc5d4818e650aad5ba1048a7e413b2",
+      "bytes": 3944849,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "linux-build-image/rpm-sources/xz-5.2.2-2.el7_9.src.rpm",
+      "url": "https://vault.centos.org/7.9.2009/updates/Source/SPackages/xz-5.2.2-2.el7_9.src.rpm",
+      "sha256": "0d2e8869dac71d85de14a678e54c2a4bb4e7bd8a059b18d09523a2dabd81207f",
+      "bytes": 2393233,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "linux-build-image/rpm-sources/zlib-1.2.7-21.el7_9.src.rpm",
+      "url": "https://vault.centos.org/7.9.2009/updates/Source/SPackages/zlib-1.2.7-21.el7_9.src.rpm",
+      "sha256": "706518173d35e91b24ac5eee986d074ba9e200c67f26a9028c2e4c1c9713c13c",
+      "bytes": 534937,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "linux-build-image/manylinux-shared-source.tar.gz",
+      "url": "https://codeload.github.com/yt-dlp/manylinux-shared/tar.gz/c4a56bf2488b5c25ab6dbc54e5459851e7242ae6",
+      "sha256": "6da32efa3afee558f1d590355d4543448e1d6b9325717496faaac4c96a5ae118",
+      "bytes": 151547,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/asn1-0.24.1.crate",
+      "url": "https://static.crates.io/crates/asn1/asn1-0.24.1.crate",
+      "sha256": "c9795210620c0cb3f9a7ce4f882808c38e1ef7b347c90591dceae0886e031fb1",
+      "bytes": 50502,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/asn1_derive-0.24.1.crate",
+      "url": "https://static.crates.io/crates/asn1_derive/asn1_derive-0.24.1.crate",
+      "sha256": "909e307f1cc32bb8bccbd98f446e6d1bf03fa30f7b53a4337da7181ad30fa11a",
+      "bytes": 9534,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/base64-0.23.0.crate",
+      "url": "https://static.crates.io/crates/base64/base64-0.23.0.crate",
+      "sha256": "b25655df2c3cdd83c5e5b293b88acd880332b2ddadd7c30ac43144fdc0033da9",
+      "bytes": 93578,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/bitflags-2.13.1.crate",
+      "url": "https://static.crates.io/crates/bitflags/bitflags-2.13.1.crate",
+      "sha256": "b588b76d00fde79687d7646a9b5bdf3cc0f655e0bbd080335a95d7e96f3587da",
+      "bytes": 51395,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/cc-1.4.0.crate",
+      "url": "https://static.crates.io/crates/cc/cc-1.4.0.crate",
+      "sha256": "5add81bb678e6cb321aff7fa0dc7689ad82b112dbc032cea19f91d6b8e3582b9",
+      "bytes": 97878,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/cfg-if-1.0.4.crate",
+      "url": "https://static.crates.io/crates/cfg-if/cfg-if-1.0.4.crate",
+      "sha256": "9330f8b2ff13f34540b44e946ef35111825727b38d33286ef986142615121801",
+      "bytes": 9360,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/find-msvc-tools-0.1.9.crate",
+      "url": "https://static.crates.io/crates/find-msvc-tools/find-msvc-tools-0.1.9.crate",
+      "sha256": "5baebc0774151f905a1a2cc41989300b1e6fbb29aff0ceffa1064fdd3088d582",
+      "bytes": 31493,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/foreign-types-0.3.2.crate",
+      "url": "https://static.crates.io/crates/foreign-types/foreign-types-0.3.2.crate",
+      "sha256": "f6f339eb8adc052cd2ca78910fda869aefa38d22d5cb648e6485e4d3fc06f3b1",
+      "bytes": 7504,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/foreign-types-shared-0.1.1.crate",
+      "url": "https://static.crates.io/crates/foreign-types-shared/foreign-types-shared-0.1.1.crate",
+      "sha256": "00b0228411908ca8685dba7fc2cdd70ec9990a6e753e89b6ac91a84c40fbaf4b",
+      "bytes": 5672,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/heck-0.5.0.crate",
+      "url": "https://static.crates.io/crates/heck/heck-0.5.0.crate",
+      "sha256": "2304e00983f87ffb38b55b444b5e3b60a884b5d30c0fca7d82fe33449bbe55ea",
+      "bytes": 11517,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/itoa-1.0.18.crate",
+      "url": "https://static.crates.io/crates/itoa/itoa-1.0.18.crate",
+      "sha256": "8f42a60cbdf9a97f5d2305f08a87dc4e09308d1276d28c869c684d7777685682",
+      "bytes": 15935,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/libc-0.2.189.crate",
+      "url": "https://static.crates.io/crates/libc/libc-0.2.189.crate",
+      "sha256": "3eaf3ede3fee6db1a4c2ee091bf8a8b4dccdc6d17f656fb07896ee72867612f2",
+      "bytes": 851502,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/once_cell-1.21.4.crate",
+      "url": "https://static.crates.io/crates/once_cell/once_cell-1.21.4.crate",
+      "sha256": "9f7c3e4beb33f85d45ae3e3a1792185706c8e16d043238c593331cc7cd313b50",
+      "bytes": 35010,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/openssl-0.10.81.crate",
+      "url": "https://static.crates.io/crates/openssl/openssl-0.10.81.crate",
+      "sha256": "77823a27f0babb03091cb9ed9ef80af3b39dbc82f97e8fa530374b7dafd87a45",
+      "bytes": 311187,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/openssl-macros-0.1.1.crate",
+      "url": "https://static.crates.io/crates/openssl-macros/openssl-macros-0.1.1.crate",
+      "sha256": "a948666b637a0f465e8564c73e89d4dde00d72d4d473cc972f390fc3dcee7d9c",
+      "bytes": 5601,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/openssl-sys-0.9.117.crate",
+      "url": "https://static.crates.io/crates/openssl-sys/openssl-sys-0.9.117.crate",
+      "sha256": "b47e7e6bb2c38cd930d25a23b40fa52e068c10e85f3e03a7f5ba5aaca5713695",
+      "bytes": 76045,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/pem-4.0.0.crate",
+      "url": "https://static.crates.io/crates/pem/pem-4.0.0.crate",
+      "sha256": "d354a98a3d1251555de99e8fdd8afda05573c31b82f59063a7b0a29b5527f120",
+      "bytes": 18770,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/pkg-config-0.3.33.crate",
+      "url": "https://static.crates.io/crates/pkg-config/pkg-config-0.3.33.crate",
+      "sha256": "19f132c84eca552bf34cab8ec81f1c1dcc229b811638f9d283dceabe58c5569e",
+      "bytes": 21590,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/portable-atomic-1.14.0.crate",
+      "url": "https://static.crates.io/crates/portable-atomic/portable-atomic-1.14.0.crate",
+      "sha256": "3d20d5497ef88037a52ff98267d066e7f11fcc5e99bbfbd58a42336193aacec3",
+      "bytes": 200703,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/proc-macro2-1.0.107.crate",
+      "url": "https://static.crates.io/crates/proc-macro2/proc-macro2-1.0.107.crate",
+      "sha256": "985e7ec9bb745e6ce6535b544d84d6cd6f7ad8bd711c398938ae983b91a766d9",
+      "bytes": 59588,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/pyo3-0.29.0.crate",
+      "url": "https://static.crates.io/crates/pyo3/pyo3-0.29.0.crate",
+      "sha256": "cd274650b21d4bfc26a0a47587962c1edb425f69287324355cd040c3ea66071c",
+      "bytes": 1241253,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/pyo3-build-config-0.29.0.crate",
+      "url": "https://static.crates.io/crates/pyo3-build-config/pyo3-build-config-0.29.0.crate",
+      "sha256": "c5e2a7d2f0d013342f295c048ad19237add5154a55b1c5a254c0ec93d4109078",
+      "bytes": 39616,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/pyo3-ffi-0.29.0.crate",
+      "url": "https://static.crates.io/crates/pyo3-ffi/pyo3-ffi-0.29.0.crate",
+      "sha256": "ca85c467da1bbc8d866eea5deff9cf29ea5f7785054a17da36e65bda9c05845b",
+      "bytes": 88184,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/pyo3-macros-0.29.0.crate",
+      "url": "https://static.crates.io/crates/pyo3-macros/pyo3-macros-0.29.0.crate",
+      "sha256": "9ac53762fd065daa3194dd09337a38bd793a188100fd1a9304c4ab312d901771",
+      "bytes": 8915,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/pyo3-macros-backend-0.29.0.crate",
+      "url": "https://static.crates.io/crates/pyo3-macros-backend/pyo3-macros-backend-0.29.0.crate",
+      "sha256": "4ca3a1557399783172dc5bf39cfca835157732532cba56b71d2292161e53b362",
+      "bytes": 91943,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/quote-1.0.47.crate",
+      "url": "https://static.crates.io/crates/quote/quote-1.0.47.crate",
+      "sha256": "1fbf4db142a473a8d80c26bbf18454ed458bf8d26c8219c331daecfdbd079001",
+      "bytes": 31622,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/self_cell-1.3.0.crate",
+      "url": "https://static.crates.io/crates/self_cell/self_cell-1.3.0.crate",
+      "sha256": "2ab42ca02749e120097e328d91d415325bdf43b1c72c4c8badf37375fe40a813",
+      "bytes": 23869,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/shlex-2.0.1.crate",
+      "url": "https://static.crates.io/crates/shlex/shlex-2.0.1.crate",
+      "sha256": "f8fadd59c855ef2080decdef8ff161eb6661b86933c9d82e5ba29dc602a55aba",
+      "bytes": 19332,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/syn-2.0.119.crate",
+      "url": "https://static.crates.io/crates/syn/syn-2.0.119.crate",
+      "sha256": "872831b642d1a07999a962a351ed35b955ea2cfc8f3862091e2a240a84f17297",
+      "bytes": 307407,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/target-lexicon-0.13.5.crate",
+      "url": "https://static.crates.io/crates/target-lexicon/target-lexicon-0.13.5.crate",
+      "sha256": "adb6935a6f5c20170eeceb1a3835a49e12e19d792f6dd344ccc76a985ca5a6ca",
+      "bytes": 26928,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/unicode-ident-1.0.24.crate",
+      "url": "https://static.crates.io/crates/unicode-ident/unicode-ident-1.0.24.crate",
+      "sha256": "e6e4313cd5fcd3dad5cafa179702e2b244f760991f45397d14d4ebf38247da75",
+      "bytes": 49298,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-cargo/vcpkg-0.2.15.crate",
+      "url": "https://static.crates.io/crates/vcpkg/vcpkg-0.2.15.crate",
+      "sha256": "accd4ea62f7bb7a82fe23066fb0957d48ef677f6eeb8215f372f52e48bb32426",
+      "bytes": 228735,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-rust-source/rustc-1.97.1-src.tar.xz",
+      "url": "https://static.rust-lang.org/dist/2026-07-16/rustc-1.97.1-src.tar.xz",
+      "sha256": "0ed06fdaffd4722a7702e0b4eebfafc897ab8f513e8e1b247cdd7e5c6df6ded2",
+      "bytes": 242787896,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "cryptography-openssl/openssl-4.0.1.tar.gz",
+      "url": "https://github.com/openssl/openssl/releases/download/openssl-4.0.1/openssl-4.0.1.tar.gz",
+      "sha256": "2db3f3a0d6ea4b59e1f094ace2c8cd536dffb87cdc39084c5afa1e6f7f37dd09",
+      "bytes": 55079428,
+      "platforms": [
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "pyinstaller/pyinstaller-6.22.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/05/03/669d06735cf57d7e2e5dfc3c2e1643554b34c559eff21449c58172ca0335/pyinstaller-6.22.0.tar.gz",
+      "sha256": "8b0166fff4583b374bbe7fa044bf03ddc33cab0f792a665807d96048e63f060e",
+      "bytes": 4072247,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "pyinstaller/pyinstaller_hooks_contrib-2026.6.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/94/5b/c9fe0db5e83ee1c39b2258fa21d23b15e1a60786b6c5990ee5074ead8bb6/pyinstaller_hooks_contrib-2026.6.tar.gz",
+      "sha256": "bef5002c32f4f50bd55b005da12cff64eca8783e7eaf86a06a62410164bab725",
+      "bytes": 173354,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "pyinstaller/typing_extensions-4.16.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/f6/cc/6253133b5bb138fc3306cebfbda2c520f545d36b5be2c7255cc528bb45d6/typing_extensions-4.16.0.tar.gz",
+      "sha256": "dc983d19a509c94dba722ee6abd33940f7c05a89e243c47e907eb4db6f1a43e5",
+      "bytes": 113555,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    },
+    {
+      "file": "pyinstaller/pyinstaller-70fc17210920bce17f4ab09bbf8104b0dbd45338.tar.gz",
+      "url": "https://codeload.github.com/pyinstaller/pyinstaller/tar.gz/70fc17210920bce17f4ab09bbf8104b0dbd45338",
+      "sha256": "587eb41e1087aeaf2a879b04db35b68bbe44b85f9227e263c873396806103540",
+      "bytes": 3617860,
+      "platforms": [
+        "windows-x86-64",
+        "linux-x86-64"
+      ]
+    }
+  ],
+  "provenance": [
+    {
+      "file": "provenance/native-binding-coverage.json",
+      "bytes": 229,
+      "sha256": "387235453e7c0b71af643140a24305725e1f2b1c50817a8f9bb744f7dc3e24bb"
+    },
+    {
+      "file": "provenance/curl-native/wheel-binding.json",
+      "bytes": 5367,
+      "sha256": "315a41747d341709a315529e98a6a2679588b2f3d85840c76540e89c18fd8e50"
+    },
+    {
+      "file": "provenance/wheel-bindings/inventory.json",
+      "bytes": 60997,
+      "sha256": "b430a94513aacf2f091b54a98da495e11f101d9ec9a33d0ea5371fcf81e5dedb"
+    },
+    {
+      "file": "provenance/linux-build-image/final-visible-binding.json",
+      "bytes": 27867,
+      "sha256": "27436a0130ae0e56bedfa4edda15fa36e4ed43eb695f411a74a6bc78ff34c882"
+    },
+    {
+      "file": "provenance/linux-build-image/rpm-native-binding.json",
+      "bytes": 6127,
+      "sha256": "1f359c3519f2fc8a79b4c158b6eb6d73a1a9674ffe31d9defe8e5b663bb5ce0d"
+    },
+    {
+      "file": "provenance/linux-build-image/recipe-source.json",
+      "bytes": 16559,
+      "sha256": "ea2ee7e62c5ddfc62e8e48d22571e8c91088392ed10e09a39667fa7748c520ab"
+    },
+    {
+      "file": "provenance/python-windows-original/manifest.json",
+      "bytes": 4685,
+      "sha256": "b27f9e3a8331037991c42d50c9e852915a05a33d62c88a1824b82a16abec4fe3"
+    },
+    {
+      "file": "provenance/windows-ucrt/official-package-binding.json",
+      "bytes": 17495,
+      "sha256": "38587575291521e6237f3727407c6c42594dadc17aa54d6a2448884c8a22b3ba"
+    },
+    {
+      "file": "provenance/pyinstaller/bootloader-binding.json",
+      "bytes": 9937,
+      "sha256": "6b6f9c5c409758fe5bccabad6768cf4d2b9c3655e7f569d23c509350f71bb4e0"
+    },
+    {
+      "file": "provenance/typing-extensions-binding/verified.json",
+      "bytes": 391,
+      "sha256": "a0c5dc3d703a3df6152c40f61c2a8589152e75245ea3b2c4f4de837320d57b82"
+    },
+    {
+      "file": "provenance/cryptography-cargo/inventory.json",
+      "bytes": 33011,
+      "sha256": "2e91dfcd0d1bff535561ae81378b19ec88a6908a94fc5e8ed2a5445772711280"
+    },
+    {
+      "file": "provenance/cryptography-cargo/Cargo.lock",
+      "bytes": 8528,
+      "sha256": "3c8089b775e418aab3c05bf9a0bd613baa35b8cc031c0dc567d8e5e94d41862c"
+    },
+    {
+      "file": "provenance/upstream-build/manifest.json",
+      "bytes": 10423,
+      "sha256": "cdbaae2b3cdc7fe89d01f5e8a5d108bdbe4d9ccd57eb9c6863371be996c19840"
+    },
+    {
+      "file": "provenance/cpython-externals/inventory.json",
+      "bytes": 7582,
+      "sha256": "266922fd11bb4f2c946fbb1e59df40ff5fb854d8be86f682bca7817469fea452"
+    }
+  ],
+  "scope": "Superset of corresponding runtime sources and retained build recipes. Reuses verified collected originals; does not claim bit-for-bit reproducible builds or that every optional source is linked."
+}

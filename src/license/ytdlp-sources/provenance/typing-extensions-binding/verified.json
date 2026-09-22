@@ -1,0 +1,10 @@
+{
+  "version": "4.16.0",
+  "python": "3.10.11",
+  "source_sha256": "4040ca1a1ecbee00d1385c12a93084d1c5bd46f0b774f07e5ae7e91c4f55e696",
+  "embedded_marshal_sha256": "e4309e8b35a83c73494034ed1d227969cfd22eb0549470055c89893b942df835",
+  "matching_optimization_levels": [
+    0
+  ],
+  "method": "all code object fields and nested constants compared recursively; no module execution"
+}

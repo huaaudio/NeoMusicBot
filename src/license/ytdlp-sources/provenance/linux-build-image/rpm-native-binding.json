@@ -1,0 +1,157 @@
+{
+  "image_digest": "sha256:459bb44afe29172f2268d84ab7d5985858dbcba006e9f5a1d96b9d3b936e42d8",
+  "packages": [
+    {
+      "name": "libffi",
+      "version": "3.0.13",
+      "release": "19.el7",
+      "architecture": "x86_64",
+      "source_rpm": "libffi-3.0.13-19.el7.src.rpm",
+      "license": "MIT and Public Domain",
+      "files": [
+        {
+          "image_member": "usr/lib64/libffi.so.6.0.1",
+          "embedded_member": "libffi.so.6",
+          "sha256": "af4ed7088fc6c9dd07628ba47534746412c051a4864189fb9308be5b8c1b2308",
+          "bytes": 32328,
+          "layer_digest": "sha256:c9c7639830408981e15d2bde076b158ef18ddb0eeb4ab4f9b4c8bc758ea15aab",
+          "package_file_digest_algorithm": "sha256",
+          "package_file_digest": "af4ed7088fc6c9dd07628ba47534746412c051a4864189fb9308be5b8c1b2308"
+        }
+      ]
+    },
+    {
+      "name": "readline",
+      "version": "6.2",
+      "release": "11.el7",
+      "architecture": "x86_64",
+      "source_rpm": "readline-6.2-11.el7.src.rpm",
+      "license": "GPLv3+",
+      "files": [
+        {
+          "image_member": "usr/lib64/libreadline.so.6.2",
+          "embedded_member": "libreadline.so.6",
+          "sha256": "2c5f7b8d6d8a257f08a05f931d6f2c0806dacb368755083f203149ea45222140",
+          "bytes": 285136,
+          "layer_digest": "sha256:c9c7639830408981e15d2bde076b158ef18ddb0eeb4ab4f9b4c8bc758ea15aab",
+          "package_file_digest_algorithm": "sha256",
+          "package_file_digest": "2c5f7b8d6d8a257f08a05f931d6f2c0806dacb368755083f203149ea45222140"
+        }
+      ]
+    },
+    {
+      "name": "zlib",
+      "version": "1.2.7",
+      "release": "21.el7_9",
+      "architecture": "x86_64",
+      "source_rpm": "zlib-1.2.7-21.el7_9.src.rpm",
+      "license": "zlib and Boost",
+      "files": [
+        {
+          "image_member": "usr/lib64/libz.so.1.2.7",
+          "embedded_member": "libz.so.1",
+          "sha256": "4e3ca1c7bba1a94c25710fd51a3c4f219f459768cc948dcada941ad1431c0fbb",
+          "bytes": 90160,
+          "layer_digest": "sha256:c9c7639830408981e15d2bde076b158ef18ddb0eeb4ab4f9b4c8bc758ea15aab",
+          "package_file_digest_algorithm": "sha256",
+          "package_file_digest": "4e3ca1c7bba1a94c25710fd51a3c4f219f459768cc948dcada941ad1431c0fbb"
+        }
+      ]
+    },
+    {
+      "name": "libgcc",
+      "version": "4.8.5",
+      "release": "44.el7",
+      "architecture": "x86_64",
+      "source_rpm": "gcc-4.8.5-44.el7.src.rpm",
+      "license": "GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD",
+      "files": [
+        {
+          "image_member": "usr/lib64/libgcc_s-4.8.5-20150702.so.1",
+          "embedded_member": "libgcc_s.so.1",
+          "sha256": "8f148d8b7ed050f93064fafca6df434706844cf8346d5feed8ecce8c67f39c68",
+          "bytes": 88720,
+          "layer_digest": "sha256:c9c7639830408981e15d2bde076b158ef18ddb0eeb4ab4f9b4c8bc758ea15aab",
+          "package_file_digest_algorithm": "sha256",
+          "package_file_digest": "8f148d8b7ed050f93064fafca6df434706844cf8346d5feed8ecce8c67f39c68"
+        }
+      ]
+    },
+    {
+      "name": "ncurses-libs",
+      "version": "5.9",
+      "release": "14.20130511.el7_4",
+      "architecture": "x86_64",
+      "source_rpm": "ncurses-5.9-14.20130511.el7_4.src.rpm",
+      "license": "MIT",
+      "files": [
+        {
+          "image_member": "usr/lib64/libtinfo.so.5.9",
+          "embedded_member": "libtinfo.so.5",
+          "sha256": "10270e321971666a3b27de37b591122ea1182fcf9e0aad250f82d5c8c399c346",
+          "bytes": 174576,
+          "layer_digest": "sha256:c9c7639830408981e15d2bde076b158ef18ddb0eeb4ab4f9b4c8bc758ea15aab",
+          "package_file_digest_algorithm": "sha256",
+          "package_file_digest": "10270e321971666a3b27de37b591122ea1182fcf9e0aad250f82d5c8c399c346"
+        }
+      ]
+    },
+    {
+      "name": "bzip2-libs",
+      "version": "1.0.6",
+      "release": "13.el7",
+      "architecture": "x86_64",
+      "source_rpm": "bzip2-1.0.6-13.el7.src.rpm",
+      "license": "BSD",
+      "files": [
+        {
+          "image_member": "usr/lib64/libbz2.so.1.0.6",
+          "embedded_member": "libbz2.so.1",
+          "sha256": "a273e5044bbdaedf9c361c080e5d0005bba17465036f4418546abb30e93cb444",
+          "bytes": 68192,
+          "layer_digest": "sha256:c9c7639830408981e15d2bde076b158ef18ddb0eeb4ab4f9b4c8bc758ea15aab",
+          "package_file_digest_algorithm": "sha256",
+          "package_file_digest": "a273e5044bbdaedf9c361c080e5d0005bba17465036f4418546abb30e93cb444"
+        }
+      ]
+    },
+    {
+      "name": "xz-libs",
+      "version": "5.2.2",
+      "release": "2.el7_9",
+      "architecture": "x86_64",
+      "source_rpm": "xz-5.2.2-2.el7_9.src.rpm",
+      "license": "LGPLv2+",
+      "files": [
+        {
+          "image_member": "usr/lib64/liblzma.so.5.2.2",
+          "embedded_member": "liblzma.so.5",
+          "sha256": "004595caeadc46cef395bcd75452e6208926f91622ab6537bc5aa14cee9dd890",
+          "bytes": 157440,
+          "layer_digest": "sha256:c9c7639830408981e15d2bde076b158ef18ddb0eeb4ab4f9b4c8bc758ea15aab",
+          "package_file_digest_algorithm": "sha256",
+          "package_file_digest": "004595caeadc46cef395bcd75452e6208926f91622ab6537bc5aa14cee9dd890"
+        }
+      ]
+    },
+    {
+      "name": "libuuid",
+      "version": "2.23.2",
+      "release": "65.el7_9.1",
+      "architecture": "x86_64",
+      "source_rpm": "util-linux-2.23.2-65.el7_9.1.src.rpm",
+      "license": "BSD",
+      "files": [
+        {
+          "image_member": "usr/lib64/libuuid.so.1.3.0",
+          "embedded_member": "libuuid.so.1",
+          "sha256": "f64cda11e1ee1edff303fb180a894f30de1944991a60d7234f88ae6918c062eb",
+          "bytes": 20064,
+          "layer_digest": "sha256:c9c7639830408981e15d2bde076b158ef18ddb0eeb4ab4f9b4c8bc758ea15aab",
+          "package_file_digest_algorithm": "sha256",
+          "package_file_digest": "f64cda11e1ee1edff303fb180a894f30de1944991a60d7234f88ae6918c062eb"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,448 @@
+{
+  "repository": "yt-dlp/manylinux-shared",
+  "commit": "c4a56bf2488b5c25ab6dbc54e5459851e7242ae6",
+  "upstream_run": 31925292047,
+  "url": "https://codeload.github.com/yt-dlp/manylinux-shared/tar.gz/c4a56bf2488b5c25ab6dbc54e5459851e7242ae6",
+  "sha256": "6da32efa3afee558f1d590355d4543448e1d6b9325717496faaac4c96a5ae118",
+  "bytes": 151547,
+  "files": [
+    {
+      "path": ".github/workflows/build.yml",
+      "sha256": "073b02c1121a4d586a31af7d48e1dcebbe0a75e44466a2effe3ddb31b6eca239",
+      "bytes": 4840
+    },
+    {
+      "path": ".github/workflows/clean-cache.yml",
+      "sha256": "359d514538a424201a455d06b21c1b75fcd549b8f9479ba89a15bc80c8702330",
+      "bytes": 881
+    },
+    {
+      "path": ".github/workflows/update-dependencies.yml",
+      "sha256": "b4aba6b6b072b515135c70e21c3b27140f227d2a3cada280419309a73c7553c1",
+      "bytes": 2845
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "ccfa95da478e5e0a9f9a09a29974ccac13997d864699eee22175db1eace1a73d",
+      "bytes": 1076
+    },
+    {
+      "path": "README.rst",
+      "sha256": "d5eebbd3b6630fc0334e862db783b97b2d32a2acc24563a41856b72960a58fcb",
+      "bytes": 23064
+    },
+    {
+      "path": "docker/Dockerfile",
+      "sha256": "c6a10a05e1038098074dbb93cfa5dad27078c672ba3ccc8c7cf886f8556c27be",
+      "bytes": 13781
+    },
+    {
+      "path": "docker/build_scripts/build-cpython.sh",
+      "sha256": "14a68d7bfae5f08634a6d66e9b02aa35c82e714882f3d8054655879aed95eb64",
+      "bytes": 5244
+    },
+    {
+      "path": "docker/build_scripts/build-curl.sh",
+      "sha256": "39b7f6201b2c10b6c2a4867c26b23d6ac7434629ecf0dfffc78c2be8c5cbc70b",
+      "bytes": 1671
+    },
+    {
+      "path": "docker/build_scripts/build-git.sh",
+      "sha256": "c90030c2a6fca56bbaca616a279e63f73863497b6d507c342a55aaece3e5418e",
+      "bytes": 1809
+    },
+    {
+      "path": "docker/build_scripts/build-mpdecimal.sh",
+      "sha256": "99cb7ca54e500e2f1dd54311451252a7a66f0acb8c6544c99fd2030e3bea5d3f",
+      "bytes": 1234
+    },
+    {
+      "path": "docker/build_scripts/build-openssl-for-shared-cpython.sh",
+      "sha256": "77ab3dbdb165c59f5526c98ab8916ab5a5a3af81f71d7d544370632d1a1ed104",
+      "bytes": 1464
+    },
+    {
+      "path": "docker/build_scripts/build-openssl.sh",
+      "sha256": "fa8777c7a9c0a755ace8f093ad92d6c39b3842545da6c0ad41f793cb11325c76",
+      "bytes": 2076
+    },
+    {
+      "path": "docker/build_scripts/build-shared-cpython.sh",
+      "sha256": "5652c330323d659b9a56e9c6ccf644542389e59f2959baf9fee4aeaf8030757a",
+      "bytes": 3709
+    },
+    {
+      "path": "docker/build_scripts/build-sqlite3.sh",
+      "sha256": "abc497bef5d155b57e440750df0f072cf544c6baccb9ac41ce8bf181b2c8f592",
+      "bytes": 1548
+    },
+    {
+      "path": "docker/build_scripts/build-tcltk.sh",
+      "sha256": "9ef44cc60d2cd3a10605e5697e161a9878a0f0fe35c6b8e97e06ce18b29cc18f",
+      "bytes": 1506
+    },
+    {
+      "path": "docker/build_scripts/build-zstd.sh",
+      "sha256": "3f782b26acb56cd22ac6e94bdd6480495869c287e03912836eb47afeabcf288a",
+      "bytes": 1375
+    },
+    {
+      "path": "docker/build_scripts/build_utils.sh",
+      "sha256": "8d1a9b3bad070ac388e28063ec777b479d5fbaaeb08a0a8de812013471f5082b",
+      "bytes": 3723
+    },
+    {
+      "path": "docker/build_scripts/download-and-install-interpreter.sh",
+      "sha256": "6a10e5525de69f114895a94b89a537f849c89588956d83f2e1a3f4c7939b8c10",
+      "bytes": 625
+    },
+    {
+      "path": "docker/build_scripts/finalize-one.sh",
+      "sha256": "56e0a26e9f815a54838a9752fb3ec6c5d300e7d598f96cd492aaf039c34cabef",
+      "bytes": 2449
+    },
+    {
+      "path": "docker/build_scripts/finalize-shared.sh",
+      "sha256": "9f50ff8ed215dd4e1085c49f71393837f18b8a6df29d8077fef882ad1d1152c1",
+      "bytes": 1583
+    },
+    {
+      "path": "docker/build_scripts/finalize.sh",
+      "sha256": "196c736784f0da6a7dd7fe8158c8b2136e2c9c891fb8b8d064ff66a4bf042a0b",
+      "bytes": 4227
+    },
+    {
+      "path": "docker/build_scripts/fixup-mirrors.sh",
+      "sha256": "9f6133326fb9a7eef34a40899f6a3610e06275a29f78140c08bfbce70792e08a",
+      "bytes": 1517
+    },
+    {
+      "path": "docker/build_scripts/git-lfs-core-gpg-keys",
+      "sha256": "b3e0eb325120564de5cbb3f266e3e393fe35dbb4d13b2f14b5725196c9226c16",
+      "bytes": 64361
+    },
+    {
+      "path": "docker/build_scripts/install-autoconf.sh",
+      "sha256": "484403f0146a488349561e53a883fee4e698962b539c80bc55f01dc644616be7",
+      "bytes": 1521
+    },
+    {
+      "path": "docker/build_scripts/install-automake.sh",
+      "sha256": "abc37a240bdb8b5c803786445857fdfe7a56d8997ff8c194533c1f7444c4df06",
+      "bytes": 1796
+    },
+    {
+      "path": "docker/build_scripts/install-build-packages.sh",
+      "sha256": "78db3aa2d14628fc1a133ec99399a7e24d52e6c51284a10add3083582e1b9805",
+      "bytes": 1461
+    },
+    {
+      "path": "docker/build_scripts/install-clang-static.sh",
+      "sha256": "9d98440afa90ef2eccecdc28d07b1c45cf3df29470435c1eb0fa15d49009b5b4",
+      "bytes": 2115
+    },
+    {
+      "path": "docker/build_scripts/install-entrypoint.sh",
+      "sha256": "0df98f5a26240933e7d789ab5b22b27e5eeb7c8e0be93866f4ea7bc076da5ec6",
+      "bytes": 834
+    },
+    {
+      "path": "docker/build_scripts/install-gcc-wrapper.sh",
+      "sha256": "563510046f50b279e8694fbd080f188701186268ed0d64b42055d5012b08db54",
+      "bytes": 3115
+    },
+    {
+      "path": "docker/build_scripts/install-git-lfs.sh",
+      "sha256": "44974ea57a9452b5029ebc113c341322c129b2490d2c456a241ac8e64a2d25c2",
+      "bytes": 1418
+    },
+    {
+      "path": "docker/build_scripts/install-libtool.sh",
+      "sha256": "b200d15606bcc192fd212c4a9d43bca9fdc4676c4f4ae0c35085e8d8ed8e19bc",
+      "bytes": 849
+    },
+    {
+      "path": "docker/build_scripts/install-libxcrypt.sh",
+      "sha256": "2a1e4846c84b32c02e6ebf93b3b8dc0837f67ed5a0b89be1c9200ae5d2f8dde8",
+      "bytes": 1893
+    },
+    {
+      "path": "docker/build_scripts/install-runtime-packages.sh",
+      "sha256": "f54e37ec6bd6e493b04602df4311e85d42f6ff627ece38041dba0d93a8d8d27a",
+      "bytes": 8018
+    },
+    {
+      "path": "docker/build_scripts/install-static-clang-helper.sh",
+      "sha256": "bfdb4ad5ad50b913972d8ff1191f4b1490ed382772f388529009e26a49b89a47",
+      "bytes": 5266
+    },
+    {
+      "path": "docker/build_scripts/manylinux-interpreters.py",
+      "sha256": "8e3bc359840e813200912fb2a5761e6d35ad5ab1037c06ad7ee588a02fe24893",
+      "bytes": 6448
+    },
+    {
+      "path": "docker/build_scripts/python-tag-abi-tag.py",
+      "sha256": "54929e416f7bebe0cc212c3994495c70cf10cd10d79e9a49aa49f943b6d2887e",
+      "bytes": 294
+    },
+    {
+      "path": "docker/build_scripts/python_versions.json",
+      "sha256": "1ba146319e6bc31dc1ed3ab2563ec313e3e2eaf223662a23c3cc8f61b1c24b82",
+      "bytes": 3247
+    },
+    {
+      "path": "docker/build_scripts/requirements-base-tools.txt",
+      "sha256": "caa02b63a7bff031a7812fd5eabc27695a96dee43110bb6f6dbf58b38795f40b",
+      "bytes": 1770
+    },
+    {
+      "path": "docker/build_scripts/requirements-tools/abi3audit",
+      "sha256": "bbef43ff50a14ebcf22073d43d7aa5dd0bfdd031faa67b261d0f4fff2595ba57",
+      "bytes": 19088
+    },
+    {
+      "path": "docker/build_scripts/requirements-tools/auditwheel",
+      "sha256": "a7748d662610ef559f01ace00ce8c77e167bd9cd8bbc6e8398778c4977c5e180",
+      "bytes": 768
+    },
+    {
+      "path": "docker/build_scripts/requirements-tools/cmake",
+      "sha256": "005727a16b9bec1ac956e68439e1a4e1a86757caba45a3e0b48dbb1afff6108d",
+      "bytes": 1788
+    },
+    {
+      "path": "docker/build_scripts/requirements-tools/patchelf",
+      "sha256": "bf2334b8ec5ea5de03d3d3b3d6738277dfc288489bb1c88ea672d24f0abd4b45",
+      "bytes": 947
+    },
+    {
+      "path": "docker/build_scripts/requirements-tools/swig",
+      "sha256": "72fb9083715583e774977b4e399bd0767f4ba1c684114bfe2d18f6132e27f8ee",
+      "bytes": 1701
+    },
+    {
+      "path": "docker/build_scripts/requirements-tools/uv",
+      "sha256": "a4a835d0c0a877592d36905bd32124abc5a1151fc1761e981ef9cbab94614f51",
+      "bytes": 1783
+    },
+    {
+      "path": "docker/build_scripts/requirements3.10.txt",
+      "sha256": "922e62b581c66b4606ffa22976941099672adb7fc670e22df21ba52765869358",
+      "bytes": 5550
+    },
+    {
+      "path": "docker/build_scripts/requirements3.11.txt",
+      "sha256": "b1b602ba59a1de90afffd0dae26e20a220f447a3c2265749f79c82fb5bcd6816",
+      "bytes": 1006
+    },
+    {
+      "path": "docker/build_scripts/requirements3.12.txt",
+      "sha256": "b1b602ba59a1de90afffd0dae26e20a220f447a3c2265749f79c82fb5bcd6816",
+      "bytes": 1006
+    },
+    {
+      "path": "docker/build_scripts/requirements3.13.txt",
+      "sha256": "b1b602ba59a1de90afffd0dae26e20a220f447a3c2265749f79c82fb5bcd6816",
+      "bytes": 1006
+    },
+    {
+      "path": "docker/build_scripts/requirements3.14.txt",
+      "sha256": "b1b602ba59a1de90afffd0dae26e20a220f447a3c2265749f79c82fb5bcd6816",
+      "bytes": 1006
+    },
+    {
+      "path": "docker/build_scripts/requirements3.15.txt",
+      "sha256": "b1b602ba59a1de90afffd0dae26e20a220f447a3c2265749f79c82fb5bcd6816",
+      "bytes": 1006
+    },
+    {
+      "path": "docker/build_scripts/requirements3.9.txt",
+      "sha256": "4372ff0c19a35e8960c040e7c161deb8692f8b323f1b2935f20322023d4dcc44",
+      "bytes": 5551
+    },
+    {
+      "path": "docker/build_scripts/static_clang_versions.txt",
+      "sha256": "e63db437069ec7e541844990b4092a9c776f928ddd35fc96b0ddecbe6d0f1be6",
+      "bytes": 1050
+    },
+    {
+      "path": "docker/build_scripts/update-system-packages.sh",
+      "sha256": "b953ca6e50eb11210a25eee0576c6255c9ac5bb77494832225474be480d7b94d",
+      "bytes": 3233
+    },
+    {
+      "path": "docker/manylinux-entrypoint",
+      "sha256": "12131e1e7fa51468c29d69cd75596e73c17ee965525c34b4c0486418af1aaed8",
+      "bytes": 325
+    },
+    {
+      "path": "docker/tests/autotools/AUTHORS",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docker/tests/autotools/COPYING",
+      "sha256": "ccfa95da478e5e0a9f9a09a29974ccac13997d864699eee22175db1eace1a73d",
+      "bytes": 1076
+    },
+    {
+      "path": "docker/tests/autotools/ChangeLog",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docker/tests/autotools/Makefile.am",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docker/tests/autotools/NEWS",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docker/tests/autotools/README",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docker/tests/autotools/configure.ac",
+      "sha256": "81d2c31e0b6166a25fcc7031832c3c4eb95b6af0ca2433bf2b720ec5d8cadc28",
+      "bytes": 156
+    },
+    {
+      "path": "docker/tests/ctest/CMakeLists.txt",
+      "sha256": "13bb438c822be566666b0b6e5bd91d643048c167b069c0ff9df1176c7a428c66",
+      "bytes": 470
+    },
+    {
+      "path": "docker/tests/ctest/test_sqlite3.cpp",
+      "sha256": "35d1c84088f4c2038fba1ff9120a928e49b76ae3803091c9a3fffa5636918493",
+      "bytes": 366
+    },
+    {
+      "path": "docker/tests/forty-two/Makefile",
+      "sha256": "42c079d0ff810490fde0775f3e72955f6fd47303ddbfb172a089a78f54a1fffe",
+      "bytes": 354
+    },
+    {
+      "path": "docker/tests/forty-two/eleven/eleven.c",
+      "sha256": "fa277d74225c8138e55c1f17c754befa954ced7a217a3e3da311a9b7b9dd5d56",
+      "bytes": 84
+    },
+    {
+      "path": "docker/tests/forty-two/eleven/eleven.h",
+      "sha256": "fc0ed0a69629e26db4dc2b2cdb8f1f0a2d660778d061553b8ce6c185bd831dea",
+      "bytes": 18
+    },
+    {
+      "path": "docker/tests/forty-two/forty-two.c",
+      "sha256": "26e714957a1972925151e39a70691d14e4e497c0a300085e3e47f5c9bb414c71",
+      "bytes": 553
+    },
+    {
+      "path": "docker/tests/forty-two/pyproject.toml",
+      "sha256": "0d2df4e9048f74f759f835775a4bb1f586923dc5bdfb27781abdf0282fa882d9",
+      "bytes": 81
+    },
+    {
+      "path": "docker/tests/forty-two/setup.py",
+      "sha256": "1876f3f1aebf122d31d6c7a814708877b41e204f6b110a2520611804d693525e",
+      "bytes": 346
+    },
+    {
+      "path": "docker/tests/forty-two/ten/ten.c",
+      "sha256": "dcae04ed0166b266f702521dd72c2ba7f40abc74f7b55e7640c59dc96a7f415b",
+      "bytes": 47
+    },
+    {
+      "path": "docker/tests/forty-two/ten/ten.h",
+      "sha256": "55dac72496dc79b9fa02e49f1b33e0c2bf75c7dee20ab7c14469cbf29db0bb85",
+      "bytes": 15
+    },
+    {
+      "path": "docker/tests/manylinux-check.py",
+      "sha256": "2f39c629de8feb68e7d1510e09241ded45cc65af1f8c39c6c5e481120307ac40",
+      "bytes": 3851
+    },
+    {
+      "path": "docker/tests/modules-check.py",
+      "sha256": "8f55a37954b1bc1879a937dc4e53e2a1658d0904af55eba4d864c74fab095f58",
+      "bytes": 7475
+    },
+    {
+      "path": "docker/tests/requirements-pyinstaller-3.13.txt",
+      "sha256": "4c3cd4cad375c6879c76a858bc54ba318ca777ee8e4f7e4d1b4f1c4d6886cf4e",
+      "bytes": 2230
+    },
+    {
+      "path": "docker/tests/requirements-pyinstaller-3.14.txt",
+      "sha256": "4dff423132d3386b468638c17e9c3c299e93783ad728fc070e9b2c611010d4d8",
+      "bytes": 2230
+    },
+    {
+      "path": "docker/tests/run_shared_tests.sh",
+      "sha256": "444a1791715425b6c5ac24e3baecd1e54874f2c66135dba5268636a14ec716b0",
+      "bytes": 2458
+    },
+    {
+      "path": "docker/tests/run_tests.sh",
+      "sha256": "fdd1bd4f71816d127b310124fc6f1c197b0fcf71d44c8ea49af97e1f5aaa92bf",
+      "bytes": 8598
+    },
+    {
+      "path": "docker/tests/ssl-check.py",
+      "sha256": "8ffe014f96d98fa5801ffc0abb8838ef9c08e754d0470aed27e2141220622d56",
+      "bytes": 545
+    }
+  ],
+  "image_recipe_byte_matches": [
+    "docker/build_scripts/build-cpython.sh",
+    "docker/build_scripts/build-curl.sh",
+    "docker/build_scripts/build-git.sh",
+    "docker/build_scripts/build-mpdecimal.sh",
+    "docker/build_scripts/build-openssl-for-shared-cpython.sh",
+    "docker/build_scripts/build-openssl.sh",
+    "docker/build_scripts/build-shared-cpython.sh",
+    "docker/build_scripts/build-sqlite3.sh",
+    "docker/build_scripts/build-tcltk.sh",
+    "docker/build_scripts/build-zstd.sh",
+    "docker/build_scripts/build_utils.sh",
+    "docker/build_scripts/download-and-install-interpreter.sh",
+    "docker/build_scripts/finalize-one.sh",
+    "docker/build_scripts/finalize-shared.sh",
+    "docker/build_scripts/finalize.sh",
+    "docker/build_scripts/fixup-mirrors.sh",
+    "docker/build_scripts/git-lfs-core-gpg-keys",
+    "docker/build_scripts/install-autoconf.sh",
+    "docker/build_scripts/install-automake.sh",
+    "docker/build_scripts/install-build-packages.sh",
+    "docker/build_scripts/install-clang-static.sh",
+    "docker/build_scripts/install-entrypoint.sh",
+    "docker/build_scripts/install-gcc-wrapper.sh",
+    "docker/build_scripts/install-git-lfs.sh",
+    "docker/build_scripts/install-libtool.sh",
+    "docker/build_scripts/install-runtime-packages.sh",
+    "docker/build_scripts/install-static-clang-helper.sh",
+    "docker/build_scripts/manylinux-interpreters.py",
+    "docker/build_scripts/python-tag-abi-tag.py",
+    "docker/build_scripts/python_versions.json",
+    "docker/build_scripts/requirements-base-tools.txt",
+    "docker/build_scripts/requirements-tools/abi3audit",
+    "docker/build_scripts/requirements-tools/auditwheel",
+    "docker/build_scripts/requirements-tools/cmake",
+    "docker/build_scripts/requirements-tools/patchelf",
+    "docker/build_scripts/requirements-tools/swig",
+    "docker/build_scripts/requirements-tools/uv",
+    "docker/build_scripts/requirements3.10.txt",
+    "docker/build_scripts/requirements3.11.txt",
+    "docker/build_scripts/requirements3.12.txt",
+    "docker/build_scripts/requirements3.13.txt",
+    "docker/build_scripts/requirements3.14.txt",
+    "docker/build_scripts/requirements3.15.txt",
+    "docker/build_scripts/requirements3.9.txt",
+    "docker/build_scripts/static_clang_versions.txt",
+    "docker/build_scripts/update-system-packages.sh"
+  ]
+}

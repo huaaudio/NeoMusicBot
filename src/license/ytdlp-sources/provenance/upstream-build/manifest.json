@@ -1,0 +1,281 @@
+{
+  "commit": "594bd50c2c78ac432f81600d309fdc4e0a92d82c",
+  "url": "https://codeload.github.com/yt-dlp/yt-dlp/tar.gz/594bd50c2c78ac432f81600d309fdc4e0a92d82c",
+  "sha256": "9434bc31521a5ce0badaaa7315cd4e687c837a722d4e6f60b6f78725f8b83163",
+  "bytes": 3113178,
+  "recipe_files": [
+    {
+      "path": ".github/workflows/build.yml",
+      "sha256": "cd9aae06afaa22166670bd7182d7279ae12dad2c1034c1cbeb0db3f5d993fc04"
+    },
+    {
+      "path": ".github/workflows/challenge-tests.yml",
+      "sha256": "d21557f05d7c78f93be1a71b112265cb6da5b2d2e0fd69819feb95bfe9ab655b"
+    },
+    {
+      "path": ".github/workflows/codeql.yml",
+      "sha256": "40135e8bcb6c23042006adb30cbf7643ed2911637e79ce76b5c0b1c30232a24d"
+    },
+    {
+      "path": ".github/workflows/core.yml",
+      "sha256": "7d99d5e00250cedaff9fd8d949293b76b3f692c72e3c48294e11bcb3e7085910"
+    },
+    {
+      "path": ".github/workflows/issue-lockdown.yml",
+      "sha256": "3fbbfe1fa5dd7ea8399923fc085e40f710564cd955f09f4706ce7aac1c1fc4a1"
+    },
+    {
+      "path": ".github/workflows/label-handler.yml",
+      "sha256": "c8365886d7a3b435caf685eff25de0d3a1f71ea984f84474b416949194a2b3d7"
+    },
+    {
+      "path": ".github/workflows/quick-test.yml",
+      "sha256": "a17641b7331029291cffa40b12891551be1513444dbcc465901e99138f1336d4"
+    },
+    {
+      "path": ".github/workflows/release-master.yml",
+      "sha256": "4a0ccbc9e221f8d2bf678c80b24e1787480cc172f174c57a92a6ad95cb789f61"
+    },
+    {
+      "path": ".github/workflows/release-nightly.yml",
+      "sha256": "b59632ab12f1db9c9db7804a638dbdb05ccea78bd59295f12a054c831c5355d4"
+    },
+    {
+      "path": ".github/workflows/release.yml",
+      "sha256": "518284b2a36ef61a807a51834b9c8a7fef51147889ed7f95d0c884141d32f440"
+    },
+    {
+      "path": ".github/workflows/sanitize-comment.yml",
+      "sha256": "87dbd3f0ec94c9addbd124c10316e032b9018cdbc77174fc0140a3b4d3707924"
+    },
+    {
+      "path": ".github/workflows/test-workflows.yml",
+      "sha256": "bf81c3d6b6139cf20ec93465a79edc55962a72e79091770fdb2cd7cf3d2665e7"
+    },
+    {
+      "path": ".github/workflows/wiki.yml",
+      "sha256": "a0e165ffb3a85beb574ff3147817b503051d1c0866fc5e92a69e712482ad2171"
+    },
+    {
+      "path": "bundle/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "bundle/docker/compose.yml",
+      "sha256": "efee2f6a1e96403a6240ce10cbfeccfa0d6ea3cbe942bd543420fd6bbaf667ac"
+    },
+    {
+      "path": "bundle/docker/linux/Dockerfile",
+      "sha256": "e0b242f65edcd49513623c407fc222948474aeaa73f73588893b81c86fd7839b"
+    },
+    {
+      "path": "bundle/docker/linux/build.sh",
+      "sha256": "2981a5951ffd75995feb8fb9547a691e83127a18dd2849f1f6268d22603419a4"
+    },
+    {
+      "path": "bundle/docker/linux/verify.sh",
+      "sha256": "889725fc02fec4e30988a161871e45493caa57a70c582942c72f3aa87945a9a5"
+    },
+    {
+      "path": "bundle/pyinstaller.py",
+      "sha256": "792b2e882d469b46e46f15707bf1869a2c043f7e89c79bc75f8725014482759a"
+    },
+    {
+      "path": "bundle/requirements/build.txt",
+      "sha256": "7bc97b8281565d7d5472807cceb1bc26bdb6d29ef891c1a6a63b1ad2169a95e9"
+    },
+    {
+      "path": "bundle/requirements/curl-cffi.txt",
+      "sha256": "898c4d3bf40a6f1cb59e8cb8184536c0b97c543367e3256621a5b6d791729632"
+    },
+    {
+      "path": "bundle/requirements/default.txt",
+      "sha256": "fa81ca6ed6a0fdf6a3ad9708ae8a16b56ff165d9d5d677a1ff51480d4d1bba7a"
+    },
+    {
+      "path": "bundle/requirements/delocate.txt",
+      "sha256": "3b8311410c6a8bba6c97f722119631f5e832c1f5178454507651ec24bbc0d13e"
+    },
+    {
+      "path": "bundle/requirements/dev.txt",
+      "sha256": "897673d99bd74ed772b03dc4c9aec9f0de012ccf69108c3ed3d86f1468c40055"
+    },
+    {
+      "path": "bundle/requirements/linux.txt",
+      "sha256": "70ecceaaafb3497ef16057a2368514b1b88fc05627b1b572144dc3dac8c40d1b"
+    },
+    {
+      "path": "bundle/requirements/macos-curl_cffi.txt",
+      "sha256": "a994e2aa29a0d28f7aad273b0aefcc321b9593a3e49d9f0d19491d05b5114459"
+    },
+    {
+      "path": "bundle/requirements/macos.txt",
+      "sha256": "0584708f367da90d42a34897e4e42dcd206de904c77209b9849c8b43a0f9f5da"
+    },
+    {
+      "path": "bundle/requirements/pip.txt",
+      "sha256": "9cbb5eb515ea9db4bf574be76f2a0e0d42911c41a01e3327b5e6903b8af9f412"
+    },
+    {
+      "path": "bundle/requirements/pyflakes.txt",
+      "sha256": "d50aa3b035c279813a119548d7c79759baf7edca24124d58128e23920bfbfc2b"
+    },
+    {
+      "path": "bundle/requirements/pyinstaller.txt",
+      "sha256": "ccbde964270bc904bf74b5ab148c861ba18e2239aee456172022d4e1e8ddbf4a"
+    },
+    {
+      "path": "bundle/requirements/static-analysis.txt",
+      "sha256": "88ccf9d8c81eb38981021d408c4c786e549131bc02e4457295f35f2349a73843"
+    },
+    {
+      "path": "bundle/requirements/test.txt",
+      "sha256": "87d2f3f78ac76621648db8cf14b20c95ac60102493a974c777e54feeb7d475ad"
+    },
+    {
+      "path": "bundle/requirements/uv.txt",
+      "sha256": "e3511c3c2ebf4f6d56b5203201d52b6baf24ce5648aff25886d927e3a157d2dc"
+    },
+    {
+      "path": "bundle/requirements/win-arm64-pyinstaller.txt",
+      "sha256": "833a6cbafdae656e74b41883a2ada7a4022cf9b058a5ce3a8c9411c88e6d63b3"
+    },
+    {
+      "path": "bundle/requirements/win-x64-pyinstaller.txt",
+      "sha256": "473e6212ff85da7320b55933edf7fdc294b5da7d8f4348d1863d7d06865a60c6"
+    },
+    {
+      "path": "bundle/requirements/win-x86-pyinstaller.txt",
+      "sha256": "1f62d5f2fee4393c14782879048125466306327337f075f4c912d635ed82286f"
+    },
+    {
+      "path": "devscripts/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "devscripts/bash-completion.in",
+      "sha256": "f4ce53f2e9387ea4f226385fbb26bdafe69e5bfc78cd0f806f5f20329ebe105a"
+    },
+    {
+      "path": "devscripts/bash-completion.py",
+      "sha256": "2819f26e4f85fb21bf739c356d5e008e8529bc1697e2d5f22ce1fd85ddaa143e"
+    },
+    {
+      "path": "devscripts/changelog_override.json",
+      "sha256": "57861fed00593bef95ffd53ab5136fa767f3976bdc39ebc14fab8e76176c4b8f"
+    },
+    {
+      "path": "devscripts/changelog_override.schema.json",
+      "sha256": "969c9d5b0475603c1179ccad26d4b8b7274c610e2401c421f3544ad33b40e262"
+    },
+    {
+      "path": "devscripts/check-porn.py",
+      "sha256": "6973543f2bfe2b862e2cb8f09254b65f19d83e873257785c1d1b063586799bd9"
+    },
+    {
+      "path": "devscripts/cli_to_api.py",
+      "sha256": "0d524daa8eb432eb650a26faf49e911a4716a7ffc7ff1dc0b83edb325845b9c8"
+    },
+    {
+      "path": "devscripts/fish-completion.in",
+      "sha256": "e1b7cc4ca3b1bba73ed9f55995032e4c0b56f6d9817318fde830a4d3e6f6eec7"
+    },
+    {
+      "path": "devscripts/fish-completion.py",
+      "sha256": "1f94754e7962663d493c846f79855bae8e31450a19e17280c5bce98fbc45c5be"
+    },
+    {
+      "path": "devscripts/generate_aes_testdata.py",
+      "sha256": "adfa944caafa16e83bd4027661ad502e68fa71efc94ad0f0262649ef71d63f54"
+    },
+    {
+      "path": "devscripts/generate_third_party_licenses.py",
+      "sha256": "7b8a5c0d425e4c9e8a80d357c575215a09e0cca9d4db51427e46ec984c5c85f1"
+    },
+    {
+      "path": "devscripts/install_deps.py",
+      "sha256": "f94d60634a3cdf0b008d8faead3b7c125b9e3019ee60c99372a7c403d454b9cd"
+    },
+    {
+      "path": "devscripts/lazy_load_template.py",
+      "sha256": "dbfb82898c542d504007a259c1b5ba35ede87fe1f46fc4a89b7e2126640bcdfd"
+    },
+    {
+      "path": "devscripts/logo.ico",
+      "sha256": "09690324b9d3b2f381821404360dbec6b7a67a85a0b9db601c11bd2e27a58f83"
+    },
+    {
+      "path": "devscripts/make_changelog.py",
+      "sha256": "2ed3ce711f0135d348cec444d064e7195aaa5d40e8cbf924601642d1dc246fde"
+    },
+    {
+      "path": "devscripts/make_issue_template.py",
+      "sha256": "a453557207e7284b5fa5066be47ff4ccde9ee30e334989762e0118b722c6e104"
+    },
+    {
+      "path": "devscripts/make_lazy_extractors.py",
+      "sha256": "bebbb3632a6945a401e485dae9cf1e24dc07360d1374e4ac3485d76084905d21"
+    },
+    {
+      "path": "devscripts/make_readme.py",
+      "sha256": "b93606b0a0cb26da81dad0f9e94a05bef7eb2c208454491e136d50ba55f9fe17"
+    },
+    {
+      "path": "devscripts/make_supportedsites.py",
+      "sha256": "befd3a67523c533bb6a449c5a6264dc78d887c7ab5ab7564ed477bd348dcda96"
+    },
+    {
+      "path": "devscripts/prepare_manpage.py",
+      "sha256": "900476b8e391161fe1efa3c9c87317138ffbdb8774ecb43b4843d8a6438a1ae1"
+    },
+    {
+      "path": "devscripts/run_tests.py",
+      "sha256": "a37885494c927e2ac48a1f3eb734e80c2d5a5ec2197aac761ccebf0284a9e2ef"
+    },
+    {
+      "path": "devscripts/set-variant.py",
+      "sha256": "de9b9c940ba71507cd1d83f54d839f558af710c3842434b263e37cbd69bf1001"
+    },
+    {
+      "path": "devscripts/setup_variables.py",
+      "sha256": "6e5e225fafcfec465795fbfc8d95740470f546fc27cdb3ec50991b88055f8e6c"
+    },
+    {
+      "path": "devscripts/setup_variables_tests.py",
+      "sha256": "d602e8baaa51401b2bb61221e8289c11c68559cc4e6d180f46a8de0424db4f0d"
+    },
+    {
+      "path": "devscripts/tomlparse.py",
+      "sha256": "af235943e58fba8cd71055d2355d7f8da6c05e61a8ddc3bc07ab84a0c5c9eab7"
+    },
+    {
+      "path": "devscripts/update-version.py",
+      "sha256": "82a3544733d5dd93ef044bd0f4178951e1d9d1589597cd24f684fcae90ed5c4e"
+    },
+    {
+      "path": "devscripts/update_changelog.py",
+      "sha256": "d0711b3898f6b64e5a6c4d5f54ac5215909efb4aea37f1a6bf577c3a6d5f97c3"
+    },
+    {
+      "path": "devscripts/update_requirements.py",
+      "sha256": "39fe25cc4af17dc5fe4476edc3e4c44d08de172050aac5a066de5a4a203674c3"
+    },
+    {
+      "path": "devscripts/utils.py",
+      "sha256": "bb4439e18e25fca294eac167bc573aa60c9aca4186220448223e7844dedc0644"
+    },
+    {
+      "path": "devscripts/zsh-completion.in",
+      "sha256": "aca048c322de81202f8739c8ce9d2d25eed30c8e8f288d3d1e71896ab0dad252"
+    },
+    {
+      "path": "devscripts/zsh-completion.py",
+      "sha256": "c43c05f45d4bb11371baf0ae0f7f0b5d23ca1bb3f9e35393bddf30d3dda22aaa"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "52966ad39751ddd50157a1bf9b3ba508c438bce6ef732991b63ef49a0be114fc"
+    }
+  ],
+  "binary_build_environment_reconstructed": false
+}

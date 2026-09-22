@@ -334,3 +334,14 @@ SHA-256 `472aefe951c7db35e1657c1d13fd337140511ed6f2b329205105ad441c5a02b7`。
 每个平台 14 个文件，记录 `tools/ytdlp-notice-readback/verified.json`。
 此项完成原始声明的正式打包和字节校验，不代表整个 AUD-005 关闭；
 对应源码交付仍单独列为未完成项，最终完整应用 ZIP 仍需云端验证。
+
+## yt-dlp 对应源码配套包
+
+已将现有验证材料归并到 `src/license/ytdlp-sources` 固定定义和
+`package_ytdlp_sources.py`，包括 86 份原始源码归档及 14 份来源/构建记录。
+其中保留源码 RPM 的发行版补丁、实际 Python 版本、curl 配方、cryptography Cargo 锁、
+匹配 Rust/OpenSSL 来源及 PyInstaller 源码；不重新扩展工具链审查范围。
+实际配套 ZIP 102 个文件、647,825,742 字节，SHA-256 为
+`9a883af36320f488eccf1c66632070af85e5953978f472acb20fdbbc65627b6b`。
+干净解压后全部固定归档和来源记录核验通过（`tools/ytdlp-source-companion-verified.json`）。
+配套包尚需不可变发布，并在实际应用包中绑定可用下载地址和哈希；此处不提前宣告源码交付完成。

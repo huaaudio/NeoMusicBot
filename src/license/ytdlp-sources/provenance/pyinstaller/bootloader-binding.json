@@ -1,0 +1,302 @@
+[
+  {
+    "platform": "linux-x86-64",
+    "wheel": "pyinstaller-6.22.0-py3-none-manylinux2014_x86_64.whl",
+    "wheel_member": "PyInstaller/bootloader/Linux-64bit-intel/run",
+    "bootloader_sha256": "95f302df51ebc1c7bf705ca5fce12272132dac7be43c430fcbda83ca7a7cfd4a",
+    "result": {
+      "full_original_bootloader_prefix_identical": false,
+      "bootloader_bytes": 68320,
+      "section_comparison": {
+        "": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".interp": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".note.ABI-tag": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".note.gnu.build-id": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".gnu.hash": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".dynsym": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".dynstr": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".gnu.version": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".gnu.version_r": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".rela.dyn": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".rela.plt": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".init": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".plt": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".text": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".fini": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".rodata": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".eh_frame_hdr": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".eh_frame": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".init_array": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".fini_array": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".data.rel.ro": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".dynamic": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".got": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".got.plt": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".data": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".bss": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".comment": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": true,
+          "alignment": true,
+          "body": true
+        },
+        ".shstrtab": {
+          "type": true,
+          "flags": true,
+          "address": true,
+          "size": false,
+          "alignment": true,
+          "body": false
+        }
+      },
+      "added_sections": [
+        "pydata"
+      ],
+      "original_section_sha256": {
+        "": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        ".interp": "9097c98ea70f6f3b01d50145eb72bf55ad1f4e9713bccf27bd6405d6254eed00",
+        ".note.ABI-tag": "6e48317ad93a8ac2dc04321465ede06d1274543fc8ab172e68171a9d684bb313",
+        ".note.gnu.build-id": "0ea3efaceb556ac92282bdb8a45ecae84ac3c6a4ce8136c35d45445ba4306515",
+        ".gnu.hash": "ec308b7bc9d0dfac735de25eb9c4d57d76865623fe20a9412fd9daf880376c76",
+        ".dynsym": "f704fec3bb2e933ca1788e0ae4a4a1216329e9f575b6fbbb713b970c5d213aaf",
+        ".dynstr": "1a6c0bf111b798770fe4cd1a0cd10a89f7715027c15e31b8dd96a267eac5456c",
+        ".gnu.version": "495ed95183582232efc8b02e507dad02d3456f89705f9382a354e1099002679e",
+        ".gnu.version_r": "8c17cfdc7453767770d27fe9a9b25884f8085e33143ffa52da5930af2cd6f60c",
+        ".rela.dyn": "ea7f377667fbd17ef3fb26ac8ec413bc96d0aa80e1b8b3d653ce01e950714d8b",
+        ".rela.plt": "03817c28f31f9cc421272e44acabca5cbb105fab942089432fa350f9f8d147c9",
+        ".init": "245033d38da9f332294e48c0fda4dbbafa9087861b6ed7488b8f88800f4ea3f3",
+        ".plt": "2c7e7605a5d98d516acf7edf4c66735d5d86aa24d51021496a7afc7d20fc680d",
+        ".text": "4aecd7ccfafbbe2ce4b9c8ce33120a3f8f3548534a5bec09ff18f912eac1470a",
+        ".fini": "66e6f54550612182b4ad78f30b140dd08318b968db3878de2db65fef87dc04d7",
+        ".rodata": "f9fd7f43d38235658bdea8c18c2b572574b86dc2a28293324763a4f10e6c48c0",
+        ".eh_frame_hdr": "62183bee55aa67bd62f1ef2c53423f5479531761bf4ce266a564b0b130fa1fe3",
+        ".eh_frame": "c8c0747d219e78ecddd45cbf3ffc8b5e86abc1640ac7fa0394d072ff230a1303",
+        ".init_array": "41536a2e10997acaa45a5c4b9a982fb94eccd1b39a5b30a4c98a2a2d08e9a337",
+        ".fini_array": "03c072154a80be7beb14dca2bb067ceb21115122caa049f9c9ab206dcecfa8b0",
+        ".data.rel.ro": "6617f2e6d1f115aee2179eb303e7eee03317665344f1ad9284d7b9ed624b4439",
+        ".dynamic": "af1a0b006f2dbd69ca239d59dd1871755423ca1f749ac1d41658a2b9e94d731a",
+        ".got": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb",
+        ".got.plt": "a0a4e802b34528dfc10575d9c4143c8c1578f2e02345f3cebad50b437fac3e81",
+        ".data": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb",
+        ".bss": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        ".comment": "335d6433961dda5d7324054678f3c8e00aa3e0e7cd43879b6aac3c3eebdb5330",
+        ".shstrtab": "581a371c31d84d7fc13b87487ed8129a6b766b4e9a9dc6e262f939ad74a9a0ea"
+      }
+    }
+  },
+  {
+    "platform": "windows-x86-64",
+    "wheel": "pyinstaller-6.22.0-py3-none-win_amd64.whl",
+    "wheel_member": "PyInstaller/bootloader/Windows-64bit-intel/run.exe",
+    "bootloader_sha256": "a2223d702cabacac3eaa07270d16a71a2c73cceac51cfc93ad1bba62348e26c7",
+    "result": {
+      "section_matches": {
+        ".text": true,
+        ".data": true,
+        ".rdata": true,
+        ".pdata": true,
+        ".xdata": true,
+        ".bss": true,
+        ".idata": true,
+        ".rsrc": false,
+        ".reloc": true
+      },
+      "section_hashes": {
+        ".text": "82bbd6f8606fad6aade5d750f9498ef48338604c9939abeb8bf1cc4a4a01e673",
+        ".data": "9acce33f09afec80e45bb667233378d7a2828673117e7c4fb61ffce3d9bc2592",
+        ".rdata": "dba6373ad8983d8a72ac02f801b89081bc20f94fd451315fd2bcc91037c3d085",
+        ".pdata": "be54e969e5df18a2f6b3afa0a4b695488d698fe45601bbb453af68c10492e4ee",
+        ".xdata": "67546bc4e3145b0f21b1afa3bcc2eda0de58aa9c57c5155d57800103ee334e2e",
+        ".bss": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        ".idata": "a9c1fd84ffe00c5f4f82c6139d35ebc25e70783774a7c90917bf9302d81c70e2",
+        ".rsrc": "94c3acdee68891482564921e3f8938657caad986426c79e9f063b4418a7f54e9",
+        ".reloc": "94f66fe699999b034c3066666e4f8ab8d5c2b72504d5d01c50a181d4bee19e3f"
+      },
+      "intentional_resource_changes": "yt-dlp replaces icon and version resources using its fixed build recipe"
+    }
+  }
+]

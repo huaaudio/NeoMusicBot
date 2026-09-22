@@ -1,0 +1,1359 @@
+{
+  "records": [
+    {
+      "name": "pycryptodomex",
+      "version": "3.23.0",
+      "platform": "windows-x86-64",
+      "file": "wheel-bindings/windows-x86-64/pycryptodomex-3.23.0-cp37-abi3-win_amd64.whl",
+      "url": "https://files.pythonhosted.org/packages/69/96/11f36f71a865dd6df03716d33bd07a67e9d20f6b8d39820470b766af323c/pycryptodomex-3.23.0-cp37-abi3-win_amd64.whl",
+      "sha256": "52e5ca58c3a0b0bd5e100a9fbc8015059b05cffc6c66ce9d98b4b45e023443b9",
+      "bytes": 1803124,
+      "matches": [
+        {
+          "wheel_member": "Cryptodome/py.typed",
+          "embedded_member": "websockets-16.1.1.dist-info\\REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_ARC4.pyd",
+          "embedded_member": "Cryptodome\\Cipher\\_ARC4.pyd",
+          "sha256": "e37da2a2140eb18fb84065d4138ad1072539c82464475a94f5a87a049e601f7e",
+          "bytes": 10752
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_Salsa20.pyd",
+          "embedded_member": "Cryptodome\\Cipher\\_Salsa20.pyd",
+          "sha256": "59ee075ecb9877bc24f5c27fa2d590bae0f6aa30a6e02432e1eb25cb459abc0e",
+          "bytes": 13824
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/__init__.pyi",
+          "embedded_member": "websockets-16.1.1.dist-info\\REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_chacha20.pyd",
+          "embedded_member": "Cryptodome\\Cipher\\_chacha20.pyd",
+          "sha256": "5736506ad6dc2f3d893b978c8727d74c2f0ae87bbc2fcfcfe8c7e982ea5e86e2",
+          "bytes": 13312
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_pkcs1_decode.pyd",
+          "embedded_member": "Cryptodome\\Cipher\\_pkcs1_decode.pyd",
+          "sha256": "ed12c3d512e5e0b4245fdc5a83fd46497bb2df31e49199b6265ace5142fe5021",
+          "bytes": 13312
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_aes.pyd",
+          "embedded_member": "Cryptodome\\Cipher\\_raw_aes.pyd",
+          "sha256": "889f9b558a47a4333bfd3e3814eaec2328ac8648722d912c7873fdea62fcf886",
+          "bytes": 35328
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_aesni.pyd",
+          "embedded_member": "Cryptodome\\Cipher\\_raw_aesni.pyd",
+          "sha256": "6c9a2bed5c1bd9acd8bcea7f5f20f7fa63e4465b0914ae70250bd59a8028333c",
+          "bytes": 15360
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_arc2.pyd",
+          "embedded_member": "Cryptodome\\Cipher\\_raw_arc2.pyd",
+          "sha256": "eda56aa3afb9d6adfd95ba950ad1247b5e2c6aedaa2db86af0c8fa79217359a4",
+          "bytes": 14848
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_blowfish.pyd",
+          "embedded_member": "Cryptodome\\Cipher\\_raw_blowfish.pyd",
+          "sha256": "eea7e0597216ece6d23b351743fdc08d32a5bcde57b1efa724a3b6138b692ad9",
+          "bytes": 19456
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_cast.pyd",
+          "embedded_member": "Cryptodome\\Cipher\\_raw_cast.pyd",
+          "sha256": "90442d012d3f918cb0f78035680db6a373148b1de7e84545e5f3596c655cd6ab",
+          "bytes": 24064
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_cbc.pyd",
+          "embedded_member": "Cryptodome\\Cipher\\_raw_cbc.pyd",
+          "sha256": "6c6c5fac1b5933fb857fcc3e5a87765257b5484285de147e9bb5fc854223a707",
+          "bytes": 11776
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_cfb.pyd",
+          "embedded_member": "Cryptodome\\Cipher\\_raw_cfb.pyd",
+          "sha256": "26e351c4fade35c146d84df0e22c2468e01186d3a8a1e51bb6c8d8ea87f09cd7",
+          "bytes": 12288
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_ctr.pyd",
+          "embedded_member": "Cryptodome\\Cipher\\_raw_ctr.pyd",
+          "sha256": "229994e4cb838079a5711c8c0ffeb25fb4684a70ecda497ddb49c8a315594a83",
+          "bytes": 14848
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_des.pyd",
+          "embedded_member": "Cryptodome\\Cipher\\_raw_des.pyd",
+          "sha256": "8bd8469ecbf707b90d88fcc32213f1f6877dac36dcf767a0f4c1ce8ba81b5756",
+          "bytes": 52736
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_des3.pyd",
+          "embedded_member": "Cryptodome\\Cipher\\_raw_des3.pyd",
+          "sha256": "809390256aae55a1265489283482f2fee34957e4f2b4377d7449602740724ecb",
+          "bytes": 52736
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_ecb.pyd",
+          "embedded_member": "Cryptodome\\Cipher\\_raw_ecb.pyd",
+          "sha256": "da4eacde396e7388ec5da5133762409757dcdaae3022590a73d9ad950844c31f",
+          "bytes": 10240
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_eksblowfish.pyd",
+          "embedded_member": "Cryptodome\\Cipher\\_raw_eksblowfish.pyd",
+          "sha256": "40e1a78102a078058cb06b4ff41411f89203564915bc0bce04f4c2643deb9b24",
+          "bytes": 20480
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_ocb.pyd",
+          "embedded_member": "Cryptodome\\Cipher\\_raw_ocb.pyd",
+          "sha256": "61f8a3ca451db3a07b3815c4d91a37100c416f160e3ccfa6113bef0c80d0c12b",
+          "bytes": 17920
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_ofb.pyd",
+          "embedded_member": "Cryptodome\\Cipher\\_raw_ofb.pyd",
+          "sha256": "b77a2a9322c28d1dd79dd9176bd6d697f2ee3dd10cb2ce24cdfd9d42b533feff",
+          "bytes": 11776
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_BLAKE2b.pyd",
+          "embedded_member": "Cryptodome\\Hash\\_BLAKE2b.pyd",
+          "sha256": "9a10ace816f610297bcf250c6da85fabbf806dd41a65b8441e135e8390cd6870",
+          "bytes": 14336
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_BLAKE2s.pyd",
+          "embedded_member": "Cryptodome\\Hash\\_BLAKE2s.pyd",
+          "sha256": "88e734c772909ccc7158f54ce8d488bd0b412ebe2e932c5539e07cb6674243cc",
+          "bytes": 13824
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_MD2.pyd",
+          "embedded_member": "Cryptodome\\Hash\\_MD2.pyd",
+          "sha256": "ef0440af79e09ebd665090164bdd170d10eab0e63c1e3e116088bb06b63bfb2b",
+          "bytes": 14336
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_MD4.pyd",
+          "embedded_member": "Cryptodome\\Hash\\_MD4.pyd",
+          "sha256": "04171e099416e1aed2252a50dbfdd4ab03a748d97ee69420b8ff50d5d099de91",
+          "bytes": 13824
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_MD5.pyd",
+          "embedded_member": "Cryptodome\\Hash\\_MD5.pyd",
+          "sha256": "ee1174e8047988975fbf32ef309f959b7d71654e636e5ab1dde1812bd78c8470",
+          "bytes": 15360
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_RIPEMD160.pyd",
+          "embedded_member": "Cryptodome\\Hash\\_RIPEMD160.pyd",
+          "sha256": "ce297d6286dc9fcf54459a416fd6df0d5655dcd585c5a34fb90181428ccf6edd",
+          "bytes": 13824
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_SHA1.pyd",
+          "embedded_member": "Cryptodome\\Hash\\_SHA1.pyd",
+          "sha256": "76dd83ba91ceccd982d4daafcbb3c6950f8812a92b619fa3da24a50e23c43e17",
+          "bytes": 17920
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_SHA224.pyd",
+          "embedded_member": "Cryptodome\\Hash\\_SHA224.pyd",
+          "sha256": "aaf140f60dba7760d89a4cd3771127db18b5fc577c8aed6596f1e75481572a25",
+          "bytes": 21504
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_SHA256.pyd",
+          "embedded_member": "Cryptodome\\Hash\\_SHA256.pyd",
+          "sha256": "e3437cff63cc31509050697bec17f29b24a2842aafbba78238281b5cc621773e",
+          "bytes": 21504
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_SHA384.pyd",
+          "embedded_member": "Cryptodome\\Hash\\_SHA384.pyd",
+          "sha256": "a30d3afce8c4bfe98c494b09d6cea4db642bbf194eceb90875a79434c703db65",
+          "bytes": 26112
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_SHA512.pyd",
+          "embedded_member": "Cryptodome\\Hash\\_SHA512.pyd",
+          "sha256": "a341b50b34a4a85028ab7a4d1822d04055a65bde4ee8518b5f79cf792957ce4d",
+          "bytes": 26112
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_ghash_clmul.pyd",
+          "embedded_member": "Cryptodome\\Hash\\_ghash_clmul.pyd",
+          "sha256": "c8cc9583c2d91d8ef25073e01a863a40c09fa0a89007f8bb0442df46ba26f0e3",
+          "bytes": 12800
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_ghash_portable.pyd",
+          "embedded_member": "Cryptodome\\Hash\\_ghash_portable.pyd",
+          "sha256": "cd1d79a0d8923c39f7368c92fae0c731ae60ecd34d1c9f387d4824b2af168036",
+          "bytes": 12288
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_keccak.pyd",
+          "embedded_member": "Cryptodome\\Hash\\_keccak.pyd",
+          "sha256": "ca84a6475c144856f5cd72a58b9d319f2086393939f14ba799b7fb65666eec03",
+          "bytes": 15360
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_poly1305.pyd",
+          "embedded_member": "Cryptodome\\Hash\\_poly1305.pyd",
+          "sha256": "7f39864610a7e2275d521ee8bed6093b7fefb3256eeec3c1baa3bd800d1bf423",
+          "bytes": 13824
+        },
+        {
+          "wheel_member": "Cryptodome/Math/__init__.py",
+          "embedded_member": "websockets-16.1.1.dist-info\\REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "Cryptodome/Math/_modexp.pyd",
+          "embedded_member": "Cryptodome\\Math\\_modexp.pyd",
+          "sha256": "4f7650be6725a70a29cc57cdf1d9a2fd886c06cc5dde35c1ccda7dd29dc5fff4",
+          "bytes": 30720
+        },
+        {
+          "wheel_member": "Cryptodome/Protocol/_scrypt.pyd",
+          "embedded_member": "Cryptodome\\Protocol\\_scrypt.pyd",
+          "sha256": "11cf9155436c23de02abc126ef5abc0c59d0d5b3555fc51f167912af21ad38f6",
+          "bytes": 12288
+        },
+        {
+          "wheel_member": "Cryptodome/PublicKey/__init__.pyi",
+          "embedded_member": "websockets-16.1.1.dist-info\\REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "Cryptodome/PublicKey/_curve25519.pyd",
+          "embedded_member": "Cryptodome\\PublicKey\\_curve25519.pyd",
+          "sha256": "818851a9c2b838d5c9a45aaa01e3e6790f848f3ed4b7c28f2e54dabb0bb8544e",
+          "bytes": 19456
+        },
+        {
+          "wheel_member": "Cryptodome/PublicKey/_curve448.pyd",
+          "embedded_member": "Cryptodome\\PublicKey\\_curve448.pyd",
+          "sha256": "aab7072304ec3274596a49fadaa2bb0467a314875d364182d459bf3921bbe609",
+          "bytes": 58880
+        },
+        {
+          "wheel_member": "Cryptodome/PublicKey/_ec_ws.pyd",
+          "embedded_member": "Cryptodome\\PublicKey\\_ec_ws.pyd",
+          "sha256": "0720ab37bce7023ea36261c6681154be474673f2aee0f8a2de7434bf1bd60d0c",
+          "bytes": 755200
+        },
+        {
+          "wheel_member": "Cryptodome/PublicKey/_ed25519.pyd",
+          "embedded_member": "Cryptodome\\PublicKey\\_ed25519.pyd",
+          "sha256": "a3fb9c22c7c12de043d846cdb0a5e2456db6d626a00258652c74a5e614bd273f",
+          "bytes": 23552
+        },
+        {
+          "wheel_member": "Cryptodome/PublicKey/_ed448.pyd",
+          "embedded_member": "Cryptodome\\PublicKey\\_ed448.pyd",
+          "sha256": "96e2b5db37b8405e1319738637fc066ddb5ad5ec7b971f3af552a623ce6bc4f5",
+          "bytes": 74752
+        },
+        {
+          "wheel_member": "Cryptodome/Util/_cpuid_c.pyd",
+          "embedded_member": "Cryptodome\\Util\\_cpuid_c.pyd",
+          "sha256": "e7e6f27d5203768e6454b4066847a3af02548c811146da047c4a53b1edaf32e9",
+          "bytes": 10240
+        },
+        {
+          "wheel_member": "Cryptodome/Util/_strxor.pyd",
+          "embedded_member": "Cryptodome\\Util\\_strxor.pyd",
+          "sha256": "c80c1b169b894b141a60f99fd80e0dceb1c9a598748315c26b955831d9df46b5",
+          "bytes": 10240
+        }
+      ],
+      "documents": [
+        {
+          "member": "pycryptodomex-3.23.0.dist-info/AUTHORS.rst",
+          "sha256": "ac94de284f1522aee4f3e7e301e68af190786b4c8388d1a60cba4a3a1bbe3465",
+          "bytes": 815
+        },
+        {
+          "member": "pycryptodomex-3.23.0.dist-info/LICENSE.rst",
+          "sha256": "60b8958a9ef9b7ec512087b725555372175ed2b02b969f8725b8534fde48acdd",
+          "bytes": 2987
+        }
+      ]
+    },
+    {
+      "name": "pycryptodomex",
+      "version": "3.23.0",
+      "platform": "linux-x86-64",
+      "file": "wheel-bindings/linux-x86-64/pycryptodomex-3.23.0-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/c8/a9/8862616a85cf450d2822dbd4fff1fcaba90877907a6ff5bc2672cafe42f8/pycryptodomex-3.23.0-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "f489c4765093fb60e2edafdf223397bc716491b2b69fe74367b70d6999257a5c",
+      "bytes": 2272578,
+      "matches": [
+        {
+          "wheel_member": "Cryptodome/py.typed",
+          "embedded_member": "websockets-17.0.1.dist-info/REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "Cryptodome/Util/_strxor.abi3.so",
+          "embedded_member": "Cryptodome/Util/_strxor.abi3.so",
+          "sha256": "81b046cf71a9fdfad4935d9af67f85dcb16dc911c9364b3caa0a44e453f795f9",
+          "bytes": 20376
+        },
+        {
+          "wheel_member": "Cryptodome/Util/_cpuid_c.abi3.so",
+          "embedded_member": "Cryptodome/Util/_cpuid_c.abi3.so",
+          "sha256": "2c161368e944064302b78048613ef26dbc4229861d2328bcd29c501c72cb1b3c",
+          "bytes": 19304
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_ARC4.abi3.so",
+          "embedded_member": "Cryptodome/Cipher/_ARC4.abi3.so",
+          "sha256": "2adb90541769f14a6f05824794ea1287ff228645e363046d4ba4e47df4a99455",
+          "bytes": 21032
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_cast.abi3.so",
+          "embedded_member": "Cryptodome/Cipher/_raw_cast.abi3.so",
+          "sha256": "91cfb82c3ff953b5d2749278b830eea64f58a8aa528c680353af12297ad56500",
+          "bytes": 57408
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_arc2.abi3.so",
+          "embedded_member": "Cryptodome/Cipher/_raw_arc2.abi3.so",
+          "sha256": "9691029d4146c35f3d914c9cb79b788989ebaafd447a73176a555d3bfd6373d5",
+          "bytes": 46464
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_ecb.abi3.so",
+          "embedded_member": "Cryptodome/Cipher/_raw_ecb.abi3.so",
+          "sha256": "7d8dde22e0e9fb9ea2d467e81a9a7421f1f688359b9d6685c4c57f5dfe1100e2",
+          "bytes": 19016
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_des.abi3.so",
+          "embedded_member": "Cryptodome/Cipher/_raw_des.abi3.so",
+          "sha256": "3fc55b04e0d3be6df43d2c7b0296113a0381d7c5f0df0c883b5c9be23c2f8ae2",
+          "bytes": 71560
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_eksblowfish.abi3.so",
+          "embedded_member": "Cryptodome/Cipher/_raw_eksblowfish.abi3.so",
+          "sha256": "164b6cb73f02f711bea36623d3629426bb0eda0f843f80b7a16c85f45b29f276",
+          "bytes": 181192
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_chacha20.abi3.so",
+          "embedded_member": "Cryptodome/Cipher/_chacha20.abi3.so",
+          "sha256": "cb6d8f7369a9e0277728a4a587f31883bb2051c4f297abc84ecd1d82e15772bb",
+          "bytes": 30624
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_ocb.abi3.so",
+          "embedded_member": "Cryptodome/Cipher/_raw_ocb.abi3.so",
+          "sha256": "ac4b744938151389a70182391bb4f17ed28a626002fba31e78f101435e393e2d",
+          "bytes": 45856
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_Salsa20.abi3.so",
+          "embedded_member": "Cryptodome/Cipher/_Salsa20.abi3.so",
+          "sha256": "ff9a06e126354cd518769ef2fa7541f82962a895c9306e52695da85281eba718",
+          "bytes": 27016
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_aes.abi3.so",
+          "embedded_member": "Cryptodome/Cipher/_raw_aes.abi3.so",
+          "sha256": "f4265907fce6174d7e043039af0f244d650861a8b1c50d135b738602dde37578",
+          "bytes": 106808
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_ctr.abi3.so",
+          "embedded_member": "Cryptodome/Cipher/_raw_ctr.abi3.so",
+          "sha256": "dbc8b7fa5ec053f0ef8d5ed5c5af85a5f492cf4236aca594c9f979fb8d965283",
+          "bytes": 31336
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_pkcs1_decode.abi3.so",
+          "embedded_member": "Cryptodome/Cipher/_pkcs1_decode.abi3.so",
+          "sha256": "69dacc75daeb63332649180ef0512787f2730f2788f717d4b132c97c835fadea",
+          "bytes": 56536
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_aesni.abi3.so",
+          "embedded_member": "Cryptodome/Cipher/_raw_aesni.abi3.so",
+          "sha256": "1fd3c232c2ea188c6d6cc78a3527376ac6691ffe04c95ac420e6c5aa5bbc6b54",
+          "bytes": 106384
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_cbc.abi3.so",
+          "embedded_member": "Cryptodome/Cipher/_raw_cbc.abi3.so",
+          "sha256": "d23d8ecbf2a5e657dd7077e435c5cd9df5bf722c1e650f958cb6990345842374",
+          "bytes": 23000
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_ofb.abi3.so",
+          "embedded_member": "Cryptodome/Cipher/_raw_ofb.abi3.so",
+          "sha256": "c4c711d7ac3c2c4d19a6ba0b3e7132ecab313873e5761df7af1a1115486890b6",
+          "bytes": 22128
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_des3.abi3.so",
+          "embedded_member": "Cryptodome/Cipher/_raw_des3.abi3.so",
+          "sha256": "4091cc675b754684ccafb55ef5d2865ae1b9e3750e1bae92a37cdfbcb8c04a4b",
+          "bytes": 72520
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_blowfish.abi3.so",
+          "embedded_member": "Cryptodome/Cipher/_raw_blowfish.abi3.so",
+          "sha256": "174cb4378cfb9cf286b7d189ed0113490879e96a01d2f892e5eead4e7c2d3d5c",
+          "bytes": 78640
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/_raw_cfb.abi3.so",
+          "embedded_member": "Cryptodome/Cipher/_raw_cfb.abi3.so",
+          "sha256": "3ecfbf0b55be47fc32b755f9c1797d2fa9877f01977af500c05efb4e430c4ab6",
+          "bytes": 26864
+        },
+        {
+          "wheel_member": "Cryptodome/Cipher/__init__.pyi",
+          "embedded_member": "websockets-17.0.1.dist-info/REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "Cryptodome/PublicKey/_ec_ws.abi3.so",
+          "embedded_member": "Cryptodome/PublicKey/_ec_ws.abi3.so",
+          "sha256": "434cd789c3b6c90c00378d64521a515542479fc7b96779fffb6e516d07b03f73",
+          "bytes": 967640
+        },
+        {
+          "wheel_member": "Cryptodome/PublicKey/_curve448.abi3.so",
+          "embedded_member": "Cryptodome/PublicKey/_curve448.abi3.so",
+          "sha256": "7263eb36abcf5313cc430ea5c3947e43cc6c09f3fbe4f839f7897602efe13d11",
+          "bytes": 241824
+        },
+        {
+          "wheel_member": "Cryptodome/PublicKey/_curve25519.abi3.so",
+          "embedded_member": "Cryptodome/PublicKey/_curve25519.abi3.so",
+          "sha256": "568bf98f6ec778ed8ad19c961eebdb8e94a0b9fcd548f08c42b025b58294ccca",
+          "bytes": 130104
+        },
+        {
+          "wheel_member": "Cryptodome/PublicKey/_ed448.abi3.so",
+          "embedded_member": "Cryptodome/PublicKey/_ed448.abi3.so",
+          "sha256": "387053cc71f6b8f95634fca411a8949b459885debeda6edd35f5aaa8e3623cb2",
+          "bytes": 257712
+        },
+        {
+          "wheel_member": "Cryptodome/PublicKey/_ed25519.abi3.so",
+          "embedded_member": "Cryptodome/PublicKey/_ed25519.abi3.so",
+          "sha256": "d26208c322f2e722a7d1c86658053dd19145008b4e6f5ca3a5abdbd74d528222",
+          "bytes": 223480
+        },
+        {
+          "wheel_member": "Cryptodome/PublicKey/__init__.pyi",
+          "embedded_member": "websockets-17.0.1.dist-info/REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "Cryptodome/Math/_modexp.abi3.so",
+          "embedded_member": "Cryptodome/Math/_modexp.abi3.so",
+          "sha256": "93b056fe341952f08d2160cd7232bf5c5293fdf611cfc0a0f8958a9badc4d6a9",
+          "bytes": 220424
+        },
+        {
+          "wheel_member": "Cryptodome/Math/__init__.py",
+          "embedded_member": "websockets-17.0.1.dist-info/REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_ghash_clmul.abi3.so",
+          "embedded_member": "Cryptodome/Hash/_ghash_clmul.abi3.so",
+          "sha256": "5d985565f647a02c277c6ffe58e82778f55278f854e286f87d4b7d1920ae9701",
+          "bytes": 58376
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_RIPEMD160.abi3.so",
+          "embedded_member": "Cryptodome/Hash/_RIPEMD160.abi3.so",
+          "sha256": "713c0925d73197071b1066a8faa1cabdbda9d79f0a2056608dc59d5c71b2709b",
+          "bytes": 60728
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_keccak.abi3.so",
+          "embedded_member": "Cryptodome/Hash/_keccak.abi3.so",
+          "sha256": "78e30b92f3c32ab063ccf462b3d1079fc8291a692242b502c33ff878287e522e",
+          "bytes": 41632
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_SHA256.abi3.so",
+          "embedded_member": "Cryptodome/Hash/_SHA256.abi3.so",
+          "sha256": "b516067224d7d1f84b29388c545705753c557bd4916457ddf4c60452296b0951",
+          "bytes": 45832
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_MD5.abi3.so",
+          "embedded_member": "Cryptodome/Hash/_MD5.abi3.so",
+          "sha256": "978dfd0759da57bc5016840bd39dd57ddc132613d4b311a1cda543762ba2f3db",
+          "bytes": 32008
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_ghash_portable.abi3.so",
+          "embedded_member": "Cryptodome/Hash/_ghash_portable.abi3.so",
+          "sha256": "bed27029d44068160d45c5867b2bbad2475a40c3875b66960acb801b67aa7c22",
+          "bytes": 25024
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_SHA512.abi3.so",
+          "embedded_member": "Cryptodome/Hash/_SHA512.abi3.so",
+          "sha256": "1279fda58eba3013152a5470abe872bc948587fc2251e905ceabd0e424e51ad8",
+          "bytes": 54200
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_poly1305.abi3.so",
+          "embedded_member": "Cryptodome/Hash/_poly1305.abi3.so",
+          "sha256": "c28f9ad6bf36ad3222ae7e86131d0b369305dc374668a5570b90bdfc1ebda572",
+          "bytes": 33424
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_MD2.abi3.so",
+          "embedded_member": "Cryptodome/Hash/_MD2.abi3.so",
+          "sha256": "c7070cc973957f3489ae76f147b5925fc42aefdb243bd2972b66f821d0f3b75f",
+          "bytes": 23192
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_SHA224.abi3.so",
+          "embedded_member": "Cryptodome/Hash/_SHA224.abi3.so",
+          "sha256": "542b0dc5b2f17a8358ecd0a49aa1b4e46601041280686347552273658ecb1307",
+          "bytes": 45768
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_BLAKE2s.abi3.so",
+          "embedded_member": "Cryptodome/Hash/_BLAKE2s.abi3.so",
+          "sha256": "48e3dfd8293f72cc5ad942ee55c4908b3254a568bf0f1674279fc31a9b52ed68",
+          "bytes": 26952
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_MD4.abi3.so",
+          "embedded_member": "Cryptodome/Hash/_MD4.abi3.so",
+          "sha256": "d9d6f81f240f396377e4a2d56a75a3e63bbcb5d27d0f451317cbbef3e4d6384e",
+          "bytes": 27192
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_SHA384.abi3.so",
+          "embedded_member": "Cryptodome/Hash/_SHA384.abi3.so",
+          "sha256": "fa694e6a1b638a9de3f10c59ffc06f20eda47a832fbdc6980e50f006674827f7",
+          "bytes": 54160
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_SHA1.abi3.so",
+          "embedded_member": "Cryptodome/Hash/_SHA1.abi3.so",
+          "sha256": "9c2bfda92a78790e3c7e34c72ebbda5b7e8e8a2888b83d9aedb7c09aa1a38bef",
+          "bytes": 72064
+        },
+        {
+          "wheel_member": "Cryptodome/Hash/_BLAKE2b.abi3.so",
+          "embedded_member": "Cryptodome/Hash/_BLAKE2b.abi3.so",
+          "sha256": "5f40883e38d1e8597d68cb9201eb9842ebacf47930555bc93e9adc2fbd35a5b0",
+          "bytes": 27424
+        },
+        {
+          "wheel_member": "Cryptodome/Protocol/_scrypt.abi3.so",
+          "embedded_member": "Cryptodome/Protocol/_scrypt.abi3.so",
+          "sha256": "ea7f6da9fdfe0a78554cd3e6d4c6f9e28df8ec3819318a4b5d53831ea3079117",
+          "bytes": 26176
+        }
+      ],
+      "documents": [
+        {
+          "member": "pycryptodomex-3.23.0.dist-info/LICENSE.rst",
+          "sha256": "4e04660d77c1c64e89d79537919fb8240fa21484a7e3db29f358b2c7f84ea073",
+          "bytes": 2926
+        },
+        {
+          "member": "pycryptodomex-3.23.0.dist-info/AUTHORS.rst",
+          "sha256": "1cb670b6cc5bc3a1c38d7e12cdf944442ca790425cf2a628ffbe3012445fe1e4",
+          "bytes": 764
+        }
+      ]
+    },
+    {
+      "name": "brotli",
+      "version": "1.2.0",
+      "platform": "windows-x86-64",
+      "file": "wheel-bindings/windows-x86-64/brotli-1.2.0-cp310-cp310-win_amd64.whl",
+      "url": "https://files.pythonhosted.org/packages/ac/39/70981d9f47705e3c2b95c0847dfa3e7a37aa3b7c6030aedc4873081ed005/brotli-1.2.0-cp310-cp310-win_amd64.whl",
+      "sha256": "ef87b8ab2704da227e83a246356a2b179ef826f550f794b2c52cddb4efbd0196",
+      "bytes": 369035,
+      "matches": [
+        {
+          "wheel_member": "_brotli.cp310-win_amd64.pyd",
+          "embedded_member": "_brotli.cp310-win_amd64.pyd",
+          "sha256": "15265d9fe191f377e10dfb282a787c8c072b159bc237f9d13d9e31ee609206a8",
+          "bytes": 856576
+        }
+      ],
+      "documents": [
+        {
+          "member": "brotli-1.2.0.dist-info/licenses/LICENSE",
+          "sha256": "60ae0f13e76cc2eaaa108677eefa4ce16b647f6bbe8cf0a1ac9429d82eca7248",
+          "bytes": 1103
+        }
+      ]
+    },
+    {
+      "name": "brotli",
+      "version": "1.2.0",
+      "platform": "linux-x86-64",
+      "file": "wheel-bindings/linux-x86-64/brotli-1.2.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/f3/2f/0976d5b097ff8a22163b10617f76b2557f15f0f39d6a0fe1f02b1a53e92b/brotli-1.2.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "cf9cba6f5b78a2071ec6fb1e7bd39acf35071d90a81231d67e92d637776a6a63",
+      "bytes": 1419861,
+      "matches": [
+        {
+          "wheel_member": "_brotli.cpython-314-x86_64-linux-gnu.so",
+          "embedded_member": "_brotli.cpython-314-x86_64-linux-gnu.so",
+          "sha256": "594764b391df3b9ff4fe89e4600bf1f7a1b8e935af01f98d840430759240bfc7",
+          "bytes": 5149096
+        }
+      ],
+      "documents": [
+        {
+          "member": "brotli-1.2.0.dist-info/licenses/LICENSE",
+          "sha256": "3d180008e36922a4e8daec11c34c7af264fed5962d07924aea928c38e8663c94",
+          "bytes": 1084
+        }
+      ]
+    },
+    {
+      "name": "cffi",
+      "version": "2.1.1",
+      "platform": "windows-x86-64",
+      "file": "wheel-bindings/windows-x86-64/cffi-2.1.1-cp310-cp310-win_amd64.whl",
+      "url": "https://files.pythonhosted.org/packages/ba/0b/644a2ec1a4eaba49c2939410bb1eb1d25b09d6d0582f5d2f95c537043725/cffi-2.1.1-cp310-cp310-win_amd64.whl",
+      "sha256": "a48d62ab9d6f4f98c983223a547af44be6ca3691074c31cecced6facd3ba2dc1",
+      "bytes": 185082,
+      "matches": [
+        {
+          "wheel_member": "_cffi_backend.cp310-win_amd64.pyd",
+          "embedded_member": "_cffi_backend.cp310-win_amd64.pyd",
+          "sha256": "e029cabce12aea3d77f2c8709a0f4be695f3fedd1144c14607b4fcc3b9e9bc3a",
+          "bytes": 179712
+        },
+        {
+          "wheel_member": "cffi-2.1.1.dist-info/WHEEL",
+          "embedded_member": "websockets-16.1.1.dist-info\\WHEEL",
+          "sha256": "8d85730add27d22e609b781b728488ecf542c5fbd577e871c4cea75a00d189e0",
+          "bytes": 101
+        }
+      ],
+      "documents": [
+        {
+          "member": "cffi-2.1.1.dist-info/licenses/LICENSE",
+          "sha256": "5ba24ddc57067f9249add644c3afc41a5d6dc37e23433ef759d95df370b0af63",
+          "bytes": 1123
+        }
+      ]
+    },
+    {
+      "name": "cffi",
+      "version": "2.1.1",
+      "platform": "linux-x86-64",
+      "file": "wheel-bindings/linux-x86-64/cffi-2.1.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/e9/02/4e7d553a7ac4b4238b38b3c1b80d486e9d4436f8d2acbf87a0997fe3f402/cffi-2.1.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "b0431303acaea1089ad4b3e9ce4e6518193def1118d4073ca848635ee4ea2e96",
+      "bytes": 221525,
+      "matches": [
+        {
+          "wheel_member": "_cffi_backend.cpython-314-x86_64-linux-gnu.so",
+          "embedded_member": "_cffi_backend.cpython-314-x86_64-linux-gnu.so",
+          "sha256": "7d1eff7fbb874ee72228fd426103da2b9eef528979156077bdec736d5b4f61a2",
+          "bytes": 344680
+        }
+      ],
+      "documents": [
+        {
+          "member": "cffi-2.1.1.dist-info/licenses/LICENSE",
+          "sha256": "5ba24ddc57067f9249add644c3afc41a5d6dc37e23433ef759d95df370b0af63",
+          "bytes": 1123
+        }
+      ]
+    },
+    {
+      "name": "charset_normalizer",
+      "version": "3.5.0",
+      "platform": "windows-x86-64",
+      "file": "wheel-bindings/windows-x86-64/charset_normalizer-3.5.0-cp310-cp310-win_amd64.whl",
+      "url": "https://files.pythonhosted.org/packages/67/d6/455982837da317ce47cafe35260f446f218f5843090b77a59ee69aa0ad94/charset_normalizer-3.5.0-cp310-cp310-win_amd64.whl",
+      "sha256": "5a54587f93f2e289f8faf25b35c997d4cc75cf677485ac6f50c985715989f99c",
+      "bytes": 205665,
+      "matches": [
+        {
+          "wheel_member": "charset_normalizer/cd.cp310-win_amd64.pyd",
+          "embedded_member": "charset_normalizer\\cd.cp310-win_amd64.pyd",
+          "sha256": "9342a3e962d515de24da39e491cd36704b6cb55e4d1b14209e5e2c8c34469fcc",
+          "bytes": 114176
+        },
+        {
+          "wheel_member": "charset_normalizer/md.cp310-win_amd64.pyd",
+          "embedded_member": "charset_normalizer\\md.cp310-win_amd64.pyd",
+          "sha256": "f88c78c51caff88a60275d2b9470d9091c8c92c889d98d2db72dd71cbe7b7b39",
+          "bytes": 200192
+        },
+        {
+          "wheel_member": "charset_normalizer/py.typed",
+          "embedded_member": "websockets-16.1.1.dist-info\\REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "charset_normalizer-3.5.0.dist-info/WHEEL",
+          "embedded_member": "websockets-16.1.1.dist-info\\WHEEL",
+          "sha256": "8d85730add27d22e609b781b728488ecf542c5fbd577e871c4cea75a00d189e0",
+          "bytes": 101
+        }
+      ],
+      "documents": [
+        {
+          "member": "charset_normalizer-3.5.0.dist-info/licenses/LICENSE",
+          "sha256": "18577485d3704f1a479ded8e573c0976cfed315fd2fd17983fa988da4c2f70d1",
+          "bytes": 1092
+        }
+      ]
+    },
+    {
+      "name": "charset_normalizer",
+      "version": "3.5.0",
+      "platform": "windows-x86-64",
+      "file": "wheel-bindings/windows-x86-64/charset_normalizer-3.5.0-cp37-abi3-win_amd64.whl",
+      "url": "https://files.pythonhosted.org/packages/10/6b/6046773901f1944b9a89436351529811ee958afc7b774563be9d74a6f0c3/charset_normalizer-3.5.0-cp37-abi3-win_amd64.whl",
+      "sha256": "0c8953d9d1617794cfc40d81179571c9ba3805dd029623a15c93f1fb70e60a74",
+      "bytes": 198959,
+      "matches": [
+        {
+          "wheel_member": "charset_normalizer/py.typed",
+          "embedded_member": "websockets-16.1.1.dist-info\\REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      ],
+      "documents": [
+        {
+          "member": "charset_normalizer-3.5.0.dist-info/licenses/LICENSE",
+          "sha256": "18577485d3704f1a479ded8e573c0976cfed315fd2fd17983fa988da4c2f70d1",
+          "bytes": 1092
+        }
+      ]
+    },
+    {
+      "name": "charset_normalizer",
+      "version": "3.5.0",
+      "platform": "linux-x86-64",
+      "file": "wheel-bindings/linux-x86-64/charset_normalizer-3.5.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/c2/08/189b27e51fddc9d6b3695331da0e31792c1d88b953ad854e57f06e9b2cc8/charset_normalizer-3.5.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "82cc5835997ec78afe293a192e385099355770a7db94b2fb1239d36b32796f1c",
+      "bytes": 250580,
+      "matches": [
+        {
+          "wheel_member": "charset_normalizer/cd.cpython-314-x86_64-linux-gnu.so",
+          "embedded_member": "charset_normalizer/cd.cpython-314-x86_64-linux-gnu.so",
+          "sha256": "b4afb77a913613aff30e2398dd49b5dacd3ed723c94f0045319b13db1b1fa27c",
+          "bytes": 169392
+        },
+        {
+          "wheel_member": "charset_normalizer/md.cpython-314-x86_64-linux-gnu.so",
+          "embedded_member": "charset_normalizer/md.cpython-314-x86_64-linux-gnu.so",
+          "sha256": "b07350ce741607a9269005c8b1d13d24024d8a5729999032c47de976418a865f",
+          "bytes": 321864
+        },
+        {
+          "wheel_member": "charset_normalizer/py.typed",
+          "embedded_member": "websockets-17.0.1.dist-info/REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      ],
+      "documents": [
+        {
+          "member": "charset_normalizer-3.5.0.dist-info/licenses/LICENSE",
+          "sha256": "6d0d41bfe170ac6c7dc248c9a63e254d0fb45a60d50a8257d0af92c6e249b887",
+          "bytes": 1071
+        }
+      ]
+    },
+    {
+      "name": "charset_normalizer",
+      "version": "3.5.0",
+      "platform": "linux-x86-64",
+      "file": "wheel-bindings/linux-x86-64/charset_normalizer-3.5.0-cp37-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/f0/de/fc68978fe78ca97063c96d764e41ff92ca639948f319271e0ff450e577a2/charset_normalizer-3.5.0-cp37-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+      "sha256": "a864bdcacd8bff58bb4845304e031f821a3ec64b2b7259f2d409cd49c9e59ca3",
+      "bytes": 251862,
+      "matches": [
+        {
+          "wheel_member": "charset_normalizer/py.typed",
+          "embedded_member": "websockets-17.0.1.dist-info/REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      ],
+      "documents": [
+        {
+          "member": "charset_normalizer-3.5.0.dist-info/licenses/LICENSE",
+          "sha256": "6d0d41bfe170ac6c7dc248c9a63e254d0fb45a60d50a8257d0af92c6e249b887",
+          "bytes": 1071
+        }
+      ]
+    },
+    {
+      "name": "websockets",
+      "version": "16.1.1",
+      "platform": "windows-x86-64",
+      "file": "wheel-bindings/windows-x86-64/websockets-16.1.1-cp310-cp310-win_amd64.whl",
+      "url": "https://files.pythonhosted.org/packages/54/82/1013a5fe7ddae8e102bc3b4b39db81d8d28fd02100a324ce6ede8cd832b1/websockets-16.1.1-cp310-cp310-win_amd64.whl",
+      "sha256": "d57685547e0060cc6fd90ee6a28405d6bd395e525545f13c8d7cd99c78afd79f",
+      "bytes": 180239,
+      "matches": [
+        {
+          "wheel_member": "websockets/py.typed",
+          "embedded_member": "websockets-16.1.1.dist-info\\REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "websockets/speedups.cp310-win_amd64.pyd",
+          "embedded_member": "websockets\\speedups.cp310-win_amd64.pyd",
+          "sha256": "ad9cd80a376acab917997d24aa69c101984320520d86304b5cd3f62fd4a4a304",
+          "bytes": 11264
+        },
+        {
+          "wheel_member": "websockets/asyncio/__init__.py",
+          "embedded_member": "websockets-16.1.1.dist-info\\REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "websockets/sync/__init__.py",
+          "embedded_member": "websockets-16.1.1.dist-info\\REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "websockets-16.1.1.dist-info/licenses/LICENSE",
+          "embedded_member": "websockets-16.1.1.dist-info\\licenses\\LICENSE",
+          "sha256": "0f44514998aca209d3482d10204a8adf2aa4296ff157a36a5c0922f2280632d3",
+          "bytes": 1538
+        },
+        {
+          "wheel_member": "websockets-16.1.1.dist-info/METADATA",
+          "embedded_member": "websockets-16.1.1.dist-info\\METADATA",
+          "sha256": "eeb0f8d5064cf8d1d16af09fe5447c2b7d0475a65525f8978f8839405951d1df",
+          "bytes": 6980
+        },
+        {
+          "wheel_member": "websockets-16.1.1.dist-info/WHEEL",
+          "embedded_member": "websockets-16.1.1.dist-info\\WHEEL",
+          "sha256": "8d85730add27d22e609b781b728488ecf542c5fbd577e871c4cea75a00d189e0",
+          "bytes": 101
+        },
+        {
+          "wheel_member": "websockets-16.1.1.dist-info/entry_points.txt",
+          "embedded_member": "websockets-16.1.1.dist-info\\entry_points.txt",
+          "sha256": "0e7867e1d9b912c23864c02c1e574617a0b005766b1979d1edc9cadbe5d1ef36",
+          "bytes": 51
+        },
+        {
+          "wheel_member": "websockets-16.1.1.dist-info/top_level.txt",
+          "embedded_member": "websockets-16.1.1.dist-info\\top_level.txt",
+          "sha256": "08ca5d2a49712acbd980283296dc5458e1e26d95d9d6e60856971af71b10f079",
+          "bytes": 11
+        }
+      ],
+      "documents": [
+        {
+          "member": "websockets-16.1.1.dist-info/licenses/LICENSE",
+          "sha256": "0f44514998aca209d3482d10204a8adf2aa4296ff157a36a5c0922f2280632d3",
+          "bytes": 1538
+        }
+      ]
+    },
+    {
+      "name": "websockets",
+      "version": "17.0.1",
+      "platform": "linux-x86-64",
+      "file": "wheel-bindings/linux-x86-64/websockets-17.0.1-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/fe/f2/ff27eaefa15851a5cf7f004ab827a022bf2d6632cb520f89cb100db7e84b/websockets-17.0.1-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+      "sha256": "72d7f2a5aeb4e82daa4ee18f125b4277f427033359be5c745ad709608446cc2c",
+      "bytes": 220279,
+      "matches": [
+        {
+          "wheel_member": "websockets/py.typed",
+          "embedded_member": "websockets-17.0.1.dist-info/REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "websockets/speedups.cpython-314-x86_64-linux-gnu.so",
+          "embedded_member": "websockets/speedups.cpython-314-x86_64-linux-gnu.so",
+          "sha256": "9a715bcb516601e27dc2dfbf1306834c49e77828f322b84c151e330655f90c6f",
+          "bytes": 38232
+        },
+        {
+          "wheel_member": "websockets/asyncio/__init__.py",
+          "embedded_member": "websockets-17.0.1.dist-info/REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "websockets/sync/__init__.py",
+          "embedded_member": "websockets-17.0.1.dist-info/REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "websockets/trio/__init__.py",
+          "embedded_member": "websockets-17.0.1.dist-info/REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "websockets-17.0.1.dist-info/METADATA",
+          "embedded_member": "websockets-17.0.1.dist-info/METADATA",
+          "sha256": "67f6eda687dfcf4b9b8875668a6d2b62314cc4d74e9ff2e1695bac2bc0990880",
+          "bytes": 6342
+        },
+        {
+          "wheel_member": "websockets-17.0.1.dist-info/WHEEL",
+          "embedded_member": "websockets-17.0.1.dist-info/WHEEL",
+          "sha256": "10ac25fd78dbd033f702f1f7513d15a50541239f60c850244770a3606f07108f",
+          "bytes": 186
+        },
+        {
+          "wheel_member": "websockets-17.0.1.dist-info/entry_points.txt",
+          "embedded_member": "websockets-17.0.1.dist-info/entry_points.txt",
+          "sha256": "0e7867e1d9b912c23864c02c1e574617a0b005766b1979d1edc9cadbe5d1ef36",
+          "bytes": 51
+        },
+        {
+          "wheel_member": "websockets-17.0.1.dist-info/top_level.txt",
+          "embedded_member": "websockets-17.0.1.dist-info/top_level.txt",
+          "sha256": "08ca5d2a49712acbd980283296dc5458e1e26d95d9d6e60856971af71b10f079",
+          "bytes": 11
+        },
+        {
+          "wheel_member": "websockets-17.0.1.dist-info/licenses/LICENSE",
+          "embedded_member": "websockets-17.0.1.dist-info/licenses/LICENSE",
+          "sha256": "3d6a0c050d8bec52fabad502e45fb25bd02bcadbd70dea34d447b6a0ff4e6da8",
+          "bytes": 1514
+        }
+      ],
+      "documents": [
+        {
+          "member": "websockets-17.0.1.dist-info/licenses/LICENSE",
+          "sha256": "3d6a0c050d8bec52fabad502e45fb25bd02bcadbd70dea34d447b6a0ff4e6da8",
+          "bytes": 1514
+        }
+      ]
+    },
+    {
+      "name": "cryptography",
+      "version": "50.0.0",
+      "platform": "linux-x86-64",
+      "file": "wheel-bindings/linux-x86-64/cryptography-50.0.0-cp311-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/d9/41/029086c34d91052fc3b88bcc8056f709a7c915c7a23b235a54eb800b1c97/cryptography-50.0.0-cp311-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "06a32a980526a6ab9a4b9bf8f7385800791e2bb960903cb6b530e4817509a3b7",
+      "bytes": 4702130,
+      "matches": [
+        {
+          "wheel_member": "cryptography/py.typed",
+          "embedded_member": "websockets-17.0.1.dist-info/REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "cryptography/hazmat/bindings/_rust.abi3.so",
+          "embedded_member": "cryptography/hazmat/bindings/_rust.abi3.so",
+          "sha256": "895932bb26864b1af6088da5c85a890651b0700978e2141f58050950adf692e4",
+          "bytes": 14266112
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/METADATA",
+          "embedded_member": "cryptography-50.0.0.dist-info/METADATA",
+          "sha256": "d4e345f82cb783877d73261f00303577cdf20d13229176c2d03a0a5603cb3ab5",
+          "bytes": 4343
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/WHEEL",
+          "embedded_member": "cryptography-50.0.0.dist-info/WHEEL",
+          "sha256": "14825787721dcf4a49e3f7267318f4760230906d711582d44ca35a98282069b2",
+          "bytes": 146
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/licenses/LICENSE",
+          "embedded_member": "cryptography-50.0.0.dist-info/licenses/LICENSE",
+          "sha256": "3e0c7c091a948b82533ba98fd7cbb40432d6f1a9acbf85f5922d2f99a93ae6bb",
+          "bytes": 197
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.APACHE",
+          "embedded_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.APACHE",
+          "sha256": "aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe",
+          "bytes": 11360
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.BSD",
+          "embedded_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.BSD",
+          "sha256": "602c4c7482de6479dd2e9793cda275e5e63d773dacd1eca689232ab7008fb4fb",
+          "bytes": 1532
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+          "embedded_member": "cryptography-50.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+          "sha256": "625c22403400a99efcfef6713d04d71189aae91206f723d88b375102cb6c16da",
+          "bytes": 45685
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/sboms/sbom.json",
+          "embedded_member": "cryptography-50.0.0.dist-info/sboms/sbom.json",
+          "sha256": "21872cac1974c5384e9b04ebc5510d8ffd0cf88aa7549a4d2362d4dd5b351664",
+          "bytes": 1206
+        }
+      ],
+      "documents": [
+        {
+          "member": "cryptography-50.0.0.dist-info/licenses/LICENSE",
+          "sha256": "3e0c7c091a948b82533ba98fd7cbb40432d6f1a9acbf85f5922d2f99a93ae6bb",
+          "bytes": 197
+        },
+        {
+          "member": "cryptography-50.0.0.dist-info/licenses/LICENSE.APACHE",
+          "sha256": "aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe",
+          "bytes": 11360
+        },
+        {
+          "member": "cryptography-50.0.0.dist-info/licenses/LICENSE.BSD",
+          "sha256": "602c4c7482de6479dd2e9793cda275e5e63d773dacd1eca689232ab7008fb4fb",
+          "bytes": 1532
+        }
+      ]
+    },
+    {
+      "name": "cryptography",
+      "version": "50.0.0",
+      "platform": "linux-x86-64",
+      "file": "wheel-bindings/linux-x86-64/cryptography-50.0.0-cp311-abi3-manylinux_2_28_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/6b/72/a1116d683a6d7ece94590013882515de087edf9ef0e6292aae615a44df73/cryptography-50.0.0-cp311-abi3-manylinux_2_28_x86_64.whl",
+      "sha256": "b42a28c1844fd9de8f3f7d540e36b66f3a9c83fceac7170ebc7a6a19edd9dcae",
+      "bytes": 4734609,
+      "matches": [
+        {
+          "wheel_member": "cryptography/py.typed",
+          "embedded_member": "websockets-17.0.1.dist-info/REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/METADATA",
+          "embedded_member": "cryptography-50.0.0.dist-info/METADATA",
+          "sha256": "d4e345f82cb783877d73261f00303577cdf20d13229176c2d03a0a5603cb3ab5",
+          "bytes": 4343
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/licenses/LICENSE",
+          "embedded_member": "cryptography-50.0.0.dist-info/licenses/LICENSE",
+          "sha256": "3e0c7c091a948b82533ba98fd7cbb40432d6f1a9acbf85f5922d2f99a93ae6bb",
+          "bytes": 197
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.APACHE",
+          "embedded_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.APACHE",
+          "sha256": "aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe",
+          "bytes": 11360
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.BSD",
+          "embedded_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.BSD",
+          "sha256": "602c4c7482de6479dd2e9793cda275e5e63d773dacd1eca689232ab7008fb4fb",
+          "bytes": 1532
+        }
+      ],
+      "documents": [
+        {
+          "member": "cryptography-50.0.0.dist-info/licenses/LICENSE",
+          "sha256": "3e0c7c091a948b82533ba98fd7cbb40432d6f1a9acbf85f5922d2f99a93ae6bb",
+          "bytes": 197
+        },
+        {
+          "member": "cryptography-50.0.0.dist-info/licenses/LICENSE.APACHE",
+          "sha256": "aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe",
+          "bytes": 11360
+        },
+        {
+          "member": "cryptography-50.0.0.dist-info/licenses/LICENSE.BSD",
+          "sha256": "602c4c7482de6479dd2e9793cda275e5e63d773dacd1eca689232ab7008fb4fb",
+          "bytes": 1532
+        }
+      ]
+    },
+    {
+      "name": "cryptography",
+      "version": "50.0.0",
+      "platform": "linux-x86-64",
+      "file": "wheel-bindings/linux-x86-64/cryptography-50.0.0-cp311-abi3-manylinux_2_34_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/da/3a/f05e32c99d440c9bb891ea0e36c9091891e36be5a9a87ab2ee6ea20729f6/cryptography-50.0.0-cp311-abi3-manylinux_2_34_x86_64.whl",
+      "sha256": "82148ec5bddac30b51a5b3c1945075f896fa022cb93f8e4a01e9f6ee95292c5f",
+      "bytes": 4734462,
+      "matches": [
+        {
+          "wheel_member": "cryptography/py.typed",
+          "embedded_member": "websockets-17.0.1.dist-info/REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/METADATA",
+          "embedded_member": "cryptography-50.0.0.dist-info/METADATA",
+          "sha256": "d4e345f82cb783877d73261f00303577cdf20d13229176c2d03a0a5603cb3ab5",
+          "bytes": 4343
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/licenses/LICENSE",
+          "embedded_member": "cryptography-50.0.0.dist-info/licenses/LICENSE",
+          "sha256": "3e0c7c091a948b82533ba98fd7cbb40432d6f1a9acbf85f5922d2f99a93ae6bb",
+          "bytes": 197
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.APACHE",
+          "embedded_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.APACHE",
+          "sha256": "aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe",
+          "bytes": 11360
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.BSD",
+          "embedded_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.BSD",
+          "sha256": "602c4c7482de6479dd2e9793cda275e5e63d773dacd1eca689232ab7008fb4fb",
+          "bytes": 1532
+        }
+      ],
+      "documents": [
+        {
+          "member": "cryptography-50.0.0.dist-info/licenses/LICENSE",
+          "sha256": "3e0c7c091a948b82533ba98fd7cbb40432d6f1a9acbf85f5922d2f99a93ae6bb",
+          "bytes": 197
+        },
+        {
+          "member": "cryptography-50.0.0.dist-info/licenses/LICENSE.APACHE",
+          "sha256": "aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe",
+          "bytes": 11360
+        },
+        {
+          "member": "cryptography-50.0.0.dist-info/licenses/LICENSE.BSD",
+          "sha256": "602c4c7482de6479dd2e9793cda275e5e63d773dacd1eca689232ab7008fb4fb",
+          "bytes": 1532
+        }
+      ]
+    },
+    {
+      "name": "cryptography",
+      "version": "50.0.0",
+      "platform": "linux-x86-64",
+      "file": "wheel-bindings/linux-x86-64/cryptography-50.0.0-cp39-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/85/4f/0fa8c2f4428198f15d9ff8d63400e27afbf94ce833f6108da1eb3753f945/cryptography-50.0.0-cp39-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "a91296cb61e8df6f86d0c19cc4068228da256bf59bf86049fbd821084565327f",
+      "bytes": 4728939,
+      "matches": [
+        {
+          "wheel_member": "cryptography/py.typed",
+          "embedded_member": "websockets-17.0.1.dist-info/REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/METADATA",
+          "embedded_member": "cryptography-50.0.0.dist-info/METADATA",
+          "sha256": "d4e345f82cb783877d73261f00303577cdf20d13229176c2d03a0a5603cb3ab5",
+          "bytes": 4343
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/licenses/LICENSE",
+          "embedded_member": "cryptography-50.0.0.dist-info/licenses/LICENSE",
+          "sha256": "3e0c7c091a948b82533ba98fd7cbb40432d6f1a9acbf85f5922d2f99a93ae6bb",
+          "bytes": 197
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.APACHE",
+          "embedded_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.APACHE",
+          "sha256": "aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe",
+          "bytes": 11360
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.BSD",
+          "embedded_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.BSD",
+          "sha256": "602c4c7482de6479dd2e9793cda275e5e63d773dacd1eca689232ab7008fb4fb",
+          "bytes": 1532
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/sboms/sbom.json",
+          "embedded_member": "cryptography-50.0.0.dist-info/sboms/sbom.json",
+          "sha256": "21872cac1974c5384e9b04ebc5510d8ffd0cf88aa7549a4d2362d4dd5b351664",
+          "bytes": 1206
+        }
+      ],
+      "documents": [
+        {
+          "member": "cryptography-50.0.0.dist-info/licenses/LICENSE",
+          "sha256": "3e0c7c091a948b82533ba98fd7cbb40432d6f1a9acbf85f5922d2f99a93ae6bb",
+          "bytes": 197
+        },
+        {
+          "member": "cryptography-50.0.0.dist-info/licenses/LICENSE.APACHE",
+          "sha256": "aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe",
+          "bytes": 11360
+        },
+        {
+          "member": "cryptography-50.0.0.dist-info/licenses/LICENSE.BSD",
+          "sha256": "602c4c7482de6479dd2e9793cda275e5e63d773dacd1eca689232ab7008fb4fb",
+          "bytes": 1532
+        }
+      ]
+    },
+    {
+      "name": "cryptography",
+      "version": "50.0.0",
+      "platform": "linux-x86-64",
+      "file": "wheel-bindings/linux-x86-64/cryptography-50.0.0-cp39-abi3-manylinux_2_28_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/46/c9/f60aed34c013f317f92817b6c171c2d22a78270fa41109bd4b08af26b194/cryptography-50.0.0-cp39-abi3-manylinux_2_28_x86_64.whl",
+      "sha256": "105110f43a471dbd0060b9c9516cb8a6a79233631a04cc2ba16f28323ac6e025",
+      "bytes": 4762647,
+      "matches": [
+        {
+          "wheel_member": "cryptography/py.typed",
+          "embedded_member": "websockets-17.0.1.dist-info/REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/METADATA",
+          "embedded_member": "cryptography-50.0.0.dist-info/METADATA",
+          "sha256": "d4e345f82cb783877d73261f00303577cdf20d13229176c2d03a0a5603cb3ab5",
+          "bytes": 4343
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/licenses/LICENSE",
+          "embedded_member": "cryptography-50.0.0.dist-info/licenses/LICENSE",
+          "sha256": "3e0c7c091a948b82533ba98fd7cbb40432d6f1a9acbf85f5922d2f99a93ae6bb",
+          "bytes": 197
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.APACHE",
+          "embedded_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.APACHE",
+          "sha256": "aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe",
+          "bytes": 11360
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.BSD",
+          "embedded_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.BSD",
+          "sha256": "602c4c7482de6479dd2e9793cda275e5e63d773dacd1eca689232ab7008fb4fb",
+          "bytes": 1532
+        }
+      ],
+      "documents": [
+        {
+          "member": "cryptography-50.0.0.dist-info/licenses/LICENSE",
+          "sha256": "3e0c7c091a948b82533ba98fd7cbb40432d6f1a9acbf85f5922d2f99a93ae6bb",
+          "bytes": 197
+        },
+        {
+          "member": "cryptography-50.0.0.dist-info/licenses/LICENSE.APACHE",
+          "sha256": "aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe",
+          "bytes": 11360
+        },
+        {
+          "member": "cryptography-50.0.0.dist-info/licenses/LICENSE.BSD",
+          "sha256": "602c4c7482de6479dd2e9793cda275e5e63d773dacd1eca689232ab7008fb4fb",
+          "bytes": 1532
+        }
+      ]
+    },
+    {
+      "name": "cryptography",
+      "version": "50.0.0",
+      "platform": "linux-x86-64",
+      "file": "wheel-bindings/linux-x86-64/cryptography-50.0.0-cp39-abi3-manylinux_2_34_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/9c/f8/d97f9603efda3888187bfdb893f26c41be4735c10631d05d284ee6b047c4/cryptography-50.0.0-cp39-abi3-manylinux_2_34_x86_64.whl",
+      "sha256": "37fdb0d0111f1e2ff07139dfb79f1b49531f8e213c46f1163dd7642979b58c47",
+      "bytes": 4762400,
+      "matches": [
+        {
+          "wheel_member": "cryptography/py.typed",
+          "embedded_member": "websockets-17.0.1.dist-info/REQUESTED",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/METADATA",
+          "embedded_member": "cryptography-50.0.0.dist-info/METADATA",
+          "sha256": "d4e345f82cb783877d73261f00303577cdf20d13229176c2d03a0a5603cb3ab5",
+          "bytes": 4343
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/licenses/LICENSE",
+          "embedded_member": "cryptography-50.0.0.dist-info/licenses/LICENSE",
+          "sha256": "3e0c7c091a948b82533ba98fd7cbb40432d6f1a9acbf85f5922d2f99a93ae6bb",
+          "bytes": 197
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.APACHE",
+          "embedded_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.APACHE",
+          "sha256": "aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe",
+          "bytes": 11360
+        },
+        {
+          "wheel_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.BSD",
+          "embedded_member": "cryptography-50.0.0.dist-info/licenses/LICENSE.BSD",
+          "sha256": "602c4c7482de6479dd2e9793cda275e5e63d773dacd1eca689232ab7008fb4fb",
+          "bytes": 1532
+        }
+      ],
+      "documents": [
+        {
+          "member": "cryptography-50.0.0.dist-info/licenses/LICENSE",
+          "sha256": "3e0c7c091a948b82533ba98fd7cbb40432d6f1a9acbf85f5922d2f99a93ae6bb",
+          "bytes": 197
+        },
+        {
+          "member": "cryptography-50.0.0.dist-info/licenses/LICENSE.APACHE",
+          "sha256": "aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe",
+          "bytes": 11360
+        },
+        {
+          "member": "cryptography-50.0.0.dist-info/licenses/LICENSE.BSD",
+          "sha256": "602c4c7482de6479dd2e9793cda275e5e63d773dacd1eca689232ab7008fb4fb",
+          "bytes": 1532
+        }
+      ]
+    }
+  ],
+  "source_license_review_complete": false
+}

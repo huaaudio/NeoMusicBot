@@ -1,0 +1,121 @@
+{
+  "records": [
+    {
+      "platform": "windows-x86-64",
+      "filename": "curl_cffi-0.16.0-cp310-abi3-win_amd64.whl",
+      "url": "https://files.pythonhosted.org/packages/ad/03/b9df2973f1119f9d11d8fb3bf2682e5ffe5c52ef3ab89f720473c60fe97e/curl_cffi-0.16.0-cp310-abi3-win_amd64.whl",
+      "sha256": "e22a8212d830108e977ff394237f637238e265f5f65037d6c1ee71ea8cc03bcb",
+      "bytes": 1976497,
+      "matches": [
+        {
+          "wheel_member": "curl_cffi/_wrapper.pyd",
+          "embedded_member": "curl_cffi\\_wrapper.pyd",
+          "sha256": "15cd3c31a0a20382fbdc09ff7e97b7aae6cff56a9e63967e28f10b590630e443",
+          "bytes": 39424
+        },
+        {
+          "wheel_member": "curl_cffi.libs/libcurl-impersonate-ec8ead0e422fe4ae62a99233a63f6007.dll",
+          "embedded_member": "curl_cffi.libs\\libcurl-impersonate-ec8ead0e422fe4ae62a99233a63f6007.dll",
+          "sha256": "ec8ead0e422fe4ae62a99233a63f6007adc727caba97ff1f87385c00cafe200f",
+          "bytes": 3881472
+        },
+        {
+          "wheel_member": "curl_cffi-0.16.0.dist-info/DELVEWHEEL",
+          "embedded_member": "curl_cffi-0.16.0.dist-info\\DELVEWHEEL",
+          "sha256": "78784cddd587b7c0c5b6793e033d47966726b82561f02e2cba9620db69660cc0",
+          "bytes": 446
+        },
+        {
+          "wheel_member": "curl_cffi-0.16.0.dist-info/entry_points.txt",
+          "embedded_member": "curl_cffi-0.16.0.dist-info\\entry_points.txt",
+          "sha256": "1f34f0a14a5b88a228e6e26baa7c4f93939dc59d0f853d1d3d34aa50ff09b3bd",
+          "bytes": 49
+        },
+        {
+          "wheel_member": "curl_cffi-0.16.0.dist-info/METADATA",
+          "embedded_member": "curl_cffi-0.16.0.dist-info\\METADATA",
+          "sha256": "05d9dd06e5c4ad58c887b7f5910d9eb8eee466b3ad952058a68a097227020062",
+          "bytes": 17867
+        },
+        {
+          "wheel_member": "curl_cffi-0.16.0.dist-info/top_level.txt",
+          "embedded_member": "curl_cffi-0.16.0.dist-info\\top_level.txt",
+          "sha256": "6f9d58079d08fefbba5c06d21119aab606987226000c203f6da56867f4f92f3b",
+          "bytes": 10
+        },
+        {
+          "wheel_member": "curl_cffi-0.16.0.dist-info/WHEEL",
+          "embedded_member": "curl_cffi-0.16.0.dist-info\\WHEEL",
+          "sha256": "a1803d54b028c362197302fd6c6f3d1aa6fa7ed1beeda91dfa8e7fbabeae2b16",
+          "bytes": 100
+        },
+        {
+          "wheel_member": "curl_cffi-0.16.0.dist-info/licenses/LICENSE",
+          "embedded_member": "curl_cffi-0.16.0.dist-info\\licenses\\LICENSE",
+          "sha256": "47e6ce96c02170758c16164e66f920620db614523d642eba5000ba0c7aa2be6e",
+          "bytes": 1129
+        }
+      ],
+      "documents": [
+        {
+          "member": "curl_cffi-0.16.0.dist-info/licenses/LICENSE",
+          "sha256": "47e6ce96c02170758c16164e66f920620db614523d642eba5000ba0c7aa2be6e",
+          "bytes": 1129
+        }
+      ]
+    },
+    {
+      "platform": "linux-x86-64",
+      "filename": "curl_cffi-0.16.0-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/e4/45/9208864ec429558efac168088e50f8a91b947f742ee128cff55b88c7b635/curl_cffi-0.16.0-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "182416f07d71a342240554fa62c22e591999b78c225b21d3fe27d9f807420dd6",
+      "bytes": 13472637,
+      "matches": [
+        {
+          "wheel_member": "curl_cffi/_wrapper.abi3.so",
+          "embedded_member": "curl_cffi/_wrapper.abi3.so",
+          "sha256": "c2e1cdeea774da4391f404070051b5df5ab7d2368115a63e5005c2ea56b6ad8e",
+          "bytes": 38491568
+        },
+        {
+          "wheel_member": "curl_cffi-0.16.0.dist-info/METADATA",
+          "embedded_member": "curl_cffi-0.16.0.dist-info/METADATA",
+          "sha256": "db12afd9a465f87b4e73028a72e72b650f85e755c5a3b56945742d60b27417e7",
+          "bytes": 17463
+        },
+        {
+          "wheel_member": "curl_cffi-0.16.0.dist-info/WHEEL",
+          "embedded_member": "curl_cffi-0.16.0.dist-info/WHEEL",
+          "sha256": "2f74a78317c66f4010c461210d9072376e1677d1da4492037c4afaaee1267108",
+          "bytes": 149
+        },
+        {
+          "wheel_member": "curl_cffi-0.16.0.dist-info/entry_points.txt",
+          "embedded_member": "curl_cffi-0.16.0.dist-info/entry_points.txt",
+          "sha256": "1f34f0a14a5b88a228e6e26baa7c4f93939dc59d0f853d1d3d34aa50ff09b3bd",
+          "bytes": 49
+        },
+        {
+          "wheel_member": "curl_cffi-0.16.0.dist-info/top_level.txt",
+          "embedded_member": "curl_cffi-0.16.0.dist-info/top_level.txt",
+          "sha256": "6f9d58079d08fefbba5c06d21119aab606987226000c203f6da56867f4f92f3b",
+          "bytes": 10
+        },
+        {
+          "wheel_member": "curl_cffi-0.16.0.dist-info/licenses/LICENSE",
+          "embedded_member": "curl_cffi-0.16.0.dist-info/licenses/LICENSE",
+          "sha256": "3e88b029b50b6afd36d6b18642ce4c8b6eee4c903f1cfabef5b811f61e07050b",
+          "bytes": 1106
+        }
+      ],
+      "documents": [
+        {
+          "member": "curl_cffi-0.16.0.dist-info/licenses/LICENSE",
+          "sha256": "3e88b029b50b6afd36d6b18642ce4c8b6eee4c903f1cfabef5b811f61e07050b",
+          "bytes": 1106
+        }
+      ]
+    }
+  ],
+  "source_license_review_complete": false
+}
