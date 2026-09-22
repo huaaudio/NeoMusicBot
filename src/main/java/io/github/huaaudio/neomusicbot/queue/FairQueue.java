@@ -1,4 +1,4 @@
-/* Modified by Huaaudio: NeoMusicBot namespace migration (2026). */
+/* Modified by Huaaudio: namespace migration and synchronized queue insertion (2026). */
 /*
  * Copyright 2016 John Grosh (jagrosh).
  *
@@ -34,7 +34,7 @@ public class FairQueue<T extends Queueable> extends AbstractQueue<T>
     protected final Set<Long> set = new HashSet<>();
 
     @Override
-    public int add(T item)
+    public synchronized int add(T item)
     {
         int lastIndex;
         for(lastIndex=list.size()-1; lastIndex>-1; lastIndex--)

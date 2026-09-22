@@ -5,12 +5,15 @@
 
 ## 验收状态
 
-最近完成实物回读的应用 CI：`5c2c3da` 的 [35683045221](https://github.com/huaaudio/NeoMusicBot/actions/runs/35683045221)。
-2026-09-22 下载三个实际 artifact，外层哈希与大小通过；两平台 ZIP 再次通过当次发布关联门禁、
-原生文件与已收集许可材料核验，三项媒体报告均通过且提交一致。
-记录为 `tools/ci-success-5c2c3da/verified-artifacts.json` 与 `verified-materials.json`。
-新增 QuickJS 材料门禁已在该提交的两平台实际 ZIP 中复核通过；Deno 新来源定义已接入组装及发布门禁；`521a0b0` 云端发现 Gitiles 请求时间戳导致归档哈希变化，
-已实现固定时间戳归档并通过 17 份重新下载比对及 72 项回归，完整云端应用 ZIP 仍待新提交验证。
+最近完成实物回读的应用 CI：`d5ea9b0` 的 [35686250282](https://github.com/huaaudio/NeoMusicBot/actions/runs/35686250282)。
+2026-09-22 两平台构建与 Java 27 检查通过，三个实际 artifact 已下载，外层哈希与大小通过；
+两平台实际 ZIP 的发布关联、Canvas、Maven 原始材料、QuickJS 和新增 Deno 材料核验通过。
+证据为 `tools/ci-success-d5ea9b0/verified-artifacts.json` 与 `verified-materials.json`。
+Deno 的 Gitiles 时间戳修复已通过实际云端包回读，不再待验证。
+本次媒体检查为 YouTube 匿名 authentication-required、Bilibili 匿名 access-denied，provider 模式通过；
+因此整次工作流失败，`release_eligible=false`，不能使用这些包发布。
+较早 `5c2c3da` 的 [35683045221](https://github.com/huaaudio/NeoMusicBot/actions/runs/35683045221) 曾全部通过，
+但不能替代最终提交验证。
 Linux 原生完整材料云端回读基线为 `a10d3f4` 的 [35678485785](https://github.com/huaaudio/NeoMusicBot/actions/runs/35678485785)；
 37 个原生文件与报告和仓库定义一致，源码、声明及 Cargo 集合的实际材料 ZIP 通过干净回读。
 `7e9a242` 增补匹配的 Rust 标准库/编译器源码，本地 5,169 文件材料 ZIP 已回读通过；
@@ -100,6 +103,7 @@ Linux 原生完整材料云端回读基线为 `a10d3f4` 的 [35678485785](https:
 | AUD-039 / P2 | 普通 push 的媒体任务总在 GitHub 托管网络运行；`d63bff5` 的托管检查被 YouTube/Bilibili 拒绝，同提交隔离网络三项通过 | 正常 push 持续失败，需重复触发完整工作流才能完成真实验收 | 增加默认分支按运行编号/尝试次数选择隔离 runner、本机自动领取控制器及单任务注册/注销；不跳过媒体任务、不容忍失败。`c651760` 的普通 push [35621240219](https://github.com/huaaudio/NeoMusicBot/actions/runs/35621240219) 四个构建及三项媒体全部通过；实际发行包已下载核验，runner 已注销。机器和控制器在线且代码一致时才能完成 |
 | AUD-040 / P2 | 隔离执行器只在注册前核对排队任务，实际 runner ID 在执行后确认；其他工作流可指定同一调度标签 | 标签不能保证领取的任务身份，执行后检查为时已晚；未发现实际误领事件 | 增加只读 job-start hook，在工作流步骤前核对八项 GitHub 身份字段；不符时暂停当前 Worker 并由外部启动器终止隔离环境，阻止后续 always 步骤。44 项 Python 检查、真实 bubblewrap 正反用例及实际 runner 无凭据预检通过；`45e5c3a` 的普通 push 35630463963 出现 `runner.job-policy=passed`，三项媒体与四个构建成功，runner 30 已注销，实际产物复核通过 |
 | AUD-041 / P1 | 播放失败回调对轨道 identifier 只剥离查询参数 | 媒体 URL 的用户名、密码、签名路径及 fragment 仍可能写入日志 | 对轨道标识复用统一脱敏策略，再限制字段长度；真实日志回调中 4 项虚构秘密泄露断言修复前失败，修复后通过，保留错误说明和严重级别且不附加异常链 |
+| AUD-042 / P3 | FairQueue/LinearQueue 的 add 未遵守基类同步修改约定 | 公平插入与 clear 并发时可越界；当前 GuildPlaybackSession 已串行化应用操作，未观察到实际 Slash 故障 | 两个 add 使用相同实例锁；先复现 FairQueue 越界，再验证队列、会话原子性与恢复共 18 项通过 |
 
 ## 阶段验证证据
 
@@ -201,8 +205,8 @@ Linux 原生完整材料云端回读基线为 `a10d3f4` 的 [35678485785](https:
 
 - 启动、配置、更新检查、环境变量、启动脚本：配置及变量兼容、更新渠道/异常标签、入口失败状态已检查修复；Windows 含括号路径启动器实测通过；最新提交跨平台回归待完成。
 - Discord Slash 注册、权限、交互生命周期、频道混淆：已检查多数命令入口、用户/服务器绑定和频道限制；修复 AUD-023/026；其余异步交互及频道混淆仍待复核。
-- 语音连接、DAVE、重连、退出、播放器资源释放：已检查初始化/退出资源管理并修复 AUD-017/019；`b877a29` 新版 JNA/Opus 与 RTP 加密自检在本地及云端两平台通过；语音重连状态机复核及真实 Discord 验收仍待完成。
-- 播放队列、公平排序、并发、暂停/重复/停止、状态恢复：已有基线修复，需升级后复核。
+- 语音连接、DAVE、重连、退出、播放器资源释放：已检查初始化/退出资源管理并修复 AUD-017/019；`b877a29` 新版 JNA/Opus 与 RTP 加密自检在本地及云端两平台通过；本轮真实 Discord 与 TCP 断线恢复验收已完成，范围见专门记录；不代表所有网络故障情形均已覆盖。
+- 播放队列、公平排序、并发、暂停/重复/停止、状态恢复：已复核队列插入/快照和会话串行修改，修复 AUD-042；18 项队列、原子性及恢复回归通过，真实播放控制验收通过；最终提交跨平台回归待完成。
 - Bilibili 分 P、短链接、媒体 URL、Cookie 与子进程：已有基线测试，需新版工具集成验证。
 - YouTube、SoundCloud、Discord 附件、播放列表：新版工具/依赖下，本地匿名 YouTube 与 SoundCloud 短时解码通过；歌单存储及 owner 修改已检查并修复 AUD-020/021/022，异步加载审查修复 AUD-028；其余源仍待复核。
 - 配置与服务器设置持久化、备份和故障处理：已检查并修复 AUD-004/007/008/009/029，专项测试通过；最终平台 CI 待复核。
@@ -213,3 +217,5 @@ Linux 原生完整材料云端回读基线为 `a10d3f4` 的 [35678485785](https:
 
 
 - 本轮已在授权 Discord 频道完成真实 Slash 注册、Bilibili 可听播放、两首自动衔接、指定分 P、跳过、单曲循环、暂停恢复、停止离开、至少十分钟持续播放及无人退出的用户验收。补充探针观察到 DAVE 协议 1 的就绪转换与实际扩长加密帧；真实语音 TCP 故障后，项目连接监听器经历 `CONNECTED → RECONNECTING → CONNECTED`，保留同一轨道并继续推进。详见 [语音验收记录](discord-voice-acceptance.md)。证据限定于所记载的代码/依赖组合与故障场景，最终预发布资产仍需对应验证。
+
+- AUD-042：`tools/queue-concurrency-before.log` 中公平插入与清空竞争复现 `IndexOutOfBoundsException`；修复后 `QueueConcurrencyTest,FairQueueTest,GuildPlaybackSessionAtomicityTest,PlaybackResumeTest` 共 18 项全部通过（`tools/queue-concurrency-after.log`）。改动仅补齐同步约定，未改变公平排序；此证据不表示生产 Slash 已发生相同故障。

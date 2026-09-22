@@ -1,4 +1,4 @@
-/* Modified by Huaaudio: NeoMusicBot namespace migration (2026). */
+/* Modified by Huaaudio: namespace migration and synchronized queue insertion (2026). */
 /*
  * Copyright 2022 John Grosh (jagrosh).
  *
@@ -29,7 +29,7 @@ public class LinearQueue<T extends Queueable> extends AbstractQueue<T>
     }
 
     @Override
-    public int add(T item)
+    public synchronized int add(T item)
     {
         list.add(item);
         return list.size() - 1;
