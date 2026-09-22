@@ -177,6 +177,8 @@ python scripts/ci/package_quickjs_materials.py $bundle
 if ($LASTEXITCODE -ne 0) { throw "QuickJS source and license collection failed" }
 python scripts/ci/package_ytdlp_notices.py $bundle --platform $env:ARTIFACT_SUFFIX
 if ($LASTEXITCODE -ne 0) { throw "yt-dlp notice collection failed" }
+python scripts/ci/package_ytdlp_source_access.py $bundle --platform $env:ARTIFACT_SUFFIX
+if ($LASTEXITCODE -ne 0) { throw "yt-dlp source access binding failed" }
 python scripts/ci/package_deno_materials.py $bundle --platform $env:ARTIFACT_SUFFIX
 if ($LASTEXITCODE -ne 0) { throw "Deno source and license collection failed" }
 python scripts/ci/inventory_provider.py $providerBundle (Join-Path $bundle "provider-dependencies.json") (Join-Path $licenses "provider")

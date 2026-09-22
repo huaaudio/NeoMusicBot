@@ -73,7 +73,7 @@ def verify_platform(folder, platform, sha, version):
         "archive.sha256": checksum, "config": "passed", "native.dave": "passed",
         "native.opus": "passed", "crypto.rtp": "passed", "audio.aac": "passed",
         "audio.opus": "passed", "audio.mp3": "passed", "provider.offline": "passed",
-        "provider.inventory": "passed", "provider.native": "passed", "provider.native.materials": "passed", "provider.quickjs": "passed", "runtime.deno.materials": "passed", "runtime.ytdlp.notices": "passed",
+        "provider.inventory": "passed", "provider.native": "passed", "provider.native.materials": "passed", "provider.quickjs": "passed", "runtime.deno.materials": "passed", "runtime.ytdlp.notices": "passed", "runtime.ytdlp.sources": "passed",
     })
     with zipfile.ZipFile(archive) as zipped:
         names = zipped.namelist()

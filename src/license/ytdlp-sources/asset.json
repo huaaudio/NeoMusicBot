@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "version": "2026.08.19",
+  "url": "https://github.com/huaaudio/NeoMusicBot/releases/download/yt-dlp-2026.08.19-runtime-sources-r1/yt-dlp-2026.08.19-runtime-sources.zip",
+  "sha256": "9a883af36320f488eccf1c66632070af85e5953978f472acb20fdbbc65627b6b",
+  "bytes": 647825742,
+  "manifest_sha256": "e335a1c7dddbcea83d0de4775b7eac9a45116bcaca7a836c7057221185b8d160",
+  "binary_identities": {
+    "windows-x86-64": "66674953fe251b89f4d08c5f0e35e0728679bd67ab3d7d05c0562af101dd3e7a",
+    "linux-x86-64": "58162f9bfdc27458ea47bfcb311cf47028f17d8154a8bf7d689861d46399230a"
+  },
+  "release_id": 393471598,
+  "source_access": "Separate corresponding-source companion; download without authentication from the same project release service."
+}

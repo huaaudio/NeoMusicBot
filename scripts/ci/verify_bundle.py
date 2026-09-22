@@ -77,6 +77,8 @@ def verify(archive_path, report_path):
             verify_linux_native_materials(bundle)
         from package_ytdlp_notices import verify as verify_ytdlp_notices
         verify_ytdlp_notices(bundle, "windows-x86-64" if os.name == "nt" else "linux-x86-64")
+        from package_ytdlp_source_access import verify as verify_ytdlp_sources
+        verify_ytdlp_sources(bundle, "windows-x86-64" if os.name == "nt" else "linux-x86-64")
         verify_quickjs_materials(bundle)
         verify_deno_materials(bundle, "windows-x86-64" if os.name == "nt" else "linux-x86-64")
         verify_provider_inventory(bundle / "tools/bgutil-provider", bundle / "provider-dependencies.json",
@@ -163,7 +165,7 @@ def verify(archive_path, report_path):
                  f"version={version}", f"archive.sha256={expected}", "config=passed", "native.dave=passed",
                  "native.opus=passed", "crypto.rtp=passed",
                  "audio.aac=passed", "audio.opus=passed", "audio.mp3=passed", "provider.offline=passed",
-                 "provider.inventory=passed", "provider.native=passed", "provider.native.materials=passed", "provider.quickjs=passed", "runtime.deno.materials=passed", "runtime.ytdlp.notices=passed",
+                 "provider.inventory=passed", "provider.native=passed", "provider.native.materials=passed", "provider.quickjs=passed", "runtime.deno.materials=passed", "runtime.ytdlp.notices=passed", "runtime.ytdlp.sources=passed",
                  "discord.voice=not-tested", "online.media=not-tested"]
         report_path.parent.mkdir(parents=True, exist_ok=True)
         report_path.write_text("\n".join(lines) + "\n", encoding="utf-8")

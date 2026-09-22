@@ -66,7 +66,7 @@ class PrereleaseTest(unittest.TestCase):
         Path(str(archive) + ".sha256").write_text(f"{digest(archive)}  {archive.name}\n")
         report = {key: "passed" for key in ("bundle", "config", "native.dave", "native.opus", "crypto.rtp",
                                           "audio.aac", "audio.opus", "audio.mp3", "provider.offline",
-                                          "provider.inventory", "provider.native", "provider.native.materials", "provider.quickjs", "runtime.deno.materials", "runtime.ytdlp.notices")}
+                                          "provider.inventory", "provider.native", "provider.native.materials", "provider.quickjs", "runtime.deno.materials", "runtime.ytdlp.notices", "runtime.ytdlp.sources")}
         report.update({"neomusicbot.commit": commit, "version": VERSION, "archive.sha256": digest(archive)})
         write_fields(folder / "bundle-verification.txt", report)
         return versions

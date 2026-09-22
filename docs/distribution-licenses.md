@@ -345,3 +345,11 @@ SHA-256 `472aefe951c7db35e1657c1d13fd337140511ed6f2b329205105ad441c5a02b7`。
 `9a883af36320f488eccf1c66632070af85e5953978f472acb20fdbbc65627b6b`。
 干净解压后全部固定归档和来源记录核验通过（`tools/ytdlp-source-companion-verified.json`）。
 配套包尚需不可变发布，并在实际应用包中绑定可用下载地址和哈希；此处不提前宣告源码交付完成。
+
+### 独立源码附件的交付方式（2026-09-22）
+
+依赖的对应源码可以作为同项目的独立附件交付，运行 ZIP 保留原始许可证、声明、源码目录清单和固定下载记录。独立交付不会免除对应源码核验：实际程序哈希、目录清单、附件整体哈希及附件内每个文件必须匹配，干净解压验收必须能从公开地址下载并核验。
+
+yt-dlp 2026.08.19 已采用此方式，固定附件位于 `yt-dlp-2026.08.19-runtime-sources-r1` 不可变预发布。两平台打包写入 `licenses/yt-dlp-source-access.json` 和 `licenses/yt-dlp-corresponding-sources.json`，发布门禁要求 `runtime.ytdlp.sources=passed`。本地两平台实际程序的最小 ZIP 已完成干净解压和公开源码下载验证；这项证据不等同于最终完整应用 ZIP 已通过验收。
+
+Deno、QuickJS 和 Canvas 的源码目前仍在运行 ZIP 中，其独立附件迁移尚未完成。历史 CI 外层传输 ZIP 已在确认其内层 ZIP 哈希与保留副本一致后清理；这些磁盘缓存不属于应用源码大小。
