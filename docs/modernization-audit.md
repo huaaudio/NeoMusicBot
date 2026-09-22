@@ -9,7 +9,8 @@
 2026-09-22 下载三个实际 artifact，外层哈希与大小通过；两平台 ZIP 再次通过当次发布关联门禁、
 原生文件与已收集许可材料核验，三项媒体报告均通过且提交一致。
 记录为 `tools/ci-success-5c2c3da/verified-artifacts.json` 与 `verified-materials.json`。
-新增 QuickJS 材料门禁已在该提交的两平台实际 ZIP 中复核通过；Deno 新来源定义已接入组装及发布门禁，仍待本次提交的两平台云端应用 ZIP 验证。
+新增 QuickJS 材料门禁已在该提交的两平台实际 ZIP 中复核通过；Deno 新来源定义已接入组装及发布门禁；`521a0b0` 云端发现 Gitiles 请求时间戳导致归档哈希变化，
+已实现固定时间戳归档并通过 17 份重新下载比对及 72 项回归，完整云端应用 ZIP 仍待新提交验证。
 Linux 原生完整材料云端回读基线为 `a10d3f4` 的 [35678485785](https://github.com/huaaudio/NeoMusicBot/actions/runs/35678485785)；
 37 个原生文件与报告和仓库定义一致，源码、声明及 Cargo 集合的实际材料 ZIP 通过干净回读。
 `7e9a242` 增补匹配的 Rust 标准库/编译器源码，本地 5,169 文件材料 ZIP 已回读通过；

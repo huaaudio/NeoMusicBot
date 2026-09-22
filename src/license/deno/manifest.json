@@ -41726,9 +41726,9 @@
       "commit": "17495e454aae81b581e8b3caccbb53054509b280",
       "submodule": "buildtools",
       "url": "https://chromium.googlesource.com/chromium/src/buildtools/+archive/17495e454aae81b581e8b3caccbb53054509b280.tar.gz",
-      "file": "v8-module-buildtools-17495e454aae81b581e8b3caccbb53054509b280.tar.gz",
-      "sha256": "13da25869bfbaadd3a36441e9d64abad35b42ab97b80120a7836c454324d710b",
-      "bytes": 60597,
+      "file": "v8-module-buildtools-17495e454aae81b581e8b3caccbb53054509b280.tar",
+      "sha256": "33c2039e0d1ae55ef8df8b84cb1c8771c889af3845d04431cf90295420727a49",
+      "bytes": 337920,
       "documents": [
         {
           "path": "LICENSE",
@@ -41742,7 +41742,13 @@
           "bytes": 1067,
           "sha256": "c98a2858469bd3b231c8865c5b65f80f6ffbf25e850d5d575967e3d9ee080755"
         }
-      ]
+      ],
+      "collected_upstream_archive": {
+        "file": "v8-module-buildtools-17495e454aae81b581e8b3caccbb53054509b280.tar.gz",
+        "sha256": "13da25869bfbaadd3a36441e9d64abad35b42ab97b80120a7836c454324d710b",
+        "bytes": 60597
+      },
+      "normalization": "gitiles-mtime-zero-pax-tar-v1"
     },
     {
       "name": "v8-module-third_party-abseil-cpp",
@@ -41750,9 +41756,9 @@
       "commit": "d16e32215c3ab90ba57c2e904a5344d85c7353e4",
       "submodule": "third_party/abseil-cpp",
       "url": "https://chromium.googlesource.com/chromium/src/third_party/abseil-cpp/+archive/d16e32215c3ab90ba57c2e904a5344d85c7353e4.tar.gz",
-      "file": "v8-module-third_party-abseil-cpp-d16e32215c3ab90ba57c2e904a5344d85c7353e4.tar.gz",
-      "sha256": "ea20bef07179dd0248f5a178a0c1473555a6a8fef8cde1cc2d0b0da65bc70443",
-      "bytes": 3171716,
+      "file": "v8-module-third_party-abseil-cpp-d16e32215c3ab90ba57c2e904a5344d85c7353e4.tar",
+      "sha256": "d7e60ca09fae6d3017a38afe17bee005d3cc0707cf050e0573ffa45fb787c365",
+      "bytes": 21514240,
       "documents": [
         {
           "path": "AUTHORS",
@@ -41766,7 +41772,13 @@
           "bytes": 11361,
           "sha256": "c79a7fea0e3cac04cd43f20e7b648e5a0ff8fa5344e644b0ee09ca1162b62747"
         }
-      ]
+      ],
+      "collected_upstream_archive": {
+        "file": "v8-module-third_party-abseil-cpp-d16e32215c3ab90ba57c2e904a5344d85c7353e4.tar.gz",
+        "sha256": "ea20bef07179dd0248f5a178a0c1473555a6a8fef8cde1cc2d0b0da65bc70443",
+        "bytes": 3171716
+      },
+      "normalization": "gitiles-mtime-zero-pax-tar-v1"
     },
     {
       "name": "v8-module-third_party-dragonbox-src",
@@ -41774,9 +41786,9 @@
       "commit": "beeeef91cf6fef89a4d4ba5e95d47ca64ccb3a44",
       "submodule": "third_party/dragonbox/src",
       "url": "https://chromium.googlesource.com/external/github.com/jk-jeon/dragonbox/+archive/beeeef91cf6fef89a4d4ba5e95d47ca64ccb3a44.tar.gz",
-      "file": "v8-module-third_party-dragonbox-src-beeeef91cf6fef89a4d4ba5e95d47ca64ccb3a44.tar.gz",
-      "sha256": "3d1c03e2a9533d90584764641a3cb5e41b445c331de6861e4473562f08bbecfa",
-      "bytes": 4235035,
+      "file": "v8-module-third_party-dragonbox-src-beeeef91cf6fef89a4d4ba5e95d47ca64ccb3a44.tar",
+      "sha256": "9e817c4742677dafeeb337885bbed8666ccc6a1014ec7d5c9e30219ff5124c75",
+      "bytes": 5191680,
       "documents": [
         {
           "path": "LICENSE-Apache2-LLVM",
@@ -41796,7 +41808,13 @@
           "bytes": 1484,
           "sha256": "4940bc5686a12692b9f95bb3af225592994fd1bc910e212f975cc73ab3799d2c"
         }
-      ]
+      ],
+      "collected_upstream_archive": {
+        "file": "v8-module-third_party-dragonbox-src-beeeef91cf6fef89a4d4ba5e95d47ca64ccb3a44.tar.gz",
+        "sha256": "3d1c03e2a9533d90584764641a3cb5e41b445c331de6861e4473562f08bbecfa",
+        "bytes": 4235035
+      },
+      "normalization": "gitiles-mtime-zero-pax-tar-v1"
     },
     {
       "name": "v8-module-third_party-fast_float-src",
@@ -41804,9 +41822,9 @@
       "commit": "05087a303dad9c98768b33c829d398223a649bc6",
       "submodule": "third_party/fast_float/src",
       "url": "https://chromium.googlesource.com/external/github.com/fastfloat/fast_float/+archive/05087a303dad9c98768b33c829d398223a649bc6.tar.gz",
-      "file": "v8-module-third_party-fast_float-src-05087a303dad9c98768b33c829d398223a649bc6.tar.gz",
-      "sha256": "2c1c7f7353575caa3cdf105d3ed74f12efd8c1b80d0fbe04c012fd73b4483970",
-      "bytes": 126117,
+      "file": "v8-module-third_party-fast_float-src-05087a303dad9c98768b33c829d398223a649bc6.tar",
+      "sha256": "0e2f0b4f201654557b85ba1a35775078e8b085de954df2566ccb77a4b3406ebc",
+      "bytes": 634880,
       "documents": [
         {
           "path": "AUTHORS",
@@ -41832,7 +41850,13 @@
           "bytes": 1079,
           "sha256": "e562f3f974ced7e69dd1db77b820b36bcf8f30377f1aa105723fba449c53c4e6"
         }
-      ]
+      ],
+      "collected_upstream_archive": {
+        "file": "v8-module-third_party-fast_float-src-05087a303dad9c98768b33c829d398223a649bc6.tar.gz",
+        "sha256": "2c1c7f7353575caa3cdf105d3ed74f12efd8c1b80d0fbe04c012fd73b4483970",
+        "bytes": 126117
+      },
+      "normalization": "gitiles-mtime-zero-pax-tar-v1"
     },
     {
       "name": "v8-module-third_party-fp16-src",
@@ -41858,9 +41882,9 @@
       "commit": "2607d3b5b0113992fe84d3848859eae13b3b52c1",
       "submodule": "third_party/highway/src",
       "url": "https://chromium.googlesource.com/external/github.com/google/highway/+archive/2607d3b5b0113992fe84d3848859eae13b3b52c1.tar.gz",
-      "file": "v8-module-third_party-highway-src-2607d3b5b0113992fe84d3848859eae13b3b52c1.tar.gz",
-      "sha256": "b92b11b144804f89efd3103e32acccdd181c88019c2207b19eef7a878bed5cf3",
-      "bytes": 3704358,
+      "file": "v8-module-third_party-highway-src-2607d3b5b0113992fe84d3848859eae13b3b52c1.tar",
+      "sha256": "06b3cce3779b6ad49d4d5991c0ed961ff30c76a2758d9315837e272b22a681ee",
+      "bytes": 9728000,
       "documents": [
         {
           "path": "LICENSE",
@@ -41874,7 +41898,13 @@
           "bytes": 825,
           "sha256": "6e4ecf1cae052b678ea3178dd4b3652d581ee66a82d58db8800dd7d80dd6de76"
         }
-      ]
+      ],
+      "collected_upstream_archive": {
+        "file": "v8-module-third_party-highway-src-2607d3b5b0113992fe84d3848859eae13b3b52c1.tar.gz",
+        "sha256": "b92b11b144804f89efd3103e32acccdd181c88019c2207b19eef7a878bed5cf3",
+        "bytes": 3704358
+      },
+      "normalization": "gitiles-mtime-zero-pax-tar-v1"
     },
     {
       "name": "v8-module-third_party-icu",
@@ -41882,9 +41912,9 @@
       "commit": "ee5f27adc28bd3f15b2c293f726d14d2e336cbd5",
       "submodule": "third_party/icu",
       "url": "https://chromium.googlesource.com/chromium/deps/icu/+archive/ee5f27adc28bd3f15b2c293f726d14d2e336cbd5.tar.gz",
-      "file": "v8-module-third_party-icu-ee5f27adc28bd3f15b2c293f726d14d2e336cbd5.tar.gz",
-      "sha256": "dc82ade9e9fd9db7852e89400a427312b5be6219f24e830fbb90f57eacb11fd7",
-      "bytes": 55184941,
+      "file": "v8-module-third_party-icu-ee5f27adc28bd3f15b2c293f726d14d2e336cbd5.tar",
+      "sha256": "60460c75e9244e2c675f35f1d60188d9d561cefbac08714f9e9268a77e515444",
+      "bytes": 229478400,
       "documents": [
         {
           "path": "LICENSE",
@@ -41904,7 +41934,13 @@
           "bytes": 1559,
           "sha256": "845022e0c1db1abb41a6ba4cd3c4b674ec290f3359d9d3c78ae558d4c0ed9308"
         }
-      ]
+      ],
+      "collected_upstream_archive": {
+        "file": "v8-module-third_party-icu-ee5f27adc28bd3f15b2c293f726d14d2e336cbd5.tar.gz",
+        "sha256": "dc82ade9e9fd9db7852e89400a427312b5be6219f24e830fbb90f57eacb11fd7",
+        "bytes": 55184941
+      },
+      "normalization": "gitiles-mtime-zero-pax-tar-v1"
     },
     {
       "name": "v8-module-third_party-jinja2",
@@ -41912,9 +41948,9 @@
       "commit": "c3027d884967773057bf74b957e3fea87e5df4d7",
       "submodule": "third_party/jinja2",
       "url": "https://chromium.googlesource.com/chromium/src/third_party/jinja2/+archive/c3027d884967773057bf74b957e3fea87e5df4d7.tar.gz",
-      "file": "v8-module-third_party-jinja2-c3027d884967773057bf74b957e3fea87e5df4d7.tar.gz",
-      "sha256": "9bf719f272c6fcdba5393196f30e89ccd10b7b09cb1c22c68cca060dd896dc5b",
-      "bytes": 124197,
+      "file": "v8-module-third_party-jinja2-c3027d884967773057bf74b957e3fea87e5df4d7.tar",
+      "sha256": "ab81cf457572ff546f2b22b60c817307175bf918f34e7112f85a72d93a5f46ae",
+      "bytes": 522240,
       "documents": [
         {
           "path": "LICENSE.rst",
@@ -41922,7 +41958,13 @@
           "bytes": 1475,
           "sha256": "3b49dcee4105eb37bac10faf1be260408fe85d252b8e9df2e0979fc1e094437b"
         }
-      ]
+      ],
+      "collected_upstream_archive": {
+        "file": "v8-module-third_party-jinja2-c3027d884967773057bf74b957e3fea87e5df4d7.tar.gz",
+        "sha256": "9bf719f272c6fcdba5393196f30e89ccd10b7b09cb1c22c68cca060dd896dc5b",
+        "bytes": 124197
+      },
+      "normalization": "gitiles-mtime-zero-pax-tar-v1"
     },
     {
       "name": "v8-module-third_party-libc++-src",
@@ -41930,9 +41972,9 @@
       "commit": "5abc7f839700f0f17338434e1c1c6a8c87c00c11",
       "submodule": "third_party/libc++/src",
       "url": "https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx/+archive/5abc7f839700f0f17338434e1c1c6a8c87c00c11.tar.gz",
-      "file": "v8-module-third_party-libc++-src-5abc7f839700f0f17338434e1c1c6a8c87c00c11.tar.gz",
-      "sha256": "9f6790b8d16fd4f6fa47a38c364c73f792e6cf73460e8ad9595c6dbb78cc0149",
-      "bytes": 8887554,
+      "file": "v8-module-third_party-libc++-src-5abc7f839700f0f17338434e1c1c6a8c87c00c11.tar",
+      "sha256": "0dd8678bc7266ad946690628865fee7ae76a07e81620a0190c8427978e00de09",
+      "bytes": 72888320,
       "documents": [
         {
           "path": "LICENSE.TXT",
@@ -41940,7 +41982,13 @@
           "bytes": 16703,
           "sha256": "539dd7aed86e8a4f12cbdd0e6c50c189c7d74847e4fecc64ce2c6ee3a01da38b"
         }
-      ]
+      ],
+      "collected_upstream_archive": {
+        "file": "v8-module-third_party-libc++-src-5abc7f839700f0f17338434e1c1c6a8c87c00c11.tar.gz",
+        "sha256": "9f6790b8d16fd4f6fa47a38c364c73f792e6cf73460e8ad9595c6dbb78cc0149",
+        "bytes": 8887554
+      },
+      "normalization": "gitiles-mtime-zero-pax-tar-v1"
     },
     {
       "name": "v8-module-third_party-libc++abi-src",
@@ -41948,9 +41996,9 @@
       "commit": "8f11bb1d4438d0239d0dfc1bd9456a9f31629dda",
       "submodule": "third_party/libc++abi/src",
       "url": "https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi/+archive/8f11bb1d4438d0239d0dfc1bd9456a9f31629dda.tar.gz",
-      "file": "v8-module-third_party-libc++abi-src-8f11bb1d4438d0239d0dfc1bd9456a9f31629dda.tar.gz",
-      "sha256": "15d088f7eb87655b1574feff546c1892117b7f28974e580911ee1584237f7077",
-      "bytes": 806310,
+      "file": "v8-module-third_party-libc++abi-src-8f11bb1d4438d0239d0dfc1bd9456a9f31629dda.tar",
+      "sha256": "06db94e2636369a337633c65945e44048f2d6d05b5d7c1a6d93373ffb403ceef",
+      "bytes": 6563840,
       "documents": [
         {
           "path": "LICENSE.TXT",
@@ -41958,7 +42006,13 @@
           "bytes": 16706,
           "sha256": "e2b35be49f7284a45b7baca8fc7b3ab7440e7902392b2528a457816b5bb2a15c"
         }
-      ]
+      ],
+      "collected_upstream_archive": {
+        "file": "v8-module-third_party-libc++abi-src-8f11bb1d4438d0239d0dfc1bd9456a9f31629dda.tar.gz",
+        "sha256": "15d088f7eb87655b1574feff546c1892117b7f28974e580911ee1584237f7077",
+        "bytes": 806310
+      },
+      "normalization": "gitiles-mtime-zero-pax-tar-v1"
     },
     {
       "name": "v8-module-third_party-libunwind-src",
@@ -41966,9 +42020,9 @@
       "commit": "d6c7a21e978f0adaa43accaad53bc64f0b64f6ec",
       "submodule": "third_party/libunwind/src",
       "url": "https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind/+archive/d6c7a21e978f0adaa43accaad53bc64f0b64f6ec.tar.gz",
-      "file": "v8-module-third_party-libunwind-src-d6c7a21e978f0adaa43accaad53bc64f0b64f6ec.tar.gz",
-      "sha256": "be07184b6ee43402fa8659ae72c46bcfd08f06a53acad3e873d314fce057044a",
-      "bytes": 181652,
+      "file": "v8-module-third_party-libunwind-src-d6c7a21e978f0adaa43accaad53bc64f0b64f6ec.tar",
+      "sha256": "24558911c9d842617cf6783307b3f7f87c43064bcbae459439170e14eddd892a",
+      "bytes": 931840,
       "documents": [
         {
           "path": "LICENSE.TXT",
@@ -41976,7 +42030,13 @@
           "bytes": 16706,
           "sha256": "b5efebcaca80879234098e52d1725e6d9eb8fb96a19fce625d39184b705f7b6d"
         }
-      ]
+      ],
+      "collected_upstream_archive": {
+        "file": "v8-module-third_party-libunwind-src-d6c7a21e978f0adaa43accaad53bc64f0b64f6ec.tar.gz",
+        "sha256": "be07184b6ee43402fa8659ae72c46bcfd08f06a53acad3e873d314fce057044a",
+        "bytes": 181652
+      },
+      "normalization": "gitiles-mtime-zero-pax-tar-v1"
     },
     {
       "name": "v8-module-third_party-llvm-libc-src",
@@ -41984,9 +42044,9 @@
       "commit": "9309c117ebae84dd2f9df1ef99de4782162527d5",
       "submodule": "third_party/llvm-libc/src",
       "url": "https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libc/+archive/9309c117ebae84dd2f9df1ef99de4782162527d5.tar.gz",
-      "file": "v8-module-third_party-llvm-libc-src-9309c117ebae84dd2f9df1ef99de4782162527d5.tar.gz",
-      "sha256": "85c4f92d492b0a7847c454c2267dc27ad3e660c58ef2c45745df35ca027a6fdd",
-      "bytes": 7783659,
+      "file": "v8-module-third_party-llvm-libc-src-9309c117ebae84dd2f9df1ef99de4782162527d5.tar",
+      "sha256": "36e175c31700c2f3aaccb226ff12943e4555048cfd00d20b8859e33a00ee64ad",
+      "bytes": 33392640,
       "documents": [
         {
           "path": "LICENSE.TXT",
@@ -41994,7 +42054,13 @@
           "bytes": 15140,
           "sha256": "ebcd9bbf783a73d05c53ba4d586b8d5813dcdf3bbec50265860ccc885e606f47"
         }
-      ]
+      ],
+      "collected_upstream_archive": {
+        "file": "v8-module-third_party-llvm-libc-src-9309c117ebae84dd2f9df1ef99de4782162527d5.tar.gz",
+        "sha256": "85c4f92d492b0a7847c454c2267dc27ad3e660c58ef2c45745df35ca027a6fdd",
+        "bytes": 7783659
+      },
+      "normalization": "gitiles-mtime-zero-pax-tar-v1"
     },
     {
       "name": "v8-module-third_party-markupsafe",
@@ -42002,9 +42068,9 @@
       "commit": "4256084ae14175d38a3ff7d739dca83ae49ccec6",
       "submodule": "third_party/markupsafe",
       "url": "https://chromium.googlesource.com/chromium/src/third_party/markupsafe/+archive/4256084ae14175d38a3ff7d739dca83ae49ccec6.tar.gz",
-      "file": "v8-module-third_party-markupsafe-4256084ae14175d38a3ff7d739dca83ae49ccec6.tar.gz",
-      "sha256": "52cbb45bd9abc68123cae15df39df464cf213b2703a3856f71978cd862b4c9c9",
-      "bytes": 10298,
+      "file": "v8-module-third_party-markupsafe-4256084ae14175d38a3ff7d739dca83ae49ccec6.tar",
+      "sha256": "9bcedf1f9429c9dd849c985813965c7ea42952f57a607b33fe93bb949925e70c",
+      "bytes": 40960,
       "documents": [
         {
           "path": "AUTHORS",
@@ -42018,7 +42084,13 @@
           "bytes": 1582,
           "sha256": "0bbe88228fd63d20ec097f64e58d5a0a465123ae139140a18d406c60b48824b5"
         }
-      ]
+      ],
+      "collected_upstream_archive": {
+        "file": "v8-module-third_party-markupsafe-4256084ae14175d38a3ff7d739dca83ae49ccec6.tar.gz",
+        "sha256": "52cbb45bd9abc68123cae15df39df464cf213b2703a3856f71978cd862b4c9c9",
+        "bytes": 10298
+      },
+      "normalization": "gitiles-mtime-zero-pax-tar-v1"
     },
     {
       "name": "v8-module-third_party-partition_alloc",
@@ -42026,9 +42098,9 @@
       "commit": "ff3b8b885b8374cbd3902642d94dc737bda93d5d",
       "submodule": "third_party/partition_alloc",
       "url": "https://chromium.googlesource.com/chromium/src/base/allocator/partition_allocator/+archive/ff3b8b885b8374cbd3902642d94dc737bda93d5d.tar.gz",
-      "file": "v8-module-third_party-partition_alloc-ff3b8b885b8374cbd3902642d94dc737bda93d5d.tar.gz",
-      "sha256": "d7c2869f912afe140c60192abd67dc509a5ecb13d975b67af683d750535bf6c6",
-      "bytes": 877980,
+      "file": "v8-module-third_party-partition_alloc-ff3b8b885b8374cbd3902642d94dc737bda93d5d.tar",
+      "sha256": "5a21acf1e9cbd602f3375b640a325aefbed52482885bdaefeba2b3a07c88b6e6",
+      "bytes": 3921920,
       "documents": [
         {
           "path": "src/partition_alloc/third_party/apple_apsl/LICENSE",
@@ -42036,7 +42108,13 @@
           "bytes": 20089,
           "sha256": "b23e682fda7310afe43505ed6041919ccff8f9e0c6799ebd7542cbcef11102e3"
         }
-      ]
+      ],
+      "collected_upstream_archive": {
+        "file": "v8-module-third_party-partition_alloc-ff3b8b885b8374cbd3902642d94dc737bda93d5d.tar.gz",
+        "sha256": "d7c2869f912afe140c60192abd67dc509a5ecb13d975b67af683d750535bf6c6",
+        "bytes": 877980
+      },
+      "normalization": "gitiles-mtime-zero-pax-tar-v1"
     },
     {
       "name": "v8-module-third_party-rust",
@@ -42044,9 +42122,9 @@
       "commit": "26e8ff47f18a8d28d6187a04b6a16cb7332356f8",
       "submodule": "third_party/rust",
       "url": "https://chromium.googlesource.com/chromium/src/third_party/rust/+archive/26e8ff47f18a8d28d6187a04b6a16cb7332356f8.tar.gz",
-      "file": "v8-module-third_party-rust-26e8ff47f18a8d28d6187a04b6a16cb7332356f8.tar.gz",
-      "sha256": "5efe2af69ec3979bb8366b6bd3c553307d530163ea2e6c9beb114656b3fc26bd",
-      "bytes": 33683693,
+      "file": "v8-module-third_party-rust-26e8ff47f18a8d28d6187a04b6a16cb7332356f8.tar",
+      "sha256": "57d558f53c17d9276f28706f08cbe7b61c2ca8b9edc515bc7781d65d768749a8",
+      "bytes": 216012800,
       "documents": [
         {
           "path": "chromium_crates_io/vendor/addr2line-v0_25/LICENSE-APACHE",
@@ -44538,7 +44616,13 @@
           "bytes": 2195,
           "sha256": "f367c1b8e1aa262435251e442901da4607b4650e0e63a026f5044473ecfb90f2"
         }
-      ]
+      ],
+      "collected_upstream_archive": {
+        "file": "v8-module-third_party-rust-26e8ff47f18a8d28d6187a04b6a16cb7332356f8.tar.gz",
+        "sha256": "5efe2af69ec3979bb8366b6bd3c553307d530163ea2e6c9beb114656b3fc26bd",
+        "bytes": 33683693
+      },
+      "normalization": "gitiles-mtime-zero-pax-tar-v1"
     },
     {
       "name": "v8-module-third_party-simdutf",
@@ -44546,9 +44630,9 @@
       "commit": "f7356eed293f8208c40b3c1b344a50bd70971983",
       "submodule": "third_party/simdutf",
       "url": "https://chromium.googlesource.com/chromium/src/third_party/simdutf/+archive/f7356eed293f8208c40b3c1b344a50bd70971983.tar.gz",
-      "file": "v8-module-third_party-simdutf-f7356eed293f8208c40b3c1b344a50bd70971983.tar.gz",
-      "sha256": "52cb3518d057cf4c94767b1fdeb0a08e9c9157e32640569df65c916f8dc2647c",
-      "bytes": 425712,
+      "file": "v8-module-third_party-simdutf-f7356eed293f8208c40b3c1b344a50bd70971983.tar",
+      "sha256": "98f70c25881a24dca1699813e72698ea4ff884e0468149002fcebdd696ae8b85",
+      "bytes": 3225600,
       "documents": [
         {
           "path": "LICENSE",
@@ -44556,7 +44640,13 @@
           "bytes": 1059,
           "sha256": "fc8dbc04e03ad4efc08a647ffe7f995b811a95bc04c0e85a56d5277c6593fa5f"
         }
-      ]
+      ],
+      "collected_upstream_archive": {
+        "file": "v8-module-third_party-simdutf-f7356eed293f8208c40b3c1b344a50bd70971983.tar.gz",
+        "sha256": "52cb3518d057cf4c94767b1fdeb0a08e9c9157e32640569df65c916f8dc2647c",
+        "bytes": 425712
+      },
+      "normalization": "gitiles-mtime-zero-pax-tar-v1"
     },
     {
       "name": "v8-module-tools-clang",
@@ -44564,10 +44654,16 @@
       "commit": "45f4b9e25124809497a27a8ae0e63d603b0f9f1b",
       "submodule": "tools/clang",
       "url": "https://chromium.googlesource.com/chromium/src/tools/clang/+archive/45f4b9e25124809497a27a8ae0e63d603b0f9f1b.tar.gz",
-      "file": "v8-module-tools-clang-45f4b9e25124809497a27a8ae0e63d603b0f9f1b.tar.gz",
-      "sha256": "93119244cfe66b64686e02c66eca34f9dad0b4ddebbb32091b5948e95a10a3b4",
-      "bytes": 656635,
-      "documents": []
+      "file": "v8-module-tools-clang-45f4b9e25124809497a27a8ae0e63d603b0f9f1b.tar",
+      "sha256": "7c0ee5d154a44fec00f0612646808a175693c17f9b5ac8247035076e38b5135d",
+      "bytes": 3993600,
+      "documents": [],
+      "collected_upstream_archive": {
+        "file": "v8-module-tools-clang-45f4b9e25124809497a27a8ae0e63d603b0f9f1b.tar.gz",
+        "sha256": "93119244cfe66b64686e02c66eca34f9dad0b4ddebbb32091b5948e95a10a3b4",
+        "bytes": 656635
+      },
+      "normalization": "gitiles-mtime-zero-pax-tar-v1"
     },
     {
       "name": "v8-module-tools-win",
@@ -44575,10 +44671,16 @@
       "commit": "faefd1b6fa9eeb033ad6fe60368ccb9bf908cbd0",
       "submodule": "tools/win",
       "url": "https://chromium.googlesource.com/chromium/src/tools/win/+archive/faefd1b6fa9eeb033ad6fe60368ccb9bf908cbd0.tar.gz",
-      "file": "v8-module-tools-win-faefd1b6fa9eeb033ad6fe60368ccb9bf908cbd0.tar.gz",
-      "sha256": "11d6ee88add5c41a7cb528f21aeb17f36a2f4e54a56849491f16a782e47d99f5",
-      "bytes": 180928,
-      "documents": []
+      "file": "v8-module-tools-win-faefd1b6fa9eeb033ad6fe60368ccb9bf908cbd0.tar",
+      "sha256": "8c8b6f5add14168360ec4262939aabb84c35cd6d5cef00994c72c7755912d270",
+      "bytes": 747520,
+      "documents": [],
+      "collected_upstream_archive": {
+        "file": "v8-module-tools-win-faefd1b6fa9eeb033ad6fe60368ccb9bf908cbd0.tar.gz",
+        "sha256": "11d6ee88add5c41a7cb528f21aeb17f36a2f4e54a56849491f16a782e47d99f5",
+        "bytes": 180928
+      },
+      "normalization": "gitiles-mtime-zero-pax-tar-v1"
     },
     {
       "name": "v8-module-v8",
@@ -66921,7 +67023,7 @@
           "archive_member": "ast_node-5.0.0/Cargo.toml",
           "sha256": "d8afa2c1ac658339e43c877389697421dd4f54a7aed232b14c40534f8f1cb894",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -66938,7 +67040,7 @@
           "archive_member": "better_scoped_tls-1.0.1/Cargo.toml",
           "sha256": "34ed76ba7b40bbbb64686bb99b218f50a0a30566bcc514c27f5065a9ceb83d3d",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67111,7 +67213,7 @@
           "archive_member": "from_variant-3.0.0/Cargo.toml",
           "sha256": "e325427c1432e326550693e55f6c1a1ca6384630205fcd0a1eaa92b0b1078ebb",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67243,7 +67345,7 @@
           "archive_member": "string_enum-1.0.2/Cargo.toml",
           "sha256": "e9383525c0e65d08334309e4bfdda984da7c300f006fd5642cc7c6a93d074b33",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67260,7 +67362,7 @@
           "archive_member": "swc_allocator-4.0.1/Cargo.toml",
           "sha256": "6592a906f927c4109ef2c735595819d465ca427c9dd9bf6cf151f7a07f9f4916",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67277,7 +67379,7 @@
           "archive_member": "swc_atoms-9.0.0/Cargo.toml",
           "sha256": "6cdeded436d64993d98c4ca8ce4c8efcc17d29cdf6551205fd7f22210e85d36c",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67294,7 +67396,7 @@
           "archive_member": "swc_common-17.0.1/Cargo.toml",
           "sha256": "469abf116fafe1d7b83ac559d17a29e648139890dc1f7818a57cacaefed3c8ea",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67311,7 +67413,7 @@
           "archive_member": "swc_config-3.1.2/Cargo.toml",
           "sha256": "11f7abc57da66d773a9668c3ef9e2cd4c6a3d8510802974aefb713240107601d",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67328,7 +67430,7 @@
           "archive_member": "swc_config_macro-1.0.1/Cargo.toml",
           "sha256": "1cacdec8c7c079b66faa56da3fd0ee0762a156e8dffaad50c26563440387158c",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67345,7 +67447,7 @@
           "archive_member": "swc_ecma_ast-18.0.0/Cargo.toml",
           "sha256": "41fc69d1c6051f427a7e70dcddf4ed0a6af7b3c2165508ae5691971a7a7e1136",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67362,7 +67464,7 @@
           "archive_member": "swc_ecma_codegen-20.0.2/Cargo.toml",
           "sha256": "c1f108f8b131f931a73dfc7caf5e67fcf97d783918e9bb95daaf790423b28ea9",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67379,7 +67481,7 @@
           "archive_member": "swc_ecma_codegen_macros-2.0.2/Cargo.toml",
           "sha256": "061ab77b9e3d83b8e5a9640b7172c066633e7f10b2f408f7eef35f26d8b55d39",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67396,7 +67498,7 @@
           "archive_member": "swc_ecma_lexer-26.0.0/Cargo.toml",
           "sha256": "978312ae9c7b041451b5104df29b159e77c6ff24e4181edb500cac8b4947e33f",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67413,7 +67515,7 @@
           "archive_member": "swc_ecma_loader-17.0.0/Cargo.toml",
           "sha256": "8e7a266b8f49f9ec48ba456947dfab7a8373984342c53fd181e4b405b7ec3efe",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67430,7 +67532,7 @@
           "archive_member": "swc_ecma_parser-27.0.7/Cargo.toml",
           "sha256": "addf4b6144f57dc517434b2517fbb59fe26654de9eb63d8e2b30b16dc08daac6",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67447,7 +67549,7 @@
           "archive_member": "swc_ecma_transforms_base-30.0.1/Cargo.toml",
           "sha256": "ecf42b8c09c9dfdf76a39507c7113d9fe9f192e4d431ea42060740cf3f388abb",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67464,7 +67566,7 @@
           "archive_member": "swc_ecma_transforms_classes-30.0.0/Cargo.toml",
           "sha256": "a89170fb6e4fa41f09ae10af6c38bfa6246f09d825b3b0cfcfde529fd1d8f685",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67481,7 +67583,7 @@
           "archive_member": "swc_ecma_transforms_macros-1.0.1/Cargo.toml",
           "sha256": "9bc032eae297165d95a44739a5f729ba178f2a87eedb221cddb0872c732a1c96",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67498,7 +67600,7 @@
           "archive_member": "swc_ecma_transforms_proposal-30.0.0/Cargo.toml",
           "sha256": "5c0929066543dab604ab9e989f52620e901a97b0dc35b64ef866144236aa6699",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67515,7 +67617,7 @@
           "archive_member": "swc_ecma_transforms_react-33.0.0/Cargo.toml",
           "sha256": "d734ffc1294e082bc33b4d49b8fee101c72f5d98d3388b68a63476de59e3b734",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67532,7 +67634,7 @@
           "archive_member": "swc_ecma_transforms_typescript-33.0.0/Cargo.toml",
           "sha256": "11afa0e0fc9b5c9c86c75e901954c62ff1588e381c97c8bd14d3ccd0cbb030ff",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67549,7 +67651,7 @@
           "archive_member": "swc_ecma_utils-24.0.0/Cargo.toml",
           "sha256": "57835cd3c139d4b6e0920fa7b086ed3362a6dd4c3235cacfe5b2b92386207257",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67566,7 +67668,7 @@
           "archive_member": "swc_ecma_visit-18.0.1/Cargo.toml",
           "sha256": "f59c84e7c51c248781efd28a1f40d0d916ce1cdb505e89a710d50b649b868f19",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67583,7 +67685,7 @@
           "archive_member": "swc_eq_ignore_macros-1.0.1/Cargo.toml",
           "sha256": "19aa911e0663851a6108c169533c5ad80edda9cf52527fde216684819c4e528b",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1@dudy.kr>"
+            "강동윤 <kdy1@dudy.kr>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67600,7 +67702,7 @@
           "archive_member": "swc_macros_common-1.0.1/Cargo.toml",
           "sha256": "af15bc776a85dea7b9b11da2cd7d30fed7a2a9c7f4cb95e451dcc5cf307826d4",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67617,7 +67719,7 @@
           "archive_member": "swc_ts_fast_strip-36.0.0/Cargo.toml",
           "sha256": "bff1fdea5ac88f2ef6627e6cfaa3825a3e6e23e2e1998d4608d74dd251955603",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67634,7 +67736,7 @@
           "archive_member": "swc_visit-2.0.1/Cargo.toml",
           "sha256": "a17bb9706310daa039d9869b05a4d15d36102ced909661176c349d062e0b7da6",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."
@@ -67681,7 +67783,7 @@
           "archive_member": "testing_macros-1.0.1/Cargo.toml",
           "sha256": "e4fbd89971685f0fca5634302f97485d6de8e606518b1dac260618c6cfdbb2a3",
           "authors": [
-            "\uac15\ub3d9\uc724 <kdy1997.dev@gmail.com>"
+            "강동윤 <kdy1997.dev@gmail.com>"
           ]
         },
         "scope": "No complete standalone upstream text found; retain any exact-VCS copyright statement plus the exact crate and declared license/authors. Standard text is labeled, with no invented owner or year; not a whole-runtime review approval."

@@ -84,6 +84,12 @@ def validate(definition=DEFINITION):
         sources[source['name']] = source
         check_record(source)
         safe_relative(source['file'])
+        if 'googlesource.com/' in source['url']:
+            if source.get('normalization') != 'gitiles-mtime-zero-pax-tar-v1' or not source['file'].endswith('.tar'):
+                raise ValueError('Gitiles source requires pinned timestamp-normalized archive')
+            check_record(source['collected_upstream_archive'])
+        elif source.get('normalization'):
+            raise ValueError('Unreviewed source normalization')
         if not source['url'].startswith('https://') or not re.fullmatch('[a-f0-9]{40}', source['commit']):
             raise ValueError('Unpinned Deno upstream source')
         notice_paths, members = set(), set()

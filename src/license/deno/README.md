@@ -35,7 +35,7 @@ They are retained alongside the selected Apache-2.0 standard text.
 
 Standard texts are distinguished from upstream originals. This base-license
 mapping alone does not certify embedded subcomponents or the entire distribution.
-The definition is a reviewed collection scope, not yet a closed AUD-005 review:
+The definition is a reviewed collection scope, not yet a closed AUD-005 review.
 The assembly scripts now include this material and require clean extraction
 verification through runtime.deno.materials. Actual final application ZIP
 verification and remaining runtime scope/notice review must complete before a
@@ -44,3 +44,11 @@ release can claim material closure.
 Original notice-path records also preserve upstream test fixtures, including
 empty LICENSE fixtures in Deno tests. Empty fixtures are not license grants or
 evidence of licensing coverage; source archive hashes retain them unchanged.
+
+Seventeen Gitiles endpoints generate tar member timestamps at request time, even
+for immutable commit URLs. Their shipped source is a deterministic PAX tar:
+member order is sorted and mtime is zero; content, names, modes, ownership,
+links and other PAX metadata are preserved. The complete normalized tar SHA-256
+and size are pinned. The manifest also retains the initially collected upstream
+compressed archive identity. Fresh downloads must normalize to the exact pinned
+hash; this is not a content-only notice check or a hash-check bypass.

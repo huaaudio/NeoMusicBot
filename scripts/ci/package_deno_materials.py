@@ -7,7 +7,7 @@ import re
 import shutil
 import urllib.request
 
-from package_bundle import digest
+from normalize_source_archive import normalize_gitiles_archive
 from package_librsvg_materials import checked_file, safe_relative
 from validate_deno_materials import DEFINITION, validate, verify_cached_sources, read_selected
 
@@ -103,8 +103,15 @@ def prepare(bundle, platform, definition=DEFINITION, cache=None):
             checked_file(cached, record)
             shutil.copyfile(cached, target)
         else:
-            with urllib.request.urlopen(record['url'], timeout=120) as response, target.open('wb') as output:
-                shutil.copyfileobj(response, output)
+            download = target.with_name(target.name + '.download') if record.get('normalization') else target
+            try:
+                with urllib.request.urlopen(record['url'], timeout=120) as response, download.open('wb') as output:
+                    shutil.copyfileobj(response, output)
+                if record.get('normalization'):
+                    normalize_gitiles_archive(download, target)
+            finally:
+                if download != target:
+                    download.unlink(missing_ok=True)
         checked_file(target, record)
         selected = {d['archive_member'].removeprefix('./'): d for d, _ in documents}
         names = {d['archive_member'].removeprefix('./'): name for d, name in documents}
