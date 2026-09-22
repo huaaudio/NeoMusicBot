@@ -1,7 +1,7 @@
 # Linux 原生库源码构建
 
-2026-09-21 已完成升级原型以及仓库配方的全新源码构建。**新原生库尚未进入发行包**，
-当前发行构建仍使用 `canvas-native.json` 中固定的上游资产。
+2026-09-22 已选择自建 Linux 原生资产 r2，并接入应用组装及材料门禁。
+完整应用 CI 和最终预发布验收仍待新提交完成；下文早期记录保留当时状态。
 
 ## 已验证的升级
 
@@ -197,3 +197,18 @@ HarfBuzz 13.2.1-1、Pango 1.56.4-3、librsvg 2.62.0-1，不能套用 Linux 升�
 整个 CI Python 测试集 77 项通过（`tools/linux-native-import-tests.log`）。
 该结果仍是候选资产的集成验证；远程固定资产发布和发行定义切换尚待完成，
 不会因为存在候选定义就自动改变当前运行库选择。
+
+## 固定资产发布与最终选择（2026-09-22）
+
+[原生资产 r2](https://github.com/huaaudio/NeoMusicBot/releases/tag/native-linux-canvas-3.2.3-r2)
+已公开为不可变 Pre-release，GitHub 返回 `immutable=true`，标签指向构建提交
+`5c2c3da732869abcd3353ea8ef16a4759d1fa4ef`。原生归档、完整材料 ZIP、SHA256SUMS
+均在草稿上传后下载验证，并在公开后匿名下载再次逐字节哈希比较通过。
+记录为 `tools/native-release-r2/public-readback.json`；r1 保留为先前验证资产，发行选择使用 r2。
+
+`canvas-native.json` 已固定 r2 URL、归档哈希和 37 个文件，Linux 组装器从同一 release
+导入固定材料 ZIP。`provider.native.materials=passed` 要求实际安装字节与构建报告、
+源码、原始声明和 Cargo 材料相符；该字段也是发布前必需字段。
+Windows 沿用其已有材料核验并报告同一门禁。82 项 CI 脚本测试通过；
+实际 Linux 安装库与材料的绑定通过（`tools/native-selected-materials-verify.log`）。
+最终完整应用包仍需在同一提交执行运行与解压验证，不能把原生资产发布当作应用测试版完成。

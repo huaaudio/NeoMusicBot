@@ -316,3 +316,21 @@ Windows 的 `_wrapper.pyd` 与 libcurl DLL，以及 Linux 的 `_wrapper.abi3.so`
 该修复已由 `d5ea9b0` 的 CI 35686250282 两平台实际 ZIP 回读验证；证据为
 `tools/ci-success-d5ea9b0/verified-materials.json`。当次匿名媒体检查失败，整体仍不可发布。
 旧本地材料 ZIP 只证明修复前材料布局，不冒充新产物。
+
+## yt-dlp 原始声明复用与明确补充（2026-09-22）
+
+`src/license/ytdlp` 固定实际两平台包中逐字节相同的上游第三方声明：243,550 字节，
+SHA-256 `472aefe951c7db35e1657c1d13fd337140511ed6f2b329205105ad441c5a02b7`。
+保留上游已有的内嵌组件声明及 Microsoft 再分发条件，不重新编写其全文。
+新增原始补充为 PyInstaller 6.22.0 许可及 bootloader 例外、typing_extensions 4.16.0
+许可、Windows Python 3.10.11 原始 LICENSE。保留各自归档来源和成员哈希。
+
+实际官方 yt-dlp 程序的 SHA-256 与静态 CArchive 清单绑定，清单内 `source_commit`
+明确表示提取它的应用提交而非 yt-dlp 源提交。`package_ytdlp_notices.py` 在组装及解压后
+验证程序身份、原文、补充文件集合与旧位置的上游汇总声明一致性。
+新增 `runtime.ytdlp.notices=passed` 发布门禁；缺失任一报告字段的发布拒绝测试覆盖该字段。
+
+82 项 CI Python 测试通过。两平台实际程序均与材料打包，再在全新目录解压并校验通过，
+每个平台 14 个文件，记录 `tools/ytdlp-notice-readback/verified.json`。
+此项完成原始声明的正式打包和字节校验，不代表整个 AUD-005 关闭；
+对应源码交付仍单独列为未完成项，最终完整应用 ZIP 仍需云端验证。

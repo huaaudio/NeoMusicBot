@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "version": "2026.08.19",
+  "upstream_commit": "594bd50c2c78ac432f81600d309fdc4e0a92d82c",
+  "platforms": {
+    "windows-x86-64": {
+      "sha256": "66674953fe251b89f4d08c5f0e35e0728679bd67ab3d7d05c0562af101dd3e7a",
+      "embedded_entries": 150
+    },
+    "linux-x86-64": {
+      "sha256": "58162f9bfdc27458ea47bfcb311cf47028f17d8154a8bf7d689861d46399230a",
+      "embedded_entries": 158
+    }
+  },
+  "documents": [
+    {
+      "file": "originals/THIRD_PARTY_LICENSES.txt",
+      "origin": "https://raw.githubusercontent.com/yt-dlp/yt-dlp/594bd50c2c78ac432f81600d309fdc4e0a92d82c/THIRD_PARTY_LICENSES.txt",
+      "bytes": 243550,
+      "sha256": "472aefe951c7db35e1657c1d13fd337140511ed6f2b329205105ad441c5a02b7"
+    },
+    {
+      "file": "originals/pyinstaller-6.22.0/bootloader/waflib/LICENSE",
+      "origin": {
+        "url": "https://files.pythonhosted.org/packages/05/03/669d06735cf57d7e2e5dfc3c2e1643554b34c559eff21449c58172ca0335/pyinstaller-6.22.0.tar.gz",
+        "sha256": "8b0166fff4583b374bbe7fa044bf03ddc33cab0f792a665807d96048e63f060e",
+        "archive_member": "pyinstaller-6.22.0/bootloader/waflib/LICENSE"
+      },
+      "bytes": 1338,
+      "sha256": "f1a08e9a6ef535799105fca437e0fb38dc64acb0f224b115ab38fdc458cede53"
+    },
+    {
+      "file": "originals/pyinstaller-6.22.0/bootloader/zlib/LICENSE",
+      "origin": {
+        "url": "https://files.pythonhosted.org/packages/05/03/669d06735cf57d7e2e5dfc3c2e1643554b34c559eff21449c58172ca0335/pyinstaller-6.22.0.tar.gz",
+        "sha256": "8b0166fff4583b374bbe7fa044bf03ddc33cab0f792a665807d96048e63f060e",
+        "archive_member": "pyinstaller-6.22.0/bootloader/zlib/LICENSE"
+      },
+      "bytes": 1002,
+      "sha256": "e32ff4e00d9d94930537635291da39e7e612703334bf6fde8c7f1686fe8a45a2"
+    },
+    {
+      "file": "originals/pyinstaller-6.22.0/doc/license.rst",
+      "origin": {
+        "url": "https://files.pythonhosted.org/packages/05/03/669d06735cf57d7e2e5dfc3c2e1643554b34c559eff21449c58172ca0335/pyinstaller-6.22.0.tar.gz",
+        "sha256": "8b0166fff4583b374bbe7fa044bf03ddc33cab0f792a665807d96048e63f060e",
+        "archive_member": "pyinstaller-6.22.0/doc/license.rst"
+      },
+      "bytes": 1223,
+      "sha256": "98be0224c3df051092249a1b1387ef3f6fd01d6d87eb263266244a2237bb7ce3"
+    },
+    {
+      "file": "originals/pyinstaller-6.22.0/COPYING.txt",
+      "origin": {
+        "url": "https://files.pythonhosted.org/packages/05/03/669d06735cf57d7e2e5dfc3c2e1643554b34c559eff21449c58172ca0335/pyinstaller-6.22.0.tar.gz",
+        "sha256": "8b0166fff4583b374bbe7fa044bf03ddc33cab0f792a665807d96048e63f060e",
+        "archive_member": "pyinstaller-6.22.0/COPYING.txt"
+      },
+      "bytes": 32138,
+      "sha256": "dcf75fdb959db1e3b41c0f8505069d2ece781b5ec6b3d0a4d30975cfc6580245"
+    },
+    {
+      "file": "originals/typing_extensions-4.16.0/LICENSE",
+      "origin": {
+        "url": "https://files.pythonhosted.org/packages/f6/cc/6253133b5bb138fc3306cebfbda2c520f545d36b5be2c7255cc528bb45d6/typing_extensions-4.16.0.tar.gz",
+        "sha256": "dc983d19a509c94dba722ee6abd33940f7c05a89e243c47e907eb4db6f1a43e5",
+        "archive_member": "typing_extensions-4.16.0/LICENSE"
+      },
+      "bytes": 13936,
+      "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+    },
+    {
+      "file": "originals/python-3.10.11/LICENSE.txt",
+      "origin": "https://www.python.org/ftp/python/3.10.11/python-3.10.11-embed-amd64.zip",
+      "bytes": 32768,
+      "sha256": "f2fd8edb3271310fc2af0ffa72886b26094d3e3b5c3bb709269d2ec4b31285a4"
+    },
+    {
+      "file": "inventory/windows-x86-64.json",
+      "origin": "Static inspection of the exact official executable; no embedded code executed",
+      "bytes": 30843,
+      "sha256": "d10b3b8f378dc6615187c56fb6cffe8757eca784317cf5f09472a9dee01695cb"
+    },
+    {
+      "file": "inventory/linux-x86-64.json",
+      "origin": "Static inspection of the exact official executable; no embedded code executed",
+      "bytes": 35830,
+      "sha256": "0c737ae2bf29c89e557631ccabbc7e1eca1b80111807c9b1ac4590af85681ed3"
+    }
+  ],
+  "scope": "Original upstream bundled-executable notices, supplemented with PyInstaller exception/license, typing_extensions and original Windows Python notices; source delivery is evaluated separately.",
+  "source_delivery_complete": false
+}

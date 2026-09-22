@@ -30,6 +30,10 @@
   同一套平台检查也在每次构建中执行，以真实 CI 产物验证发布校验程序。
   `provider.native=passed` 要求 Canvas 来源记录和所有 native 文件符合仓库固定定义，
   并在解压后的离线环境完成像素绘制和 PNG 编码。
+  `provider.native.materials=passed` 同时核对该平台实际安装库、原始声明及对应源码材料；
+  Linux 使用不可变原生资产 r2，Windows 使用固定的官方配套库材料。
+  `runtime.ytdlp.notices=passed` 核对实际 yt-dlp 程序、上游完整声明及明确补充原文，
+  对应源码交付的审查仍须单独完成。
   `provider.quickjs=passed` 要求安装和缓存中的七个 WASM 均与固定 npm 原包匹配，
   对应 QuickJS/WASI/LLVM 源码、原始声明和实际编译器标识通过校验。
   `runtime.deno.materials=passed` 要求实际 Deno 程序哈希、固定源码、原始声明与补充材料

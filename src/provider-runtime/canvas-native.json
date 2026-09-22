@@ -7,160 +7,209 @@
   "build_run": "https://github.com/Automattic/node-canvas/actions/runs/23776689553",
   "platforms": {
     "linux-x86-64": {
-      "url": "https://github.com/Automattic/node-canvas/releases/download/v3.2.3/canvas-v3.2.3-napi-v7-linux-x64.tar.gz",
-      "sha256": "886d1cc270d4caad1d1698ee97532e79c60e992e16fe5f37f2d3bb058f4292b0",
+      "url": "https://github.com/huaaudio/NeoMusicBot/releases/download/native-linux-canvas-3.2.3-r2/canvas-v3.2.3-linux-x86-64-source-built.tar.gz",
+      "sha256": "6c10ee3ea0f297bd3459e4035cc68a744821a68712dfc535f2bb5fff350b0cbf",
       "files": [
         {
-          "path": "build/Makefile",
-          "sha256": "23c35cc2bd326279f74d163f8b1813e070e6afa503a26bbda51c2a093884671d",
-          "bytes": 13706
+          "path": "build/Release/canvas.node",
+          "bytes": 883985,
+          "sha256": "132520abab2b242eeab37bbb3e5c7af5767f6d4c327929db07f01b57f2e47b8c"
         },
         {
-          "path": "build/Release/canvas.node",
-          "sha256": "c7c6d947ab98b1e33e9618b1d00951da720bd9d69b981b34b46b9e7ca3c0aa8b",
-          "bytes": 744288
+          "path": "build/Release/libbrotlicommon.so.1",
+          "bytes": 144905,
+          "sha256": "0bfea7e41f85346ad911596934a9d25a0a86871dfea83250e7c659ed54d669b5"
+        },
+        {
+          "path": "build/Release/libbrotlidec.so.1",
+          "bytes": 54849,
+          "sha256": "b42bcbb9fbc051592b5ad56240f7879cf1e2e30da5aa46fc7c1a57c8466f9ad0"
+        },
+        {
+          "path": "build/Release/libbz2.so.1.0",
+          "bytes": 83665,
+          "sha256": "95905d850bca3b4a80a2d83386c694ea782de6e1129a0a8a13ab743914befdb3"
         },
         {
           "path": "build/Release/libcairo-gobject.so.2",
-          "sha256": "66ecc066d78b8c5cb5661946ee2c43246b013e294dbbb2d2ae1328be304b1ecb",
-          "bytes": 49896
+          "bytes": 56185,
+          "sha256": "830cc6a040bcce23a32ea333a551caf50daab414bf951673f27ae8791892ba21"
         },
         {
           "path": "build/Release/libcairo.so.2",
-          "sha256": "7d9eaea3a091ee4de49a5fc2831fc60d0222b207fa35da9ae7cae15b1a9b8f26",
-          "bytes": 994216
+          "bytes": 1352081,
+          "sha256": "193b5669c9d85d3bd01ad42769447aa0a444fa14256125906d78816183416ca9"
+        },
+        {
+          "path": "build/Release/libdatrie.so.1",
+          "bytes": 34665,
+          "sha256": "15c875fe6c479e11e57755571194a88182378f53f42c0530da282179102cc693"
+        },
+        {
+          "path": "build/Release/libdav1d.so.7",
+          "bytes": 1722225,
+          "sha256": "4af9fd5320433b76bd970b271cee943b8bc9ff0ade099b19efb06ba5b879c83b"
         },
         {
           "path": "build/Release/libexpat.so.1",
-          "sha256": "c1713793be20b4fd200af782edc543279757750a22740dc13ee45b78624046fc",
-          "bytes": 246648
+          "bytes": 179321,
+          "sha256": "563d0bea3e61175291d70ee40ac133045d2e61131fed560f49732ca152c8b53b"
         },
         {
-          "path": "build/Release/libffi.so.7",
-          "sha256": "3870efb30ca3cfc0c75ee99f5025effb48ec69dc6a858389784e7a689ee6930b",
-          "bytes": 49248
+          "path": "build/Release/libffi.so.8",
+          "bytes": 51361,
+          "sha256": "4d44cee47d157221120e3448f6b30368adff662dbed02575aaed73c640da41b2"
         },
         {
           "path": "build/Release/libfontconfig.so.1",
-          "sha256": "976981a113969b7e1a663aa650de950e96d87f87ea9476ef1be3ddc0ca206b99",
-          "bytes": 284744
+          "bytes": 534025,
+          "sha256": "08b66e11ae3d7703507540112acf8b5953ae034927916c80ec991299ba3e7de4"
         },
         {
           "path": "build/Release/libfreetype.so.6",
-          "sha256": "dcf22e30bf1559943a56f0495f40910f6bd47735f2454e093afecec2292652df",
-          "bytes": 717928
+          "bytes": 890217,
+          "sha256": "3e4dd571279dd2947c59c00b35569e4488f755e31edff376946c648c92893bc3"
         },
         {
           "path": "build/Release/libfribidi.so.0",
-          "sha256": "8d08bbfea4786e15a47faf8f158886aa42c4a7a573e7b36a09e806c4d4a1ac01",
-          "bytes": 123128
+          "bytes": 125313,
+          "sha256": "665bded3791316b071abcd0f6ab11ea368dcdfd2c70a92f58f23e8ea81b6fe52"
+        },
+        {
+          "path": "build/Release/libgcc_s.so.1",
+          "bytes": 189953,
+          "sha256": "f1f3789e97dacdea5f1b1fd0ca2a07cc91ae41ca5bf016b0ec0c929d8505cfcb"
         },
         {
           "path": "build/Release/libgdk_pixbuf-2.0.so.0",
-          "sha256": "5ac2c46a8ace8643d7ba09842e148bbe3f05adaccc8747fc5a273a9208d60053",
-          "bytes": 162520
+          "bytes": 199441,
+          "sha256": "3976c730535249216b2457c05644766aa202ac280cacbe4fbd48eb1f79de33e0"
         },
         {
           "path": "build/Release/libgif.so.7",
-          "sha256": "31eab479561751e9db27b68cb9f91cc08c21a9832ec76ac832794f721eac3448",
-          "bytes": 41024
+          "bytes": 43393,
+          "sha256": "864fb451741879fc5267940ff33ba1627b3c995277fb37ad6c66ea1c2196ba6e"
         },
         {
           "path": "build/Release/libgio-2.0.so.0",
-          "sha256": "4d673bbf01681cdc38b5a1d7ef009595baf9a2babea4a02e253e6aa543ef9a45",
-          "bytes": 1997896
+          "bytes": 2652537,
+          "sha256": "3ba9ef3e3e6206a2911c04007c8c94cf75302ac95ce19870a38a17a262207718"
         },
         {
           "path": "build/Release/libglib-2.0.so.0",
-          "sha256": "757b492a069a5d9ce8bf872259b3261c7ca8881c54d501c9d5f6d6f5bcf49c56",
-          "bytes": 1279640
+          "bytes": 1642241,
+          "sha256": "070cdf7f3f46c8bd6e3b82ac5287d15b57f6e8944ed1b93264fcc030672bb6f7"
         },
         {
           "path": "build/Release/libgmodule-2.0.so.0",
-          "sha256": "f8f555c7007cda9b4ac207123e44b93e090b81e20bf12077b291fbc3c263ccaf",
-          "bytes": 23816
+          "bytes": 30401,
+          "sha256": "c3889b39a4e7b336bf32be32395e1aa7c703dffdf038092a9057804caf7f0c97"
         },
         {
           "path": "build/Release/libgobject-2.0.so.0",
-          "sha256": "48040d686365fc5db454127be06d2ef9b8eab622caec1ee61a8a994d0d2d71c9",
-          "bytes": 404840
+          "bytes": 517729,
+          "sha256": "f7f700a325ca627a9324d7ddfe6ad04e8649ee3fac2d226b1ddbc4af8f7042c0"
+        },
+        {
+          "path": "build/Release/libgraphite2.so.3",
+          "bytes": 154353,
+          "sha256": "434fbc8a98c8de97289d73fa94fb8890eba3fba0f18d6a4deae4ff272ffceeaf"
         },
         {
           "path": "build/Release/libharfbuzz.so.0",
-          "sha256": "dfd799d31ea158a2523260719be6611eda4c2b9093c879e61d9126d505a6c321",
-          "bytes": 1102560
+          "bytes": 1618073,
+          "sha256": "acbeae0874286b1eb3fdfc912acea6c9cb7d5c31e5e6351a18057bd4830a1ff0"
         },
         {
-          "path": "build/Release/libjpeg.so.62",
-          "sha256": "4cbfdd4bb21716a6b0edd9857902e72818ec7c935615ba2e1e1cc541f63233e0",
-          "bytes": 604840
+          "path": "build/Release/libicudata.so.74",
+          "bytes": 30798625,
+          "sha256": "9584485edcbddab1e9680d203f236e81473099ab7059fa293291636f213db859"
+        },
+        {
+          "path": "build/Release/libicuuc.so.74",
+          "bytes": 2322377,
+          "sha256": "3cd91548346d6d794a4b1cb17eb87a2650620006159284d0688fb8d7b3c9d34d"
+        },
+        {
+          "path": "build/Release/libjpeg.so.8",
+          "bytes": 541097,
+          "sha256": "b6eb6d8918707661c4d00d7a8e4612111b7678be813e0b966f48db5b62c2c265"
+        },
+        {
+          "path": "build/Release/liblzma.so.5",
+          "bytes": 209401,
+          "sha256": "93f286dff699c18a7779f052f967d72e6f3b423a4e83644abf1b6f39141bd8f9"
         },
         {
           "path": "build/Release/libpango-1.0.so.0",
-          "sha256": "16ed14b553429c6cd525c2ad9eec28ab277b62d8b2f8a81822d9fa450ba5f0f3",
-          "bytes": 341336
+          "bytes": 571793,
+          "sha256": "025114cc848d037a309e519c2c28c5f171d894a22e2853bbd25e083ea5bf44fc"
         },
         {
           "path": "build/Release/libpangocairo-1.0.so.0",
-          "sha256": "1baef52af372ecc33936a8657a8753a59f404545b8e341679fcf0219f75147ac",
-          "bytes": 73760
+          "bytes": 105665,
+          "sha256": "97dc27410cfa92bc32b6f9506289e91c1b085239be2b7481ecae0058ab30b66d"
         },
         {
           "path": "build/Release/libpangoft2-1.0.so.0",
-          "sha256": "1c4068a5012bac06325ca93e0986fa2cae83764d11bd2fd2fe82a40432ba5e7c",
-          "bytes": 110328
+          "bytes": 159273,
+          "sha256": "791ea750af201440f6492e216b3b576ce49cdcb2049e9e2c173d212d04e037f2"
         },
         {
-          "path": "build/Release/libpcre.so.1",
-          "sha256": "3eedb5be4036f5a312269c883ee150750b926159063ce73da1c3cae67c35821e",
-          "bytes": 290296
+          "path": "build/Release/libpcre2-8.so.0",
+          "bytes": 630217,
+          "sha256": "69dc057ace937e8c353bf077bd142ec8c55934731b29e66031f3243f3ec73642"
         },
         {
           "path": "build/Release/libpixman-1.so.0",
-          "sha256": "104443eda3694914fdd36f487cbe6dbb5c2e954faacf4fa1102f03e5ffe2a2f5",
-          "bytes": 688160
+          "bytes": 718969,
+          "sha256": "f2c260e127dd153991aa756bcb454b398d8d63a062d3c4d911a08546fb4200a7"
         },
         {
           "path": "build/Release/libpng16.so.16",
-          "sha256": "6fa30a8559bfcdf216403026928af443883b53a295700e44d069bc5954114c18",
-          "bytes": 218912
+          "bytes": 233441,
+          "sha256": "c12d1d2cced8c74e531705459e1f6b4354f740adf34f840629e6d332b19f638c"
         },
         {
           "path": "build/Release/librsvg-2.so.2",
-          "sha256": "6335c9030aed066641b5d65d921834e180eda216382a0df44fc9c3a276fe6357",
-          "bytes": 9757208
+          "bytes": 12392065,
+          "sha256": "d50ebbf9786831d792f54894a137e3bceeb91373fe3b50199738d51a912202dd"
         },
         {
           "path": "build/Release/libstdc++.so.6",
-          "sha256": "e3c68d010a7b3dd73dcc98e8a3b4e0336538896648602269b1111825f2ed7563",
-          "bytes": 1873184
+          "bytes": 2938433,
+          "sha256": "f485c0edcd68f1db9b84f178347270d9663c1d6ba1efe444318acb50f0eaa7be"
+        },
+        {
+          "path": "build/Release/libthai.so.0",
+          "bytes": 48041,
+          "sha256": "fda4ffb84769295e86df3b0805172789e52ad0484c7c70d14f098c105564619b"
         },
         {
           "path": "build/Release/libxml2.so.2",
-          "sha256": "ec28ed78bf4db969e6ab29785cc301d49689e6140e6f681694505b1af2bd5548",
-          "bytes": 1482032
+          "bytes": 2021425,
+          "sha256": "f4e163de6a09890d18eb103b98a26883a60b3dcc96416ac8cf1276e30b2cea3a"
         },
         {
           "path": "build/Release/libz.so.1",
-          "sha256": "b5d454cf4d16dc749038fbd3a82e07c7ecdecc1c72497d834016ac47bda0a772",
-          "bytes": 119608
-        },
-        {
-          "path": "build/binding.Makefile",
-          "sha256": "e694313e858af9fc94a5f329ecc3aca1eb9b31f8640f42d44cd3aab7443cb5bc",
-          "bytes": 114
-        },
-        {
-          "path": "build/canvas.target.mk",
-          "sha256": "ece99af0d77b6fafc0ef36bef157ce10e4afa634a2709fcc9774d7ddb1f01826",
-          "bytes": 5858
-        },
-        {
-          "path": "build/config.gypi",
-          "sha256": "ab6cd3970c76b0a57cf145c0842ef1529e0ce93ebdcc39ac0abc4adef119466a",
-          "bytes": 15454
+          "bytes": 117713,
+          "sha256": "49804fe77e5c8b9f638a4fea110bd4c1a4ad9de41eb7ca0e186204954af5cb07"
         }
-      ]
+      ],
+      "build_commit": "5c2c3da732869abcd3353ea8ef16a4759d1fa4ef",
+      "build_run": "https://github.com/huaaudio/NeoMusicBot/actions/runs/35683045284",
+      "tested_os": "Ubuntu 24.04 x86-64",
+      "maximum_required": {
+        "GLIBC": "GLIBC_2.38",
+        "GLIBCXX": "GLIBCXX_3.4.31",
+        "CXXABI": "CXXABI_1.3.9"
+      },
+      "materials": {
+        "filename": "neomusicbot-native-materials.zip",
+        "bytes": 696699340,
+        "sha256": "311c72bd6b34f5fe5029c0bda208c54784f6dc8f092110931685efbfee773782",
+        "url": "https://github.com/huaaudio/NeoMusicBot/releases/download/native-linux-canvas-3.2.3-r2/neomusicbot-native-materials.zip"
+      }
     },
     "windows-x86-64": {
       "url": "https://github.com/Automattic/node-canvas/releases/download/v3.2.3/canvas-v3.2.3-napi-v7-win32-x64.tar.gz",

@@ -4,12 +4,16 @@ NeoMusicBot 运行在自己的 Windows x86-64 或 Linux x86-64 电脑/服务器�
 通过 Discord 语音频道播放音乐。它不是 Bilibili 直播间聊天机器人。
 当前开发与验证状态见 [审查记录](modernization-audit.md)，测试版以 Release 页的实际发布状态为准。
 
+Linux 原生图形库的实测运行基线是 Ubuntu 24.04 x86-64；要求 glibc 至少 2.38。
+其他发行版及更旧系统尚未独立验证，不支持 Alpine/musl 发行包。
+
 ## 首次安装
 
 1. 安装 64 位 Java 25 LTS。Java 27 已加入两平台 CI 兼容测试。运行 `java -version`
    确认终端实际找到的版本；设置 `JAVA_HOME` 时应指向 JDK 根目录。
 2. 从 [Releases](https://github.com/huaaudio/NeoMusicBot/releases) 选择标记为 Pre-release
-   的版本，下载匹配操作系统的完整 ZIP 和 `SHA256SUMS`。GitHub 自动生成的 Source code ZIP
+   的应用版本（`v…-beta.N` / `v…-rc.N`），下载匹配操作系统的完整 ZIP 和 `SHA256SUMS`。
+   `native-linux-canvas-*` 是构建用组件资产，不是可直接启动的应用包。GitHub 自动生成的 Source code ZIP
    是源码，不包含运行所需的媒体工具。尚无测试版时可按 README 从源码构建，但单个 JAR 不包含外部工具。
 3. 校验 ZIP 的 SHA-256。Linux 使用 `sha256sum NeoMusicBot-linux-x86-64.zip`；
    PowerShell 使用 `Get-FileHash .\NeoMusicBot-windows-x86-64.zip -Algorithm SHA256`，

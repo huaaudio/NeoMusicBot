@@ -1,7 +1,6 @@
 """Import the verified Linux native candidate and its materials into a bundle.
 
-This local integration step does not publish or select a remote runtime asset.
-It binds the installed Canvas bytes to the exact reviewed CI material archive.
+The selected runtime is declared in canvas-native.json. This importer binds the installed Canvas bytes to the exact reviewed CI material archive.
 """
 import argparse
 import json
@@ -9,8 +8,9 @@ from pathlib import Path
 import shutil
 import sys
 import tempfile
+import urllib.request
 
-from install_canvas_native import package_root, verify_files
+from install_canvas_native import package_root, verify_files, definition_for, DEFINITION as NATIVE_DEFINITION
 from package_librsvg_materials import checked_file
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -51,11 +51,16 @@ def verify(bundle, candidate=DEFINITION):
     data = definition(candidate)
     if (bundle / RECORD).read_bytes() != Path(candidate).read_bytes():
         raise ValueError('Shipped Linux asset definition differs')
+    _, selected, _ = definition_for(NATIVE_DEFINITION, 'linux-x86-64')
+    if (selected['sha256'] != data['native_archive']['sha256']
+            or selected['files'] != data['files']
+            or selected['materials']['sha256'] != data['materials']['sha256']):
+        raise ValueError('Selected runtime differs from retained source materials')
     bind(bundle, data)
     sources, cargo, native = native_tools()
     evidence = bundle / EVIDENCE
     result = dict(native=native(evidence), sources=sources(bundle, evidence), cargo=cargo(bundle))
-    result.update(installed_binary_binding='passed', remote_asset_selected=False)
+    result.update(installed_binary_binding='passed', remote_asset_selected=True)
     return result
 
 
@@ -105,7 +110,13 @@ if __name__ == '__main__':
     if args.verify_only:
         result = verify(args.bundle)
     else:
-        if not args.materials:
-            parser.error('--materials is required for import')
-        result = prepare(args.bundle, args.materials)
+        if args.materials:
+            result = prepare(args.bundle, args.materials)
+        else:
+            _, selected, _ = definition_for(NATIVE_DEFINITION, 'linux-x86-64')
+            with tempfile.TemporaryDirectory(prefix='linux-material-download-') as temporary:
+                archive = Path(temporary) / 'materials.zip'
+                with urllib.request.urlopen(selected['materials']['url'], timeout=120) as response, archive.open('wb') as output:
+                    shutil.copyfileobj(response, output)
+                result = prepare(args.bundle, archive)
     print(json.dumps(result), flush=True)
