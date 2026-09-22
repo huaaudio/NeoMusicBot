@@ -101,6 +101,14 @@ def unpack(archive_path, stage, files):
     verify_files(stage, files)
 
 
+def validate_download_origin(url, platform):
+    prefixes = ["https://github.com/Automattic/node-canvas/releases/download/"]
+    if platform == "linux-x86-64":
+        prefixes.append("https://github.com/huaaudio/NeoMusicBot/releases/download/native-linux-canvas-")
+    if not any(url.startswith(prefix) for prefix in prefixes):
+        raise ValueError("Unexpected Canvas download origin")
+
+
 def install(provider, platform, definition=DEFINITION, archive_path=None):
     data, spec, files = definition_for(definition, platform)
     canvas = package_root(provider, data["version"])
@@ -113,8 +121,7 @@ def install(provider, platform, definition=DEFINITION, archive_path=None):
         work = Path(work)
         if archive_path is None:
             archive_path = work / "canvas.tar.gz"
-            if not spec["url"].startswith("https://github.com/Automattic/node-canvas/releases/download/"):
-                raise ValueError("Unexpected Canvas download origin")
+            validate_download_origin(spec["url"], platform)
             with urllib.request.urlopen(spec["url"], timeout=60) as response, archive_path.open("xb") as target:
                 shutil.copyfileobj(response, target)
         if digest(Path(archive_path)) != spec["sha256"]:
