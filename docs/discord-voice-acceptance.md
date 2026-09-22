@@ -25,6 +25,8 @@
 
 - 补充的真实重连探针使用项目 `Bot`、`AudioHandler`、`GuildAudioConnectionListener` 和固定 Opus 静音轨道。定向关闭该独立进程的两条 TCP 连接（均返回 0）后，观察到 `ERROR_LOST_CONNECTION`，应用从 `CONNECTED` 转为 `RECONNECTING`，重新认证后回到 `CONNECTED`。最终仍是同一轨道，位置 64,760 毫秒，累计 3,225 个扩长后的加密帧、0 次加密失败；随后通过 `Bot.shutdown()` 正常断开并退出。证据 `tools/discord-reconnect-test/verification.json`。该探针使用仅 IPv4 的诊断 JVM，未模拟仅 UDP 丢包或长时间断网，不把有限场景扩大为所有网络故障均已覆盖。
 
-## 仍待完成
+## 最终发行关联
 
-- 最终两个平台发行包的相关验证。
+2026-09-22 已发布 [0.5.0-beta.1](https://github.com/huaaudio/NeoMusicBot/releases/tag/v0.5.0-beta.1)，发行提交 `3ff239c2ce385448d24ae603cb6d1ad2fc844be2`，来源 [完整 CI 35693959793](https://github.com/huaaudio/NeoMusicBot/actions/runs/35693959793)。Windows/Linux、Java 27 矩阵、三项在线媒体检查全部通过；两个实际 ZIP 的材料复核以及草稿/公开资产读回均通过。标签和资产不可变，未混入重新构建产物。
+
+实际 Windows CI JAR 中所选语音、媒体、加密及原生文件共 3,937 项，与本轮人工验收所用依赖逐字节一致（`tools/voice-candidate-binary-comparison.json`）。应用后续修改为队列同步和 GUI 事件线程初始化，已完成回归。此关联不表示重复进行了一轮人工验收，以上有限故障场景的边界仍保留。

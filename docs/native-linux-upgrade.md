@@ -1,7 +1,7 @@
 # Linux 原生库源码构建
 
 2026-09-22 已选择自建 Linux 原生资产 r2，并接入应用组装及材料门禁。
-完整应用 CI 和最终预发布验收仍待新提交完成；下文早期记录保留当时状态。
+2026-09-22 已发布 [0.5.0-beta.1](https://github.com/huaaudio/NeoMusicBot/releases/tag/v0.5.0-beta.1)，发行提交 `3ff239c2ce385448d24ae603cb6d1ad2fc844be2`，来源 [完整 CI 35693959793](https://github.com/huaaudio/NeoMusicBot/actions/runs/35693959793)。Windows/Linux、Java 27 矩阵、三项在线媒体检查全部通过；两个实际 ZIP 的材料复核以及草稿/公开资产读回均通过。标签和资产不可变，未混入重新构建产物。下文早期记录保留当时状态。
 
 ## 已验证的升级
 

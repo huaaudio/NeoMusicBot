@@ -5,33 +5,11 @@
 
 ## 验收状态
 
-最近完成实物回读的应用 CI：`d5ea9b0` 的 [35686250282](https://github.com/huaaudio/NeoMusicBot/actions/runs/35686250282)。
-2026-09-22 两平台构建与 Java 27 检查通过，三个实际 artifact 已下载，外层哈希与大小通过；
-两平台实际 ZIP 的发布关联、Canvas、Maven 原始材料、QuickJS 和新增 Deno 材料核验通过。
-证据为 `tools/ci-success-d5ea9b0/verified-artifacts.json` 与 `verified-materials.json`。
-Deno 的 Gitiles 时间戳修复已通过实际云端包回读，不再待验证。
-本次媒体检查为 YouTube 匿名 authentication-required、Bilibili 匿名 access-denied，provider 模式通过；
-因此整次工作流失败，`release_eligible=false`，不能使用这些包发布。
-较早 `5c2c3da` 的 [35683045221](https://github.com/huaaudio/NeoMusicBot/actions/runs/35683045221) 曾全部通过，
-但不能替代最终提交验证。
-Linux 原生完整材料云端回读基线为 `a10d3f4` 的 [35678485785](https://github.com/huaaudio/NeoMusicBot/actions/runs/35678485785)；
-37 个原生文件与报告和仓库定义一致，源码、声明及 Cargo 集合的实际材料 ZIP 通过干净回读。
-`7e9a242` 增补匹配的 Rust 标准库/编译器源码，本地 5,169 文件材料 ZIP 已回读通过；
-相应 [原生 CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35682198358) 的实际云端完整材料包也已干净回读通过；
-`5c2c3da` 的后续 [原生 CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35683045284) 已成功，其完整材料 ZIP 也已干净回读通过。
-其余材料审查和发行资产选择尚待完成，见 [原生升级记录](native-linux-upgrade.md)。
-以下早期提交记录用于保留故障和修复过程，不代表最新流水线仍有相同故障。
+2026-09-22 已发布 [0.5.0-beta.1](https://github.com/huaaudio/NeoMusicBot/releases/tag/v0.5.0-beta.1)，发行提交 `3ff239c2ce385448d24ae603cb6d1ad2fc844be2`，来源 [完整 CI 35693959793](https://github.com/huaaudio/NeoMusicBot/actions/runs/35693959793)。Windows/Linux、Java 27 矩阵、三项在线媒体检查全部通过；两个实际 ZIP 的材料复核以及草稿/公开资产读回均通过。标签和资产不可变，未混入重新构建产物。
 
-| 项目 | 当前证据 / 待完成事项 |
-| --- | --- |
-| 仓库独立化 | GitHub `huaaudio/NeoMusicBot` 已为 `fork: false`；保留上游历史和许可证 |
-| 基线跨平台构建 | 提交 `a16fe2e` 的 [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35560633442) 中 Windows/Linux 编译、122 个测试、JDAVE 加载和发行包组装成功；在线 YouTube 探测失败，因此整个工作流未通过 |
-| 新依赖 | 提交 `48e8d50` 的 [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35561728333) 中 Windows/Linux 构建、测试、JDAVE 加载、发行包组装均通过；锁定媒体探测仍失败，不能发布 |
-| Java 27 | `48e8d50` 的 Windows/Linux 兼容矩阵均通过；发行字节码与构建基线仍为 Java 25 LTS |
-| 全模块审查 | 进行中，见问题表；未完成项不能按已通过处理 |
-| 干净发行包 | `f616f13` 的 [CI](https://github.com/huaaudio/NeoMusicBot/actions/runs/35564696089) 已通过 Windows/Linux 最终 ZIP 干净解压、启动器、配置、原生解码及 provider 离线启动；锁定在线媒体探测仍失败，因此整体尚未通过 |
-| Discord 实际语音 | 已完成本轮授权频道内可听播放、连续两首、分 P、控制、至少十分钟播放及无人退出；另有真实 DAVE 和应用语音重连证据，见[验收记录](discord-voice-acceptance.md)。最终发行包仍须验证 |
-| Pre-release | 尚未发布；必须使用最终成功 CI 的同一提交和经过验证的完整发行包 |
+本轮必要代码审查与修复已完成。AUD-005 的最终材料验证通过，AUD-027 的真实发布链路已执行。历史调查和故障记录按发生时点保留；下列旧提交结果不代表最终版本仍失败。
+
+真实语音验收与发行依赖的关联见 [验收记录](discord-voice-acceptance.md)。未单独执行完整 GUI 桌面操作、搜索菜单/分页人工验收，未覆盖仅 UDP 丢包、长时间断网或其他 Linux 发行版。
 
 ## 依赖选择与迁移
 
@@ -66,7 +44,7 @@ Linux 原生完整材料云端回读基线为 `a10d3f4` 的 [35678485785](https:
 | AUD-002 / P1 | `pom.xml` 与解析器：Jackson 3 移除旧 API、JUnit 6 不再自动执行 JUnit 4 | 编译失败或测试覆盖丢失 | 迁移 JSON API 与所有旧测试 imports/assumptions；Windows 122 测试数量保持一致，121 通过、1 POSIX 测试按平台跳过 |
 | AUD-003 / P1 | `SlashCommandListener` 的 Slash 与选择控件入口：配置频道被删除或不可见时缓存返回 null | 频道限制被跳过 | 按持久化 ID 判断，管理员界面显示不可用而非 any；`SettingsChannelRestrictionTest` 验证缓存缺失与显式清除两种情况 |
 | AUD-004 / P1 | `BotConfig.writeDefaultConfig()`：对已有配置执行生成 | 覆盖 Token 和用户配置 | `CREATE_NEW` 拒绝覆盖，CLI 返回失败；回归测试先复现再通过 |
-| AUD-005 / 待核实 | 发行包：依赖许可证下载告警、缓存路径与旧原生文件 | 材料不完整或依赖开发/构建环境 | Maven 许可覆盖与两平台干净目录验收已通过；新增 provider 安装树/缓存依赖清单与解压复核，AUD-033 后两平台实物各包含 183 个 npm 包；独立工具、native/WASM 及第三方源码/许可覆盖尚未完成，见 [材料记录](distribution-licenses.md) |
+| AUD-005 / 已关闭 | 发行包：依赖许可证下载告警、缓存路径与旧原生文件 | 材料不完整或依赖开发/构建环境 | 已完成实际两平台 ZIP 的原文、二进制、WASM、源码附件及构建材料绑定验证；独立附件已不可变公开，最终发行资产回读通过，见 [材料记录](distribution-licenses.md) |
 | AUD-006 / P2 | 内部包名、环境变量、旧 bot-listing 自动消息 | 独立项目仍有继承行为或旧名称 | 已迁移 `io.github.huaaudio.neomusicbot`、`NeoMusicBot` 主类及 `NEOMUSICBOT_*`；旧 main 与变量前缀保留兼容，重复变量拒绝启动；移除硬编码第三方服务器消息/退出逻辑，保留合法来源署名 |
 | AUD-007 / P1 | `BotConfig.writeToFile()`：交互补填 owner 或 token | 重写默认模板导致已有配置与注释丢失 | 使用 HOCON 文档更新指定键，保留其他值；临时文件刷盘后替换，POSIX 新文件权限 0600；回归先复现再通过 |
 | AUD-008 / P1 | `SettingsManager.load()`：主文件损坏且没有有效备份；或频道 ID 拼写错误 | 空设置覆盖原数据、错误 ID 静默变成无限制 | 无法恢复时拒绝启动并保留文件；拒绝错误 ID；两个故障回归先失败、修复后通过 |
@@ -88,7 +66,7 @@ Linux 原生完整材料云端回读基线为 `a10d3f4` 的 [35678485785](https:
 | AUD-024 / P2 | 超时清理测试依赖子 JVM 在 350 ms 内写 PID | Windows Java 27 在 JVM 启动较慢时，进程已被正确终止却被测试误报为未启动 | 在进程创建时捕获真实 OS 句柄，维持 350 ms 超时及存活检查；测试子进程刻意延迟写 PID 2 秒；`b877a29` 两平台 Java 25/27 均通过 |
 | AUD-025 / P2 | 旧 `--self-test` 只检查 DAVE 加载与 Lavaplayer 解码 | JNA/opus-java 绑定及 JDA 使用的 Tink 接口不在发行包自检覆盖内 | 新增实际 Opus 编解码、JDA 两种 RTP 加密往返及篡改拒绝；完整 ZIP 验证器要求新检查字段；Commons Logging 真实桥接入口亦受日志关闭测试覆盖 |
 | AUD-026 / P1 | `/skip` 等待播放线程后重读请求者频道，并分别读取投票人数与票数；用户此时切换频道或离开 | 在其他频道按更低门槛跳过歌曲、离开后仍可直接跳过、空指针或计票不一致 | 在播放线程内获取 Bot 频道的一份合格听众快照，重新核实投票资格，原子记录投票与执行跳过；普通命令和搜索控件也改为一次捕获频道并判空；6 个行为用例中 5 个修复前失败、修复后全部通过 |
-| AUD-027 / P1 | `Make Release` 只核对工作流名称及 conclusion，版本输入与产物不关联，创建 `prerelease: false` 的草稿 | 可混入其他提交或错误版本的包，不满足测试版发布目标 | 新增来源、默认分支、触发类型、完整 SHA、POM/JAR/SBOM、平台报告与媒体报告关联检查；创建测试版草稿、下载核对全部资产后公开且不设 Latest；12 个 Python 测试及 actionlint 通过，真实发布链路待执行 |
+| AUD-027 / P1 | `Make Release` 只核对工作流名称及 conclusion，版本输入与产物不关联，创建 `prerelease: false` 的草稿 | 可混入其他提交或错误版本的包，不满足测试版发布目标 | 新增来源、默认分支、触发类型、完整 SHA、POM/JAR/SBOM、平台报告与媒体报告关联检查；创建测试版草稿、下载核对全部资产后公开且不设 Latest；12 个 Python 测试及 actionlint 通过；最终 `0.5.0-beta.1` 已执行真实发布、草稿和公开资产读回 |
 | AUD-028 / P1 | `Playlist.loadTracks()`：消费者抛出异常，或 Lavaplayer 有序执行器首次提交被拒绝 | 完成回调丢失、后续条目不再加载；重复结果回调还会重复入队 | 逐项提交并串行处理结果，每项只接受一次回调，异常后继续下一项；独立处理嵌套歌单每首歌曲，返回不可变结果快照；4 个故障回归修复前失败、修复后通过，并验证 10,000 项同步失败不递归溢出及指定分 P/顺序保持 |
 | AUD-029 / P2 | 全局/服务器投票比例和服务器音量缺少数值校验；手动配置或 API 写入越界、非有限、错误类型的数值 | 投票门槛不可达到或被降为一票；非有限值使 JSON 保存异常；音量被默认、截断或溢出 | 加载和 setter 均校验比例与音量；音量按精确整数解析，保留合法数字字符串及服务器比例 -1 继承语义；不修改无效原文件，按既有策略恢复有效备份；22 个故障用例修复前失败、修复后通过 |
 | AUD-030 / P2 | `AloneInVoiceHandler.isAlone()` 在判空与读取成员间再次获取连接频道 | 此时断开会抛出空指针，语音事件的无人计时更新中断 | 一次捕获频道并使用该快照；确定性断开用例修复前复现空指针，修复后与未连接/有人监听用例均通过 |
@@ -201,17 +179,17 @@ Linux 原生完整材料云端回读基线为 `a10d3f4` 的 [35678485785](https:
   更新后的在线探测程序再次通过 Bilibili、第二 P 和 YouTube 各 10 帧解码，无 Cookie/provider；
   日志 `tools/online-audit/java-probes-playlist.txt`。对应云端结果及后续依赖升级证据见上一节。
 
-以下均需完成代码检查及相应的行为验证，不能仅由单元测试绿色代替审查：
+本轮最终覆盖结论（历史故障复现及具体修复见对应 AUD 条目）：
 
-- 启动、配置、更新检查、环境变量、启动脚本：配置及变量兼容、更新渠道/异常标签、入口失败状态已检查修复；Windows 含括号路径启动器实测通过；最新提交跨平台回归待完成。
-- Discord Slash 注册、权限、交互生命周期、频道混淆：已检查多数命令入口、用户/服务器绑定和频道限制；修复 AUD-023/026；其余异步交互及频道混淆仍待复核。
-- 语音连接、DAVE、重连、退出、播放器资源释放：已检查初始化/退出资源管理并修复 AUD-017/019；`b877a29` 新版 JNA/Opus 与 RTP 加密自检在本地及云端两平台通过；本轮真实 Discord 与 TCP 断线恢复验收已完成，范围见专门记录；不代表所有网络故障情形均已覆盖。
-- 播放队列、公平排序、并发、暂停/重复/停止、状态恢复：已复核队列插入/快照和会话串行修改，修复 AUD-042；18 项队列、原子性及恢复回归通过，真实播放控制验收通过；最终提交跨平台回归待完成。
-- Bilibili 分 P、短链接、媒体 URL、Cookie 与子进程：已有基线测试，需新版工具集成验证。
-- YouTube、SoundCloud、Discord 附件、播放列表：新版工具/依赖下，本地匿名 YouTube 与 SoundCloud 短时解码通过；歌单存储及 owner 修改已检查并修复 AUD-020/021/022，异步加载审查修复 AUD-028；其余源仍待复核。
-- 配置与服务器设置持久化、备份和故障处理：已检查并修复 AUD-004/007/008/009/029，专项测试通过；最终平台 CI 待复核。
-- CI、SBOM、许可证、哈希、打包、发布门禁：进行中。
-- 桌面控制台：已复核日志解码与行数限制并修复 AUD-032；GUI 关闭继续使用既有后台有序 shutdown，完整桌面交互人工验收尚未进行。
+- 启动、配置、更新、环境变量和启动器：已复核并完成相关修复，最终两平台构建与干净解压验收通过。
+- Slash、权限、频道限制及异步控件：已完成代码复核和 AUD-003/023/026/028 修复；现有行为回归通过。搜索菜单和分页未另做真实 Discord 人工验收。
+- 语音、DAVE、连接恢复和释放：已完成代码复核、原生自检及本轮真实语音/TCP 恢复验收；不声称覆盖全部网络故障。
+- 队列、公平排序、并发和播放控制：已完成复核及 AUD-042 同步修复，18 项相关回归通过；用户已确认实际播放控制。
+- Bilibili 分 P/短链接、媒体 URL、Cookie 边界和子进程：已复核实际路径，专项行为回归、锁定媒体 CI 和真实 Bilibili 播放通过。
+- YouTube、SoundCloud、附件及播放列表：已复核解析、请求过滤、异步加载和歌单存储；实际 YouTube 媒体 CI、SoundCloud 短时解码及相应行为回归分别记录。
+- 配置、设置和歌单持久化：已复核原子写入、备份恢复、失败保留与退出清理；最终两平台测试通过。
+- GUI：已复核日志解码、行数上限、事件线程初始化及后台关闭；相关行为回归通过，完整桌面人工操作尚未执行。
+- 构建、SBOM、材料、哈希和发布门禁：已复核实现；同一提交的完整构建、实际 ZIP 材料验证、草稿上传读回和公开读回全部通过。
 
 - AUD-041 的故障基线为 `tools/audio-logging-before.log`：1 个用例包含 4 个失败断言；修复后播放生命周期、连接状态、会话原子性、恢复及脱敏共 20 项测试通过，日志 `tools/audio-logging-after.log`。本轮为本地 Java 行为验证，尚不代表该修复的两平台最终发行或真实 Discord 验收通过。
 
@@ -242,3 +220,11 @@ Linux 原生完整材料云端回读基线为 `a10d3f4` 的 [35678485785](https:
 ### 跨平台源码访问记录修复（AUD-044）
 
 `34ce106` 的完整 CI 已通过，但实际产物在本地跨平台回读时发现 Windows 的两份自有源码访问 JSON 被 Git 转换为 CRLF；Linux 为 LF，因此严格原文字节检查拒绝 Windows 包。逐字节诊断确认差异仅为换行，JSON 内容一致。`.gitattributes` 现明确将 `shared-sources.json` 与 `canvas/windows-source-access.json` 固定为 LF；三种 `core.autocrlf` 配置下实际 Git 检出共六项字节比较通过（`tools/source-record-checkout-verified.json`）。保留原有字节检查，未用语义比较绕过。修复后的提交必须重新完成完整 CI 和两平台产物回读，旧候选不发布。
+
+## 最终发行证据
+
+2026-09-22 已发布 [0.5.0-beta.1](https://github.com/huaaudio/NeoMusicBot/releases/tag/v0.5.0-beta.1)，发行提交 `3ff239c2ce385448d24ae603cb6d1ad2fc844be2`，来源 [完整 CI 35693959793](https://github.com/huaaudio/NeoMusicBot/actions/runs/35693959793)。Windows/Linux、Java 27 矩阵、三项在线媒体检查全部通过；两个实际 ZIP 的材料复核以及草稿/公开资产读回均通过。标签和资产不可变，未混入重新构建产物。
+
+本地证据：`tools/ci-success-3ff239c/verified-materials.json`、`tools/voice-candidate-binary-comparison.json`、`tools/application-release-3ff239c/public-readback.json`。公开发行包含平台验收报告、媒体报告、SBOM、构建来源和 SHA256SUMS。最终修复包括 AUD-042 队列同步、AUD-043 Swing 初始化线程，以及 AUD-044 源码访问 JSON 的跨平台 LF 固定；旧候选 `34ce106` 未发布。
+
+发布工作流：[Make Release 35696238466](https://github.com/huaaudio/NeoMusicBot/actions/runs/35696238466)，已成功。后续文档提交只记录验收结果；发行标签仍固定于 `3ff239c2ce385448d24ae603cb6d1ad2fc844be2`，不会改指向文档提交。
